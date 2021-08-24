@@ -1,6 +1,13 @@
+import RootRouter from "./route/index";
+import { Global } from "@emotion/react";
+import { reset } from "./style/globalStyle";
+
 function App() {
   return (
-    <div>Hi</div>
+    <>
+      <Global styles={reset} />
+      <RootRouter />
+    </>
   );
 }
 
