@@ -1,5 +1,7 @@
-export default function Login() {
+const Login = ():JSX.Element => {
     return (
-        <h1>Login</h1>
+        <div>Login</div>
     )
 }
+
+export default Login;
