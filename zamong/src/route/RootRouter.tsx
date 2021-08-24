@@ -1,13 +1,14 @@
-import { BrowserRouter, Route, Switch } from "react-router-dom";
+import React, { Suspense } from "react";
+import { BrowserRouter } from "react-router-dom";
+// const MainRouter = React.lazy(() => import("./MainRouter"));
+import MainRouter from "./MainRouter";
 
-const RootRouter = () => {
-    return (
-        <BrowserRouter>
-            <Switch>
-
-            </Switch>
-        </BrowserRouter>
-    )
-}
+const RootRouter = (): JSX.Element => {
+  return (
+    <BrowserRouter>
+        <MainRouter />  
+    </BrowserRouter>
+  );
+};
 
 export default RootRouter;
