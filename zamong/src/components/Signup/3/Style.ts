@@ -21,10 +21,6 @@ export const GuideWord = styled.div`
   color: #8e8e93;
 `;
 
-export const Main = styled.div`
-  width: 390px;
-`
-
 export const NumberContainer = styled.div`
   margin-bottom: 186px;
 `
