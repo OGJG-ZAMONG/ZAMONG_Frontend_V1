@@ -87,7 +87,7 @@ export const reset = css`
     border: 0;
     font-size: 100%;
     font: inherit;
-    font-family: 'Spoqa Han Sans Neo', 'sans-serif';
+    font-family: "Spoqa Han Sans Neo", "sans-serif";
     vertical-align: baseline;
   }
   /* HTML5 display-role reset for older browsers */
@@ -106,6 +106,7 @@ export const reset = css`
   }
   body {
     line-height: 1;
+    margin: 0;
   }
   ol,
   ul {
