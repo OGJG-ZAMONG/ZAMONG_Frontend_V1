@@ -47,3 +47,65 @@ export const DiarySignContainer = styled.div`
   overflow: auto;
   margin: 0 0 0 14px;
 `;
+
+export const DiaryListContainer = styled.div`
+  height: 100vh;
+  width: 100%;
+  color: white;
+  /* display: flex; */
+`;
+
+export const DiaryListTitle = styled.div`
+  /* width: 171px; */
+  height: 30px;
+  font-weight: 500;
+  font-size: 24px;
+  line-height: 30px;
+`;
+
+export const DiaryListHeader = styled.div`
+  height: 30px;
+  display: flex;
+  justify-content: space-between;
+  margin: 120px 255px;
+`;
+
+export const DiaryList = styled.div`
+  display: grid;
+  grid-template-columns: repeat(4, 25%);
+  margin: 0 230px;
+`;
+
+export const WriteDiary = styled.div`
+  width: 305px;
+  height: 191px;
+  border-radius: 20px;
+  cursor: pointer;
+  backdrop-filter: blur(20px);
+  background-color: #2c2c2e;
+  margin: 16px 8px;
+`;
+
+export const WriteDiaryText = styled.div`
+  margin: 89px 86px;
+  font-family: Spoqa Han Sans Neo;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 20px;
+  line-height: 25px;
+  color: #c7c7cc;
+`;
+
+export const WriteDiaryImg = styled.img`
+  margin-right: 10px;
+`
+
+export const HeaderSelections = styled.div`
+  height: 24px;
+  display: flex;
+`;
+
+export const HeaderSelect = styled.div`
+  height: 100%;
+  margin-left: 25px;
+`;
