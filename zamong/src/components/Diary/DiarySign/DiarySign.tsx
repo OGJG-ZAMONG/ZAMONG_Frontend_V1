@@ -1,5 +1,5 @@
 import * as S from "./styles";
-import { rectangle, secure } from "../../../assets";
+import { secure } from "../../../assets";
 
 const DiarySign = (): JSX.Element => {
   return (

@@ -2,15 +2,13 @@ import styled from "@emotion/styled";
 
 export const Container = styled.div`
   background-color: black;
-  height: 100vh;
   width: 100%;
   display: inline-block;
-  margin: 0 auto;
 `;
 
 export const TodayContainer = styled.div`
   width: 100%;
-  height: 711px;
+  height: 100vh;
   display: flex;
   color: white;
 `;
@@ -45,18 +43,18 @@ export const DiarySignContainer = styled.div`
   height: 90%;
   width: 100%;
   overflow: auto;
-  margin: 0 0 0 14px;
+  display: grid;
+  grid-template-columns: repeat(2, 48%);
+  margin-left: 16px;
 `;
 
 export const DiaryListContainer = styled.div`
   height: 100vh;
   width: 100%;
   color: white;
-  /* display: flex; */
 `;
 
 export const DiaryListTitle = styled.div`
-  /* width: 171px; */
   height: 30px;
   font-weight: 500;
   font-size: 24px;
@@ -67,13 +65,14 @@ export const DiaryListHeader = styled.div`
   height: 30px;
   display: flex;
   justify-content: space-between;
-  margin: 120px 255px;
+  margin: 0 250px;
+  padding: 50px 0;
 `;
 
 export const DiaryList = styled.div`
   display: grid;
   grid-template-columns: repeat(4, 25%);
-  margin: 0 230px;
+  margin: 60px 230px;
 `;
 
 export const WriteDiary = styled.div`
@@ -98,7 +97,7 @@ export const WriteDiaryText = styled.div`
 
 export const WriteDiaryImg = styled.img`
   margin-right: 10px;
-`
+`;
 
 export const HeaderSelections = styled.div`
   height: 24px;
@@ -109,3 +108,12 @@ export const HeaderSelect = styled.div`
   height: 100%;
   margin-left: 25px;
 `;
+
+export const HeaderSelectInput = styled.input`
+  &::before {
+    background-color: #636366;
+    border-radius: 5px;
+  }
+`;
+
+export const HeaderSelectLabel = styled.label``;

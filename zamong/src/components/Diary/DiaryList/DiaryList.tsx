@@ -20,15 +20,17 @@ const DiaryList = (): JSX.Element => {
         <S.DiaryListHeader>
           <S.DiaryListTitle>내가 쓴 일기 목록</S.DiaryListTitle>
           <S.HeaderSelections>
-            <S.HeaderSelect>공유됨</S.HeaderSelect>
+            <S.HeaderSelect>
+              <S.HeaderSelectInput type="checkbox" />
+              <S.HeaderSelectLabel>공유됨</S.HeaderSelectLabel>
+            </S.HeaderSelect>
             <S.HeaderSelect>최근순</S.HeaderSelect>
           </S.HeaderSelections>
         </S.DiaryListHeader>
         <S.DiaryList>
           <S.WriteDiary>
             <S.WriteDiaryText>
-              <S.WriteDiaryImg src={edit} />
-              꿈 일기 쓰기
+              <S.WriteDiaryImg src={edit} />꿈 일기 쓰기
             </S.WriteDiaryText>
           </S.WriteDiary>
           <DiarySign />

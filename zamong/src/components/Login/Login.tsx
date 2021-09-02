@@ -1,4 +1,4 @@
-import * as S from "./Style";
+import * as S from "./style";
 
 import { Link } from "react-router-dom";
 
