@@ -107,6 +107,7 @@ export const reset = css`
   body {
     line-height: 1;
     margin: 0;
+    background-color: black;
   }
   ol,
   ul {
