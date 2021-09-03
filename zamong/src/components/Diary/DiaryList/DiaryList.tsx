@@ -1,7 +1,8 @@
+import { useState } from "react";
 import * as S from "./styles";
 import Calendar from "../Calendar/Calandar";
 import DiarySign from "../DiarySign/DiarySign";
-import { edit } from "../../../assets/index";
+import { edit, pointer } from "../../../assets/index";
 
 const DiaryList = (): JSX.Element => {
   return (
@@ -21,10 +22,12 @@ const DiaryList = (): JSX.Element => {
           <S.DiaryListTitle>내가 쓴 일기 목록</S.DiaryListTitle>
           <S.HeaderSelections>
             <S.HeaderSelect>
-              <S.HeaderSelectInput type="checkbox" />
-              <S.HeaderSelectLabel>공유됨</S.HeaderSelectLabel>
+              <input type="checkbox" />
+              <label>공유됨</label>
             </S.HeaderSelect>
-            <S.HeaderSelect>최근순</S.HeaderSelect>
+            <S.HeaderSelect>최근순
+              <img src={pointer}/>
+            </S.HeaderSelect>
           </S.HeaderSelections>
         </S.DiaryListHeader>
         <S.DiaryList>
