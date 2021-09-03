@@ -107,13 +107,23 @@ export const HeaderSelections = styled.div`
 export const HeaderSelect = styled.div`
   height: 100%;
   margin-left: 25px;
-`;
+  display: flex;
+  cursor: pointer;
+  input {
+    width: 24px;
+    height: 24px;
+    cursor: pointer;
+    margin: -5px 5px 0 0;
+  }
+  label {
+    width: 45px;
+    height: 20px;
+  }
 
-export const HeaderSelectInput = styled.input`
-  &::before {
-    background-color: #636366;
-    border-radius: 5px;
+  img {
+    width: 20px;
+    height: 9px;
+    margin: 3px;
+    cursor: pointer;
   }
 `;
-
-export const HeaderSelectLabel = styled.label``;
