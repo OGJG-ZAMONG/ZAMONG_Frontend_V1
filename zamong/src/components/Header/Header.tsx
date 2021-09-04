@@ -1,4 +1,4 @@
-import * as S from "./styles";
+import * as S from "./Styles";
 import Logo from "../../assets/logo/testLogo.png";
 import SearchIcon from "../../assets/icons/searchIcon.svg";
 import { Link } from "react-router-dom";

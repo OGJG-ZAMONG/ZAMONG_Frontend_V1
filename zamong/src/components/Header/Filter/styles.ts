@@ -1,9 +1,11 @@
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 import { color } from "../../../style";
+import { font } from "../../../style/font";
 
 export const FilterContainer = styled.div`
     color: ${color.white};
+    font: ${font.body3};
     z-index: 3;
     img {
         margin-right: 8px;
@@ -88,15 +90,15 @@ export const TagsContainer = styled.div`
 `;
 
 export const AppliedTitle = styled.div`
-    font-size: 16px;
+    font: ${font.body3};
     color: ${color.white};
 `;
 
-export const Tag = styled.div`
-    font-size: 14px;
-    font-weight: 300;
-    color: ${color.white};
-    padding: 4px 12px;
-    background-color: ${color.darkGray};
-    border-radius: 100px;
-`;
+// export const Tag = styled.div`
+//     font-size: 14px;
+//     font-weight: 300;
+//     color: ${color.white};
+//     padding: 4px 12px;
+//     background-color: ${color.darkGray};
+//     border-radius: 100px;
+// `;
