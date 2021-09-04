@@ -1,7 +1,12 @@
 import { Link } from "react-router-dom";
 import Header from "../Header/Header";
-import * as S from "./styles";
+import * as S from './Styles';
 import HelloImg from "../../assets/delusional/delusional3.png";
+import Dream from '../Dream/Dream';
+import MyDreamDiary from "../CardDream/MyDreamDiary/MyDreamDiary";
+import DreamList from './DreamList/DreamList';
+import Footer from "../Footer/Footer";
+// import MyDreamDiary from "../CardDream/MyDreamDiary/MyDreamDiary";
 
 
 const MainPage = (): JSX.Element => {
@@ -17,18 +22,27 @@ const MainPage = (): JSX.Element => {
             </S.HelloTitle>
             <S.HelloContent>
               <Link to="/">공개된 꿈 보기  </Link>
-              <Link to="/">로그인  </Link>
+              <Link to="/login">로그인  </Link>
             </S.HelloContent>
             <S.HelloImage>
               <img src={HelloImg} alt="hello img" />
             </S.HelloImage>
           </S.HelloContainer>
         </S.HelloSection>
-        <S.HelloSection>
-          
-        </S.HelloSection>
-        
+        {/* <div>
+          <S.SectionTitle>
+            최근 적은 꿈 일기
+          </S.SectionTitle>
+          <S.DreamPostingList>
+            <MyDreamDiary/>
+            <MyDreamDiary/>
+            <MyDreamDiary/>
+            <MyDreamDiary/>
+          </S.DreamPostingList>
+        </div> */}
+        <DreamList/>
       </S.ContentContainer>
+      <Footer/>
     </>
   );
 };

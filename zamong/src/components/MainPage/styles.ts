@@ -1,11 +1,12 @@
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
+import { font } from "../../style/font";
 import {color} from "../../style/index";
 
 export const ContentContainer = styled.div`
-    width: 100%;
+    width: 1280px;
     background-color: ${color.black};
-    padding: 0px 16.7%;
+    margin: 0px auto;
     box-sizing: border-box;
 `;
 
@@ -21,8 +22,7 @@ export const HelloContainer = styled.div`
 `;
 
 export const HelloTitle = styled.div`
-    font-size: 32px;
-    font-weight: bold;
+    font: ${font.headline1};
     line-height: normal;
     color: ${color.white};
 `;
@@ -30,9 +30,9 @@ export const HelloTitle = styled.div`
 export const HelloContent = styled.div`
     display: flex;
     margin-top: 28px;
+    font: ${font.body3};
     a{
         margin-right: 16px;
-        font-size: 16px;
         color: ${color.white};
         cursor: pointer;
         text-decoration: none;
@@ -43,8 +43,15 @@ export const HelloContent = styled.div`
 
 export const HelloImage = styled.div`
     position: absolute;
-    /* top: 539px; */
     top: 50%;
     left: 518px;
     transform: translate(-50%, -50%);
-`
+`;
+
+
+export const DreamPostingList = styled.div`
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    column-gap: 20px;
+    row-gap: 20px;
+`;

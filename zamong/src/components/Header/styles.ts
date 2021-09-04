@@ -1,15 +1,15 @@
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
+import { font } from "../../style/font";
 import {color} from "../../style/index";
 
 export const HeaderContainer = styled.div<{pd: number, lineOpacity : number}>`
+    font: ${font.body3};
     width: 100%;
     height: 64px;
     background-color: ${props => props.lineOpacity === 1 ? color.black : 'rgba(0, 0, 0, 0)'};
     display: flex;
     align-items: center;
-    font-smooth: antialiased;
-    font-weight: 300;
     position: fixed;
     padding-top: ${props => props.pd}px;
     transition: padding 0.25s ease-out, background-color 0.25s ease-out;
@@ -60,6 +60,7 @@ export const RightContainer = styled.div`
 `;
 
 const ButtonDefaultStyle = css`
+    font: ${font.body3};
     border: 0;
     border-radius: 100px;
     box-shadow: 0;
@@ -88,12 +89,14 @@ export const BorderButton = styled.button`
     background-color: ${color.black};
     color: ${color.white};
     border: 1px solid ${color.white};
+    box-shadow: 0 0 1px 0 ${color.white} inset, 0 0 1px 0 ${color.white};
     &:hover{
         background-color: ${color.hoverBlack};
     }
 `;
 
 export const SearchInputContainer = styled.div`
+    font: ${font.body3};
     padding: 10px 16px;
     background-color: ${color.darkGray};
     display: flex;
