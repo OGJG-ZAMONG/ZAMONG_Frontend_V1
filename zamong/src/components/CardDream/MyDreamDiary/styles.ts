@@ -6,3 +6,10 @@ export const LockIcon = styled.img`
     width: auto;
 `;
 
+<<<<<<< HEAD
+=======
+export const DiaryDate = styled.div`
+    font: ${font.body3};
+`;
+
+>>>>>>> 12-main-page-ui
