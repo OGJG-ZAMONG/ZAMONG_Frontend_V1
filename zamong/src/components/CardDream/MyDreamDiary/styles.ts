@@ -6,7 +6,3 @@ export const LockIcon = styled.img`
     width: auto;
 `;
 
-export const DiaryDate = styled.div`
-    font: ${font.body3};
-`;
-

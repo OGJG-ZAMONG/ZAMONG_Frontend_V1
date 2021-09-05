@@ -1,14 +1,12 @@
-import * as S from "./styles";
-import * as I from "../index";
 import defaultImage from "../../../assets/DefaultPostingImages/1.jpg";
-import lockOpen from "../../../assets/icons/lockOpen.svg";
+import * as S from "./Styles";
+import * as I from "../index";
 
-//https://codepen.io/influxweb/pen/LpoXba
-const MyDreamDiary = (): JSX.Element => {
+const FollowDreamDiary = (): JSX.Element => {
   return (
     <div>
       <I.DreamImageContainer img={defaultImage}>
-        <S.LockIcon src={lockOpen} />
+        <S.UserImage src={defaultImage} />
         <I.DiaryDate>8월 15일</I.DiaryDate>
       </I.DreamImageContainer>
       <I.DreamTitle>
@@ -18,4 +16,4 @@ const MyDreamDiary = (): JSX.Element => {
   );
 };
 
-export default MyDreamDiary;
+export default FollowDreamDiary;
