@@ -18,7 +18,6 @@ export const LeftSide = styled.div`
   background-image: url(${leftside});
   background-size: cover;
   margin-top: 70px;
-  float: left;
 `;
 
 export const RightSide = styled.div`
@@ -26,7 +25,6 @@ export const RightSide = styled.div`
   height: 700px;
   background-image: url(${rightside});
   background-size: cover;
-  float: right;
   margin-top: 170px;
 `;
 
