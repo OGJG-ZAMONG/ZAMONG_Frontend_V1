@@ -1,4 +1,5 @@
 import { css } from "@emotion/react";
+import { color } from ".";
 
 export const reset = css`
   html,
@@ -89,6 +90,7 @@ export const reset = css`
     font: inherit;
     font-family: "Spoqa Han Sans Neo", "sans-serif";
     vertical-align: baseline;
+    font-smooth: antialiased;
   }
   /* HTML5 display-role reset for older browsers */
   article,
@@ -130,5 +132,8 @@ export const reset = css`
   }
   li {
     list-style: none;
+  }
+  html{
+    background-color: ${color.black};
   }
 `;
