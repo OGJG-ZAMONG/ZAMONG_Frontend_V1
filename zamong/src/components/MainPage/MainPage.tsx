@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import Header from "../Header/Header";
-import * as S from "./Styles";
+import * as S from "./styles";
 import HelloImg from "../../assets/delusional/delusional3.png";
 import Dream from "../Dream/Dream";
 import MyDreamDiary from "../CardDream/MyDreamDiary/MyDreamDiary";
