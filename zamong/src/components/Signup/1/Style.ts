@@ -9,6 +9,10 @@ export const SignupBox = styled.div`
   font-size: 16px;
   padding-top: 66px;
   padding-left: 70px;
+  position: fixed;
+  left: 80%;
+  top: 60%;
+  transform: translate(-80%, -60%);
 `;
 
 export const Title = styled.div`
@@ -24,13 +28,13 @@ export const GuideWord = styled.div`
 export const Input = styled.input`
   margin-top: 15px;
   width: 380px;
-  height: 32px; 
+  height: 32px;
   background-color: transparent;
   border: none;
   border-bottom: 1px solid #636366;
   outline: none;
   color: white;
-  font-size: 16px;
+  font-size: 20px;
   margin-bottom: 16px;
 `;
 
@@ -39,9 +43,10 @@ export const IdInput = styled(Input)`
 `;
 
 export const EventBox = styled.div`
+  width: 380px;
   display: flex;
   align-items: center;
-  margin-left: 248px;
+  justify-content: flex-end;
 `;
 
 export const PrevButton = styled.div`
@@ -62,9 +67,9 @@ export const NextButton = styled.div`
   font-size: 16px;
   color: white;
   border: 1px solid transparent;
-  background-color: #0A84FF;
+  background-color: #0a84ff;
   border-radius: 100px;
   text-align: center;
   line-height: 2;
-  margin-left: 8px;
+  margin-left: 16px;
 `;

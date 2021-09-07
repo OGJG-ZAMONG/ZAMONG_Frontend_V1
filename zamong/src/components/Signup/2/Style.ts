@@ -30,7 +30,7 @@ export const Input = styled.input`
   border-bottom: 1px solid #636366;
   outline: none;
   color: white;
-  font-size: 16px;
+  font-size: 20zzpx;
   margin-bottom: 28px;
 `;
 
@@ -39,9 +39,10 @@ export const Check = styled(Input)`
 `
 
 export const EventBox = styled.div`
+  width: 380px;
   display: flex;
   align-items: center;
-  margin-left: 248px;
+  justify-content: flex-end;
 `;
 
 export const PrevButton = styled.div`
@@ -66,5 +67,5 @@ export const NextButton = styled.div`
   border-radius: 100px;
   text-align: center;
   line-height: 2;
-  margin-left: 8px;
+  margin-left: 16px;
 `;

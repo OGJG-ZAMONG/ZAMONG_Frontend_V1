@@ -42,9 +42,10 @@ export const NumberBox = styled.input`
 `
 
 export const EventBox = styled.div`
+  width: 380px;
   display: flex;
   align-items: center;
-  margin-left: 248px;
+  justify-content: flex-end;
 `;
 
 export const PrevButton = styled.div`
@@ -69,5 +70,5 @@ export const NextButton = styled.div`
   border-radius: 100px;
   text-align: center;
   line-height: 2;
-  margin-left: 8px;
+  margin-left: 16px;
 `;
