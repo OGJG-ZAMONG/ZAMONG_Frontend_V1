@@ -30,7 +30,7 @@ export const Input = styled.input`
   border-bottom: 1px solid #636366;
   outline: none;
   color: white;
-  font-size: 20zzpx;
+  font-size: 20px;
   margin-bottom: 28px;
 `;
 
