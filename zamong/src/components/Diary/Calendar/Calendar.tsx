@@ -5,81 +5,94 @@ const Calendar = (): JSX.Element => {
   const date = new Date();
   const [year, setYear] = useState<number>(date.getFullYear());
   const [month, setMonth] = useState<number>(date.getMonth());
-  const [monthName, setMonthName] = useState<any>();
-  const [day, setDay] = useState<number>(date.getDay());
-
+  const [monthName, setMonthName] = useState<any>(() => {
+    switch (month) {
+      case 0:
+        return "January";
+      case 1:
+        return "February";
+      case 2:
+        return "March";
+      case 3:
+        return "April";
+      case 4:
+        return "May";
+      case 5:
+        return "June";
+      case 6:
+        return "July";
+      case 7:
+        return "August";
+      case 8:
+        return "September";
+      case 9:
+        return "October";
+      case 10:
+        return "November";
+      case 11:
+        return "December";
+      default:
+        break;
+    }
+  });
   const DayContainer: MutableRefObject<any> = useRef();
   const week: Array<string> = ["일", "월", "화", "수", "목", "금", "토"];
+  const Today = `${date.getFullYear()} ${date.getMonth()} ${date.getDate()}`;
 
-  useEffect(()=> {
-    const parsedMonth = parseMonth();
-    setMonthName(parsedMonth);
-    setYear(date.getFullYear());
-    setDay(date.getDate());
-
-    const makeCalendar = (
-      year: any,
-      month: any,
-      monthName: any,
-      day: number
-    ) => {
-    console.log(year, month, monthName, day);
-      const newDate: any = new Date(year, month).getDay();
-      const newDay = new Date(`${parsedMonth} ${day}, ${year}`).getDate();
-console.log(newDay)
-      for (let i = newDate; i < 31 + newDate; i++) {
-        const div = document.createElement("div");
-        div.innerHTML = `${i - (newDate - 1)}`;
-        if (div.innerHTML === newDay.toString()) {
-          div.style.backgroundColor = "#0A84FF";
-          div.style.display = "inline";
-          div.style.padding = "3px 8px";
-          div.style.borderRadius = "100%";
-        }
-        DayContainer.current.childNodes[i].insertBefore(div, null);
+  useEffect(() => {
+    for (let i = 0; i < 41; i++) {
+      if (DayContainer.current.childNodes[i].children.length >= 1) {
+        DayContainer.current.childNodes[i].firstChild.remove();
       }
-    };
-    makeCalendar(year, month, monthName, day);
-  }, []);
+    }
+    makeCalendar(year, month);
+  }, [month]);
+
+  const makeCalendar = (year: any, month: any) => {
+    setMonthName(parseMonth());
+
+    const dateLength = new Date(year, month + 1, 0).getDate();
+    const newDate: any = new Date(year, month).getDay();
+
+    for (let i = newDate; i < dateLength + newDate; i++) {
+      const div = document.createElement("div");
+      div.innerHTML = `${i - (newDate - 1)}`;
+      if (`${year} ${month} ${div.innerHTML}` === Today) {
+        div.style.backgroundColor = "#0A84FF";
+        div.style.display = "inline";
+        div.style.padding = "3px 8px";
+        div.style.borderRadius = "100%";
+      }
+      DayContainer.current.childNodes[i].insertBefore(div, null);
+    }
+  };
 
   const parseMonth = () => {
     switch (month) {
       case 0:
         return "January";
-        break;
       case 1:
         return "February";
-        break;
       case 2:
         return "March";
-        break;
       case 3:
         return "April";
-        break;
       case 4:
         return "May";
-        break;
       case 5:
         return "June";
-        break;
       case 6:
         return "July";
-        break;
       case 7:
         return "August";
-        break;
       case 8:
         return "September";
-        break;
       case 9:
         return "October";
-        break;
       case 10:
         return "November";
-        break;
       case 11:
         return "December";
-        break;
       default:
         break;
     }
@@ -88,18 +101,31 @@ console.log(newDay)
   const renderDay = () => {
     //달력 칸 42개 렌더링하기
     const dayArray: Array<any> = [];
-
     for (let i = 1; i <= 42; i++) {
       dayArray.push(<S.Days key={i} />);
     }
-
     return dayArray;
   };
 
   const nextMonth = () => {
     setMonth(month + 1);
-    if (month >= 12) {
-      setMonth(1);
+    if (month >= 11) {
+      setMonth(0);
+      setYear(year + 1);
+    }
+  };
+
+  const todayDate = () => {
+    setYear(date.getFullYear());
+    setMonth(date.getMonth());
+    setMonthName(parseMonth());
+  };
+
+  const prevMonth = () => {
+    setMonth(month - 1);
+    if (month < 1) {
+      setMonth(11);
+      setYear(year - 1);
     }
   };
 
@@ -110,8 +136,8 @@ console.log(newDay)
           {year}년 {month + 1}월
         </S.Date>
         <S.Controller>
-          <S.Prev>{"<"}</S.Prev>
-          <S.DateStatus>오늘</S.DateStatus>
+          <S.Prev onClick={prevMonth}>{"<"}</S.Prev>
+          <S.DateStatus onClick={todayDate}>오늘</S.DateStatus>
           <S.Next onClick={nextMonth}>{">"}</S.Next>
         </S.Controller>
       </S.CalendarHeader>

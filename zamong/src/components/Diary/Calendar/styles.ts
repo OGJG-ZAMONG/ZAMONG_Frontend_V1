@@ -44,6 +44,7 @@ export const DateStatus = styled.div`
   border-radius: 5px;
   text-align: center;
   line-height: 32px;
+  cursor: pointer;
 `;
 
 export const Next = styled.div`
