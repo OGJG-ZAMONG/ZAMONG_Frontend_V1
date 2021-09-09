@@ -110,7 +110,7 @@ export const reset = css`
   body {
     line-height: auto;
     margin: 0;
-    background-color: #1C1C1E;
+    background-color: ${color.black};
   }
   ol,
   ul {
