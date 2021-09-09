@@ -3,7 +3,6 @@ import styled from "@emotion/styled";
 export const Container = styled.div`
   background-color: black;
   width: 100%;
-  display: inline-block;
 `;
 
 export const TodayContainer = styled.div`
@@ -11,6 +10,7 @@ export const TodayContainer = styled.div`
   height: 100vh;
   display: flex;
   color: white;
+  justify-content: center;
 `;
 
 export const Title = styled.div`
@@ -27,7 +27,6 @@ export const TodayDream = styled.div`
   width: 650px;
   background-color: #2c2c2e;
   border-radius: 10px;
-  display: inline-block;
 `;
 
 export const TodayDreamText = styled.div`
