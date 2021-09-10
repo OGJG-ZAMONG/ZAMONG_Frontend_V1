@@ -1,11 +1,11 @@
 import FollowDreamDiary from "../../../CardDream/FollowDreamDiary/FollowDreamDiary";
 import * as I from "../Index";
-import * as J from "../../Index";
+import * as G from "../../globalstyle";
 
 const FollowDreamDiaryList = (): JSX.Element => {
   return (
     <I.Container>
-      <J.SectionTitle>팔로우의 최신 꿈 일기</J.SectionTitle>
+      <G.SectionTitle>팔로우의 최신 꿈 일기</G.SectionTitle>
       <I.DreamPostingList>
         <FollowDreamDiary />
         <FollowDreamDiary />

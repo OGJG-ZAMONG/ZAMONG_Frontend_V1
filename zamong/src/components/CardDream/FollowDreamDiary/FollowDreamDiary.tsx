@@ -1,4 +1,4 @@
-import defaultImage from "../../../assets/DefaultPostingImages/1.jpg";
+import { defaultImage } from "../../../assets/index";
 import * as S from "./Styles";
 import * as I from "../index";
 

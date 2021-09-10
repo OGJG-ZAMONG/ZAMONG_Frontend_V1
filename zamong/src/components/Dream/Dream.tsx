@@ -1,5 +1,5 @@
 import * as S from "./Styles";
-import defaultImage from "../../assets/DefaultPostingImages/1.jpg";
+import { defaultImage } from "../../assets/index";
 import { useState } from "react";
 import Tag from "../Tag/Tag";
 
