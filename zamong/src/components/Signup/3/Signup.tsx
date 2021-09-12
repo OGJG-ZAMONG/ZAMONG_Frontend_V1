@@ -1,5 +1,5 @@
-import * as S from "./style";
-import { MutableRefObject, useRef } from "react"
+import * as S from "./Style";
+import { MutableRefObject, useRef } from "react";
 
 const Signup3 = (): JSX.Element => {
   const inputRefs: MutableRefObject<any> = useRef([]);
