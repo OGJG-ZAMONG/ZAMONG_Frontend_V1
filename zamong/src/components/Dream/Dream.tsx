@@ -1,4 +1,4 @@
-import * as S from "./Styles";
+import * as S from "./styles";
 import defaultImage from "../../assets/DefaultPostingImages/1.jpg";
 import { useState } from "react";
 import Tag from "../Tag/Tag";

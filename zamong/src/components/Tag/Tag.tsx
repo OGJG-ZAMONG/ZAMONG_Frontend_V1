@@ -1,4 +1,4 @@
-import * as S from './Styles';
+import * as S from './styles';
 
 type TagProps = {
     content: string;

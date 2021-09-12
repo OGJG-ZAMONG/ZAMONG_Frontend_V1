@@ -1,4 +1,4 @@
-import * as S from './Styles';
+import * as S from './styles';
 import FilterIcon from '../../../assets/icons/filterIcon.svg';
 import DownChevronIcon from '../../../assets/icons/downChevron.svg';
 import { useState } from 'react';
