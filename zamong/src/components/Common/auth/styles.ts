@@ -4,7 +4,7 @@ import { leftside, rightside } from "../../../assets/index";
 export const Background = styled.div`
   width: 100%;
   height: 100%;
-  background-color: #000000;
+  background-color: #1C1C1E;
 `;
 
 export const ContentBox = styled.div`

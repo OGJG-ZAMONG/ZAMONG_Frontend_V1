@@ -1,4 +1,4 @@
-import { FC } from "react";
+import React, { FC, Suspense } from "react";
 import { Switch, Route } from "react-router-dom";
 import {
   LoginContainer,
@@ -11,7 +11,7 @@ import {
 
 const MainRouter: FC = (): JSX.Element => {
   return (
-    <>
+    <Suspense fallback={<div>로딩중...</div>}>
       <Switch>
         <Route exact path="/" component={MainContainer} />
         <Route exact path="/login" component={LoginContainer} />
@@ -20,7 +20,7 @@ const MainRouter: FC = (): JSX.Element => {
         <Route exact path="/signup" component={SignupContainer} />
         <Route exact path="/sell" component={SellDreamContainer} />
       </Switch>
-    </>
+    </Suspense>
   );
 };
 
