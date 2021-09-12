@@ -1,13 +1,13 @@
-import React, { Suspense, FC } from "react";
+import { FC } from "react";
 import { AuthBackground } from "../../common/index";
-const Login = React.lazy(() => import("../../components/Login/Login"));
+import Login from "../../components/Login/Login"
 
 const LoginContainer: FC = (): JSX.Element => {
   return (
-    <Suspense fallback={<div>로딩중...</div>}>
+    <>
       <AuthBackground />
       <Login />
-    </Suspense>
+    </>
   );
 };
 
