@@ -1,4 +1,3 @@
-import * as S from "./Styles";
 import Logo from "../../assets/logo/testLogo.png";
 import SearchIcon from "../../assets/icons/searchIcon.svg";
 import { Link } from "react-router-dom";
@@ -44,3 +43,4 @@ const Header = ():JSX.Element => {
 }
 
 export default Header;
+import * as S from "./styles";
