@@ -56,6 +56,17 @@ const PickerColumn = ({
     setY(-(selectedIndex * HEIGHT));
   }, [isWheel]);
 
+  const CalculateY = (y: number, value: number): number => {
+    var temp = y + value;
+    if (temp > 0) {
+      return 0;
+    } else if (HEIGHT * (tempArray.length + 1) * -1 + OFFSET > temp) {
+      return HEIGHT * (tempArray.length + 1) * -1 + OFFSET;
+    } else {
+      return temp;
+    }
+  };
+
   return (
     <S.DateColumn
       height={HEIGHT}
@@ -67,7 +78,7 @@ const PickerColumn = ({
           value = 18 * Math.sign(value);
         }
 
-        setY(y + value);
+        setY(CalculateY(y, value));
         setSelectedIndex(CalculateIndex(y));
         setTimer(setTimeout(onTimeout, 100));
       }}

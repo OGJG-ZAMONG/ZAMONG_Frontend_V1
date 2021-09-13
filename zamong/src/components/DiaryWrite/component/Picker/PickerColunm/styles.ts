@@ -2,7 +2,6 @@ import styled from "@emotion/styled";
 import { font } from "../../../../../style/font";
 
 export const DateColumn = styled.div<{ height: number }>`
-
   overflow: hidden;
   height: ${(props) => props.height * 5}px;
 `;
@@ -30,8 +29,8 @@ export const DateCell = styled.div<{
   cursor: pointer;
   justify-content: center;
   user-select: none;
-  transition: opacity 0.25s ease-out,
-    ${(props) => (props.isWheel ? "" : "transform 0.25s ease-out;")};
+  transition: opacity 0.25s ease-out
+    ${(props) => (props.isWheel ? "" : ",transform 0.25s ease-out;")};
 
   transform: rotateX(${(props) => props.angle}deg);
   opacity: ${(props) => props.opacity};
