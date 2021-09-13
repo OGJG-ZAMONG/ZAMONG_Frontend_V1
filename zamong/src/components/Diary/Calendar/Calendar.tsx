@@ -1,43 +1,13 @@
 import * as S from "./styles";
-import { MutableRefObject, useEffect, useRef, useState } from "react";
+import { FC, MutableRefObject, useEffect, useRef, useState } from "react";
 
-const Calendar = (): JSX.Element => {
+const Calendar: FC = (): JSX.Element => {
   const date = new Date();
   const [year, setYear] = useState<number>(date.getFullYear());
   const [month, setMonth] = useState<number>(date.getMonth());
-  const [monthName, setMonthName] = useState<any>(() => {
-    switch (month) {
-      case 0:
-        return "January";
-      case 1:
-        return "February";
-      case 2:
-        return "March";
-      case 3:
-        return "April";
-      case 4:
-        return "May";
-      case 5:
-        return "June";
-      case 6:
-        return "July";
-      case 7:
-        return "August";
-      case 8:
-        return "September";
-      case 9:
-        return "October";
-      case 10:
-        return "November";
-      case 11:
-        return "December";
-      default:
-        break;
-    }
-  });
   const DayContainer: MutableRefObject<any> = useRef();
   const week: Array<string> = ["일", "월", "화", "수", "목", "금", "토"];
-  const Today = `${date.getFullYear()} ${date.getMonth()} ${date.getDate()}`;
+  const Today: string = `${date.getFullYear()} ${date.getMonth()} ${date.getDate()}`;
 
   useEffect(() => {
     for (let i = 0; i < 41; i++) {
@@ -48,11 +18,9 @@ const Calendar = (): JSX.Element => {
     makeCalendar(year, month);
   }, [month]);
 
-  const makeCalendar = (year: any, month: any) => {
-    setMonthName(parseMonth());
-
-    const dateLength = new Date(year, month + 1, 0).getDate();
-    const newDate: any = new Date(year, month).getDay();
+  const makeCalendar = (year: number, month: number) => {
+    const dateLength: number = new Date(year, month + 1, 0).getDate();
+    const newDate: number = new Date(year, month).getDay();
 
     for (let i = newDate; i < dateLength + newDate; i++) {
       const div = document.createElement("div");
@@ -60,41 +28,10 @@ const Calendar = (): JSX.Element => {
       if (`${year} ${month} ${div.innerHTML}` === Today) {
         div.style.backgroundColor = "#0A84FF";
         div.style.display = "inline";
-        div.style.padding = "3px 8px";
+        div.style.padding = "4px 4px";
         div.style.borderRadius = "100%";
       }
       DayContainer.current.childNodes[i].insertBefore(div, null);
-    }
-  };
-
-  const parseMonth = () => {
-    switch (month) {
-      case 0:
-        return "January";
-      case 1:
-        return "February";
-      case 2:
-        return "March";
-      case 3:
-        return "April";
-      case 4:
-        return "May";
-      case 5:
-        return "June";
-      case 6:
-        return "July";
-      case 7:
-        return "August";
-      case 8:
-        return "September";
-      case 9:
-        return "October";
-      case 10:
-        return "November";
-      case 11:
-        return "December";
-      default:
-        break;
     }
   };
 
@@ -118,7 +55,6 @@ const Calendar = (): JSX.Element => {
   const todayDate = () => {
     setYear(date.getFullYear());
     setMonth(date.getMonth());
-    setMonthName(parseMonth());
   };
 
   const prevMonth = () => {
@@ -142,7 +78,7 @@ const Calendar = (): JSX.Element => {
         </S.Controller>
       </S.CalendarHeader>
       <S.CalendarContainer>
-        {week.map((week, index) => {
+        {week.map((week: any, index: number) => {
           return <S.WeekDays key={index}>{week}</S.WeekDays>;
         })}
         <S.DayContainer ref={DayContainer}>{renderDay()}</S.DayContainer>

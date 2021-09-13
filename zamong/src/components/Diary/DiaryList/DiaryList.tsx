@@ -1,22 +1,17 @@
 import * as S from "./styles";
-import React, { Suspense } from "react";
-import DiarySign from "../DiarySign/DiarySign";
+import { FC } from "react";
 import { edit, pointer } from "../../../assets/index";
-const Calendar = React.lazy(() => import("../Calendar/Calendar"));
+import Calendar from "../Calendar/Calendar";
 
-const DiaryList = (): JSX.Element => {
+const DiaryList: FC = (): JSX.Element => {
   return (
     <S.Container>
       <S.Title>나의 꿈 일기</S.Title>
       <S.TodayContainer>
-        <Suspense fallback={<div>loading...</div>}>
-          <Calendar />
-        </Suspense>
+        <Calendar />
         <S.TodayDream>
           <S.TodayDreamText>오늘</S.TodayDreamText>
-          <S.DiarySignContainer>
-            <DiarySign />
-          </S.DiarySignContainer>
+          <S.DiarySignContainer>{/* <DiarySign /> */}</S.DiarySignContainer>
         </S.TodayDream>
       </S.TodayContainer>
       <S.DiaryListContainer>
@@ -39,7 +34,7 @@ const DiaryList = (): JSX.Element => {
               <S.WriteDiaryImg src={edit} />꿈 일기 쓰기
             </S.WriteDiaryText>
           </S.WriteDiary>
-          <DiarySign />
+          {/* <DiarySign /> */}
         </S.DiaryList>
       </S.DiaryListContainer>
     </S.Container>

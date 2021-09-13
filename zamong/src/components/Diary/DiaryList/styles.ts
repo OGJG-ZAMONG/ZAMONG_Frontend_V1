@@ -3,6 +3,7 @@ import styled from "@emotion/styled";
 export const Container = styled.div`
   background-color: black;
   width: 100%;
+  display: inline;
 `;
 
 export const TodayContainer = styled.div`
@@ -11,6 +12,7 @@ export const TodayContainer = styled.div`
   display: flex;
   color: white;
   justify-content: center;
+  min-height: 711px;
 `;
 
 export const Title = styled.div`
@@ -19,7 +21,7 @@ export const Title = styled.div`
   font-weight: bold;
   width: 162px;
   height: 40px;
-  margin: 120px 0 48px 14%;
+  padding: 120px 0 48px 14%;
 `;
 
 export const TodayDream = styled.div`
@@ -65,7 +67,7 @@ export const DiaryListHeader = styled.div`
   display: flex;
   justify-content: space-between;
   margin: 0 250px;
-  padding: 50px 0;
+  padding: 140px 0 40px 0;
 `;
 
 export const DiaryList = styled.div`
@@ -77,6 +79,7 @@ export const DiaryList = styled.div`
 export const WriteDiary = styled.div`
   width: 305px;
   height: 191px;
+  aspect-ratio: 3/2;
   border-radius: 20px;
   cursor: pointer;
   backdrop-filter: blur(20px);

@@ -1,6 +1,6 @@
 import { FC } from "react";
 import { Switch, Route } from "react-router-dom";
-import { LoginContainer, DiaryContainer, SignupContainer } from "../container";
+import { LoginContainer, DiaryContainer, SignupContainer, MainContainer } from "../container";
 const MainRouter:FC = (): JSX.Element => {
   return (
     <>
