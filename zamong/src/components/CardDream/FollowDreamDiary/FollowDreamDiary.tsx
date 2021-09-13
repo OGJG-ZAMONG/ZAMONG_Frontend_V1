@@ -1,12 +1,12 @@
-import { defaultImage } from "../../../assets/index";
+import { DefaultImage } from "../../../assets/index";
 import * as S from "./Styles";
 import * as I from "../index";
 
 const FollowDreamDiary = (): JSX.Element => {
   return (
     <div>
-      <I.DreamImageContainer img={defaultImage}>
-        <S.UserImage src={defaultImage} />
+      <I.DreamImageContainer img={DefaultImage}>
+        <S.UserImage src={DefaultImage} />
         <I.DiaryDate>8월 15일</I.DiaryDate>
       </I.DreamImageContainer>
       <I.DreamTitle>

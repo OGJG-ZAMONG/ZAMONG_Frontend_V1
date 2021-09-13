@@ -8,6 +8,7 @@ export { default as delusional } from "./delusional/delusional1.png";
 export { default as delusiona2 } from "./delusional/delusional2.png";
 export { default as delusiona3 } from "./delusional/delusional3.png";
 export { default as testLogo } from "./logo/testLogo.png";
-export { default as defaultImage } from "./defaultPostingImages/1.jpg";
+export { default as DefaultImage } from "./defaultPostingImages/1.jpg";
 export { default as DownChevronIcon } from "./icon/downCheveron.svg";
 export { default as FilterIcon } from "./icon/filterlcon.svg";
+export { default as DownChevron } from "./icon/downChevron.svg";
