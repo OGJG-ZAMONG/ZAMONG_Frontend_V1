@@ -1,8 +1,8 @@
 import React, { FC, Suspense } from "react";
 import { Switch, Route } from "react-router-dom";
-const MainContainer = React.lazy(() => import('../container/Diary'))
+const MainContainer = React.lazy(() => import('../container/MainPage'))
 const LoginContainer = React.lazy(() => import('../container/Login'))
-const DiaryContainer = React.lazy(() => import('../container/MainPage'))
+const DiaryContainer = React.lazy(() => import('../container/Diary'))
 const SignupContainer = React.lazy(() => import('../container/Signup'))
 
 const MainRouter:FC = (): JSX.Element => {
