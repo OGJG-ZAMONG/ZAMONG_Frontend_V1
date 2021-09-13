@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import * as S from "./styles";
 
 type PropsType = {
@@ -7,6 +7,13 @@ type PropsType = {
 };
 
 const Modal = ({ children, setModal }: PropsType): JSX.Element => {
+  useEffect(() => {
+    document.body.style.overflow = "hidden";
+    return () => {
+      document.body.style.overflow = "unset";
+    };
+  }, []);
+
   return (
     <>
       <S.ModalContainer>

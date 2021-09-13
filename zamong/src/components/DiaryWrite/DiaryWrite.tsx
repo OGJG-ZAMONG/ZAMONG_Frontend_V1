@@ -9,7 +9,6 @@ import DreamTime from "./component/Properties/Selecter/DreamTime/DreamTime";
 import * as S from "./Styles";
 
 const DiaryWrite = (): JSX.Element => {
-  
   interface propertysType {
     title: string;
     content: string;

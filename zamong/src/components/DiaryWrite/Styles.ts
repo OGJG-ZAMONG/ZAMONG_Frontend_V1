@@ -53,6 +53,7 @@ export const TextArea = styled(TextareaAutosize)`
   outline: none;
   resize: none;
   width: 100%;
+  overflow: auto;
   box-sizing: border-box;
   ::placeholder {
     color: ${color.gray};
