@@ -1,4 +1,5 @@
 import styled from "@emotion/styled";
+import { Check } from "../../Signup/2/style";
 
 export const Container = styled.div`
   background-color: black;
@@ -7,11 +8,15 @@ export const Container = styled.div`
 `;
 
 export const TodayContainer = styled.div`
-  width: 100%;
+  width: 1280px;
   height: 100vh;
   display: flex;
   color: white;
+  flex-direction: column;
   justify-content: center;
+  min-height: 711px;
+
+  margin: 0 auto;
   min-height: 711px;
 `;
 
@@ -19,9 +24,7 @@ export const Title = styled.div`
   color: #ffffff;
   font-size: 32px;
   font-weight: bold;
-  width: 162px;
-  height: 40px;
-  padding: 120px 0 48px 14%;
+  margin-bottom: 40px;
 `;
 
 export const TodayDream = styled.div`
@@ -29,6 +32,13 @@ export const TodayDream = styled.div`
   width: 650px;
   background-color: #2c2c2e;
   border-radius: 10px;
+  padding-left: 10px;
+`;
+
+export const TodayBox = styled.div`
+  width: 100%;
+  display: flex;
+  justify-content: center;
 `;
 
 export const TodayDreamText = styled.div`
@@ -36,17 +46,17 @@ export const TodayDreamText = styled.div`
   height: 25px;
   color: white;
   font-weight: 500;
-  margin: 16px 0 0 28px;
+  margin: 16px 0 4px 0;
   font-size: 20px;
 `;
 
 export const DiarySignContainer = styled.div`
-  height: 90%;
+  height: 93%;
   width: 100%;
   overflow: auto;
   display: grid;
   grid-template-columns: repeat(2, 48%);
-  margin-left: 16px;
+  grid-gap: 15px;
 `;
 
 export const DiaryListContainer = styled.div`
@@ -73,28 +83,29 @@ export const DiaryListHeader = styled.div`
 export const DiaryList = styled.div`
   display: grid;
   grid-template-columns: repeat(4, 25%);
+  grid-gap: 15px;
   margin: 60px 230px;
 `;
 
 export const WriteDiary = styled.div`
-  width: 305px;
-  height: 191px;
+  aspect-ratio: 3/2; 
+  width: 100%;
+  box-sizing: border-box;
   aspect-ratio: 3/2;
   border-radius: 20px;
   cursor: pointer;
   backdrop-filter: blur(20px);
   background-color: #2c2c2e;
-  margin: 16px 8px;
 `;
 
 export const WriteDiaryText = styled.div`
   margin: 89px 86px;
   font-family: Spoqa Han Sans Neo;
-  font-style: normal;
   font-weight: 500;
   font-size: 20px;
-  line-height: 25px;
   color: #c7c7cc;
+  display: flex;
+  justify-content: center;
 `;
 
 export const WriteDiaryImg = styled.img`
