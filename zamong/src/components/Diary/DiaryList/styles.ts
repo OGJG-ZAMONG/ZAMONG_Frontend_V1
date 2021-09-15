@@ -1,5 +1,4 @@
 import styled from "@emotion/styled";
-import { Check } from "../../Signup/2/style";
 
 export const Container = styled.div`
   background-color: black;
@@ -61,8 +60,12 @@ export const DiarySignContainer = styled.div`
 
 export const DiaryListContainer = styled.div`
   height: 100vh;
-  width: 100%;
+  width: 1280px;
   color: white;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  margin: 0 auto;
 `;
 
 export const DiaryListTitle = styled.div`
@@ -76,15 +79,13 @@ export const DiaryListHeader = styled.div`
   height: 30px;
   display: flex;
   justify-content: space-between;
-  margin: 0 250px;
-  padding: 140px 0 40px 0;
+  padding-bottom: 3%;
 `;
 
 export const DiaryList = styled.div`
   display: grid;
   grid-template-columns: repeat(4, 25%);
   grid-gap: 15px;
-  margin: 60px 230px;
 `;
 
 export const WriteDiary = styled.div`
