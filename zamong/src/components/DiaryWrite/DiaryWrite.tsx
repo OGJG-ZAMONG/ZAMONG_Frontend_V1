@@ -9,6 +9,7 @@ import DreamTime from "./component/Properties/Selecter/DreamTime/DreamTime";
 import * as S from "./Styles";
 
 const DiaryWrite = (): JSX.Element => {
+  const MAXTITLE = 100;
   interface propertysType {
     title: string;
     content: string;
@@ -21,8 +22,8 @@ const DiaryWrite = (): JSX.Element => {
   const { title, content } = properties;
   const onChangeHandler = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     const { name, value } = e.target;
-    if (name === "title" && value.length > 100) {
-      setProperties({ ...properties, [name]: value.substring(0, 100) });
+    if (name === "title" && value.length > MAXTITLE) {
+      setProperties({ ...properties, [name]: value.substring(0, MAXTITLE) });
     } else {
       setProperties({ ...properties, [name]: value });
     }
@@ -44,9 +45,9 @@ const DiaryWrite = (): JSX.Element => {
                 placeholder="제목 입력..."
               />
               <S.TitleCount
-                color={title.length >= 100 ? color.red : color.gray}
+                color={title.length >= MAXTITLE ? color.red : color.gray}
               >
-                {title.length} / 100
+                {title.length} / {MAXTITLE}
               </S.TitleCount>
             </div>
             <div>

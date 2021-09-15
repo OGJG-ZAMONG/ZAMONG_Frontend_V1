@@ -11,4 +11,5 @@ export const TagContainer = styled.div`
   height: fit-content;
   width: fit-content;
   position: relative;
+  user-select: none;
 `;
