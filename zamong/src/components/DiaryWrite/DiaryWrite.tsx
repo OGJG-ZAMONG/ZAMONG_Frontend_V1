@@ -61,7 +61,7 @@ const DiaryWrite = (): JSX.Element => {
             </div>
             <div>
               <S.Subtitle>꿈 내용</S.Subtitle>
-              <S.TextArea
+              <S.TextAreaContent
                 onChange={onChangeHandler}
                 name="content"
                 value={content}

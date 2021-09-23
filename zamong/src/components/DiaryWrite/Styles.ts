@@ -61,6 +61,10 @@ export const TextArea = styled(TextareaAutosize)`
   }
 `;
 
+export const TextAreaContent = styled(TextArea)`
+  min-height: 92px;
+`;
+
 export const TitleCount = styled.div`
   font: ${font.body3};
   color: ${(props) => props.color};
