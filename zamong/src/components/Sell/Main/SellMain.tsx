@@ -1,9 +1,10 @@
 import * as S from "./style";
-import { FC } from 'react';
+import { FC, useState } from 'react';
 import FollowDreamDiary from "../../CardDream/FollowDreamDiary/FollowDreamDiary";
 
 const SellMain:FC = ():JSX.Element => {
     const pageLength = [1, 2, 3, 4, 5, 6, 7, 8 ,9, 10];
+    
     return (
         <S.Container>
             <S.Information>
