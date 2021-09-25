@@ -22,6 +22,7 @@ export const SellDreamText = styled.div`
 
 export const SellManagementText = styled.div`
   font-size: 20px;
+  cursor: pointer;
 `;
 
 export const SellingDreamListText = styled.div`
@@ -48,8 +49,22 @@ export const PageNationContainer = styled.div`
     margin: 0 auto;
 `;
 
-export const Prev = styled.div``;
+export const PageContainer = styled.div`
+  display: flex;
+  justify-content: space-evenly;
+  width: 100%;
+`;
 
-export const Next = styled.div``;
+export const Prev = styled.div`
+  cursor: pointer;
+  width: 52px;
+`;
 
-export const Page = styled.div``;
+export const Next = styled.div`
+  cursor: pointer;
+  width: 52px;
+`;
+
+export const Page = styled.div`
+  cursor: pointer;
+`;

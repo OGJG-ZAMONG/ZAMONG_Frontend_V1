@@ -1,3 +1,4 @@
-export interface SellMain {
-    
+export interface SellMainInterface {
+    pageIndex: number,
+    pageLength: number[]
 }
