@@ -1,5 +1,9 @@
 import * as S from "./style";
-import { FC, useState, useRef, MutableRefObject, useEffect } from "react";
+import React, {
+  FC,
+  useState,
+  useEffect
+} from "react";
 import FollowDreamDiary from "../../CardDream/FollowDreamDiary/FollowDreamDiary";
 import { SellMainInterface } from "../../../interfaces/Sell";
 
@@ -7,14 +11,8 @@ const SellMain: FC = (): JSX.Element => {
   const MaxPage = 27;
   const pageLength: number[] = [];
   const finalPageLength: number[][] = [];
-  const [pageIndex, setPageIndex]: any = useState<SellMainInterface | number>(
-    0
-  );
-  const [pageDepth, setPageDepth] = useState<number>(0);
-
-  useEffect(() => {
-    console.log(pageIndex)
-  }, [pageIndex])
+  const [pageIndex, setPageIndex]: any = useState<SellMainInterface | number>(0);
+  const [pageDepth, setPageDepth]: any = useState<SellMainInterface | number>(0);
 
   for (let i = 0; i < MaxPage; i++) {
     pageLength.push(i + 1);
@@ -23,7 +21,7 @@ const SellMain: FC = (): JSX.Element => {
     finalPageLength.push(pageLength.slice(i, i + 10));
   }
 
-  const nextPageIndex = () => {
+  const nextPage = () => {
     if (pageIndex >= MaxPage - 1) {
       return;
     } else {
@@ -31,12 +29,16 @@ const SellMain: FC = (): JSX.Element => {
     }
   };
 
-  const prevPageIndex = () => {
+  const prevPage = () => {
     if (pageIndex < 1) {
       return;
     } else {
       setPageIndex(pageIndex - 1);
     }
+  };
+
+  const setPage = (e: React.MouseEvent<HTMLDivElement> | any) => {
+    setPageIndex(e.target.innerHTML - 1);
   };
 
   return (
@@ -50,13 +52,13 @@ const SellMain: FC = (): JSX.Element => {
         <FollowDreamDiary />
       </S.SellingDreamListContainer>
       <S.PageNationContainer>
-        <S.Prev onClick={prevPageIndex}>{"<"} 이전</S.Prev>
-        <S.PageContainer>
+        <S.Prev onClick={prevPage}>{"<"} 이전</S.Prev>
+        <S.PageContainer onClick={setPage}>
           {finalPageLength[pageDepth].map((value: number, index: number) => {
             if (pageIndex >= Math.max(...finalPageLength[pageDepth])) {
               setPageDepth(pageDepth + 1);
             } else if (
-              pageIndex < Math.min(...finalPageLength[pageDepth]) &&
+              pageIndex + 1 < Math.min(...finalPageLength[pageDepth]) &&
               pageDepth != 0
             ) {
               setPageDepth(pageDepth - 1);
@@ -77,7 +79,7 @@ const SellMain: FC = (): JSX.Element => {
           })}
         </S.PageContainer>
 
-        <S.Next onClick={nextPageIndex}>다음 {">"}</S.Next>
+        <S.Next onClick={nextPage}>다음 {">"}</S.Next>
       </S.PageNationContainer>
     </S.Container>
   );
