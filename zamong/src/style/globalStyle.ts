@@ -91,6 +91,7 @@ export const reset = css`
     font-family: "Spoqa Han Sans Neo", "sans-serif";
     vertical-align: baseline;
     font-smooth: antialiased;
+    -webkit-font-smoothing: antialiased;
   }
   /* HTML5 display-role reset for older browsers */
   article,
@@ -107,7 +108,7 @@ export const reset = css`
     display: block;
   }
   body {
-    line-height: 1;
+    line-height: auto;
     margin: 0;
     background-color: #1C1C1E;
   }
@@ -133,7 +134,7 @@ export const reset = css`
   li {
     list-style: none;
   }
-  html{
+  html {
     background-color: ${color.black};
   }
 `;

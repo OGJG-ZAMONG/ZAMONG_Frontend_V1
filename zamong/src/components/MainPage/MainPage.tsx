@@ -14,7 +14,6 @@ import FollowDreamDiaryList from "./DreamDiaryList/FollowDreamDiaryList/FollowDr
 const MainPage = (): JSX.Element => {
   return (
     <>
-      <Header />
       <S.ContentContainer>
         <S.HelloSection>
           <S.HelloContainer>
@@ -38,7 +37,6 @@ const MainPage = (): JSX.Element => {
           <DreamList />
         </S.SectionContainer>
       </S.ContentContainer>
-      <Footer />
     </>
   );
 };
