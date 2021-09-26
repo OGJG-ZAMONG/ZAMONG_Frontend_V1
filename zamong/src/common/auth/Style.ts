@@ -10,6 +10,8 @@ export const Background = styled.div`
 export const ContentBox = styled.div`
   width: 100%;
   height: 100vh;
+  display: flex;
+  justify-content: space-between;
 `;
 
 export const LeftSide = styled.div`
@@ -31,7 +33,6 @@ export const RightSide = styled.div`
 export const TextBox = styled.div`
   width: 300px;
   height: 195px;
-  border: 1px solid yellow;
   position: absolute;
   margin-top: 153px;
   margin: 150px 0 0 320px;
