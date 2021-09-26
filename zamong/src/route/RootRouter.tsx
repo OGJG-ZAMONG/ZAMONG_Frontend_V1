@@ -6,7 +6,7 @@ import MainRouter from "./MainRouter";
 const RootRouter = (): JSX.Element => {
   return (
     <BrowserRouter>
-        <MainRouter />  
+      <MainRouter />
     </BrowserRouter>
   );
 };
