@@ -1,5 +1,5 @@
 import * as S from "./Styles";
-import defaultImage from "../../assets/DefaultPostingImages/1.jpg";
+import { DefaultImage } from "../../assets";
 import { useState } from "react";
 import Tag from "../Tag/Tag";
 
@@ -9,10 +9,10 @@ const Dream = (): JSX.Element => {
   return (
     <>
       <S.DreamContainer>
-        <S.DreamImage img={defaultImage}>
+        <S.DreamImage img={DefaultImage}>
           <S.DreamUserImage
             alt="user image"
-            src={defaultImage}
+            src={DefaultImage}
             onMouseEnter={() => {
               setIsUserImageHover(true);
             }}
