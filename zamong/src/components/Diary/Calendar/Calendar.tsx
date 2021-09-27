@@ -1,8 +1,7 @@
 import * as S from "./styles";
 import { FC, MutableRefObject, useEffect, useRef, useState } from "react";
-
 const Calendar: FC = (): JSX.Element => {
-  const date = new Date();
+  const date: Date = new Date();
   const [year, setYear] = useState<number>(date.getFullYear());
   const [month, setMonth] = useState<number>(date.getMonth());
   const DayContainer: MutableRefObject<any> = useRef();
@@ -30,6 +29,7 @@ const Calendar: FC = (): JSX.Element => {
         div.style.display = "inline";
         div.style.padding = "4px 4px";
         div.style.borderRadius = "100%";
+        div.style.color = "white";
       }
       DayContainer.current.childNodes[i].insertBefore(div, null);
     }

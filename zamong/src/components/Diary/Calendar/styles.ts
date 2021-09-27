@@ -1,4 +1,5 @@
 import styled from "@emotion/styled";
+import { font } from "../../../style/font";
 
 export const Container = styled.div`
   width: 630px;
@@ -7,9 +8,9 @@ export const Container = styled.div`
 `;
 
 export const Date = styled.div`
-  font-weight: 500;
-  font-size: 20px;
   line-height: 25px;
+  font: ${font.body1};
+  font-weight: 500;
 `;
 
 export const CalendarHeader = styled.div`
@@ -25,6 +26,8 @@ export const Controller = styled.div`
   justify-content: space-between;
   width: 133px;
   height: 32px;
+  font: ${font.body1};
+  font-weight: 500;
 `;
 
 export const Prev = styled.div`
@@ -64,6 +67,7 @@ export const CalendarContainer = styled.div`
   grid-template-columns: repeat(7, 90px);
   border-radius: 10px;
   background-color: #2c2c2e;
+  font: ${font.body2};
 `;
 
 export const DayContainer = styled.div`
