@@ -5,14 +5,13 @@ import React, {
   useEffect
 } from "react";
 import FollowDreamDiary from "../../CardDream/FollowDreamDiary/FollowDreamDiary";
-import { SellMainInterface } from "../../../interfaces/Sell";
 
 const SellMain: FC = (): JSX.Element => {
   const MaxPage = 27;
   const pageLength: number[] = [];
   const finalPageLength: number[][] = [];
-  const [pageIndex, setPageIndex]: any = useState<SellMainInterface | number>(0);
-  const [pageDepth, setPageDepth]: any = useState<SellMainInterface | number>(0);
+  const [pageIndex, setPageIndex] = useState<number>(0);
+  const [pageDepth, setPageDepth] = useState<number>(0);
 
   for (let i = 0; i < MaxPage; i++) {
     pageLength.push(i + 1);

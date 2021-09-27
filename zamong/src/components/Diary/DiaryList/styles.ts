@@ -1,4 +1,5 @@
 import styled from "@emotion/styled";
+import { font } from "../../../style/font";
 
 export const Container = styled.div`
   background-color: black;
@@ -14,7 +15,6 @@ export const TodayContainer = styled.div`
   flex-direction: column;
   justify-content: center;
   min-height: 711px;
-
   margin: 0 auto;
   min-height: 711px;
 `;
@@ -24,6 +24,7 @@ export const Title = styled.div`
   font-size: 32px;
   font-weight: bold;
   margin-bottom: 40px;
+  font: ${font.headline1};
 `;
 
 export const TodayDream = styled.div`
@@ -31,7 +32,7 @@ export const TodayDream = styled.div`
   width: 650px;
   background-color: #2c2c2e;
   border-radius: 10px;
-  padding-left: 10px;
+  padding: 0 10px;
 `;
 
 export const TodayBox = styled.div`
@@ -44,9 +45,10 @@ export const TodayDreamText = styled.div`
   width: 37px;
   height: 25px;
   color: white;
+  margin: 20px 0 4px 0;
+  font: ${font.subtitle};
   font-weight: 500;
-  margin: 16px 0 4px 0;
-  font-size: 20px;
+  line-height: 10px;
 `;
 
 export const DiarySignContainer = styled.div`
@@ -54,7 +56,8 @@ export const DiarySignContainer = styled.div`
   width: 100%;
   overflow: auto;
   display: grid;
-  grid-template-columns: repeat(2, 48%);
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: 40%;
   grid-gap: 15px;
 `;
 
@@ -70,9 +73,7 @@ export const DiaryListContainer = styled.div`
 
 export const DiaryListTitle = styled.div`
   height: 30px;
-  font-weight: 500;
-  font-size: 24px;
-  line-height: 30px;
+  font: ${font.headline3};
 `;
 
 export const DiaryListHeader = styled.div`
@@ -84,8 +85,11 @@ export const DiaryListHeader = styled.div`
 
 export const DiaryList = styled.div`
   display: grid;
-  grid-template-columns: repeat(4, 25%);
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: repeat(4, 1fr);
   grid-gap: 15px;
+  height: 1120px;
+  overflow: auto;
 `;
 
 export const WriteDiary = styled.div`
@@ -116,6 +120,8 @@ export const WriteDiaryImg = styled.img`
 export const HeaderSelections = styled.div`
   height: 24px;
   display: flex;
+  font: ${font.body2};
+  font-weight: 400px;
 `;
 
 export const HeaderSelect = styled.div`
@@ -123,21 +129,42 @@ export const HeaderSelect = styled.div`
   margin-left: 25px;
   display: flex;
   cursor: pointer;
-  input {
+  img {
+    width: 15px;
+    height: 15px;
+    cursor: pointer;
+    margin-top: 3px;
+    margin-left: 4px;
+    transition: 0.2s;
+  }
+`;
+
+export const Label = styled.label`
+    width: 20px;
+    height: 20px;
+    position: relative;
+    margin-right: 9px;
+`;
+
+export const Box = styled.div`
+    width: 100%;
+    height: 100%;
+    background-color: #636366;
+    border-radius: 5px;
+    cursor: pointer;
+
+`;
+
+export const Input = styled.input`
     width: 24px;
     height: 24px;
-    cursor: pointer;
-    margin: -5px 5px 0 0;
-  }
-  label {
-    width: 45px;
-    height: 20px;
-  }
-
-  img {
-    width: 20px;
-    height: 9px;
-    margin: 3px;
-    cursor: pointer;
-  }
+    display: none;
+    border-radius: 5px;
+    &:checked ~ div::after{
+        content: '✓';
+        color: black;
+        position: absolute;
+        left: 4px;
+        color: white;
+    }
 `;
