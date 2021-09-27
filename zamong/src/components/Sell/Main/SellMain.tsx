@@ -1,9 +1,5 @@
 import * as S from "./style";
-import React, {
-  FC,
-  useState,
-  useEffect
-} from "react";
+import React, { FC, useState, useEffect } from "react";
 import FollowDreamDiary from "../../CardDream/FollowDreamDiary/FollowDreamDiary";
 
 const SellMain: FC = (): JSX.Element => {
@@ -44,7 +40,7 @@ const SellMain: FC = (): JSX.Element => {
     <S.Container>
       <S.Information>
         <S.SellDreamText>꿈 판매</S.SellDreamText>
-        <S.SellManagementText>꿈 판매 관리 {">"}</S.SellManagementText>
+        <S.SellManagementText>판매 관리 {">"}</S.SellManagementText>
       </S.Information>
       <S.SellingDreamListText>판매중인 꿈 목록</S.SellingDreamListText>
       <S.SellingDreamListContainer>
@@ -69,7 +65,7 @@ const SellMain: FC = (): JSX.Element => {
                 style={
                   index + pageDepth * 10 === pageIndex
                     ? { color: "#0A84FF" }
-                    : { color: "#FFFFFF" }
+                    : { color: "#8E8E93" }
                 }
               >
                 {value}
