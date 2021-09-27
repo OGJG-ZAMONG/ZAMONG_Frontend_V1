@@ -29,6 +29,7 @@ const Calendar: FC = (): JSX.Element => {
         div.style.display = "inline";
         div.style.padding = "4px 4px";
         div.style.borderRadius = "100%";
+        div.style.color = "white";
       }
       DayContainer.current.childNodes[i].insertBefore(div, null);
     }

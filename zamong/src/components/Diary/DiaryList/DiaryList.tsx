@@ -70,7 +70,7 @@ const DiaryList: FC = (): JSX.Element => {
             </S.WriteDiaryText>
           </S.WriteDiary>
           {testArray.map((value) => {
-            return <MyDreamDiary key={value} />
+            return <MyDreamDiary key={value} />;
           })}
         </S.DiaryList>
       </S.DiaryListContainer>

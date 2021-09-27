@@ -93,7 +93,7 @@ export const DiaryList = styled.div`
 `;
 
 export const WriteDiary = styled.div`
-  aspect-ratio: 3/2; 
+  aspect-ratio: 3/2;
   width: 100%;
   box-sizing: border-box;
   aspect-ratio: 3/2;
@@ -140,31 +140,30 @@ export const HeaderSelect = styled.div`
 `;
 
 export const Label = styled.label`
-    width: 20px;
-    height: 20px;
-    position: relative;
-    margin-right: 9px;
+  width: 20px;
+  height: 20px;
+  position: relative;
+  margin-right: 9px;
 `;
 
 export const Box = styled.div`
-    width: 100%;
-    height: 100%;
-    background-color: #636366;
-    border-radius: 5px;
-    cursor: pointer;
-
+  width: 100%;
+  height: 100%;
+  background-color: #636366;
+  border-radius: 5px;
+  cursor: pointer;
 `;
 
 export const Input = styled.input`
-    width: 24px;
-    height: 24px;
-    display: none;
-    border-radius: 5px;
-    &:checked ~ div::after{
-        content: '✓';
-        color: black;
-        position: absolute;
-        left: 4px;
-        color: white;
-    }
+  width: 24px;
+  height: 24px;
+  display: none;
+  border-radius: 5px;
+  &:checked ~ div::after {
+    content: "✓";
+    color: black;
+    position: absolute;
+    left: 4px;
+    color: white;
+  }
 `;

@@ -67,6 +67,7 @@ export const CalendarContainer = styled.div`
   grid-template-columns: repeat(7, 90px);
   border-radius: 10px;
   background-color: #2c2c2e;
+  font: ${font.body2};
 `;
 
 export const DayContainer = styled.div`
