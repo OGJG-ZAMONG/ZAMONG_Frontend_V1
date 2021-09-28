@@ -1,9 +1,9 @@
 import * as S from "./style";
 import React, { FC, useState, useEffect } from "react";
-import FollowDreamDiary from "../../CardDream/FollowDreamDiary/FollowDreamDiary";
+import SellingDream from "../SellingDream/SellingDream";
 
 const SellMain: FC = (): JSX.Element => {
-  const MaxPage = 27;
+  const MaxPage = 16;
   const pageLength: number[] = [];
   const finalPageLength: number[][] = [];
   const [pageIndex, setPageIndex] = useState<number>(0);
@@ -44,7 +44,9 @@ const SellMain: FC = (): JSX.Element => {
       </S.Information>
       <S.SellingDreamListText>판매중인 꿈 목록</S.SellingDreamListText>
       <S.SellingDreamListContainer>
-        <FollowDreamDiary />
+        {pageLength.map((v) => {
+          return <SellingDream key={v} />;
+        })}
       </S.SellingDreamListContainer>
       <S.PageNationContainer>
         <S.Prev onClick={prevPage}>{"<"} 이전</S.Prev>
