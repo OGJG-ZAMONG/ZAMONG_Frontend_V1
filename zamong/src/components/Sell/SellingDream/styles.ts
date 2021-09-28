@@ -67,6 +67,7 @@ export const TagsContainer = styled.div`
   width: 60%;
   display: flex;
   justify-content: right;
+  margin: auto 0;
   div {
     margin: 0 3%;
   }

@@ -45,7 +45,16 @@ const SellMain: FC = (): JSX.Element => {
       <S.SellingDreamListText>판매중인 꿈 목록</S.SellingDreamListText>
       <S.SellingDreamListContainer>
         {pageLength.map((v) => {
-          return <SellingDream key={v} />;
+          return (
+            <SellingDream
+              key={v}
+              price={1000}
+              date={"8월 10일"}
+              userName={"USER04"}
+              title={"대법관은 대법원장의 제청으로 국회의 동의를 얻어..."}
+              tag={["루시드 드림", "악몽"]}
+            />
+          );
         })}
       </S.SellingDreamListContainer>
       <S.PageNationContainer>
