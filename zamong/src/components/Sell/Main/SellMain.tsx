@@ -1,18 +1,13 @@
 import * as S from "./style";
-import React, {
-  FC,
-  useState,
-  useEffect
-} from "react";
-import FollowDreamDiary from "../../CardDream/FollowDreamDiary/FollowDreamDiary";
-import { SellMainInterface } from "../../../interfaces/Sell";
+import React, { FC, useState, useEffect } from "react";
+import SellingDream from "../SellingDream/SellingDream";
 
 const SellMain: FC = (): JSX.Element => {
-  const MaxPage = 27;
+  const MaxPage = 16;
   const pageLength: number[] = [];
   const finalPageLength: number[][] = [];
-  const [pageIndex, setPageIndex]: any = useState<SellMainInterface | number>(0);
-  const [pageDepth, setPageDepth]: any = useState<SellMainInterface | number>(0);
+  const [pageIndex, setPageIndex] = useState<number>(0);
+  const [pageDepth, setPageDepth] = useState<number>(0);
 
   for (let i = 0; i < MaxPage; i++) {
     pageLength.push(i + 1);
@@ -45,11 +40,22 @@ const SellMain: FC = (): JSX.Element => {
     <S.Container>
       <S.Information>
         <S.SellDreamText>꿈 판매</S.SellDreamText>
-        <S.SellManagementText>꿈 판매 관리 {">"}</S.SellManagementText>
+        <S.SellManagementText>판매 관리 {">"}</S.SellManagementText>
       </S.Information>
       <S.SellingDreamListText>판매중인 꿈 목록</S.SellingDreamListText>
       <S.SellingDreamListContainer>
-        <FollowDreamDiary />
+        {pageLength.map((v) => {
+          return (
+            <SellingDream
+              key={v}
+              price={1000}
+              date={"8월 10일"}
+              userName={"USER04"}
+              title={"대법관은 대법원장의 제청으로 국회의 동의를 얻어..."}
+              tag={["루시드 드림", "악몽"]}
+            />
+          );
+        })}
       </S.SellingDreamListContainer>
       <S.PageNationContainer>
         <S.Prev onClick={prevPage}>{"<"} 이전</S.Prev>
@@ -70,7 +76,7 @@ const SellMain: FC = (): JSX.Element => {
                 style={
                   index + pageDepth * 10 === pageIndex
                     ? { color: "#0A84FF" }
-                    : { color: "#FFFFFF" }
+                    : { color: "#8E8E93" }
                 }
               >
                 {value}

@@ -16,43 +16,46 @@ export const Information = styled.div`
 `;
 
 export const SellDreamText = styled.div`
-  font-style: Bold;
-  font-size: 32px;
+  font: ${font.headline1};
 `;
 
 export const SellManagementText = styled.div`
-  font-size: 20px;
+  font: ${font.subtitle};
   cursor: pointer;
 `;
 
 export const SellingDreamListText = styled.div`
-    font-size: 24px;
-    color: white;
-    margin-bottom: 28px;
+  font: ${font.headline3};
+  font-size: 24px;
+  color: white;
+  margin-bottom: 28px;
 `;
 
 export const SellingDreamListContainer = styled.div`
-    height: 1390px;
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    grid-template-rows: repeat(4, 1fr);
-    column-gap: 20px;
-    row-gap: 40px;
+  height: 1390px;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: repeat(4, 1fr);
+  column-gap: 20px;
+  row-gap: 40px;
+  margin-bottom: 56px;
 `;
 
 export const PageNationContainer = styled.div`
-    width: 412px;
-    height: 25px;
-    display: flex;
-    justify-content: space-between;
-    color: white;
-    margin: 0 auto;
+  width: 444px;
+  height: 25px;
+  display: flex;
+  justify-content: space-evenly;
+  color: #8e8e93;
+  margin: 0 auto;
+  font: ${font.subtitle};
 `;
 
 export const PageContainer = styled.div`
-  display: flex;
-  justify-content: space-evenly;
-  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(10, 1fr);
+  width: 308px;
+  margin: 0 16px;
 `;
 
 export const Prev = styled.div`
