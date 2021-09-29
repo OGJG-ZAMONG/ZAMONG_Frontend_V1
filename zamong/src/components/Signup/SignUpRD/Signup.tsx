@@ -1,4 +1,4 @@
-import * as S from "./Style";
+import * as S from "./styles";
 import { MutableRefObject, useRef } from "react"
 
 const Login = (): JSX.Element => {
