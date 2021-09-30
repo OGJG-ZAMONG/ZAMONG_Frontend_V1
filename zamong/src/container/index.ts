@@ -4,3 +4,4 @@ export { default as DiaryContainer } from "./Diary";
 export { default as SignupContainer } from "./Signup";
 export { default as SellDreamContainer } from "./Sell";
 export { default as DiaryWriteContainer } from "./DiaryWrite";
+export { default as SellManagementContainer } from "./Sell/SellManagement";
