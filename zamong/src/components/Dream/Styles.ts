@@ -1,6 +1,6 @@
 import styled from "@emotion/styled";
 import { font } from "../../style/font";
-import { color } from "../../style";
+import { color } from "../../style/color";
 
 export const DreamContainer = styled.div`
   display: grid;

@@ -1,5 +1,5 @@
 import styled from "@emotion/styled";
-import { color } from "../../../../../style";
+import { color } from "../../../../../style/color";
 import { font } from "../../../../../style/font";
 
 export const DateColumn = styled.div<{ height: number }>`

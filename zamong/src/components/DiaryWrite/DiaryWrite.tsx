@@ -1,12 +1,12 @@
 import React, { useState } from "react";
-import { color } from "../../style";
+import { color } from "../../style/color";
 import Footer from "../Footer/Footer";
 import Header from "../Header/Header";
 import DreamType from "./component/Properties/Accordion/AccordionMenus/DreamType/DreamType";
 import DreamDate from "./component/Properties/Selecter/DreamDate/DreamDate";
 import DreamQuality from "./component/Properties/Selecter/DreamQuality/DreamQuality";
 import DreamTime from "./component/Properties/Selecter/DreamTime/DreamTime";
-import * as S from "./Styles";
+import * as S from "./styles";
 
 const DiaryWrite = (): JSX.Element => {
   const MAXTITLE = 100;

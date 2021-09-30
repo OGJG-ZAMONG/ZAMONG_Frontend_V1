@@ -1,4 +1,3 @@
-import { css } from "@emotion/react";
 const medium = 400;
 const regular = 300;
 export const font = {

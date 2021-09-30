@@ -1,7 +1,7 @@
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 import { font } from "../../style/font";
-import {color} from "../../style/index";
+import {color} from "../../style/color";
 
 export const HeaderContainer = styled.div<{pd: number, lineOpacity : number}>`
     font: ${font.body3};

@@ -1,4 +1,4 @@
-import * as S from './Styles';
+import * as S from './styles';
 import LinkIcon from '../../assets/icons/link.svg';
 import Github from '../../assets/icons/github.svg';
 import { Link } from 'react-router-dom';

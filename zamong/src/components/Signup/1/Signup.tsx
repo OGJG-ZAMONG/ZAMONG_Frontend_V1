@@ -1,4 +1,4 @@
-import * as S from "./style";
+import * as S from "./styles";
 
 const Signup = (): JSX.Element => {
   return (
