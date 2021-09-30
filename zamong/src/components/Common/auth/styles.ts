@@ -1,5 +1,5 @@
 import styled from "@emotion/styled";
-import { leftside, rightside } from "../../assets/index";
+import { leftside, rightside } from "../../../assets/index";
 
 export const Background = styled.div`
   width: 100%;
