@@ -1,5 +1,5 @@
 import styled from "@emotion/styled";
-import { color } from "../../style";
+import { color } from "../../style/color";
 import { font } from "../../style/font";
 import TextareaAutosize from "react-textarea-autosize";
 import { css } from "@emotion/react";

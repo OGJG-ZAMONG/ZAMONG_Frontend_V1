@@ -1,15 +1,14 @@
-import React, { Suspense } from "react";
 import Footer from "../../components/Footer/Footer";
 import Header from "../../components/Header/Header";
-const MainPage = React.lazy(() => import("../../components/MainPage/MainPage"));
+import MainPage from "../../components/MainPage/MainPage";
 
 const MainPageContainer = (): JSX.Element => {
   return (
-    <Suspense fallback={<div>loading...</div>}>
+    <div>
       <Header />
       <MainPage />
       <Footer />
-    </Suspense>
+    </div>
   );
 };
 

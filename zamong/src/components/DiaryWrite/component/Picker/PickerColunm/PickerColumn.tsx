@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { color } from "../../../../../style";
+import { color } from "../../../../../style/color";
 import * as S from "./styles";
 import { HEIGHT } from "../model";
 

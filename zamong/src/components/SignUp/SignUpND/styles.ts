@@ -36,7 +36,7 @@ export const Input = styled.input`
 
 export const Check = styled(Input)`
   margin-bottom: 16px;
-`
+`;
 
 export const EventBox = styled.div`
   display: flex;
@@ -62,7 +62,7 @@ export const NextButton = styled.div`
   font-size: 16px;
   color: white;
   border: 1px solid transparent;
-  background-color: #0A84FF;
+  background-color: #0a84ff;
   border-radius: 100px;
   text-align: center;
   line-height: 2;

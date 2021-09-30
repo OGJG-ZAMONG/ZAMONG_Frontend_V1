@@ -23,7 +23,7 @@ export const GuideWord = styled.div`
 
 export const NumberContainer = styled.div`
   margin-bottom: 186px;
-`
+`;
 
 export const NumberBox = styled.input`
   width: 53px;
@@ -39,7 +39,7 @@ export const NumberBox = styled.input`
   border: none;
   border-radius: 10px;
   padding: 0;
-`
+`;
 
 export const EventBox = styled.div`
   display: flex;
@@ -65,7 +65,7 @@ export const NextButton = styled.div`
   font-size: 16px;
   color: white;
   border: 1px solid transparent;
-  background-color: #0A84FF;
+  background-color: #0a84ff;
   border-radius: 100px;
   text-align: center;
   line-height: 2;

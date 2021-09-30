@@ -1,4 +1,4 @@
-import * as S from "./style";
+import * as S from "./styles";
 import { MutableRefObject, useRef } from "react";
 
 const Signup3 = (): JSX.Element => {

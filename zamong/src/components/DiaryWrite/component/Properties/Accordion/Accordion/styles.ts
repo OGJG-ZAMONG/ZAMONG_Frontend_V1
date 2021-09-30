@@ -1,5 +1,5 @@
 import styled from "@emotion/styled";
-import { color } from "../../../../../../style/index";
+import { color } from "../../../../../../style/color";
 
 export const Container = styled.div`
   border-radius: 10px;
