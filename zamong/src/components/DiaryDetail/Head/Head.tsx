@@ -10,9 +10,9 @@ const DiaryDetail = (): JSX.Element => {
         공무원을 임면한다.
       </S.Title>
       <S.TagContainer>
-        <Tag content="악몽" />
-        <Tag content="악몽" />
-        <Tag content="악몽" />
+        <Tag>악몽</Tag>
+        <Tag>악몽</Tag>
+        <Tag>악몽</Tag>
       </S.TagContainer>
       <S.DreamInfo>
         <S.LeftInfo>
