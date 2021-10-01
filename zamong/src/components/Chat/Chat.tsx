@@ -6,21 +6,26 @@ const Chat: FC = (): JSX.Element => {
   return (
     <S.Container>
       <S.ChatListContainer>
-        <S.ChatInfoText>채팅 5개</S.ChatInfoText>
+        <S.ChatInfoText>
+            <span>채팅&nbsp;</span>
+          <S.ChatCount>5개</S.ChatCount>
+        </S.ChatInfoText>
         <S.SearchChatContainer>
-          <S.SearchIcon src={search}/>
-          <S.SearchChatContent placeholder="검색할 내용을 입력하세요" type="text"/>
+          <S.SearchChatContent
+            placeholder="검색할 내용을 입력하세요"
+            type="text"
+            imgSrc={search}
+          />
         </S.SearchChatContainer>
         <S.ChatList>
-            <S.ChatRoom>
-                
-            </S.ChatRoom>
+          <S.ChatRoom></S.ChatRoom>
+          <S.ChatRoom></S.ChatRoom>
+          <S.ChatRoom></S.ChatRoom>
+          <S.ChatRoom></S.ChatRoom>
+          <S.ChatRoom></S.ChatRoom>
         </S.ChatList>
       </S.ChatListContainer>
-      <S.ChatViewerContainer>
-
-
-      </S.ChatViewerContainer>
+      <S.ChatViewerContainer></S.ChatViewerContainer>
     </S.Container>
   );
 };
