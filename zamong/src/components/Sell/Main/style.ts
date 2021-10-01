@@ -1,5 +1,6 @@
 import styled from "@emotion/styled";
 import { font } from "../../../style/font";
+import { Link } from "react-router-dom";
 
 export const Container = styled.div`
   width: 1280px;
@@ -22,6 +23,11 @@ export const SellDreamText = styled.div`
 export const SellManagementText = styled.div`
   font: ${font.subtitle};
   cursor: pointer;
+`;
+
+export const LinkBox = styled(Link)`
+  color: #ffffff;
+  text-decoration: none;
 `;
 
 export const SellingDreamListText = styled.div`

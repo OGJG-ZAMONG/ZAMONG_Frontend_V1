@@ -40,7 +40,9 @@ const SellMain: FC = (): JSX.Element => {
     <S.Container>
       <S.Information>
         <S.SellDreamText>꿈 판매</S.SellDreamText>
-        <S.SellManagementText>판매 관리 {">"}</S.SellManagementText>
+        <S.LinkBox to={"/sell/management"}>
+          <S.SellManagementText>판매 관리 {">"}</S.SellManagementText>
+        </S.LinkBox>
       </S.Information>
       <S.SellingDreamListText>판매중인 꿈 목록</S.SellingDreamListText>
       <S.SellingDreamListContainer>
