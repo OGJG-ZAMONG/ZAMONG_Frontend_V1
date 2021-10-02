@@ -3,9 +3,12 @@ import { font } from "../../style/font";
 
 //chat list
 export const Container = styled.div`
+  height: 85vh;
   color: white;
   margin: 0 32px;
   padding-top: 5%;
+  display: grid;
+  grid-template-columns: 30% 10% 60%;
 `;
 
 export const ChatListContainer = styled.div`
@@ -16,19 +19,12 @@ export const ChatListContainer = styled.div`
 `;
 
 export const ChatList = styled.div`
-    display: grid;
-    height: 578px;
-    width: 522px;
-    overflow: auto;
-    grid-template-rows: repeat(5, 1fr);
-    row-gap: 12px;
-`;
-
-export const ChatRoom = styled.div`
-    width: 100%;
-    height: 100px;
-    border-radius: 10px;
-    background-color: #2C2C2E;
+  display: grid;
+  height: 100%;
+  width: 522px;
+  overflow: auto;
+  grid-template-rows: repeat(5, 1fr);
+  row-gap: 12px;
 `;
 
 export const ChatInfoText = styled.div`
@@ -39,7 +35,7 @@ export const ChatInfoText = styled.div`
 `;
 
 export const ChatCount = styled.div`
-    color: #0A84FF;
+  color: #0a84ff;
 `;
 
 export const SearchChatContainer = styled.div`
@@ -68,15 +64,29 @@ export const SearchChatContent = styled.input<{ imgSrc: string }>`
   }
 `;
 
+//Line
+export const ChatLineContainer = styled.div`
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+`;
 
-export const ListUserName = styled.div``;
-
-export const LastConnection = styled.div``;
-
-export const LastChat = styled.div``;
+export const ChatLine = styled.div`
+  height: 100%;
+  background-color: #636366;
+  border-radius: 15px;
+  width: 2px;
+  display: flex;
+  justify-content: center;
+`;
 
 //chat view
-export const ChatViewerContainer = styled.div``;
+export const ChatViewerContainer = styled.div`
+  width: 100%;
+  background-color: #2c2c2e;
+  border-radius: 10px;
+`;
 
 export const ChatTitle = styled.div``;
 
