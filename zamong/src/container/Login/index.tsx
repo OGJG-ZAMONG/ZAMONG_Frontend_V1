@@ -1,12 +1,13 @@
-import { AuthBackground } from "../../components/Common";
-import Login from "../../components/Login/Login";
+import { FC } from "react";
+import { AuthBackground } from "../../common/index";
+import Login from "../../components/Login/Login"
 
-const LoginContainer = (): JSX.Element => {
+const LoginContainer: FC = (): JSX.Element => {
   return (
-    <div>
+    <>
       <AuthBackground />
       <Login />
-    </div>
+    </>
   );
 };
 
