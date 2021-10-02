@@ -1,5 +1,5 @@
 import { FC } from "react";
-import { AuthBackground } from "../../common/index";
+import { AuthBackground } from "../../components/Common/index";
 import Login from "../../components/Login/Login"
 
 const LoginContainer: FC = (): JSX.Element => {
