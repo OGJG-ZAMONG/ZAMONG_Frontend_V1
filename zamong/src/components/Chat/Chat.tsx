@@ -2,6 +2,9 @@ import { FC } from "react";
 import * as S from "./styles";
 import { search, editGrey, send } from "../../assets";
 import ChatRoom from "./ChatRoom/ChatRoom";
+import MyText from "./ChatBalloon/My/MyText";
+import OpponentText from "./ChatBalloon/Opponent/OpponentText";
+
 const testArray: number[] = [];
 for (let i = 0; i < 10; i++) {
   testArray.push(i);
@@ -53,16 +56,15 @@ const Chat: FC = (): JSX.Element => {
           </S.HeaderNav>
         </S.ChatViewHeader>
         <S.ChatBox>
-          <S.OpponentTextContainer>
-            <S.OpponentText>
-              안녕하세요 ㅎㅎ, 꿈 판매 관련해서 여쭤보려구요
-            </S.OpponentText>
-          </S.OpponentTextContainer>
-          
-          <S.MyTextContainer>
-            <S.MyText>아하 안 팔아요</S.MyText>
-          </S.MyTextContainer>
-          
+          <MyText message={"안녕하세요 꿈 구매하고 싶은데요..."} />
+          <OpponentText message={"아하 그러시구나"} />
+          <OpponentText message={"1000원에 팔께요 ^^"} />
+          <MyText
+            message={"너무 비싼 것 같아요 조금만 할인해주시면 안될까요?"}
+          />
+          <OpponentText message={"좋은 하루 보내세요"} />
+          <MyText message={"ㅎㅎㅎㅎㅎ 넵"} />
+          <MyText message={"ㅎㅎㅎㅎㅎ 넵"} />
         </S.ChatBox>
         <S.ChatInputBox>
           <S.ChatInput type="text" placeholder="내용을 입력하십시오." />

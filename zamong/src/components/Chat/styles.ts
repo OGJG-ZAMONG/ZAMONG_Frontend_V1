@@ -21,10 +21,10 @@ export const ChatListContainer = styled.div`
 
 export const ChatList = styled.div`
   display: grid;
+  grid-template-rows: repeat(5, 1fr);
   height: 100%;
   width: 29vw;
   overflow: auto;
-  grid-template-rows: repeat(5, 1fr);
   row-gap: 12px;
 `;
 
@@ -164,8 +164,10 @@ export const ChatSubmitIMG = styled.img`
 
 export const ChatBox = styled.div`
   display: flex;
-  flex-direction: column-reverse;
+  flex-direction: column;
   position: relative;
+  overflow: scroll;
+  max-height: 700px;
 `;
 
 export const OpponentText = styled.div`

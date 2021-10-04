@@ -3,12 +3,12 @@ import { font } from "../../../style/font";
 
 export const ChatRoom = styled.div`
     padding: 16px;
-    height: 100px;
     border-radius: 10px;
     background-color: #2C2C2E;
     font: ${font.subtitle};
     display: grid;
     grid-template-rows: repeat(3, 1fr);
+    cursor: pointer;
 `;
 
 
