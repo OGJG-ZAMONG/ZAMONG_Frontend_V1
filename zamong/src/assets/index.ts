@@ -6,3 +6,5 @@ export { default as edit } from "./icon/edit.svg";
 export { default as pointer } from "./icon/pointer.svg";
 export { default as defaultProfile } from "./profile/default-profile.png";
 export { default as search } from "./icon/search.svg";
+export { default as editGrey } from "./icon/edit-grey.svg";
+export { default as send } from "./icon/send.svg";
