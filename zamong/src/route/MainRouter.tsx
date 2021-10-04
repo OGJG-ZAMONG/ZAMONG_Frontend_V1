@@ -8,6 +8,7 @@ import {
   SellDreamContainer,
   DiaryWriteContainer,
 } from "../container";
+import ChatContainer from "../container/Chat/ChatContainer";
 
 const MainRouter: FC = (): JSX.Element => {
   return (
@@ -19,6 +20,7 @@ const MainRouter: FC = (): JSX.Element => {
         <Route exact path="/diary/write" component={DiaryWriteContainer} />
         <Route exact path="/signup" component={SignupContainer} />
         <Route exact path="/sell" component={SellDreamContainer} />
+        <Route exact path="/chat" component={ChatContainer} />
       </Switch>
     </>
   );
