@@ -1,7 +1,7 @@
 import * as S from "./styles";
 import Tag from "../../Tag/Tag";
 
-const DiaryDetail = (): JSX.Element => {
+const DiaryDetailHeader = (): JSX.Element => {
   return (
     <S.HeadContainer>
       <S.Title>
@@ -33,4 +33,4 @@ const DiaryDetail = (): JSX.Element => {
   );
 };
 
-export default DiaryDetail;
+export default DiaryDetailHeader;

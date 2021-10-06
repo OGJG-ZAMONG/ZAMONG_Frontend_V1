@@ -1,6 +1,6 @@
 import * as S from './styles'
 
-const DiaryDetail = () : JSX.Element => {
+const DiaryDetailPosting = () : JSX.Element => {
 
   return (
     <S.PostingContainer>
@@ -37,4 +37,4 @@ const DiaryDetail = () : JSX.Element => {
   )
 }
 
-export default DiaryDetail;
+export default DiaryDetailPosting;
