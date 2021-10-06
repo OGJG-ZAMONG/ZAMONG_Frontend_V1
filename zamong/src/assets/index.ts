@@ -8,8 +8,8 @@ export { default as defaultProfile } from "./profile/default-profile.png";
 export { default as more } from "./icons/more.svg";
 export { default as profile } from "./icons/testProfile.svg";
 export { default as like } from "./icons/like.svg";
-export { default as disLike } from "./icons/disLike.svg";
+export { default as disLike } from "./icons/change1.svg";
 export { default as lightLike } from "./icons/lightLike.svg"
-export { default as lightDisLike } from "./icons/lightDisLike.svg"
+export { default as lightDisLike } from "./icons/change2.svg"
 export { default as plus } from "./icons/plus.svg";
 export { default as toggle } from "./icons/toggle.svg";
