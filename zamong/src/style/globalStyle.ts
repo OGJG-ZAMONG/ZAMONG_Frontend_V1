@@ -2,6 +2,9 @@ import { css } from "@emotion/react";
 import { color } from "./color";
 
 export const reset = css`
+  * {
+    box-sizing: border-box;
+  }
   html,
   body,
   div,
@@ -110,7 +113,7 @@ export const reset = css`
   body {
     line-height: auto;
     margin: 0;
-    background-color: #1C1C1E;
+    background-color: #1c1c1e;
   }
   ol,
   ul {

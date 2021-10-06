@@ -3,10 +3,11 @@ import { Switch, Route } from "react-router-dom";
 import {
   LoginContainer,
   DiaryContainer,
-  SignupContainer,
+  SignUpContainer,
   MainContainer,
   SellDreamContainer,
   DiaryWriteContainer,
+  SellDetailContainer,
 } from "../container";
 import ChatContainer from "../container/Chat/ChatContainer";
 
@@ -18,8 +19,9 @@ const MainRouter: FC = (): JSX.Element => {
         <Route exact path="/login" component={LoginContainer} />
         <Route exact path="/diary" component={DiaryContainer} />
         <Route exact path="/diary/write" component={DiaryWriteContainer} />
-        <Route exact path="/signup" component={SignupContainer} />
+        <Route exact path="/signup" component={SignUpContainer} />
         <Route exact path="/sell" component={SellDreamContainer} />
+        <Route exact path="/sell/detail" component={SellDetailContainer} />
         <Route exact path="/chat" component={ChatContainer} />
       </Switch>
     </>

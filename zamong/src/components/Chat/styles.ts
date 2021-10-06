@@ -1,6 +1,6 @@
 import styled from "@emotion/styled";
 import { font } from "../../style/font";
-import { color } from "../../style/index";
+import { color } from "../../style/color";
 
 //chat list
 export const Container = styled.div`
