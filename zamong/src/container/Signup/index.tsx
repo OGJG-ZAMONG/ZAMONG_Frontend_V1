@@ -1,7 +1,7 @@
 import { AuthBackground } from "../../components/Common";
 import SignUp from "../../components/SignUp/SignUpST/SignUp";
 
-const SignupContainer = (): JSX.Element => {
+const SignUpContainer = (): JSX.Element => {
   return (
     <div>
       <AuthBackground />
@@ -10,4 +10,4 @@ const SignupContainer = (): JSX.Element => {
   );
 };
 
-export default SignupContainer;
+export default SignUpContainer;
