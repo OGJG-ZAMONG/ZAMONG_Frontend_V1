@@ -1,6 +1,6 @@
 import { FC } from "react";
 import styled from "@emotion/styled";
-import { color } from "../../../../style";
+import { color } from "../../../../style/color";
 
 const MyTextContainer = styled.div`
   width: 100%;
