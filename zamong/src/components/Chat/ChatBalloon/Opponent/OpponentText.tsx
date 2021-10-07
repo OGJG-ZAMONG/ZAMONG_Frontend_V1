@@ -1,6 +1,6 @@
 import { FC } from "react";
 import styled from "@emotion/styled";
-import { color } from "../../../../style";
+import { color } from "../../../../style/color";
 
 const OpponentText = styled.div`
   background-color: ${color.darkGray};
