@@ -1,5 +1,6 @@
 import * as S from "./styles";
 import Tag from "../../Tag/Tag";
+import { defaultProfile, more } from "../../../assets";
 
 const DiaryDetailHeader = (): JSX.Element => {
   return (
@@ -21,13 +22,18 @@ const DiaryDetailHeader = (): JSX.Element => {
             <>공유한 날짜 : 9월 24일</>
           </S.PostingDate>
           <div>
-            <>수면 시각 : </>
+            <>수면 시각 : 0:17부터 7:23까지</>
           </div>
           <div>
-            <>꿈의 품질 : </>
+            <>꿈의 품질 : 😚 아주 좋아요</>
           </div>
         </S.LeftInfo>
-        <S.Profile>USER04</S.Profile>
+        <S.UserInfo>
+          <img alt="profile" src={defaultProfile} />
+          <S.Profile>
+            USER04</S.Profile>
+          <img alt="more" src={more} />
+        </S.UserInfo>
       </S.DreamInfo>
     </S.HeadContainer>
   );

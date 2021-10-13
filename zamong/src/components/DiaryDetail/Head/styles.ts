@@ -43,8 +43,13 @@ export const DreamingDate = styled.div`
   margin-right: 16px;
 `;
 
+export const UserInfo = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 18px;
+`
+
 export const Profile = styled.div`
   color: ${color.white};
   font: ${font.body3};
-  margin-right: 18px;
 `;

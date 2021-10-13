@@ -1,9 +1,9 @@
 import styled from "@emotion/styled";
 import { color } from "../../../../../style/color";
 
-export const CommentToggle = styled.div`
+export const CommentToggle = styled.div<{ display: string }>`
   color: ${color.white};
-  display: flex;
+  display: ${(props) => props.display};
   margin: auto 0;
 `;
 
