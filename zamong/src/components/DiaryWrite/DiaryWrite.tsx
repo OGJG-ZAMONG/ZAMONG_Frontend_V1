@@ -31,7 +31,6 @@ const DiaryWrite = (): JSX.Element => {
 
   return (
     <>
-      <Header />
       <S.ContentContainer>
         <S.WriteSection>
           <S.Title>꿈 작성하기</S.Title>
@@ -76,7 +75,6 @@ const DiaryWrite = (): JSX.Element => {
           </S.ButtonContainer>
         </S.WriteSection>
       </S.ContentContainer>
-      <Footer />
     </>
   );
 };
