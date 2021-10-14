@@ -110,7 +110,7 @@ export const reset = css`
   body {
     line-height: auto;
     margin: 0;
-    background-color: #1C1C1E;
+    background-color: #1c1c1e;
   }
   ol,
   ul {
@@ -136,5 +136,16 @@ export const reset = css`
   }
   html {
     background-color: ${color.black};
+  }
+
+  &::-webkit-scrollbar {
+    width: 5px;
+  }
+  &::-webkit-scrollbar-thumb {
+    background-color: ${color.darkGray};
+    border-radius: 100px;
+  }
+  &::-webkit-scrollbar-track {
+    background-color: rgba(0, 0, 0, 0);
   }
 `;
