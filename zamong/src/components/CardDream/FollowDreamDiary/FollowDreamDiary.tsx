@@ -1,5 +1,5 @@
 import defaultImage from "../../../assets/DefaultPostingImages/1.jpg";
-import * as S from "./Styles";
+import * as S from "./styles";
 import * as I from "../index";
 
 const FollowDreamDiary = (): JSX.Element => {
