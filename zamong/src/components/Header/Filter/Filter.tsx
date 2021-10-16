@@ -1,8 +1,10 @@
-import * as S from "./styles";
-import { FilterIcon, DownChevronIcon } from "../../../assets/index";
-import { useState } from "react";
-const Filter = (): JSX.Element => {
-  const [isActive, setIsActive] = useState<boolean>(false);
+import * as S from './styles';
+
+import FilterIcon from '../../../assets/icons/filterIcon.svg';
+import DownChevronIcon from '../../../assets/icons/downChevron.svg';
+import { useState } from 'react';
+const Filter = () : JSX.Element => {
+    const [isActive, setIsActive] = useState<boolean>(false);
 
   return (
     <S.FilterContainer>

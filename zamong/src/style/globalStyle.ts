@@ -1,5 +1,5 @@
 import { css } from "@emotion/react";
-import { color } from ".";
+import { color } from "./color";
 
 export const reset = css`
   html,
@@ -91,6 +91,7 @@ export const reset = css`
     font-family: "Spoqa Han Sans Neo", "sans-serif";
     vertical-align: baseline;
     font-smooth: antialiased;
+    -webkit-font-smoothing: antialiased;
   }
   /* HTML5 display-role reset for older browsers */
   article,
@@ -107,9 +108,9 @@ export const reset = css`
     display: block;
   }
   body {
-    line-height: 1;
+    line-height: auto;
     margin: 0;
-    background-color: black;
+    background-color: #1c1c1e;
   }
   ol,
   ul {
@@ -133,7 +134,18 @@ export const reset = css`
   li {
     list-style: none;
   }
-  html{
+  html {
     background-color: ${color.black};
+  }
+
+  &::-webkit-scrollbar {
+    width: 5px;
+  }
+  &::-webkit-scrollbar-thumb {
+    background-color: ${color.darkGray};
+    border-radius: 100px;
+  }
+  &::-webkit-scrollbar-track {
+    background-color: rgba(0, 0, 0, 0);
   }
 `;

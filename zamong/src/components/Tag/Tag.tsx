@@ -1,19 +1,11 @@
-import * as S from './Styles';
+import * as S from "./styles";
 
 type TagProps = {
-    content: string;
-  };
-  
+  children: React.ReactNode;
+};
 
-const Tag : React.FC<TagProps> = ({ content } : TagProps) : JSX.Element => {
-
-    return (
-        <S.TagContainer>
-            <span>
-                {content}
-            </span>
-        </S.TagContainer>
-    );
-}
+const Tag: React.FC<TagProps> = ({ children }: TagProps): JSX.Element => {
+  return <S.TagContainer>{children}</S.TagContainer>;
+};
 
 export default Tag;

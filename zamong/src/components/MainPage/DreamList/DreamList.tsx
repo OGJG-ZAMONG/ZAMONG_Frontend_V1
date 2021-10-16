@@ -1,5 +1,5 @@
-import * as S from "./Styles";
-import * as G from "../globalstyle";
+import * as S from "./styles";
+import * as I from "../Index";
 import Dream from "../../Dream/Dream";
 import { DownChevron } from "../../../assets";
 

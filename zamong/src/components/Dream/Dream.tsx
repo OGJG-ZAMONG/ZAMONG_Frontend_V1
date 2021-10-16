@@ -1,5 +1,5 @@
-import * as S from "./Styles";
-import { DefaultImage } from "../../assets/index";
+import * as S from "./styles";
+import defaultImage from "../../assets/DefaultPostingImages/1.jpg";
 import { useState } from "react";
 import Tag from "../Tag/Tag";
 
@@ -32,10 +32,10 @@ const Dream = (): JSX.Element => {
         </S.DreamInfoContainer>
         <S.DreamTagContainer>
           <S.DreamTagInner>
-            <Tag content="악몽" />
-            <Tag content="첫 게시물" />
-            <Tag content="루시드 드림" />
-            <Tag content="거짓 깨어남" />
+            <Tag>악몽</Tag>
+            <Tag>첫 게시물</Tag>
+            <Tag>루시드 드림</Tag>
+            <Tag>거짓 깨어남</Tag>
           </S.DreamTagInner>
         </S.DreamTagContainer>
       </S.DreamContainer>
