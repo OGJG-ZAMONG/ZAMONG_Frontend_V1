@@ -1,7 +1,7 @@
 import * as S from "./styles";
 import { MutableRefObject, useRef } from "react";
 
-const Signup3 = (): JSX.Element => {
+const SignUpRD = (): JSX.Element => {
   const inputRefs: MutableRefObject<any> = useRef([]);
   const numberBox = ["0", "1", "2", "3", "4", "5"];
 
@@ -33,4 +33,4 @@ const Signup3 = (): JSX.Element => {
   );
 };
 
-export default Signup3;
+export default SignUpRD;
