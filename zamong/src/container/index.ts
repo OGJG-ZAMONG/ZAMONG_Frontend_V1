@@ -5,3 +5,4 @@ export { default as SignUpContainer } from "./SignUp";
 export { default as SellDreamContainer } from "./Sell";
 export { default as DiaryWriteContainer } from "./DiaryWrite";
 export { default as SellWrite } from "./SellWrite";
+export { default as ProfileContainter } from "./Profile";
