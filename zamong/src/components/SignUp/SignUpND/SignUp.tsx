@@ -1,6 +1,6 @@
 import * as S from "./styles";
 
-const Signup2 = (): JSX.Element => {
+const SignUpND = (): JSX.Element => {
   return (
     <S.SignupBox>
       <S.Title>회원가입</S.Title>
@@ -18,4 +18,4 @@ const Signup2 = (): JSX.Element => {
   );
 };
 
-export default Signup2;
+export default SignUpND;
