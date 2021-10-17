@@ -6,7 +6,7 @@ import { DownChevron } from "../../../assets";
 const DreamList = (): JSX.Element => {
   return (
     <div>
-      <G.SectionTitle>공개된 꿈 목록</G.SectionTitle>
+      {/* <G.SectionTitle>공개된 꿈 목록</G.SectionTitle>*/}
       <div>
         <Dream />
         <Dream />

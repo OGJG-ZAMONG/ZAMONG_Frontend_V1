@@ -2,7 +2,6 @@ import { Link } from "react-router-dom";
 import Header from "../Header/Header";
 import * as S from "./styles";
 import {
-  HelloImg,
   Dream,
   MyDreamDiary,
   DreamList,
@@ -10,8 +9,7 @@ import {
   FollowList,
   MyDreamDiaryList,
   FollowDreamDiaryList,
-} from "./index";
-// import MyDreamDiary from "../CardDream/MyDreamDiary/MyDreamDiary";
+} from "./Index";
 
 const MainPage = (): JSX.Element => {
   return (
@@ -28,7 +26,7 @@ const MainPage = (): JSX.Element => {
               <Link to="/login">로그인  </Link>
             </S.HelloContent>
             <S.HelloImage>
-              <img src={HelloImg} alt="hello img" />
+              {/*<img src={HelloImg} alt="hello img" />*/}
             </S.HelloImage>
           </S.HelloContainer>
         </S.HelloSection>

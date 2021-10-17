@@ -1,5 +1,5 @@
 import FollowDreamDiary from "../../../CardDream/FollowDreamDiary/FollowDreamDiary";
-import * as I from "../Index";
+import * as I from "../style";
 import * as G from "../../globalstyle";
 
 const FollowDreamDiaryList = (): JSX.Element => {

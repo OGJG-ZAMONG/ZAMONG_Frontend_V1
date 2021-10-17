@@ -9,10 +9,10 @@ const Dream = (): JSX.Element => {
   return (
     <>
       <S.DreamContainer>
-        <S.DreamImage img={DefaultImage}>
+        <S.DreamImage img={defaultImage}>
           <S.DreamUserImage
             alt="user image"
-            src={DefaultImage}
+            src={defaultImage}
             onMouseEnter={() => {
               setIsUserImageHover(true);
             }}

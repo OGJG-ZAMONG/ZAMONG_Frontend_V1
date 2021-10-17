@@ -3,7 +3,6 @@ import * as I from "../index";
 import { DefaultImage } from "../../../assets/index";
 import lockOpen from "../../../assets/icon/lockOpen.svg";
 
-//https://codepen.io/influxweb/pen/LpoXba
 const MyDreamDiary = (): JSX.Element => {
   return (
     <div>

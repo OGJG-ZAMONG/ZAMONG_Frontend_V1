@@ -1,5 +1,5 @@
 import * as S from "./Styles";
-import More from "../../../assets/icons/more.svg";
+import More from "../../../assets/icon/more.svg";
 import { DefaultImage } from "../../../assets/index";
 
 const FollowList = (): JSX.Element => {

@@ -5,8 +5,8 @@ import * as I from "../index";
 const FollowDreamDiary = (): JSX.Element => {
   return (
     <div>
-      <I.DreamImageContainer img={DefaultImage}>
-        <S.UserImage src={DefaultImage} />
+      <I.DreamImageContainer img={defaultImage}>
+        <S.UserImage src={defaultImage} />
         <I.DiaryDate>8월 15일</I.DiaryDate>
       </I.DreamImageContainer>
       <I.DreamTitle>
