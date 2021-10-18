@@ -65,6 +65,7 @@ const Chat: FC = (): JSX.Element => {
           <OpponentText message={"좋은 하루 보내세요"} />
           <MyText message={"ㅎㅎㅎㅎㅎ 넵"} />
           <MyText message={"ㅎㅎㅎㅎㅎ 넵"} />
+          <MyText message={"YEEÈEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE"} />
         </S.ChatBox>
         <S.ChatInputBox>
           <S.ChatInput type="text" placeholder="내용을 입력하십시오." />

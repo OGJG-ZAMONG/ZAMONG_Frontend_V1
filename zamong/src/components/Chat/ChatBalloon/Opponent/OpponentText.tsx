@@ -6,9 +6,10 @@ const OpponentText = styled.div`
   background-color: ${color.darkGray};
   border-radius: 18px;
   padding: 8px 16px;
-  max-width: 500px;
+  max-width: 60%;
   display: inline-block;
   margin: 4px 0;
+  word-break: break-all;
 `;
 
 const OpponentTextContainer = styled.div`

@@ -10,11 +10,12 @@ const MyTextContainer = styled.div`
 
 const MyTextStyle = styled.div`
   background-color: ${color.blue};
-  max-width: 500px;
+  max-width: 60%;
   border-radius: 18px;
   padding: 8px 16px;
   display: inline-block;
   margin: 4px 0;
+  word-break: break-all;
 `;
 
 interface Props {
