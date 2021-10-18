@@ -12,4 +12,6 @@ export const Container = styled.div`
   padding: 16px;
   font: ${font.body3};
   box-sizing: border-box;
+  word-break: break-all;
+  word-wrap: break-word;
 `;
