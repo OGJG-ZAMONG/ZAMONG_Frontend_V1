@@ -16,3 +16,7 @@ export { default as DefaultImage } from "./DefaultPostingImages/1.jpg";
 export { default as DownChevronIcon } from "./icon/downChevron.svg";
 export { default as FilterIcon } from "./icon/filterIcon.svg";
 export { default as DownChevron } from "./icon/downChevron.svg";
+export { default as Profile } from "./profile/profile.svg";
+export { default as Follower } from "./profile/follower.svg";
+export { default as Follow } from "./profile/follow.svg";
+export { default as AccountInfo } from "./profile/accountInfo.svg";
