@@ -1,26 +1,33 @@
-import axios, { AxiosError } from "axios";
+import axios from "axios";
 
-const instance = axios.create({
+export const getRequest = () => {
+  const request = axios.create({
+    timeout: 10000,
     baseURL: "test",
-    timeout: 500000,
-    maxContentLength: 1000000000,
-    maxBodyLength : 1000000000,
-})
-instance.interceptors.request.use(
-    function (config) {
-        return config;
-    }, 
-    function (error : AxiosError) {
-        return Promise.reject(error);
-    }
-);
-instance.interceptors.response.use(
-    function (response) {
-        return response;
+    withCredentials: true,
+    headers: {
+      withCredentials: true,
     },
+  });
 
-    function (error : AxiosError) {
-        return Promise.reject(error);
-    }
-);
-export default instance;
+  return request;
+};
+
+export const getRequestWithToken = (
+    token: string,
+    type: "json" | "blob" | "text" = "json"
+  ) => {
+    const request = axios.create({
+      timeout: 10000,
+      baseURL: "test",
+      headers: {
+        Authorization: `Bearer ${token}`,
+        witåhCredentials: true,
+      },
+      responseType: type,
+      withCredentials: true,
+    });
+  
+    return request;
+  };
+  
