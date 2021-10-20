@@ -1,5 +1,5 @@
 import { AuthBackground } from "../../components/Common";
-import SignUp from "../../components/SignUp/SignUpST/SignUp";
+import SignUp from "../../components/SignUp/SignUp";
 
 const SignUpContainer = (): JSX.Element => {
   return (
