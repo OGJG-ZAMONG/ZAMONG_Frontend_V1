@@ -1,4 +1,4 @@
-import * as S from "./style";
+import * as S from "./styles";
 import React, { FC, useState, useEffect } from "react";
 import SellingDream from "../SellingDream/SellingDream";
 

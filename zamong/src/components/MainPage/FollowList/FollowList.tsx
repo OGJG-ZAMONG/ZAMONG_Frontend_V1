@@ -1,4 +1,4 @@
-import * as S from "./Styles";
+import * as S from "./styles";
 import More from "../../../assets/icons/more.svg";
 import DefaultImage from "../../../assets/DefaultPostingImages/1.jpg";
 

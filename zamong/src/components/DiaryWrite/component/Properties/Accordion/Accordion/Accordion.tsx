@@ -1,4 +1,4 @@
-import * as S from "./Styles";
+import * as S from "./styles";
 import DownChevron from "../../../../../../assets/icons/downChevron.svg";
 
 import {
