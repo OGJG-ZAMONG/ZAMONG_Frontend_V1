@@ -1,5 +1,6 @@
 import styled from "@emotion/styled";
 import { font } from "../../../style/font";
+import { color } from "../../../style/color";
 
 export const Container = styled.div`
   width: 630px;
@@ -33,7 +34,7 @@ export const Controller = styled.div`
 export const Prev = styled.div`
   width: 32px;
   height: 32px;
-  background-color: #2c2c2e;
+  background-color: ${color.darkerGray};
   border-radius: 5px;
   text-align: center;
   line-height: 32px;
@@ -43,7 +44,7 @@ export const Prev = styled.div`
 export const DateStatus = styled.div`
   width: 53px;
   height: 32px;
-  background-color: #2c2c2e;
+  background-color: ${color.darkerGray};
   border-radius: 5px;
   text-align: center;
   line-height: 32px;
@@ -53,7 +54,7 @@ export const DateStatus = styled.div`
 export const Next = styled.div`
   width: 32px;
   height: 32px;
-  background-color: #2c2c2e;
+  background-color: ${color.darkerGray};
   border-radius: 5px;
   text-align: center;
   line-height: 32px;
@@ -66,7 +67,7 @@ export const CalendarContainer = styled.div`
   display: grid;
   grid-template-columns: repeat(7, 90px);
   border-radius: 10px;
-  background-color: #2c2c2e;
+  background-color: ${color.darkerGray};
   font: ${font.body2};
 `;
 
@@ -83,16 +84,16 @@ export const WeekDays = styled.div`
   text-align: center;
   line-height: 36px;
   &:first-child {
-    color: #ff453a;
+    color: ${color.red};
   }
 `;
 
 export const Days = styled.div`
   width: 90px;
   height: 95px;
-  border-top: 1px solid #8e8e93;
+  border-top: 1px solid ${color.gray};
   padding-top: 10px;
   &:nth-child(7n + 1) {
-    color: #FF453A;
+    color: ${color.red};
   }
 `;
