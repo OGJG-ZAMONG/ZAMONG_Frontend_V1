@@ -1,5 +1,6 @@
 import styled from "@emotion/styled";
 import { font } from "../../../style/font";
+import { color } from "../../../style/color";
 
 export const Contents = styled.div`
   width: 1280px;
@@ -9,7 +10,7 @@ export const Contents = styled.div`
 
 export const SellManagementText = styled.div`
   font: ${font.headline1};
-  color: #ffffff;
+  color: ${color.white};
 `;
 
 export const Box = styled.div`
@@ -20,7 +21,7 @@ export const Box = styled.div`
 
 export const SubTitle = styled.div`
   font: ${font.subtitle};
-  color: #ffffff;
+  color: ${color.white};
 `;
 
 export const List = styled.div`
@@ -39,7 +40,7 @@ export const PageNationContainer = styled.div`
   height: 25px;
   display: flex;
   justify-content: space-evenly;
-  color: #8e8e93;
+  color: ${color.gray};
   margin: 0 auto;
   font: ${font.subtitle};
 `;
