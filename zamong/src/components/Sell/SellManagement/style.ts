@@ -1,54 +1,41 @@
 import styled from "@emotion/styled";
 import { font } from "../../../style/font";
-import { Link } from "react-router-dom";
 
-export const Container = styled.div`
+export const Contents = styled.div`
   width: 1280px;
   padding-top: 120px;
   margin: 0 auto;
 `;
 
-export const Information = styled.div`
-  display: flex;
-  justify-content: space-between;
-  color: white;
-  height: 40px;
-  margin-bottom: 56px;
-`;
-
-export const SellDreamText = styled.div`
-  font: ${font.headline1};
-`;
-
 export const SellManagementText = styled.div`
-  font: ${font.subtitle};
-  cursor: pointer;
-`;
-
-export const LinkBox = styled(Link)`
+  font: ${font.headline1};
   color: #ffffff;
-  text-decoration: none;
 `;
 
-export const SellingDreamListText = styled.div`
-  font: ${font.headline3};
-  font-size: 24px;
-  color: white;
-  margin-bottom: 28px;
+export const Box = styled.div`
+  width: 1280px;
+  height: 785px;
+  margin-top: 56px;
 `;
 
-export const SellingDreamListContainer = styled.div`
-  height: 1390px;
+export const SubTitle = styled.div`
+  font: ${font.subtitle};
+  color: #ffffff;
+`;
+
+export const List = styled.div`
+  height: 637px;
+  margin-top: 28px;
+  margin-bottom: 56px;
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   grid-template-rows: repeat(4, 1fr);
   column-gap: 20px;
   row-gap: 40px;
-  margin-bottom: 56px;
 `;
 
 export const PageNationContainer = styled.div`
-  width: 444px;
+  width: 38%;
   height: 25px;
   display: flex;
   justify-content: space-evenly;
@@ -59,9 +46,10 @@ export const PageNationContainer = styled.div`
 
 export const PageContainer = styled.div`
   display: grid;
-  grid-template-columns: repeat(10, 1fr);
+  grid-template-columns: repeat(8, 1fr);
   width: 308px;
   margin: 0 16px;
+  align-items: center;
 `;
 
 export const Prev = styled.div`
