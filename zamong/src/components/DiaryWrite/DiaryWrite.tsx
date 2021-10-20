@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { color } from "../../style/color";
 import Footer from "../Footer/Footer";
 import Header from "../Header/Header";
-import TextEditor from "../TextEditor/TextEditor";
 import DreamType from "./component/Properties/Accordion/AccordionMenus/DreamType/DreamType";
 import DreamDate from "./component/Properties/Selecter/DreamDate/DreamDate";
 import DreamQuality from "./component/Properties/Selecter/DreamQuality/DreamQuality";
@@ -61,13 +60,12 @@ const DiaryWrite = (): JSX.Element => {
             </div>
             <div>
               <S.Subtitle>꿈 내용</S.Subtitle>
-              {/* <S.TextAreaContent
+              <S.TextAreaContent
                 onChange={onChangeHandler}
                 name="content"
                 value={content}
                 placeholder="내용 입력..."
-              /> */}
-              <TextEditor placeholder="내용 입력..." />
+              />
             </div>
           </S.MarginConatiner>
           <S.ButtonContainer>
