@@ -9,6 +9,10 @@ export const SignupBox = styled.div`
   font-size: 16px;
   padding-top: 66px;
   padding-left: 70px;
+  position: fixed;
+  left: 80%;
+  top: 60%;
+  transform: translate(-80%, -60%);
 `;
 
 export const Title = styled.div`
