@@ -1,5 +1,6 @@
 import * as S from "./styles";
 import { FC, MutableRefObject, useEffect, useRef, useState } from "react";
+import { getCalendarData } from "../../../utils/api/calendar";
 const Calendar: FC = (): JSX.Element => {
   const date: Date = new Date();
   const [year, setYear] = useState<number>(date.getFullYear());
@@ -15,6 +16,10 @@ const Calendar: FC = (): JSX.Element => {
       }
     }
     makeCalendar(year, month);
+    getCalendarData(window.localStorage.getItem("access_token"), year, month + 1)
+    .then((res) => console.log(res.data))
+    .catch((err) => console.log(err))
+
   }, [month]);
 
   const makeCalendar = (year: number, month: number) => {

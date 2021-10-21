@@ -3,6 +3,7 @@ import { FC, useEffect, useRef, useState } from "react";
 import { edit, pointer } from "../../../assets/index";
 import Calendar from "../Calendar/Calendar";
 import MyDreamDiary from "../../CardDream/MyDreamDiary/MyDreamDiary";
+import { getCalendarData } from "../../../utils/api/calendar";
 
 const DiaryList: FC = (): JSX.Element => {
   const [selected, setSelected] = useState<boolean>(false);
@@ -12,6 +13,9 @@ const DiaryList: FC = (): JSX.Element => {
   for (let i = 0; i < 20; i++) {
     testArray.push(i);
   }
+
+  // useEffect(() => {
+  // }, [])
 
   useEffect(() => {
     if (selected === true) {
