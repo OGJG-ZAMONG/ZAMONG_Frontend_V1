@@ -1,10 +1,12 @@
 import styled from "@emotion/styled";
 import { leftside, rightside } from "../../assets/index";
+import { color } from "../../style/color";
+import { font } from "../../style/font";
 
 export const Background = styled.div`
   width: 100%;
   height: 100%;
-  background-color: #000000;
+  background-color: ${color.black};
 `;
 
 export const ContentBox = styled.div`
@@ -39,14 +41,13 @@ export const TextBox = styled.div`
 `;
 
 export const Title = styled.p`
-  color: #ffffff;
-  font-size: 48px;
-  font-weight: bold;
+  color: ${color.white};
+  font: ${font.headline1};
   margin-bottom: 38px;
 `;
 
 export const Content = styled.span`
-  color: #ffffff;
-  font-size: 30px;
+  color: ${color.white};
+  font: ${font.headline3};
   word-break: break-all;
 `;
