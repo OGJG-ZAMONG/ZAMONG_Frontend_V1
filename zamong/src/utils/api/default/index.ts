@@ -3,11 +3,7 @@ import axios from "axios";
 export const getRequest = () => {
   const request = axios.create({
     timeout: 10000,
-    baseURL: "test",
-    withCredentials: true,
-    headers: {
-      withCredentials: true,
-    },
+    baseURL: "http://52.78.219.131:8080/v1/api",
   });
 
   return request;
@@ -22,10 +18,8 @@ export const getRequestWithToken = (
       baseURL: "test",
       headers: {
         Authorization: `Bearer ${token}`,
-        witåhCredentials: true,
       },
       responseType: type,
-      withCredentials: true,
     });
   
     return request;

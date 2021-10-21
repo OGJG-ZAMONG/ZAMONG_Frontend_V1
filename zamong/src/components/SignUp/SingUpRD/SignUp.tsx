@@ -11,10 +11,7 @@ type PropsType = {
   authEntication: Array<string>;
 };
 
-const SignUpRD = ({
-  functions,
-  authEntication,
-}: PropsType): JSX.Element => {
+const SignUpRD = ({ functions, authEntication }: PropsType): JSX.Element => {
   const inputRefs: MutableRefObject<any> = useRef([]);
   const { onPrev, onRequest } = functions;
 
@@ -45,7 +42,7 @@ const SignUpRD = ({
       ref={(elem) => (inputRefs.current[index] = elem)}
       onChange={(e) => onChange(e, index)}
       onKeyDown={(e) => onDeleteUp(e, index)}
-      autoComplete='off'
+      autoComplete="off"
     />
   ));
 

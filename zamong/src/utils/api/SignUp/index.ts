@@ -1,6 +1,5 @@
 import uri from "../../../constance/uri";
 import { getRequest } from "../default";
-
 interface InputType {
   name: string;
   email: string;
@@ -12,19 +11,30 @@ interface InputType {
 export const authEnticationCode = async (address: string) => {
   try {
     const request = getRequest();
-    const response = await request.post(uri.sendEmail, {address});
-    console.log(response.data);
+    const response = await request.post(uri.sendEmail, { address });
+    return response;
   } catch (error) {
     return error;
   }
 };
 
-export const signUp = async (inputs : InputType) => {
+export const signUp = async (inputs: InputType) => {
   try {
     const request = getRequest();
     const response = await request.post(uri.signup, inputs);
-    console.log(response.data);
+    return response;
   } catch (error) {
     return error;
   }
-}
+};
+
+export const checkIdDuplicate = async (id: string) => {
+  try {
+    const request = getRequest();
+    await request.post(uri.idDuplicate, { id });
+    return true;
+  } catch (error) {
+    console.log(error);
+    return false;
+  }
+};

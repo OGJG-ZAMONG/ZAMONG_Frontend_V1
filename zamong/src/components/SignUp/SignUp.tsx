@@ -2,6 +2,7 @@ import { useState } from "react";
 import SignUpST from "../SignUp/SignUpST/SignUp";
 import SignUpND from "../SignUp/SignUpND/SignUp";
 import SignUpRD from "../SignUp/SingUpRD/SignUp";
+import { useHistory } from "react-router";
 import { signUp } from "../../utils/api/SignUp";
 
 const SignUp = () => {
@@ -14,6 +15,9 @@ const SignUp = () => {
     pw: "",
     checkPw: "",
   });
+  const { push } = useHistory();
+
+  const { name, email, pw, checkPw, id, authEntication } = inputs;
 
   const change = (e: React.FormEvent<HTMLInputElement>) => {
     const { value, name } = e.currentTarget;
@@ -22,19 +26,6 @@ const SignUp = () => {
       [name]: value,
     });
   };
-
-  const onRequest = () => {
-    const data = {
-      name: inputs.name,
-      email: inputs.email,
-      authentication_code: inputs.authEntication.toString().replaceAll(',',''),
-      id: inputs.id,
-      password: inputs.pw,
-    };
-    signUp(data);
-  };
-
-  const { name, email, pw, checkPw, id, authEntication } = inputs;
 
   const onNext = () => {
     if (index < 3) {
@@ -48,6 +39,23 @@ const SignUp = () => {
     }
   };
 
+  const onRequest = async () => {
+    const data = {
+      name: inputs.name,
+      email: inputs.email,
+      authentication_code: inputs.authEntication.toString().replaceAll(",", ""),
+      id: inputs.id,
+      password: inputs.pw,
+    };
+    try {
+      await signUp(data);
+      alert("회원가입을 축하드립니다!.");
+      push("/login");
+    } catch {
+      alert("회원가입에 실패하셨습니다.");
+    }
+  };
+
   const functions = {
     change: change,
     onNext: onNext,
@@ -56,24 +64,9 @@ const SignUp = () => {
   };
 
   const SignUpList: JSX.Element[] = [
-    <SignUpST
-      functions={functions}
-      id={id}
-      name={name}
-      />,
-      <SignUpND
-      // functions={functions}
-      onNext={onNext}
-      onPrev={onPrev}
-      change={change}
-      email={email}
-      pw={pw}
-      checkPw={checkPw}
-      />,
-      <SignUpRD
-      functions={functions}
-      authEntication={authEntication}
-    />,
+    <SignUpST functions={functions} id={id} name={name} />,
+    <SignUpND functions={functions} email={email} pw={pw} checkPw={checkPw} />,
+    <SignUpRD functions={functions} authEntication={authEntication} />,
   ];
   return <>{SignUpList[index]}</>;
 };

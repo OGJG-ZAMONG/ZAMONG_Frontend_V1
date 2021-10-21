@@ -2,23 +2,27 @@ import { authEnticationCode } from "../../../utils/api/SignUp";
 import { useEffect, useState } from "react";
 import * as S from "./styles";
 
-type PropsType = {
+type FunctionType = {
+  change: (e: React.FormEvent<HTMLInputElement>) => void;
   onNext: () => void;
   onPrev: () => void;
-  change: (e: React.FormEvent<HTMLInputElement>) => void;
+};
+
+type PropsType = {
+  functions: FunctionType;
   email: string;
   pw: string;
   checkPw: string;
 };
 
 const SignUpND = ({
-  onNext,
-  onPrev,
-  change,
+  functions,
   email,
   pw,
   checkPw,
 }: PropsType): JSX.Element => {
+  const { change, onNext, onPrev } = functions;
+
   useEffect(() => {
     emailCheck(email);
   }, [email]);
@@ -31,17 +35,6 @@ const SignUpND = ({
     checkPwCheck(checkPw);
   }, [checkPw]);
 
-  const onEmailHandler = (e: React.FormEvent<HTMLInputElement>) => {
-    change(e);
-  };
-
-  const onPwHandler = (e: React.FormEvent<HTMLInputElement>) => {
-    change(e);
-  };
-
-  const onCheckPwHandler = (e: React.FormEvent<HTMLInputElement>) => {
-    change(e);
-  };
 
   const emailNull = (email: string) => {
     if (email.length === 0) {
@@ -72,10 +65,10 @@ const SignUpND = ({
 
   const emailCheck = (email: string) => {
     const emailTest = /^[A-Za-z0-9_\.\-]+@[A-Za-z\-]+\.[A-Za-z\-]+/;
-    if (email.length === 0) {
+    if (!email.length) {
       setEmailErrorText("");
       setEmailTrue(false);
-    } else if (email.length && emailTest.test(email) === false) {
+    } else if (email.length && !emailTest.test(email)) {
       setEmailErrorText("이메일 형식이 맞지 않습니다.");
       setEmailTrue(false);
     } else {
@@ -87,7 +80,7 @@ const SignUpND = ({
   const pwCheck = (pw: string) => {
     const specialTest = /\W+/;
     const numberTest = /\d+/;
-    if (pw.length === 0) {
+    if (!pw.length) {
       setPwErrorText("");
       setPwTrue(false);
     } else if (pw.length < 8 && pw.length > 0) {
@@ -96,9 +89,9 @@ const SignUpND = ({
     } else if (pw.length > 16) {
       setPwErrorText("비밀번호는 최대 16글자 이하여야 합니다.");
       setPwTrue(false);
-    } else if (pw.length && numberTest.test(pw) === false) {
+    } else if (pw.length && !numberTest.test(pw)) {
       setPwErrorText("숫자가 최소 1개 이상 포함돼야 합니다.");
-    } else if (pw.length && specialTest.test(pw) === false) {
+    } else if (pw.length && !specialTest.test(pw)) {
       setPwErrorText("특수문자가 최소 1개 이상 포함돼야 합니다.");
     } else {
       setPwErrorText("");
@@ -107,7 +100,7 @@ const SignUpND = ({
   };
 
   const checkPwCheck = (checkPw: string) => {
-    if (checkPw.length === 0) {
+    if (!checkPw.length) {
       setCheckPwErrorText("");
       setCheckPwTrue(false);
     } else if (checkPw.length && checkPw !== pw) {
@@ -125,7 +118,7 @@ const SignUpND = ({
   const [pwTrue, setPwTrue] = useState(false);
   const [checkPwErrorText, setCheckPwErrorText] = useState("");
   const [checkPwTrue, setCheckPwTrue] = useState(false);
-
+  
   const onNextHandler = async () => {
     emailNull(email);
     pwNull(pw);
@@ -135,7 +128,7 @@ const SignUpND = ({
         authEnticationCode(email);
         onNext();
       } catch (e) {
-        console.log(e);
+        alert("이메일 전송에 실패했습니다.");
       }
     }
   };
@@ -150,7 +143,7 @@ const SignUpND = ({
       <S.Input
         name="email"
         value={email}
-        onChange={onEmailHandler}
+        onChange={change}
         autoComplete="off"
       />
       <S.GuideContaier>
@@ -161,7 +154,7 @@ const SignUpND = ({
         type="password"
         name="pw"
         value={pw}
-        onChange={onPwHandler}
+        onChange={change}
         autoComplete="off"
       />
       <S.GuideContaier>
@@ -172,7 +165,7 @@ const SignUpND = ({
         type="password"
         name="checkPw"
         value={checkPw}
-        onChange={onCheckPwHandler}
+        onChange={change}
         autoComplete="off"
       />
       <S.EventBox>

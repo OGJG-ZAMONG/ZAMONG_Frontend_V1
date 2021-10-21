@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { checkIdDuplicate } from "../../../utils/api/SignUp";
 import * as S from "./styles";
 
 type FunctionType = {
@@ -42,13 +43,13 @@ const SignUpST = ({ functions, id, name }: PropsType): JSX.Element => {
     }
   };
 
-  const idCheck = (id: string) => {
+  const idCheck = async (id: string) => {
     const idTest = /\s/;
-    if (idTest.test(id) === true) {
-      setIdErrorText("아이디에는 공백이 들어갈 수 없습니다.");
-      setIdTrue(false);
-    } else if (id.length === 0) {
+    if (!id.length) {
       setIdErrorText("");
+      setIdTrue(false);
+    } else if (idTest.test(id)) {
+      setIdErrorText("아이디에는 공백이 들어갈 수 없습니다.");
       setIdTrue(false);
     } else if (id.length < 6 && id.length > 0) {
       setIdErrorText("아이디는 최소 6글자 이상이어야 합니다.");
@@ -56,6 +57,14 @@ const SignUpST = ({ functions, id, name }: PropsType): JSX.Element => {
     } else if (id.length > 16) {
       setIdErrorText("아이디는 최대 16글자 이하여야 합니다.");
       setIdTrue(false);
+    } else if (id.length) {
+      if (await checkIdDuplicate(id)) {
+        setIdErrorText("");
+        setIdTrue(true);
+      } else {
+        setIdErrorText("중복되는 아이디입니다.");
+        setIdTrue(false);
+      }
     } else {
       setIdErrorText("");
       setIdTrue(true);
@@ -64,10 +73,10 @@ const SignUpST = ({ functions, id, name }: PropsType): JSX.Element => {
 
   const nameCheck = (name: string) => {
     const nameTest = /^\s|\s$/;
-    if (nameTest.test(name) === true) {
+    if (nameTest.test(name)) {
       setNameErrorText("이름의 처음과 끝에는 공백이 들어갈 수 없습니다.");
       setNameTrue(false);
-    } else if (name.length === 0) {
+    } else if (!name.length) {
       setNameErrorText("");
       setNameTrue(false);
     } else if (name.length > 20) {
@@ -84,8 +93,8 @@ const SignUpST = ({ functions, id, name }: PropsType): JSX.Element => {
   const [idErrorText, setIdErrorText] = useState("");
 
   const onNextHandler = () => {
-    idNull(id);
     nameNull(name);
+    idNull(id);
     if (idTrue && nameTrue) {
       onNext();
     }
