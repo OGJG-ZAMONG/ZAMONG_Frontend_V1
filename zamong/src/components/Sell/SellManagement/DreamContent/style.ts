@@ -1,4 +1,5 @@
 import styled from "@emotion/styled";
+import { color } from "../../../../style/color";
 import { font } from "../../../../style/font";
 
 export const ContentBox = styled.div`
@@ -21,7 +22,7 @@ export const TopBox = styled.div<{ img: string }>`
 
 export const Price = styled.div`
   aspect-ratio: 2.3 / 1;
-  background: #8e8e93;
+  background: ${color.gray};
   border-radius: 100px;
   color: white;
   font: ${font.body2};
@@ -50,7 +51,7 @@ export const Tag = styled.div`
 `;
 
 export const Title = styled.div`
-  color: white;
+  color: ${color.white};
   font: ${font.body2};
   padding: 0 4px;
   margin-top: 10px;
