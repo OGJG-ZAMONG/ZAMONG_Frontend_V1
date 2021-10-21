@@ -1,23 +1,26 @@
 import styled from "@emotion/styled";
+import { color } from "../../style/color";
+import { font } from "../../style/font";
 
 export const LoginBox = styled.div`
-  width: 450px;
-  height: 529px;
-  background-color: #2c2c2e;
+  width: 520px;
+  height: 595px;
+  background-color: ${color.darkerGray};
   border-radius: 10px;
-  color: white;
-  font-size: 16px;
-  padding-top: 66px;
-  padding-left: 70px;
+  color: ${color.white};
+  font: ${font.body3};
   position: fixed;
   left: 80%;
   top: 60%;
   transform: translate(-80%, -60%);
 `;
 
+export const PaddingBox = styled.div`
+  margin: 66px 70px;
+`
+
 export const Title = styled.div`
-  font-size: 32px;
-  font-weight: bold;
+  font: ${font.headline1};
 `;
 
 export const MainContainer = styled.form`
@@ -26,27 +29,27 @@ export const MainContainer = styled.form`
 `;
 
 export const GuideWord = styled.div`
-  color: #8e8e93;
+  color: ${color.gray};
 `;
 
 export const Input = styled.input`
   margin-top: 15px;
-  width: 380px;
+  width: 100%;
   height: 32px;
   background-color: transparent;
   border: none;
-  border-bottom: 1px solid #636366;
+  border-bottom: 1px solid ${color.darkGray};
   outline: none;
-  color: white;
-  font-size: 16px;
+  color: ${color.white};
+  font: ${font.body3};
   margin-bottom: 28px;
 `;
 
 export const LinkBox = styled.div`
-  font-size: 15px;
   a {
-    color: #0a84ff;
+    color: ${color.blue};
     text-decoration: none;
+    font: ${font.body1};
   }
 
   &:last-child {
@@ -54,29 +57,20 @@ export const LinkBox = styled.div`
   }
 `;
 
-export const RegisterContainer = styled.div`
-  width: 350px;
-`;
-
 export const LoginButton = styled.div`
-  border: 1px solid transparent;
-  background-color: #0a84ff;
-  text-align: center;
-  line-height: 2;
-  margin-left: 48px;
-  border-radius: 100px;
-`;
-
-export const LoginInput = styled.input`
   width: 77px;
   height: 32px;
   border: none;
-  background-color: transparent;
-  color: white;
+  background-color: ${color.blue};
+  font: ${font.body2};
+  text-align: center;
+  line-height: 2;
+  border-radius: 100px;
   cursor: pointer;
 `;
 
 export const EventBox = styled.div`
   display: flex;
   align-items: center;
+  justify-content: space-between;
 `;
