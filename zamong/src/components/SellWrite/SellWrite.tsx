@@ -4,6 +4,7 @@ import DreamType from "../DiaryWrite/component/Properties/Accordion/AccordionMen
 import { useState } from "react";
 import { color } from "../../style/color";
 import InputPrice from "./component/InputPrice/InputPrice";
+import FileInput from "../FileInput/FileInput";
 
 const SellWrite = (): JSX.Element => {
   const MAXTITLE = 100;
@@ -15,6 +16,8 @@ const SellWrite = (): JSX.Element => {
     title: "",
     content: "",
   });
+  const [file, setFile] = useState<File | undefined>();
+
   const { title, content } = properties;
   const onChangeHandler = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     const { name, value } = e.target;
@@ -24,7 +27,6 @@ const SellWrite = (): JSX.Element => {
       setProperties({ ...properties, [name]: value });
     }
   };
-
   return (
     <>
       <I.ContentContainer>
@@ -60,6 +62,7 @@ const SellWrite = (): JSX.Element => {
                 value={content}
                 placeholder="내용 입력..."
               />
+              <FileInput file={file} setFile={setFile} id="sell" />
             </div>
           </I.MarginConatiner>
           <I.ButtonContainer>
