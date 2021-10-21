@@ -1,4 +1,6 @@
 import styled from "@emotion/styled";
+import { color } from "../../../style/color";
+import { font } from "../../../style/font";
 
 export const SignupBox = styled.div`
   width: 450px;
@@ -21,8 +23,20 @@ export const Title = styled.div`
   margin-bottom: 86px;
 `;
 
+export const GuideContaier = styled.div`
+  display: flex;
+  justify-content: space-between;
+`
+
+export const ErrorMessage = styled.div`
+  color: ${color.red};
+  font: ${font.body3};
+  margin-right: 70px;
+`
+
 export const GuideWord = styled.div`
   color: #8e8e93;
+  font: ${font.body3};
 `;
 
 export const Input = styled.input`
