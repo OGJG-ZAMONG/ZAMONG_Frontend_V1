@@ -90,11 +90,9 @@ export const reset = css`
     font: inherit;
     font-family: "Spoqa Han Sans Neo", "sans-serif";
     vertical-align: baseline;
-    font-smooth: antialiased;
     -webkit-font-smoothing: antialiased;
-    box-sizing: border-boxs;
+    box-sizing: border-box;
   }
-  /* HTML5 display-role reset for older browsers */
   article,
   aside,
   details,
@@ -111,7 +109,7 @@ export const reset = css`
   body {
     line-height: auto;
     margin: 0;
-    background-color: #1c1c1e;
+    background-color: ${color.black};
   }
   ol,
   ul {
