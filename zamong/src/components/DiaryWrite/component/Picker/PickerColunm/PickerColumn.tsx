@@ -56,6 +56,10 @@ const PickerColumn = ({
     setY(-(selectedIndex * HEIGHT));
   }, [isWheel]);
 
+  useEffect(() => {
+    setValue(array[selectedIndex]);
+  }, [selectedIndex]);
+
   const CalculateY = (y: number, value: number): number => {
     var temp = y + value;
     if (temp > 0) {
