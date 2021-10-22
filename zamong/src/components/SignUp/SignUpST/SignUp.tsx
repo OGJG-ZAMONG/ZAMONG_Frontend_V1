@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { checkIdDuplicate } from "../../../utils/api/SignUp";
+import { useHistory } from "react-router";
 import * as S from "./styles";
 
 type FunctionType = {
@@ -15,6 +16,7 @@ type PropsType = {
 
 const SignUpST = ({ functions, id, name }: PropsType): JSX.Element => {
   const { change, onNext } = functions;
+  const { push } = useHistory();
 
   useEffect(() => {
     idCheck(id);
@@ -91,6 +93,10 @@ const SignUpST = ({ functions, id, name }: PropsType): JSX.Element => {
   const [nameErrorText, setNameErrorText] = useState("");
   const [idErrorText, setIdErrorText] = useState("");
 
+const linkLogin = () => {
+  push("/login");
+}
+
   const onNextHandler = () => {
     nameNull(name);
     idNull(id);
@@ -118,7 +124,10 @@ const SignUpST = ({ functions, id, name }: PropsType): JSX.Element => {
           onChange={change}
           autoComplete="off"
         />
-        <S.NextButton onClick={onNextHandler}>다음</S.NextButton>
+        <S.EventBox>
+          <S.PrevButton onClick={linkLogin}>이전</S.PrevButton>
+          <S.NextButton onClick={onNextHandler}>다음</S.NextButton>
+        </S.EventBox>
       </S.PaddingBox>
     </S.SignupBox>
   );
