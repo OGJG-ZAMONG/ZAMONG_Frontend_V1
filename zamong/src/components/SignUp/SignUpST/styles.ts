@@ -56,11 +56,30 @@ export const IdInput = styled(Input)`
   margin-bottom: 28px;
 `;
 
+export const EventBox = styled.div`
+  display: flex;
+  align-items: center;
+  width: 132px;
+  margin-left: 100%;
+  transform: translateX(-132px);
+  justify-content: space-between;
+`;
+
+export const PrevButton = styled.div`
+  width: 62px;
+  height: 32px;
+  color: ${color.white};
+  border: 1px solid ${color.white};
+  background-color: transparent;
+  border-radius: 100px;
+  text-align: center;
+  line-height: 2;
+  box-shadow: 0 0 1px 0 ${color.white} inset, 0 0 1px 0 ${color.white};
+`;
+
 export const NextButton = styled.div`
   width: 62px;
   height: 32px;
-  margin-left: 100%;
-  transform: translateX(-62px);
   color: ${color.white};
   border: 1px solid transparent;
   background-color: ${color.blue};
@@ -68,3 +87,4 @@ export const NextButton = styled.div`
   text-align: center;
   line-height: 2;
 `;
+
