@@ -92,6 +92,7 @@ export const reset = css`
     vertical-align: baseline;
     font-smooth: antialiased;
     -webkit-font-smoothing: antialiased;
+    box-sizing: border-boxs;
   }
   /* HTML5 display-role reset for older browsers */
   article,
