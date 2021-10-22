@@ -27,8 +27,25 @@ const DatePicker = ({ date, setDate, setModal }: PropsType): JSX.Element => {
     );
   }, [nowDate]);
 
+  function leftPad(value: number): string | number {
+    if (value >= 10) {
+      return value;
+    }
+    return `0${value}`;
+  }
+
+  const toStringByFormatting = (
+    source: Date,
+    delimiter: string = "-"
+  ): string => {
+    const year = source.getFullYear();
+    const month = leftPad(source.getMonth() + 1);
+    const day = leftPad(source.getDate());
+    return [year, month, day].join(delimiter);
+  };
+
   useEffect(() => {
-    console.log(realDate);
+    console.log(toStringByFormatting(realDate));
   }, [realDate]);
 
   return (
@@ -49,7 +66,7 @@ const DatePicker = ({ date, setDate, setModal }: PropsType): JSX.Element => {
             type="월"
             initValue={tempDate.getMonth() + 1}
             setValue={(value: number | string) => {
-              setNowDate({ ...nowDate, month: toNumber(value) });
+              setNowDate({ ...nowDate, month: toNumber(value) + 1 });
             }}
           />
           <PickerColumn
