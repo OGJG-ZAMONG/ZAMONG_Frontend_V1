@@ -1,9 +1,9 @@
 import * as G from "../Modal/styles";
 import * as S from "./styles";
 import Modal from "../Modal/Modal";
-import { getMaxDate, HEIGHT, toString, range, toNumber } from "../model";
+import { getMaxDate, HEIGHT, range, toNumber } from "../model";
 import PickerColumn from "../PickerColunm/PickerColumn";
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { useEffect, useState } from "react";
 
 type PropsType = {
   date: Date;
@@ -13,14 +13,16 @@ type PropsType = {
 
 const DatePicker = ({ date, setDate, setModal }: PropsType): JSX.Element => {
   const [nowDate, setNowDate] = useState({
+    // Picker Column으로 넘기는 값 객체
     year: date.getFullYear(),
     month: date.getMonth(),
     day: date.getDate(),
   });
 
-  const { year, month, day } = nowDate;
+  const { year, month } = nowDate;
 
   useEffect(() => {
+    //모달이 꺼질때 값 설정
     return () =>
       setNowDate((oldData) => {
         setDate(new Date(`${oldData.year}-${oldData.month}-${oldData.day}`));
