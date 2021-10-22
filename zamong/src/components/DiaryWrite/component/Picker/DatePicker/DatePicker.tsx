@@ -18,8 +18,11 @@ const DatePicker = ({ date, setDate, setModal }: PropsType): JSX.Element => {
     month: date.getMonth(),
     day: date.getDate(),
   });
-
   const { year, month } = nowDate;
+
+  const [dayArray, setDayArray] = useState<number[]>(
+    range(1, getMaxDate(year, month) + 1)
+  );
 
   useEffect(() => {
     //모달이 꺼질때 값 설정
@@ -29,6 +32,12 @@ const DatePicker = ({ date, setDate, setModal }: PropsType): JSX.Element => {
         return oldData;
       });
   }, []);
+
+  useEffect(() => {
+    //nowDate가 바뀌면 바뀐 월에 따라 day array는 바뀌어야 한다
+    const max = getMaxDate(year, month);
+    setDayArray(range(1, max + 1));
+  }, [nowDate]);
 
   return (
     <>
@@ -52,7 +61,7 @@ const DatePicker = ({ date, setDate, setModal }: PropsType): JSX.Element => {
             }}
           />
           <PickerColumn
-            array={range(1, getMaxDate(year, month) + 1)}
+            array={dayArray}
             type="일"
             initValue={date.getDate()}
             setValue={(value: number | string) => {
