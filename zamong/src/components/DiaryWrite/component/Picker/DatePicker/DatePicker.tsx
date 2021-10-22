@@ -15,7 +15,7 @@ const DatePicker = ({ date, setDate, setModal }: PropsType): JSX.Element => {
   const [nowDate, setNowDate] = useState({
     // Picker Column으로 넘기는 값 객체
     year: date.getFullYear(),
-    month: date.getMonth(),
+    month: date.getMonth() + 1,
     day: date.getDate(),
   });
   const { year, month } = nowDate;
