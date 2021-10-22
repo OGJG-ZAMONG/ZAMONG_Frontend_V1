@@ -35,13 +35,10 @@ const SignUpND = ({
     checkPwCheck(checkPw);
   }, [checkPw]);
 
-
   const emailNull = (email: string) => {
     if (email.length === 0) {
       setEmailErrorText("이메일을 입력하셔야 합니다.");
       setEmailTrue(false);
-    } else {
-      setEmailTrue(true);
     }
   };
 
@@ -49,8 +46,6 @@ const SignUpND = ({
     if (pw.length === 0) {
       setPwErrorText("비밀번호를 입력하셔야 합니다.");
       setPwTrue(false);
-    } else {
-      setPwTrue(true);
     }
   };
 
@@ -58,8 +53,6 @@ const SignUpND = ({
     if (checkPw.length === 0) {
       setCheckPwErrorText("비밀번호 확인을 입력하셔야 합니다.");
       setCheckPwTrue(false);
-    } else {
-      setCheckPwTrue(true);
     }
   };
 
@@ -118,18 +111,20 @@ const SignUpND = ({
   const [pwTrue, setPwTrue] = useState(false);
   const [checkPwErrorText, setCheckPwErrorText] = useState("");
   const [checkPwTrue, setCheckPwTrue] = useState(false);
-  
-  const onNextHandler = async () => {
+
+  const onNextHandler = () => {
     emailNull(email);
     pwNull(pw);
     checkPwNull(checkPw);
     if (emailTrue && pwTrue && checkPwTrue) {
-      try {
-        authEnticationCode(email);
-        onNext();
-      } catch (e) {
+      authEnticationCode(email)
+      .then(() => {
+        alert("이메일 전송에 성공하였습니다.");
+      })
+      .catch(() => {
         alert("이메일 전송에 실패했습니다.");
-      }
+      });
+      onNext();
     }
   };
 
