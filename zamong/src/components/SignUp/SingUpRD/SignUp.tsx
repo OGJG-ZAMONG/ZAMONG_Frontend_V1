@@ -48,13 +48,15 @@ const SignUpRD = ({ functions, authEntication }: PropsType): JSX.Element => {
 
   return (
     <S.SignupBox>
-      <S.Title>회원가입</S.Title>
-      <S.GuideWord>이메일 인증</S.GuideWord>
-      <S.NumberContainer>{numberBoxList}</S.NumberContainer>
-      <S.EventBox>
-        <S.PrevButton onClick={onPrev}>이전</S.PrevButton>
-        <S.NextButton onClick={onRequest}>다음</S.NextButton>
-      </S.EventBox>
+      <S.PaddingBox>
+        <S.Title>회원가입</S.Title>
+        <S.GuideWord>이메일 인증</S.GuideWord>
+        <S.NumberContainer>{numberBoxList}</S.NumberContainer>
+        <S.EventBox>
+          <S.PrevButton onClick={onPrev}>이전</S.PrevButton>
+          <S.NextButton onClick={onRequest}>다음</S.NextButton>
+        </S.EventBox>
+      </S.PaddingBox>
     </S.SignupBox>
   );
 };

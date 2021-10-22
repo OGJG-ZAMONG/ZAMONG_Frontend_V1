@@ -5,7 +5,6 @@ import * as S from "./styles";
 type FunctionType = {
   change: (e: React.FormEvent<HTMLInputElement>) => void;
   onNext: () => void;
-  onPrev: () => void;
 };
 
 type PropsType = {
@@ -15,7 +14,7 @@ type PropsType = {
 };
 
 const SignUpST = ({ functions, id, name }: PropsType): JSX.Element => {
-  const { change, onNext, onPrev } = functions;
+  const { change, onNext } = functions;
 
   useEffect(() => {
     idCheck(id);
@@ -102,21 +101,25 @@ const SignUpST = ({ functions, id, name }: PropsType): JSX.Element => {
 
   return (
     <S.SignupBox>
-      <S.Title>회원가입</S.Title>
-      <S.GuideContaier>
-        <S.GuideWord>아이디</S.GuideWord>
-        <S.ErrorMessage>{idErrorText}</S.ErrorMessage>
-      </S.GuideContaier>
-      <S.IdInput name="id" value={id} onChange={change} autoComplete="off" />
-      <S.GuideContaier>
-        <S.GuideWord>이름</S.GuideWord>
-        <S.ErrorMessage>{nameErrorText}</S.ErrorMessage>
-      </S.GuideContaier>
-      <S.Input name="name" value={name} onChange={change} autoComplete="off" />
-      <S.EventBox>
-        <S.PrevButton onClick={onPrev}>이전</S.PrevButton>
+      <S.PaddingBox>
+        <S.Title>회원가입</S.Title>
+        <S.GuideContaier>
+          <S.GuideWord>아이디</S.GuideWord>
+          <S.ErrorMessage>{idErrorText}</S.ErrorMessage>
+        </S.GuideContaier>
+        <S.IdInput name="id" value={id} onChange={change} autoComplete="off" />
+        <S.GuideContaier>
+          <S.GuideWord>이름</S.GuideWord>
+          <S.ErrorMessage>{nameErrorText}</S.ErrorMessage>
+        </S.GuideContaier>
+        <S.Input
+          name="name"
+          value={name}
+          onChange={change}
+          autoComplete="off"
+        />
         <S.NextButton onClick={onNextHandler}>다음</S.NextButton>
-      </S.EventBox>
+      </S.PaddingBox>
     </S.SignupBox>
   );
 };

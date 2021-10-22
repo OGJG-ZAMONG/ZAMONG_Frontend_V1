@@ -135,43 +135,45 @@ const SignUpND = ({
 
   return (
     <S.SignupBox>
-      <S.Title>회원가입</S.Title>
-      <S.GuideContaier>
-        <S.GuideWord>이메일</S.GuideWord>
-        <S.ErrorMessage>{emailErrorText}</S.ErrorMessage>
-      </S.GuideContaier>
-      <S.Input
-        name="email"
-        value={email}
-        onChange={change}
-        autoComplete="off"
-      />
-      <S.GuideContaier>
-        <S.GuideWord>비밀번호</S.GuideWord>
-        <S.ErrorMessage>{pwErrorText}</S.ErrorMessage>
-      </S.GuideContaier>
-      <S.Input
-        type="password"
-        name="pw"
-        value={pw}
-        onChange={change}
-        autoComplete="off"
-      />
-      <S.GuideContaier>
-        <S.GuideWord>비밀번호 확인</S.GuideWord>
-        <S.ErrorMessage>{checkPwErrorText}</S.ErrorMessage>
-      </S.GuideContaier>
-      <S.Check
-        type="password"
-        name="checkPw"
-        value={checkPw}
-        onChange={change}
-        autoComplete="off"
-      />
-      <S.EventBox>
-        <S.PrevButton onClick={onPrev}>이전</S.PrevButton>
-        <S.NextButton onClick={onNextHandler}>다음</S.NextButton>
-      </S.EventBox>
+      <S.PaddingBox>
+        <S.Title>회원가입</S.Title>
+        <S.GuideContaier>
+          <S.GuideWord>이메일</S.GuideWord>
+          <S.ErrorMessage>{emailErrorText}</S.ErrorMessage>
+        </S.GuideContaier>
+        <S.Input
+          name="email"
+          value={email}
+          onChange={change}
+          autoComplete="off"
+        />
+        <S.GuideContaier>
+          <S.GuideWord>비밀번호</S.GuideWord>
+          <S.ErrorMessage>{pwErrorText}</S.ErrorMessage>
+        </S.GuideContaier>
+        <S.Input
+          type="password"
+          name="pw"
+          value={pw}
+          onChange={change}
+          autoComplete="off"
+        />
+        <S.GuideContaier>
+          <S.GuideWord>비밀번호 확인</S.GuideWord>
+          <S.ErrorMessage>{checkPwErrorText}</S.ErrorMessage>
+        </S.GuideContaier>
+        <S.Check
+          type="password"
+          name="checkPw"
+          value={checkPw}
+          onChange={change}
+          autoComplete="off"
+        />
+        <S.EventBox>
+          <S.PrevButton onClick={onPrev}>이전</S.PrevButton>
+          <S.NextButton onClick={onNextHandler}>다음</S.NextButton>
+        </S.EventBox>
+      </S.PaddingBox>
     </S.SignupBox>
   );
 };
