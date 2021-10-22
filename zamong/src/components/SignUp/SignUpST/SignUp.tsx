@@ -30,8 +30,6 @@ const SignUpST = ({ functions, id, name }: PropsType): JSX.Element => {
     if (id.length === 0) {
       setIdErrorText("아이디를 입력하셔야 합니다.");
       setIdTrue(false);
-    } else {
-      setIdTrue(true);
     }
   };
 
@@ -39,8 +37,6 @@ const SignUpST = ({ functions, id, name }: PropsType): JSX.Element => {
     if (name.length === 0) {
       setNameErrorText("이름을 입력하셔야 합니다.");
       setNameTrue(false);
-    } else {
-      setNameTrue(true);
     }
   };
 
