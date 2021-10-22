@@ -67,22 +67,27 @@ const PickerColumn = ({
     }
   };
 
-  return (
-    <S.DateColumn
-      height={HEIGHT}
-      onWheel={(event) => {
-        clearTimeout(timer);
-        setIsWheel(true);
-        var value = event.deltaY;
-        if (Math.abs(value) === 100) {
-          value = 18 * Math.sign(value);
-        }
+  const onWheelHandler = (event: React.WheelEvent<HTMLDivElement>) => {
+    clearTimeout(timer);
+    setIsWheel(true);
+    var value = event.deltaY;
+    if (Math.abs(value) === 100) {
+      value = 18 * Math.sign(value);
+    }
 
-        setY(CalculateY(y, value));
-        setSelectedIndex(CalculateIndex(y));
-        setTimer(setTimeout(onTimeout, 100));
-      }}
-    >
+    setY(CalculateY(y, value));
+    setSelectedIndex(CalculateIndex(y));
+    setTimer(setTimeout(onTimeout, 100));
+  };
+
+  const onClickHandler = (index: number, value: string | number) => {
+    setY(-(index * HEIGHT));
+    setSelectedIndex(index);
+    setValue(value);
+  };
+
+  return (
+    <S.DateColumn height={HEIGHT} onWheel={onWheelHandler}>
       <S.DateColumnInner y={y + OFFSET} isWheel={isWheel}>
         {tempArray.map((value, index) => {
           return (
@@ -90,11 +95,7 @@ const PickerColumn = ({
               isWheel={isWheel}
               key={index}
               color={selectedIndex === index ? color.white : color.gray}
-              onClick={() => {
-                setY(-(index * HEIGHT));
-                setSelectedIndex(index);
-                setValue(value);
-              }}
+              onClick={() => onClickHandler(index, value)}
               height={HEIGHT}
               angle={(selectedIndex - index) * 25}
               opacity={CalculateOpacity(index, selectedIndex)}

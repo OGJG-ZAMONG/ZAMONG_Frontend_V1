@@ -3,7 +3,7 @@ import * as S from "./styles";
 import Modal from "../Modal/Modal";
 import { getMaxDate, HEIGHT, toString, range, toNumber } from "../model";
 import PickerColumn from "../PickerColunm/PickerColumn";
-import { useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 
 type PropsType = {
   date: Date;
@@ -26,6 +26,10 @@ const DatePicker = ({ date, setDate, setModal }: PropsType): JSX.Element => {
       new Date(`${nowDate.year}-${nowDate.month - 1}-${nowDate.day}`)
     );
   }, [nowDate]);
+
+  useEffect(() => {
+    console.log(realDate);
+  }, [realDate]);
 
   return (
     <>

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import DatePicker from "../../../Picker/DatePicker/DatePicker";
 import * as S from "../../../styles";
 import TimePicker, { Time } from "../../../Picker/TimePicker/TimePicker";
