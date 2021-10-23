@@ -1,28 +1,40 @@
 import * as G from "../Modal/styles";
 import { ColumnContainer } from "../DatePicker/styles";
 import Modal from "../Modal/Modal";
-import { getMaxDate, HEIGHT, range, toNumber, toString } from "../model";
+import { HEIGHT, range, toNumber, toString } from "../model";
 import PickerColumn from "../PickerColunm/PickerColumn";
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useState } from "react";
 
 export type Time = {
+  type: string;
   hour: number;
   minute: number;
 };
+export const AM = "AM";
+export const PM = "PM";
 
 type PropsType = {
   time: Time;
+  setTime: React.Dispatch<React.SetStateAction<Time>>;
   setModal: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
-const TimePicker = ({ time, setModal }: PropsType): JSX.Element => {
-  const tempDate = useMemo(() => time, []);
-  const { hour, minute } = tempDate;
-  const [type, setType] = useState("AM");
+const TimePicker = ({ time, setTime, setModal }: PropsType): JSX.Element => {
   const [nowTime, setNowTime] = useState<Time>({
-    hour: hour,
-    minute: minute,
+    type: time.type,
+    hour: time.hour,
+    minute: time.minute,
   });
+  const { hour, minute, type } = nowTime;
+
+  useEffect(() => {
+    //모달이 꺼질때 값 설정
+    return () =>
+      setNowTime((oldData) => {
+        setTime({ ...oldData });
+        return oldData;
+      });
+  }, []);
 
   return (
     <>
@@ -30,11 +42,11 @@ const TimePicker = ({ time, setModal }: PropsType): JSX.Element => {
         <G.ModalTitle>시간 선택</G.ModalTitle>
         <ColumnContainer height={HEIGHT}>
           <PickerColumn
-            array={["AM", "PM"]}
+            array={[AM, PM]}
             type=""
             initValue={type}
             setValue={(value: number | string) => {
-              setType(toString(value));
+              setNowTime({ ...nowTime, type: toString(value) });
             }}
           />
           <PickerColumn
