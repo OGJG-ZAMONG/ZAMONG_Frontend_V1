@@ -9,16 +9,20 @@ type PropsType = {
 };
 
 const Header = ({ selected, setSelected }: PropsType): JSX.Element => {
+  const tagRender = selected.map((value, index) => {
+    //선택 된것만 출력
+    return (
+      <div>
+        <Tag>{value.name}</Tag>
+      </div>
+    );
+  });
   return (
     <S.HeaderContainer>
       <G.TitleContainer>
         <G.Title>{"꿈의 유형"}</G.Title>
       </G.TitleContainer>
-      <S.TypeContainer>
-        <Tag>악몽</Tag>
-        <Tag>루시드 드림</Tag>
-        <Tag>길몽</Tag>
-      </S.TypeContainer>
+      <S.TypeContainer>{tagRender}</S.TypeContainer>
     </S.HeaderContainer>
   );
 };
