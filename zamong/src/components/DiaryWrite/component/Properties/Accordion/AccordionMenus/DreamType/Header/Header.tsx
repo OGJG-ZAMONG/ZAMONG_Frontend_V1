@@ -1,8 +1,14 @@
+import { DreamTypeType } from "../../../../../../../../constance/dreamType";
 import Tag from "../../../../../../../Tag/Tag";
 import * as G from "../../../../../styles";
 import * as S from "../styles";
 
-const Header = (): JSX.Element => {
+type PropsType = {
+  selected: DreamTypeType[];
+  setSelected: React.Dispatch<React.SetStateAction<DreamTypeType[]>>;
+};
+
+const Header = ({ selected, setSelected }: PropsType): JSX.Element => {
   return (
     <S.HeaderContainer>
       <G.TitleContainer>
