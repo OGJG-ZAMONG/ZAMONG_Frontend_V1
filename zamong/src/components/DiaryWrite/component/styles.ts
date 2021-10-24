@@ -11,11 +11,20 @@ export const TitleContainer = styled.div`
   width: 125px;
 `;
 
+export const Container = styled.div`
+  color: ${(props) => props.color} !important;
+  display: flex;
+`;
+
 export const Subtitle = styled.div`
-  font: ${font.body2};
   color: ${color.lightGray};
+  font: ${font.body2};
   user-select: none;
   cursor: pointer;
+`;
+
+export const TimePickerItem = styled(Subtitle)`
+  color: unset;
 `;
 
 export const HeaderContainer = styled.div`
