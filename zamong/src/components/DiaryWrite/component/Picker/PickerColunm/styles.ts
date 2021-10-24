@@ -18,6 +18,7 @@ export const DateColumn = styled.div<{ height: number }>`
     top: 100%;
     left: 0;
     transform: translateY(-100%);
+    pointer-events: none;
   }
   ::before {
     content: "";
@@ -31,6 +32,7 @@ export const DateColumn = styled.div<{ height: number }>`
     position: absolute;
     top: 0;
     left: 0;
+    pointer-events: none;
   }
 `;
 
