@@ -5,14 +5,22 @@ import * as S from "../styles";
 
 type PropsType = {
   selected: DreamTypeType[];
-  setSelected: React.Dispatch<React.SetStateAction<DreamTypeType[]>>;
+  deleteItem: (index: number) => void;
 };
 
-const Header = ({ selected, setSelected }: PropsType): JSX.Element => {
+const Header = ({ selected, deleteItem }: PropsType): JSX.Element => {
+  const onClickHandler = (
+    e: React.MouseEvent<HTMLDivElement, MouseEvent>,
+    index: number
+  ) => {
+    e.preventDefault();
+    deleteItem(index);
+  };
+
   const tagRender = selected.map((value, index) => {
     //선택 된것만 출력
     return (
-      <div>
+      <div onClick={(e) => onClickHandler(e, index)}>
         <Tag>{value.name}</Tag>
       </div>
     );
