@@ -9,11 +9,11 @@ export const DateColumn = styled.div<{ height: number }>`
     content: "";
     background: linear-gradient(
       180deg,
-      rgba(44, 44, 46, 0) 25px,
+      rgba(44, 44, 46, 0) 50%,
       ${color.darkerGray}
     );
     width: 100%;
-    height: 50px;
+    height: 30%;
     position: absolute;
     top: 100%;
     left: 0;
@@ -23,11 +23,11 @@ export const DateColumn = styled.div<{ height: number }>`
     content: "";
     background: linear-gradient(
       0deg,
-      rgba(44, 44, 46, 0) 25px,
+      rgba(44, 44, 46, 0) 50%,
       ${color.darkerGray}
     );
     width: 100%;
-    height: 50px;
+    height: 30%;
     position: absolute;
     top: 0;
     left: 0;
