@@ -60,7 +60,7 @@ const DiaryWrite = (): JSX.Element => {
   });
   const [timeInvalid, setTimeInvalid] = useState<boolean>(false);
   const [quality, setQuality] = useState<Code>(qualitys[2]);
-  const [types, setTypes] = useState<DreamTypeType[]>();
+  const [types, setTypes] = useState<DreamTypeType[]>([]);
 
   const { title, content } = properties;
   const onChangeHandler = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
@@ -108,7 +108,7 @@ const DiaryWrite = (): JSX.Element => {
                   qualityState={{ state: quality, setState: setQuality }}
                   qualitys={qualitys}
                 />
-                <DreamType />
+                <DreamType typesState={{ state: types, setState: setTypes }} />
               </S.DetailMarginConatiner>
             </div>
             <div>

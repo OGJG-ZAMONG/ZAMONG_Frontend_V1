@@ -1,11 +1,15 @@
 import Accordion from "../../Accordion/Accordion";
 import Header from "./Header/Header";
 import Content from "./Content/Content";
-import { useState } from "react";
 import { DreamTypeType } from "../../../../../../../constance/dreamType";
+import { State } from "../../../../../model";
 
-const DreamType = (): JSX.Element => {
-  const [selected, setSelected] = useState<DreamTypeType[]>([]);
+type PropsType = {
+  typesState: State<DreamTypeType[]>;
+};
+
+const DreamType = ({ typesState }: PropsType): JSX.Element => {
+  const { state: selected, setState: setSelected } = typesState;
   const dreamTypeCompareFunction = (
     a: DreamTypeType,
     b: DreamTypeType
