@@ -56,7 +56,6 @@ const DiaryWrite = (): JSX.Element => {
     hour: 7,
     minute: 0,
   });
-  const [timeInvalid, setTimeInvalid] = useState<boolean>(false);
   const [quality, setQuality] = useState<Code>(qualitys[2]);
   const [types, setTypes] = useState<DreamTypeType[]>([]);
 
@@ -87,11 +86,7 @@ const DiaryWrite = (): JSX.Element => {
               <S.Subtitle>꿈 상세</S.Subtitle>
               <S.DetailMarginConatiner>
                 <DreamDate dateState={{ state: date, setState: setDate }} />
-                <DreamTime
-                  startState={{ state: startTime, setState: setStartTime }}
-                  endState={{ state: endTime, setState: setEndTime }}
-                  invalidState={{ state: timeInvalid, setState: setTimeInvalid }}
-                />
+                <DreamTime startState={{ state: startTime, setState: setStartTime }} endState={{ state: endTime, setState: setEndTime }} />
                 <DreamQuality qualityState={{ state: quality, setState: setQuality }} qualitys={qualitys} />
                 <DreamType typesState={{ state: types, setState: setTypes }} />
               </S.DetailMarginConatiner>

@@ -6,26 +6,12 @@ import Content from "./Content/Content";
 type PropsType = {
   startState: State<Time>;
   endState: State<Time>;
-  invalidState: State<boolean>;
 };
 
-const DreamTime = ({
-  startState,
-  endState,
-  invalidState,
-}: PropsType): JSX.Element => {
+const DreamTime = ({ startState, endState }: PropsType): JSX.Element => {
   return (
     <>
-      <Selecter
-        title="수면 시각"
-        content={
-          <Content
-            startState={startState}
-            endState={endState}
-            invalidState={invalidState}
-          />
-        }
-      />
+      <Selecter title="수면 시각" content={<Content startState={startState} endState={endState} />} />
     </>
   );
 };
