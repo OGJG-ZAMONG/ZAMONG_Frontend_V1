@@ -1,13 +1,8 @@
 import { useEffect, useState } from "react";
 import { color } from "../../../../../../../style/color";
-import { AM, Time } from "../../../../../model";
+import { AM, State, Time } from "../../../../../model";
 import TimePicker from "../../../../Picker/TimePicker/TimePicker";
 import * as S from "../../../../styles";
-
-export type State<T> = {
-  state: T;
-  setState: React.Dispatch<React.SetStateAction<T>>;
-};
 
 type PropsType = {
   startState: State<Time>;

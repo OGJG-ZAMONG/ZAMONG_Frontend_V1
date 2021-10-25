@@ -8,7 +8,7 @@ import DreamType from "./component/Properties/Accordion/AccordionMenus/DreamType
 import DreamDate from "./component/Properties/Selecter/DreamDate/DreamDate";
 import DreamQuality from "./component/Properties/Selecter/DreamQuality/DreamQuality";
 import DreamTime from "./component/Properties/Selecter/DreamTime/DreamTime";
-import { Code, Time } from "./model";
+import { AM, Code, Time } from "./model";
 import * as S from "./styles";
 
 type PropertysType = {
@@ -25,11 +25,19 @@ const DiaryWrite = (): JSX.Element => {
   });
   const [file, setFile] = useState<File | undefined>();
   const [date, setDate] = useState<Date>(new Date());
-  const [startTime, setStartTime] = useState<Time>();
-  const [endTime, setEndTime] = useState<Time>();
+  const [startTime, setStartTime] = useState<Time>({
+    type: AM,
+    hour: 0,
+    minute: 0,
+  });
+  const [endTime, setEndTime] = useState<Time>({
+    type: AM,
+    hour: 7,
+    minute: 0,
+  });
+  const [timeInvalid, setTimeInvalid] = useState<boolean>(false);
   const [quality, setQuality] = useState<Code>();
   const [types, setTypes] = useState<DreamTypeType[]>();
-  
 
   const { title, content } = properties;
   const onChangeHandler = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
@@ -64,8 +72,15 @@ const DiaryWrite = (): JSX.Element => {
             <div>
               <S.Subtitle>꿈 상세</S.Subtitle>
               <S.DetailMarginConatiner>
-                <DreamDate />
-                <DreamTime />
+                <DreamDate dateState={{ state: date, setState: setDate }} />
+                <DreamTime
+                  startState={{ state: startTime, setState: setStartTime }}
+                  endState={{ state: endTime, setState: setEndTime }}
+                  invalidState={{
+                    state: timeInvalid,
+                    setState: setTimeInvalid,
+                  }}
+                />
                 <DreamQuality />
                 <DreamType />
               </S.DetailMarginConatiner>

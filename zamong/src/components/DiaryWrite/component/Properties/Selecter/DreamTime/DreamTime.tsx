@@ -1,31 +1,28 @@
 import { useState } from "react";
-import { AM, Time } from "../../../../model";
+import { State, Time } from "../../../../model";
 import Selecter from "../Selecter/Selecter";
 import Content from "./Content/Content";
 
-const DreamTime = (): JSX.Element => {
-  const [startTime, setStartTime] = useState<Time>({
-    type: AM,
-    hour: 0,
-    minute: 0,
-  });
-  const [isInvalid, setIsInvalid] = useState<boolean>(false);
+type PropsType = {
+  startState: State<Time>;
+  endState: State<Time>;
+  invalidState: State<boolean>;
+};
 
-  const [endTime, setEndTime] = useState<Time>({
-    type: AM,
-    hour: 7,
-    minute: 0,
-  });
-
+const DreamTime = ({
+  startState,
+  endState,
+  invalidState,
+}: PropsType): JSX.Element => {
   return (
     <>
       <Selecter
         title="수면 시각"
         content={
           <Content
-            startState={{ state: startTime, setState: setStartTime }}
-            endState={{ state: endTime, setState: setEndTime }}
-            invalidState={{ state: isInvalid, setState: setIsInvalid }}
+            startState={startState}
+            endState={endState}
+            invalidState={invalidState}
           />
         }
       />
