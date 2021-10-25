@@ -10,3 +10,8 @@ export type Time = {
 };
 export const AM = "AM";
 export const PM = "PM";
+
+export type Code = {
+  code: string;
+  name: string;
+};

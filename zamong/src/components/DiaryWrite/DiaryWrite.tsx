@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { DreamTypeType } from "../../constance/dreamType";
 import { color } from "../../style/color";
 import FileInput from "../FileInput/FileInput";
 import Footer from "../Footer/Footer";
@@ -7,20 +8,28 @@ import DreamType from "./component/Properties/Accordion/AccordionMenus/DreamType
 import DreamDate from "./component/Properties/Selecter/DreamDate/DreamDate";
 import DreamQuality from "./component/Properties/Selecter/DreamQuality/DreamQuality";
 import DreamTime from "./component/Properties/Selecter/DreamTime/DreamTime";
+import { Code, Time } from "./model";
 import * as S from "./styles";
+
+type PropertysType = {
+  title: string;
+  content: string;
+};
 
 const DiaryWrite = (): JSX.Element => {
   const MAXTITLE = 100;
-  interface propertysType {
-    title: string;
-    content: string;
-  }
 
-  const [properties, setProperties] = useState<propertysType>({
+  const [properties, setProperties] = useState<PropertysType>({
     title: "",
     content: "",
   });
   const [file, setFile] = useState<File | undefined>();
+  const [date, setDate] = useState<Date>(new Date());
+  const [startTime, setStartTime] = useState<Time>();
+  const [endTime, setEndTime] = useState<Time>();
+  const [quality, setQuality] = useState<Code>();
+  const [types, setTypes] = useState<DreamTypeType[]>();
+  
 
   const { title, content } = properties;
   const onChangeHandler = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
