@@ -1,7 +1,7 @@
 import { useState } from "react";
-import { AM, Time } from "../../../Picker/TimePicker/TimePicker";
+import { AM, Time } from "../../../../model";
 import Selecter from "../Selecter/Selecter";
-import Content, { State } from "./Content/Content";
+import Content from "./Content/Content";
 
 const DreamTime = (): JSX.Element => {
   const [startTime, setStartTime] = useState<Time>({

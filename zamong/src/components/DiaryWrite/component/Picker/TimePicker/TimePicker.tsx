@@ -4,14 +4,7 @@ import Modal from "../Modal/Modal";
 import { HEIGHT, range, toNumber, toString } from "../model";
 import PickerColumn from "../PickerColunm/PickerColumn";
 import { useEffect, useState } from "react";
-
-export type Time = {
-  type: string;
-  hour: number;
-  minute: number;
-};
-export const AM = "AM";
-export const PM = "PM";
+import { AM, PM, Time } from "../../../model";
 
 type PropsType = {
   time: Time;
