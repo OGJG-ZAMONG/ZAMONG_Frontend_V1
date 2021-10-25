@@ -5,6 +5,7 @@ export const CommentToggle = styled.div<{ display: string }>`
   color: ${color.white};
   display: ${(props) => props.display};
   margin: auto 0;
+  cursor: pointer;
 `;
 
 export const ToggleImg = styled.img<{ rotate: number }>`
@@ -18,6 +19,7 @@ export const CommentPlus = styled.div`
   display: flex;
   margin: auto 0;
   margin-left: 16px;
+  cursor: pointer;
 `;
 
 export const PlusImg = styled.img`

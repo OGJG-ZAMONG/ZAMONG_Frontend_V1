@@ -31,6 +31,7 @@ export const CommentText = styled.div`
 
 export const More = styled.img`
   margin: auto 0;
+  cursor: pointer;
 `;
 
 export const CommentBoxBottom = styled.div`
