@@ -6,8 +6,9 @@ export const Recommend = styled.div`
 `;
 
 export const CommentLike = styled.div`
-  color: ${color.gray};
+  color: ${(props) => props.color};
   margin-right: 24px;
+  cursor: pointer;
 `;
 
 export const LikeImg = styled.img`
@@ -15,7 +16,8 @@ export const LikeImg = styled.img`
 `;
 
 export const CommentDisLike = styled.div`
-  color: ${color.gray};
+  color: ${(props) => props.color};
+  cursor: pointer;
 `;
 
 export const DisLikeImg = styled.img`
