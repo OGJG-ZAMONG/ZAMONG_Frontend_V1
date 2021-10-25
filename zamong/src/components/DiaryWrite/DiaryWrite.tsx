@@ -2,8 +2,6 @@ import React, { useEffect, useState } from "react";
 import { DreamTypeType } from "../../constance/dreamType";
 import { color } from "../../style/color";
 import FileInput from "../FileInput/FileInput";
-import Footer from "../Footer/Footer";
-import Header from "../Header/Header";
 import DreamType from "./component/Properties/Accordion/AccordionMenus/DreamType/DreamType";
 import DreamDate from "./component/Properties/Selecter/DreamDate/DreamDate";
 import DreamQuality from "./component/Properties/Selecter/DreamQuality/DreamQuality";
@@ -80,15 +78,8 @@ const DiaryWrite = (): JSX.Element => {
           <S.MarginConatiner>
             <div>
               <S.Subtitle>꿈 제목</S.Subtitle>
-              <S.TextArea
-                onChange={onChangeHandler}
-                name="title"
-                value={title}
-                placeholder="제목 입력..."
-              />
-              <S.TitleCount
-                color={title.length >= MAXTITLE ? color.red : color.gray}
-              >
+              <S.TextArea onChange={onChangeHandler} name="title" value={title} placeholder="제목 입력..." />
+              <S.TitleCount color={title.length >= MAXTITLE ? color.red : color.gray}>
                 {title.length} / {MAXTITLE}
               </S.TitleCount>
             </div>
@@ -99,26 +90,15 @@ const DiaryWrite = (): JSX.Element => {
                 <DreamTime
                   startState={{ state: startTime, setState: setStartTime }}
                   endState={{ state: endTime, setState: setEndTime }}
-                  invalidState={{
-                    state: timeInvalid,
-                    setState: setTimeInvalid,
-                  }}
+                  invalidState={{ state: timeInvalid, setState: setTimeInvalid }}
                 />
-                <DreamQuality
-                  qualityState={{ state: quality, setState: setQuality }}
-                  qualitys={qualitys}
-                />
+                <DreamQuality qualityState={{ state: quality, setState: setQuality }} qualitys={qualitys} />
                 <DreamType typesState={{ state: types, setState: setTypes }} />
               </S.DetailMarginConatiner>
             </div>
             <div>
               <S.Subtitle>꿈 내용</S.Subtitle>
-              <S.TextAreaContent
-                onChange={onChangeHandler}
-                name="content"
-                value={content}
-                placeholder="내용 입력..."
-              />
+              <S.TextAreaContent onChange={onChangeHandler} name="content" value={content} placeholder="내용 입력..." />
               <FileInput file={file} setFile={setFile} id="diary" />
             </div>
           </S.MarginConatiner>
