@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { color } from "../../../../../../../style/color";
-import TimePicker, { AM, Time } from "../../../../Picker/TimePicker/TimePicker";
+import { AM, Time } from "../../../../../model";
+import TimePicker from "../../../../Picker/TimePicker/TimePicker";
 import * as S from "../../../../styles";
 
 export type State<T> = {
