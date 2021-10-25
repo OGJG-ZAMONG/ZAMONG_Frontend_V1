@@ -2,18 +2,17 @@ import { useEffect, useRef, useState } from "react";
 import Selecter from "../Selecter/Selecter";
 import { color } from "../../../../../../style/color";
 import ItemContent from "./ItemContent/ItemContent";
+import { Code, State } from "../../../../model";
 
-const DreamQuality = (): JSX.Element => {
-  const qualitys = [
-    "😚 아주 좋아요",
-    "🙂 좋아요",
-    "😐 그저 그래요",
-    "☹️ 안좋아요",
-    "😬 아주 안좋아요",
-  ];
+type PropsType = {
+  qualityState: State<Code>;
+  qualitys: Code[];
+};
 
+const DreamQuality = ({ qualityState, qualitys }: PropsType): JSX.Element => {
   const GAP = 16;
-  const [quality, setQuality] = useState<string>(qualitys[2]);
+  const { state: quality, setState: setQuality } = qualityState;
+  // const [quality, setQuality] = useState<Code>(qualitys[2]);
 
   return (
     <>

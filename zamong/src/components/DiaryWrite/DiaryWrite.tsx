@@ -16,6 +16,29 @@ type PropertysType = {
   content: string;
 };
 
+const qualitys: Code[] = [
+  {
+    code: "BST",
+    name: "😚 아주 좋아요",
+  },
+  {
+    code: "GD",
+    name: "🙂 좋아요",
+  },
+  {
+    code: "SO",
+    name: "😐 그저 그래요",
+  },
+  {
+    code: "BD",
+    name: "☹️ 안좋아요",
+  },
+  {
+    code: "WST",
+    name: "😬 아주 안좋아요",
+  },
+];
+
 const DiaryWrite = (): JSX.Element => {
   const MAXTITLE = 100;
 
@@ -36,7 +59,7 @@ const DiaryWrite = (): JSX.Element => {
     minute: 0,
   });
   const [timeInvalid, setTimeInvalid] = useState<boolean>(false);
-  const [quality, setQuality] = useState<Code>();
+  const [quality, setQuality] = useState<Code>(qualitys[2]);
   const [types, setTypes] = useState<DreamTypeType[]>();
 
   const { title, content } = properties;
@@ -81,7 +104,10 @@ const DiaryWrite = (): JSX.Element => {
                     setState: setTimeInvalid,
                   }}
                 />
-                <DreamQuality />
+                <DreamQuality
+                  qualityState={{ state: quality, setState: setQuality }}
+                  qualitys={qualitys}
+                />
                 <DreamType />
               </S.DetailMarginConatiner>
             </div>

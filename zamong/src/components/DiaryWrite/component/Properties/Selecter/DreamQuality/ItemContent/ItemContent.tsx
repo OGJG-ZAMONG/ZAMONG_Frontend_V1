@@ -2,11 +2,12 @@ import { useEffect, useRef, useState } from "react";
 import * as I from "../styles";
 import * as S from "../../../../styles";
 import { color } from "../../../../../../../style/color";
+import { Code } from "../../../../../model";
 
 type PropsType = {
-  array: string[];
-  initValue: string;
-  setValue: React.Dispatch<React.SetStateAction<string>>;
+  array: Code[];
+  initValue: Code;
+  setValue: React.Dispatch<React.SetStateAction<Code>>;
   gap: number;
 };
 
@@ -73,7 +74,7 @@ const ItemContent = ({
               onClick={() => onItemClickHandler(index)}
               opacity={getOpacity(index)}
             >
-              {value}
+              {value.name}
             </I.Item>
           );
         })}
