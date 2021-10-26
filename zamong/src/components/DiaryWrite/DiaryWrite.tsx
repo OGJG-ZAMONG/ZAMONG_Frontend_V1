@@ -69,6 +69,38 @@ const DiaryWrite = (): JSX.Element => {
     }
   };
 
+  const dateToString = (date: Date): string => {
+    return `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}`;
+  };
+
+  const getMinutes = (time: Time): number => {
+    return (time.hour + (time.type === AM ? 0 : 12)) * 60 + time.minute;
+  };
+
+  const compareTime = (a: Time, b: Time): number => {
+    const aMins = getMinutes(a);
+    const bMins = getMinutes(b);
+
+    if (aMins > bMins) return 1;
+    else if (aMins < bMins) return -1;
+    return 0;
+  };
+
+  const timeToString = (time: Time): string => {
+    return `${(time.hour + (time.type === AM ? 0 : 12)).toString().padStart(2, "0")}-${time.minute.toString().padStart(2, "0")}-00`;
+  };
+
+  const toDateTime = (date: Date, startTime: Time, endTime: Time): { startDateTime: string; endDateTime: string } => {
+    const offset = compareTime(endTime, startTime) === -1 ? 1 : 0;
+    const endDate = new Date(date);
+    endDate.setDate(endDate.getDate() + offset);
+
+    return {
+      startDateTime: `${dateToString(date)}T${timeToString(startTime)}`,
+      endDateTime: `${dateToString(endDate)}T${timeToString(endTime)}`,
+    };
+  };
+
   return (
     <>
       <S.ContentContainer>
