@@ -6,29 +6,28 @@ import FollowContent from "./Follow/FollowContent";
 import AccountContent from "./Account/AccountContent";
 
 const ProfilePage = (): JSX.Element => {
-  const [followerColor, setFollowerColor] = useState("white");
-  const [followColor, setFollowColor] = useState("black");
-  const [accountColor, setAccountcolorColor] = useState("black");
   const [comp, setComp] = useState();
+  const [content, setContent] = useState(<FollowerContent />);
   const onFollowerClick = () => {
-    if (followColor === "white" || accountColor === "white") {
-      setFollowerColor("black");
-    } else {
-      followerColor === "white"
-        ? setFollowerColor("black")
-        : setFollowerColor("white");
+    if (content !== <FollowerContent />) {
+      setContent(<FollowerContent />);
     }
   };
   const onFollowClick = () => {
-    followColor === "black" ? setFollowColor("white") : setFollowColor("black");
+    if (content !== <FollowContent />) {
+      setContent(<FollowContent />);
+    }
   };
   const onAccountInfoClick = () => {
-    accountColor === "black"
-      ? setAccountcolorColor("white")
-      : setAccountcolorColor("black");
+    if (content !== <AccountContent />) {
+      setContent(<AccountContent />);
+    }
   };
   return (
     <>
+      {FollowerContent}
+      {FollowContent}
+      {AccountContent}
       <S.ProfileContent>
         <S.TopBox>
           <S.TopContent>
@@ -48,33 +47,27 @@ const ProfilePage = (): JSX.Element => {
         </S.TopBox>
         <S.SelectionBox>
           <S.SelectionContent>
-            <S.ChooseBox1
-              onClick={onFollowerClick}
-              followerColor={followerColor}
-            >
+            <S.ChooseBox onClick={onFollowerClick}>
               <div>
                 <img src={Follower} />
                 <span>팔로워</span>
               </div>
-            </S.ChooseBox1>
-            <S.ChooseBox2 onClick={onFollowClick} followColor={followColor}>
+            </S.ChooseBox>
+            <S.ChooseBox onClick={onFollowClick}>
               <div>
                 <img src={Follow} />
                 <span>팔로우</span>
               </div>
-            </S.ChooseBox2>
-            <S.ChooseBox3
-              onClick={onAccountInfoClick}
-              accountColor={accountColor}
-            >
+            </S.ChooseBox>
+            <S.ChooseBox onClick={onAccountInfoClick}>
               <div>
                 <img src={AccountInfo} />
                 <span>계정 정보</span>
               </div>
-            </S.ChooseBox3>
+            </S.ChooseBox>
           </S.SelectionContent>
         </S.SelectionBox>
-        <FollowerContent />
+        <div>{content}</div>
       </S.ProfileContent>
     </>
   );
