@@ -8,6 +8,7 @@ import {
   SellDreamContainer,
   DiaryWriteContainer,
   SellManagementContainer,
+  ProfileContainter,
 } from "../container";
 import ChatContainer from "../container/Chat/ChatContainer";
 import SellWriteContainer from "../container/SellWrite";
@@ -24,11 +25,7 @@ const MainRouter: FC = (): JSX.Element => {
         <Route exact path="/sell" component={SellDreamContainer} />
         <Route exact path="/sell/write" component={SellWriteContainer} />
         <Route exact path="/chat" component={ChatContainer} />
-        <Route
-          exact
-          path="/sell/management"
-          component={SellManagementContainer}
-        />
+        <Route exact path="/profile" component={ProfileContainter} />
       </Switch>
     </>
   );

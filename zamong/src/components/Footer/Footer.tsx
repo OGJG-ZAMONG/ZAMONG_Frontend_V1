@@ -1,6 +1,6 @@
 import * as S from "./styles";
-import LinkIcon from "../../assets/icons/link.svg";
-import Github from "../../assets/icons/github.svg";
+import LinkIcon from "../../assets/icon/link.svg";
+import Github from "../../assets/icon/github.svg";
 import { Link } from "react-router-dom";
 const Footer = (): JSX.Element => {
   return (

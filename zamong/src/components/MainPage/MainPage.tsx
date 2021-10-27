@@ -1,15 +1,15 @@
 import { Link } from "react-router-dom";
 import Header from "../Header/Header";
 import * as S from "./styles";
-import HelloImg from "../../assets/delusional/delusional3.png";
-import Dream from "../Dream/Dream";
-import MyDreamDiary from "../CardDream/MyDreamDiary/MyDreamDiary";
-import DreamList from "./DreamList/DreamList";
-import Footer from "../Footer/Footer";
-import FollowList from "./FollowList/FollowList";
-import MyDreamDiaryList from "./DreamDiaryList/MyDreamDiaryList/MyDreamDiaryList";
-import FollowDreamDiaryList from "./DreamDiaryList/FollowDreamDiaryList/FollowDreamDiaryList";
-// import MyDreamDiary from "../CardDream/MyDreamDiary/MyDreamDiary";
+import {
+  Dream,
+  MyDreamDiary,
+  DreamList,
+  Footer,
+  FollowList,
+  MyDreamDiaryList,
+  FollowDreamDiaryList,
+} from "./Index";
 
 const MainPage = (): JSX.Element => {
   return (
@@ -26,7 +26,7 @@ const MainPage = (): JSX.Element => {
               <Link to="/login">로그인  </Link>
             </S.HelloContent>
             <S.HelloImage>
-              <img src={HelloImg} alt="hello img" />
+              {/*<img src={HelloImg} alt="hello img" />*/}
             </S.HelloImage>
           </S.HelloContainer>
         </S.HelloSection>
