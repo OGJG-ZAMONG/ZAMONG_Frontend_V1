@@ -8,6 +8,7 @@ export const ModalContainer = styled.div`
   position: fixed;
   top: 0px;
   left: 0px;
+  z-index: 100;
 `;
 
 export const ModalBack = styled.div`
@@ -35,4 +36,3 @@ export const ModalTitle = styled.div`
   color: ${color.white};
   margin-bottom: 16px;
 `;
-

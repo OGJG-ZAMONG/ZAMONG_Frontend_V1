@@ -1,5 +1,7 @@
 import styled from "@emotion/styled";
 import { font } from "../../../style/font";
+import { color } from "../../../style/color";
+import { Link } from "react-router-dom";
 
 export const Container = styled.div`
   width: 1280px;
@@ -10,7 +12,7 @@ export const Container = styled.div`
 export const Information = styled.div`
   display: flex;
   justify-content: space-between;
-  color: white;
+  color: ${color.white};
   height: 40px;
   margin-bottom: 56px;
 `;
@@ -24,10 +26,15 @@ export const SellManagementText = styled.div`
   cursor: pointer;
 `;
 
+export const LinkBox = styled(Link)`
+  color: #ffffff;
+  text-decoration: none;
+`;
+
 export const SellingDreamListText = styled.div`
   font: ${font.headline3};
   font-size: 24px;
-  color: white;
+  color: ${color.white};
   margin-bottom: 28px;
 `;
 
@@ -46,7 +53,7 @@ export const PageNationContainer = styled.div`
   height: 25px;
   display: flex;
   justify-content: space-evenly;
-  color: #8e8e93;
+  color: ${color.gray};
   margin: 0 auto;
   font: ${font.subtitle};
 `;

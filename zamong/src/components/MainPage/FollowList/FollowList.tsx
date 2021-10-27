@@ -1,6 +1,6 @@
-import * as S from "./Styles";
-import More from "../../../assets/icon/more.svg";
-import { DefaultImage } from "../../../assets/index";
+import * as S from "./styles";
+import More from "../../../assets/icons/more.svg";
+import DefaultImage from "../../../assets/DefaultPostingImages/1.jpg";
 
 const FollowList = (): JSX.Element => {
   return (
