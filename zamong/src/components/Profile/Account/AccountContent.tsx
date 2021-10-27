@@ -6,26 +6,28 @@ const AccountContent = (): JSX.Element => {
       <S.Content>
         <S.ProfileBox>
           <S.TitleText>프로필</S.TitleText>
-          <div>
+          <S.Box>
             <S.SubTitle>프로필 사진 변경</S.SubTitle>
             <S.ChangeBtn>변경</S.ChangeBtn>
-          </div>
+          </S.Box>
         </S.ProfileBox>
         <S.AccountBox>
           <S.TitleText>계정</S.TitleText>
-          <div>
+          <S.Box>
             <S.SubTitle>아이디</S.SubTitle>
-            <S.IdText>dsm_jingeun04</S.IdText>
-            <S.ChangeBtn>변경</S.ChangeBtn>
-          </div>
-          <div>
+            <div>
+              <S.IdText>dsm_jingeun04</S.IdText>
+              <S.ChangeBtn>변경</S.ChangeBtn>
+            </div>
+          </S.Box>
+          <S.Box>
             <S.SubTitle>비밀번호</S.SubTitle>
             <S.ChangeBtn>변경</S.ChangeBtn>
-          </div>
-          <div>
+          </S.Box>
+          <S.Box>
             <S.DeleteText>계정 탈퇴</S.DeleteText>
             <S.DeleteBtn>탈퇴</S.DeleteBtn>
-          </div>
+          </S.Box>
         </S.AccountBox>
       </S.Content>
     </>
