@@ -1,9 +1,9 @@
 import * as G from "../Modal/styles";
 import * as S from "./styles";
 import Modal from "../Modal/Modal";
-import { getMaxDate, HEIGHT, toString, range, toNumber } from "../model";
+import { getMaxDate, HEIGHT, range, toNumber } from "../model";
 import PickerColumn from "../PickerColunm/PickerColumn";
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useState } from "react";
 
 type PropsType = {
   date: Date;
@@ -12,19 +12,31 @@ type PropsType = {
 };
 
 const DatePicker = ({ date, setDate, setModal }: PropsType): JSX.Element => {
-  const tempDate = useMemo(() => date, []);
-
-  const [realDate, setRealDate] = useState(new Date(tempDate));
   const [nowDate, setNowDate] = useState({
-    year: tempDate.getFullYear(),
-    month: tempDate.getMonth(),
-    day: tempDate.getDate(),
+    // Picker Column으로 넘기는 값 객체
+    year: date.getFullYear(),
+    month: date.getMonth() + 1,
+    day: date.getDate(),
   });
+  const { year, month } = nowDate;
+
+  const [dayArray, setDayArray] = useState<number[]>(
+    range(1, getMaxDate(year, month) + 1)
+  );
 
   useEffect(() => {
-    setRealDate(
-      new Date(`${nowDate.year}-${nowDate.month - 1}-${nowDate.day}`)
-    );
+    //모달이 꺼질때 값 설정
+    return () =>
+      setNowDate((oldData) => {
+        setDate(new Date(`${oldData.year}-${oldData.month}-${oldData.day}`));
+        return oldData;
+      });
+  }, []);
+
+  useEffect(() => {
+    //nowDate가 바뀌면 바뀐 월에 따라 day array는 바뀌어야 한다
+    const max = getMaxDate(year, month);
+    setDayArray(range(1, max + 1));
   }, [nowDate]);
 
   return (
@@ -33,9 +45,9 @@ const DatePicker = ({ date, setDate, setModal }: PropsType): JSX.Element => {
         <G.ModalTitle>날짜 선택</G.ModalTitle>
         <S.ColumnContainer height={HEIGHT}>
           <PickerColumn
-            array={range(1970, tempDate.getFullYear() + 1)}
+            array={range(1970, new Date().getFullYear() + 1)}
             type="년"
-            initValue={tempDate.getFullYear()}
+            initValue={date.getFullYear()}
             setValue={(value: number | string) => {
               setNowDate({ ...nowDate, year: toNumber(value) });
             }}
@@ -43,18 +55,15 @@ const DatePicker = ({ date, setDate, setModal }: PropsType): JSX.Element => {
           <PickerColumn
             array={range(1, 13)}
             type="월"
-            initValue={tempDate.getMonth() + 1}
+            initValue={date.getMonth() + 1}
             setValue={(value: number | string) => {
               setNowDate({ ...nowDate, month: toNumber(value) });
             }}
           />
           <PickerColumn
-            array={range(
-              1,
-              getMaxDate(realDate.getFullYear(), realDate.getMonth()) + 1
-            )}
+            array={dayArray}
             type="일"
-            initValue={tempDate.getDate()}
+            initValue={date.getDate()}
             setValue={(value: number | string) => {
               setNowDate({ ...nowDate, day: toNumber(value) });
             }}

@@ -10,7 +10,7 @@ export const range = (min: number, max: number): Array<number> => {
 };
 
 export const getMaxDate = (year: number, month: number): number => {
-  var temp: Date = new Date(year, month + 1, 0);
+  var temp: Date = new Date(year, month, 0);
   return temp.getDate();
 };
 

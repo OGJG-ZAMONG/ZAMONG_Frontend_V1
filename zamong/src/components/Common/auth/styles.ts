@@ -1,10 +1,11 @@
 import styled from "@emotion/styled";
 import { leftside, rightside } from "../../../assets/index";
+import { color } from "../../../style/color";
 
 export const Background = styled.div`
   width: 100%;
   height: 100%;
-  background-color: #000000;
+  background-color: ${color.black};
 `;
 
 export const ContentBox = styled.div`

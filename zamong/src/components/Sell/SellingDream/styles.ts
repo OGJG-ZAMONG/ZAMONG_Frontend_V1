@@ -37,7 +37,7 @@ export const Price = styled.div`
   aspect-ratio: 2.3 / 1;
   background: #8e8e93;
   border-radius: 100px;
-  color: white;
+  color: ${color.white};
   font: ${font.body2};
   display: flex;
   justify-content: center;
@@ -54,7 +54,7 @@ export const PostInfoContainer = styled.div`
   justify-content: space-between;
   line-height: 36px;
   height: 36px;
-  color: white;
+  color: ${color.white};
   margin: 12px 0;
 `;
 
@@ -87,7 +87,7 @@ export const UserName = styled.div`
 `;
 
 export const SellingDreamTitle = styled.div`
-  color: white;
+  color: ${color.white};
   font: ${font.body2};
   padding: 0 4px;
 `;

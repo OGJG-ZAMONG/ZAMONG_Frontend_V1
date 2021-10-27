@@ -18,6 +18,7 @@ export const ContentWrapper = styled.div<{ padding: number }>`
   transition: height 0.25s ease-out, opacity 0.25s ease-out;
   opacity: 0;
   padding-bottom: ${(props) => props.padding}px;
+  box-sizing: content-box;
 `;
 
 export const HeaderWrapper = styled.div`
