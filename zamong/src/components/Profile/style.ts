@@ -9,7 +9,6 @@ export const ProfileContent = styled.div`
 export const TopBox = styled.div`
   width: 100%;
   height: 321px;
-  border: 1px solid blue;
 `;
 
 export const TopContent = styled.div`
@@ -83,54 +82,11 @@ export const SelectionContent = styled.div`
   justify-content: space-between;
 `;
 
-export const ChooseBox1 = styled.div<{ followerColor: string }>`
+export const ChooseBox = styled.div`
   width: 110px;
   height: 57px;
   vertical-align: middle;
   cursor: pointer;
-  border-top: 4px solid ${(props) => props.followerColor};
-  img {
-    margin-top: 10px;
-  }
-  div {
-    text-align: center;
-  }
-  span {
-    margin-left: 4px;
-    color: white;
-    font-family: Spoqa Han Sans Neo;
-    font-size: 16px;
-    line-height: 20px;
-  }
-`;
-
-export const ChooseBox2 = styled.div<{ followColor: string }>`
-  width: 110px;
-  height: 57px;
-  vertical-align: middle;
-  cursor: pointer;
-  border-top: 4px solid ${(props) => props.followColor};
-  img {
-    margin-top: 10px;
-  }
-  div {
-    text-align: center;
-  }
-  span {
-    margin-left: 4px;
-    color: white;
-    font-family: Spoqa Han Sans Neo;
-    font-size: 16px;
-    line-height: 20px;
-  }
-`;
-
-export const ChooseBox3 = styled.div<{ accountColor: string }>`
-  width: 110px;
-  height: 57px;
-  vertical-align: middle;
-  cursor: pointer;
-  border-top: 4px solid ${(props) => props.accountColor};
   img {
     margin-top: 10px;
   }

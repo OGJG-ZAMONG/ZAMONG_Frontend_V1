@@ -2,7 +2,6 @@ import styled from "@emotion/styled";
 
 export const Content = styled.div`
   width: 100%;
-  border: 1px solid red;
   margin-top: 68px;
 `;
 
@@ -44,17 +43,20 @@ export const AccountBox = styled.div`
   width: 1279px;
   height: 240px;
   margin: 50px 0px 180px 0px;
-  border: 1px solid blue;
-  div {
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 18px;
-    padding-bottom: 10px;
-    border-bottom: 1px solid white;
-  }
 `;
 
-export const IdText = styled.span``;
+export const Box = styled.div`
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 18px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid white;
+`;
+
+export const IdText = styled.span`
+  color: #ffffff;
+  margin-right: 18px;
+`;
 
 export const DeleteText = styled.span`
   color: #ff453a;
