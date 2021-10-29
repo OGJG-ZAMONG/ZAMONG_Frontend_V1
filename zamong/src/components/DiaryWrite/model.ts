@@ -1,7 +1,4 @@
-export type State<T> = {
-  state: T;
-  setState: React.Dispatch<React.SetStateAction<T>>;
-};
+export type State<T> = [T, React.Dispatch<React.SetStateAction<T>>];
 
 export type Time = {
   type: string;

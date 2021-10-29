@@ -9,7 +9,7 @@ type PropsType = {
 };
 
 const DreamDate = ({ dateState }: PropsType): JSX.Element => {
-  const { state: nowDate, setState: setNowDate } = dateState;
+  const [nowDate, setNowDate] = dateState;
   const [modal, setModal] = useState(false);
 
   const dateToString = (date: Date): string => {

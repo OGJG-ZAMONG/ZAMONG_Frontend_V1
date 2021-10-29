@@ -11,7 +11,7 @@ type PropsType = {
 
 const DreamQuality = ({ qualityState, qualitys }: PropsType): JSX.Element => {
   const GAP = 16;
-  const { state: quality, setState: setQuality } = qualityState;
+  const [quality, setQuality] = qualityState;
   // const [quality, setQuality] = useState<Code>(qualitys[2]);
 
   return (

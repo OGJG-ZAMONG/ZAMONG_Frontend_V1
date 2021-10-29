@@ -10,8 +10,8 @@ type PropsType = {
 };
 
 const Content = ({ startState, endState }: PropsType): JSX.Element => {
-  const { state: startTime, setState: setStartTime } = startState;
-  const { state: endTime, setState: setEndTime } = endState;
+  const [startTime, setStartTime] = startState;
+  const [endTime, setEndTime] = endState;
 
   const [startModal, setStartModal] = useState(false);
   const [endModal, setEndModal] = useState(false);
@@ -24,10 +24,26 @@ const Content = ({ startState, endState }: PropsType): JSX.Element => {
 
   return (
     <S.Container>
-      <S.Subtitle onClick={() => setStartModal(true)}>{timeToString(startTime)} 부터</S.Subtitle>
-      {startModal && <TimePicker time={startTime} setTime={setStartTime} setModal={setStartModal} />}
-      <S.Subtitle onClick={() => setEndModal(true)}>&nbsp;{timeToString(endTime)} 까지</S.Subtitle>
-      {endModal && <TimePicker time={endTime} setTime={setEndTime} setModal={setEndModal} />}
+      <S.Subtitle onClick={() => setStartModal(true)}>
+        {timeToString(startTime)} 부터
+      </S.Subtitle>
+      {startModal && (
+        <TimePicker
+          time={startTime}
+          setTime={setStartTime}
+          setModal={setStartModal}
+        />
+      )}
+      <S.Subtitle onClick={() => setEndModal(true)}>
+        &nbsp;{timeToString(endTime)} 까지
+      </S.Subtitle>
+      {endModal && (
+        <TimePicker
+          time={endTime}
+          setTime={setEndTime}
+          setModal={setEndModal}
+        />
+      )}
     </S.Container>
   );
 };

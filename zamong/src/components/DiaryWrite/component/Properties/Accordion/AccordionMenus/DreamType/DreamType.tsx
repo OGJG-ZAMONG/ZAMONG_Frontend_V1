@@ -9,7 +9,7 @@ type PropsType = {
 };
 
 const DreamType = ({ typesState }: PropsType): JSX.Element => {
-  const { state: selected, setState: setSelected } = typesState;
+  const [selected, setSelected] = typesState;
   const dreamTypeCompareFunction = (
     a: DreamTypeType,
     b: DreamTypeType
