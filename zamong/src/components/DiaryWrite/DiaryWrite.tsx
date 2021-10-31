@@ -8,6 +8,7 @@ import DreamQuality from "./component/Properties/Selecter/DreamQuality/DreamQual
 import DreamTime from "./component/Properties/Selecter/DreamTime/DreamTime";
 import { AM, Code, Time } from "./model";
 import * as S from "./styles";
+import { diaryWriteRequest } from "../../models/dto/request/diaryWriteRequest";
 
 type PropertysType = {
   title: string;
@@ -92,18 +93,30 @@ const DiaryWrite = (): JSX.Element => {
       .padStart(2, "0")}-${time.minute.toString().padStart(2, "0")}-00`;
   };
 
-  const toDateTime = (
-    date: Date,
-    startTime: Time,
-    endTime: Time
-  ): { startDateTime: string; endDateTime: string } => {
+  const toDateTime = (): [string, string] => {
     const offset = compareTime(endTime, startTime) === -1 ? 1 : 0;
     const endDate = new Date(date);
     endDate.setDate(endDate.getDate() + offset);
 
+    return [
+      `${dateToString(date)}T${timeToString(startTime)}`,
+      `${dateToString(endDate)}T${timeToString(endTime)}`,
+    ];
+  };
+
+  const getRequestDate = (): diaryWriteRequest => {
+    const [start, end] = toDateTime();
+    const dreamTypes = types.map((value) => {
+      return value.code;
+    });
+
     return {
-      startDateTime: `${dateToString(date)}T${timeToString(startTime)}`,
-      endDateTime: `${dateToString(endDate)}T${timeToString(endTime)}`,
+      title: title,
+      content: content,
+      dream_types: dreamTypes,
+      quality: quality.name,
+      sleep_begin_datetime: start,
+      sleep_end_datetime: end,
     };
   };
 
