@@ -90,10 +90,9 @@ export const reset = css`
     font: inherit;
     font-family: "Spoqa Han Sans Neo", "sans-serif";
     vertical-align: baseline;
-    font-smooth: antialiased;
     -webkit-font-smoothing: antialiased;
+    box-sizing: border-box;
   }
-  /* HTML5 display-role reset for older browsers */
   article,
   aside,
   details,
@@ -136,5 +135,16 @@ export const reset = css`
   }
   html {
     background-color: ${color.black};
+  }
+
+  &::-webkit-scrollbar {
+    width: 5px;
+  }
+  &::-webkit-scrollbar-thumb {
+    background-color: ${color.darkGray};
+    border-radius: 100px;
+  }
+  &::-webkit-scrollbar-track {
+    background-color: rgba(0, 0, 0, 0);
   }
 `;

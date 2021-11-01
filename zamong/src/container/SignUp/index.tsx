@@ -1,13 +1,12 @@
-import { FC } from "react";
-import { AuthBackground } from "../../components/Common/index";
-import SignUp from "../../components/SignUp/SignUpST/SignUp"
+import { AuthBackground } from "../../components/Common";
+import SignUp from "../../components/SignUp/SignUp";
 
-const SignUpContainer: FC = (): JSX.Element => {
+const SignUpContainer = (): JSX.Element => {
   return (
-    <>
+    <div>
       <AuthBackground />
       <SignUp />
-    </>
+    </div>
   );
 };
 

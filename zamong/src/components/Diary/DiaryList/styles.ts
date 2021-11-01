@@ -1,8 +1,9 @@
 import styled from "@emotion/styled";
 import { font } from "../../../style/font";
+import { color } from "../../../style/color";
 
 export const Container = styled.div`
-  background-color: black;
+  background-color: ${color.black};
   width: 100%;
   display: inline;
 `;
@@ -11,7 +12,7 @@ export const TodayContainer = styled.div`
   width: 1280px;
   height: 100vh;
   display: flex;
-  color: white;
+  color: ${color.white};
   flex-direction: column;
   justify-content: center;
   min-height: 711px;
@@ -20,7 +21,7 @@ export const TodayContainer = styled.div`
 `;
 
 export const Title = styled.div`
-  color: #ffffff;
+  color: ${color.white};
   font-size: 32px;
   font-weight: bold;
   margin-bottom: 40px;
@@ -30,7 +31,7 @@ export const Title = styled.div`
 export const TodayDream = styled.div`
   height: 711px;
   width: 650px;
-  background-color: #2c2c2e;
+  background-color: ${color.darkerGray};
   border-radius: 10px;
   padding: 0 10px;
 `;
@@ -44,7 +45,7 @@ export const TodayBox = styled.div`
 export const TodayDreamText = styled.div`
   width: 37px;
   height: 25px;
-  color: white;
+  color: ${color.white};
   margin: 20px 0 4px 0;
   font: ${font.subtitle};
   font-weight: 500;
@@ -64,7 +65,7 @@ export const DiarySignContainer = styled.div`
 export const DiaryListContainer = styled.div`
   height: 100vh;
   width: 1280px;
-  color: white;
+  color: ${color.white};
   display: flex;
   justify-content: center;
   flex-direction: column;
@@ -100,7 +101,7 @@ export const WriteDiary = styled.div`
   border-radius: 20px;
   cursor: pointer;
   backdrop-filter: blur(20px);
-  background-color: #2c2c2e;
+  background-color: ${color.darkerGray};
 `;
 
 export const WriteDiaryText = styled.div`
@@ -108,7 +109,7 @@ export const WriteDiaryText = styled.div`
   font-family: Spoqa Han Sans Neo;
   font-weight: 500;
   font-size: 20px;
-  color: #c7c7cc;
+  color: ${color.lightGray};
   display: flex;
   justify-content: center;
 `;
@@ -149,7 +150,7 @@ export const Label = styled.label`
 export const Box = styled.div`
   width: 100%;
   height: 100%;
-  background-color: #636366;
+  background-color: ${color.darkGray};
   border-radius: 5px;
   cursor: pointer;
 `;
@@ -161,9 +162,9 @@ export const Input = styled.input`
   border-radius: 5px;
   &:checked ~ div::after {
     content: "✓";
-    color: black;
+    color: ${color.black};
     position: absolute;
     left: 4px;
-    color: white;
+    color: ${color.white};
   }
 `;

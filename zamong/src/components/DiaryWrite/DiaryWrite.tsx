@@ -1,5 +1,6 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { color } from "../../style/color";
+import FileInput from "../FileInput/FileInput";
 import Footer from "../Footer/Footer";
 import Header from "../Header/Header";
 import DreamType from "./component/Properties/Accordion/AccordionMenus/DreamType/DreamType";
@@ -19,6 +20,8 @@ const DiaryWrite = (): JSX.Element => {
     title: "",
     content: "",
   });
+  const [file, setFile] = useState<File | undefined>();
+
   const { title, content } = properties;
   const onChangeHandler = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     const { name, value } = e.target;
@@ -31,7 +34,6 @@ const DiaryWrite = (): JSX.Element => {
 
   return (
     <>
-      <Header />
       <S.ContentContainer>
         <S.WriteSection>
           <S.Title>꿈 작성하기</S.Title>
@@ -67,6 +69,7 @@ const DiaryWrite = (): JSX.Element => {
                 value={content}
                 placeholder="내용 입력..."
               />
+              <FileInput file={file} setFile={setFile} id="diary" />
             </div>
           </S.MarginConatiner>
           <S.ButtonContainer>
@@ -76,7 +79,6 @@ const DiaryWrite = (): JSX.Element => {
           </S.ButtonContainer>
         </S.WriteSection>
       </S.ContentContainer>
-      <Footer />
     </>
   );
 };

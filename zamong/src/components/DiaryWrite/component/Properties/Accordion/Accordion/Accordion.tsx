@@ -1,5 +1,5 @@
 import * as S from "./styles";
-import DownChevron from "../../../../../../assets/icons/downChevron.svg";
+import { DownChevron } from "../../../../../../assets";
 
 import {
   MouseEvent,

@@ -1,38 +1,40 @@
 import Accordion from "../../Accordion/Accordion";
-import * as G from "../../../../styles";
-import * as S from "./styles";
-import Tag from "../../../../../../Tag/Tag";
+import Header from "./Header/Header";
+import Content from "./Content/Content";
+import { useState } from "react";
+import { DreamTypeType } from "../../../../../../../constance/dreamType";
 
 const DreamType = (): JSX.Element => {
-  const Header = (): JSX.Element => {
-    return (
-      <S.HeaderContainer>
-        <G.TitleContainer>
-          <G.Title>{"꿈의 유형"}</G.Title>
-        </G.TitleContainer>
-        <S.TypeContainer>
-          <Tag>악몽</Tag>
-          <Tag>루시드 드림</Tag>
-          <Tag>길몽</Tag>
-        </S.TypeContainer>
-      </S.HeaderContainer>
+  const [selected, setSelected] = useState<DreamTypeType[]>([]);
+  const dreamTypeCompareFunction = (
+    a: DreamTypeType,
+    b: DreamTypeType
+  ): number => {
+    if (a.name > b.name) {
+      return 1;
+    } else if (a.name < b.name) {
+      return -1;
+    }
+    return 0;
+  };
+
+  const deleteItem = (index: number) => {
+    setSelected(
+      selected.filter((item, i) => index !== i).sort(dreamTypeCompareFunction)
     );
   };
-  const Content = (): JSX.Element => {
-    return (
-      <>
-        <S.Title>유형</S.Title>
-        <S.TagContainer>
-          <Tag>악몽</Tag>
-          <Tag>루시드 드림</Tag>
-          <Tag>길몽</Tag>
-        </S.TagContainer>
-      </>
-    );
+
+  const insertItem = (item: DreamTypeType) => {
+    setSelected(selected.concat(item));
   };
+
   return (
     <>
-      <Accordion padding={16} header={<Header />} content={<Content />} />
+      <Accordion
+        padding={16}
+        header={<Header selected={selected} deleteItem={deleteItem} />}
+        content={<Content selected={selected} insertItem={insertItem} />}
+      />
     </>
   );
 };

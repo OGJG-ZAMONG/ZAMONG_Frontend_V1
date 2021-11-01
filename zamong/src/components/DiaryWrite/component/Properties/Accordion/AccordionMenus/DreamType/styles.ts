@@ -25,6 +25,7 @@ export const Title = styled.div`
 export const TypeContainer = styled.div`
   display: flex;
   column-gap: 12px;
+  min-height: 27px;
 `;
 
 export const HeaderContainer = styled.div`

@@ -1,5 +1,5 @@
 import styled from "@emotion/styled";
-import * as I from "../Index";
+import * as G from "../globalstyle";
 import { Link } from "react-router-dom";
 
 export const Container = styled.div`
@@ -30,7 +30,7 @@ export const MoreIcon = styled.img`
   cursor: pointer;
 `;
 
-export const SectionTitle = styled(I.SectionTitle)`
+export const SectionTitle = styled(G.SectionTitle)`
   display: flex;
   align-items: center;
   margin-bottom: 0px;
