@@ -9,6 +9,7 @@ import DreamTime from "./component/Properties/Selecter/DreamTime/DreamTime";
 import { AM, Code, Time } from "./model";
 import * as S from "./styles";
 import { diaryWriteRequest } from "../../models/dto/request/diaryWriteRequest";
+import { diaryWritePost } from "../../utils/api/DiaryWrite";
 
 type PropertysType = {
   title: string;
@@ -19,6 +20,7 @@ type PropertysType = {
   quality: Code;
   types: DreamTypeType[];
 };
+type OnClickFunction = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
 
 const qualitys: Code[] = [
   {
@@ -136,6 +138,10 @@ const DiaryWrite = (): JSX.Element => {
     };
   };
 
+  const onPost: OnClickFunction = async (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {};
+  const onPut: OnClickFunction = async (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {};
+  const [onSave, setOnSave] = useState<OnClickFunction>(onPost);
+
   return (
     <>
       <S.ContentContainer>
@@ -179,7 +185,7 @@ const DiaryWrite = (): JSX.Element => {
           </S.MarginConatiner>
           <S.ButtonContainer>
             <S.LastChange>마지막 저장 8분전</S.LastChange>
-            <S.BorderButton>저장</S.BorderButton>
+            <S.BorderButton onClick={onSave}>저장</S.BorderButton>
             <S.BlueButton>작성</S.BlueButton>
           </S.ButtonContainer>
         </S.WriteSection>
