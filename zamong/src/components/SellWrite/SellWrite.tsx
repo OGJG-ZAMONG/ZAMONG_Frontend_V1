@@ -43,9 +43,7 @@ const SellWrite = (): JSX.Element => {
                 value={title}
                 placeholder="제목 입력..."
               />
-              <I.TitleCount
-                color={title.length >= MAXTITLE ? color.red : color.gray}
-              >
+              <I.TitleCount color={title.length >= MAXTITLE ? color.red : color.gray}>
                 {title.length} / {MAXTITLE}
               </I.TitleCount>
             </div>
@@ -64,10 +62,7 @@ const SellWrite = (): JSX.Element => {
                 value={content}
                 placeholder="내용 입력..."
               />
-              <FileInput
-                fileState={[file, (file: File | undefined) => setFile(file)]}
-                id="sell"
-              />
+              <FileInput file={file} setFile={setFile} id="sell" />
             </div>
           </I.MarginConatiner>
           <I.ButtonContainer>

@@ -13,7 +13,6 @@ import { diaryWriteRequest } from "../../models/dto/request/diaryWriteRequest";
 type PropertysType = {
   title: string;
   content: string;
-  file: File | undefined;
   date: Date;
   startTime: Time;
   endTime: Time;
@@ -50,7 +49,6 @@ const DiaryWrite = (): JSX.Element => {
     const initValue: PropertysType = {
       title: "",
       content: "",
-      file: undefined,
       date: new Date(),
       startTime: { type: AM, hour: 0, minute: 0 },
       endTime: { type: AM, hour: 7, minute: 0 },
@@ -61,21 +59,20 @@ const DiaryWrite = (): JSX.Element => {
     return initValue;
   };
   const [properties, setProperties] = useState<PropertysType>(init());
-
+  const [file, setFile] = useState<File | undefined>();
   const setPropertiesWithName =
     (name: string) =>
     <T extends unknown>(value: T) => {
       setProperties({ ...properties, [name]: value });
     };
 
-  const setFile = (file: File | undefined) => setPropertiesWithName("file")(file);
   const setDate = (date: Date) => setPropertiesWithName("date")(date);
   const setStartTime = (time: Time) => setPropertiesWithName("startTime")(time);
   const setEndTime = (time: Time) => setPropertiesWithName("endTime")(time);
   const setQuality = (quality: Code) => setPropertiesWithName("quality")(quality);
   const setTypes = (types: DreamTypeType[]) => setPropertiesWithName("types")(types);
 
-  const { title, content, file, date, startTime, endTime, quality, types } = properties;
+  const { title, content, date, startTime, endTime, quality, types } = properties;
 
   const onChangeHandler = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     const { name, value } = e.target;
@@ -174,7 +171,7 @@ const DiaryWrite = (): JSX.Element => {
                 value={content}
                 placeholder="내용 입력..."
               />
-              <FileInput fileState={[file, setFile]} id="diary" />
+              <FileInput file={file} setFile={setFile} id="diary" />
             </div>
           </S.MarginConatiner>
           <S.ButtonContainer>
