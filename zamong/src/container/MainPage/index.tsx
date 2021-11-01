@@ -1,10 +1,14 @@
+import Header from "../../components/Header/Header";
 import MainPage from "../../components/MainPage/MainPage";
+import Footer from "../../components/Footer/Footer";
 
 const MainPageContainer = (): JSX.Element => {
   return (
-    <div>
+    <>
+      <Header />
       <MainPage />
-    </div>
+      <Footer />
+    </>
   );
 };
 
