@@ -1,5 +1,4 @@
 import * as S from "./styles";
-
 import { FilterIcon } from "../../../assets";
 import { DownChevronIcon } from "../../../assets";
 import { useState } from "react";
