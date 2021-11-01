@@ -1,3 +1,5 @@
+import { color } from "../../style/color";
+import { font } from "../../style/font";
 import styled from "@emotion/styled";
 
 export const ProfileContent = styled.div`
@@ -36,16 +38,13 @@ export const InfoBox = styled.div`
 `;
 
 export const NickNameText = styled.p`
-  font-family: Spoqa Han Sans Neo;
-  font-weight: 500;
-  font-size: 24px;
-  color: #ffffff;
+  font: ${font.headline3};
+  color: ${color.white};
 `;
 
 export const EmailText = styled.p`
-  font-family: Spoqa Han Sans Neo;
-  font-size: 16px;
-  color: #ffffff;
+  font: ${font.body2};
+  color: ${color.white};
 `;
 
 export const OneLineBox = styled.div`
@@ -54,18 +53,14 @@ export const OneLineBox = styled.div`
   display: flex;
   justify-content: space-between;
   span {
-    font-family: Spoqa Han Sans Neo;
-    font-size: 16px;
-    color: #ffffff;
+    font: ${font.body2};
+    color: ${color.white};
   }
 `;
 
 export const NameBox = styled.p`
-  font-family: Spoqa Han Sans Neo;
-  font-style: normal;
-  font-weight: normal;
-  font-size: 16px;
-  color: #ffffff;
+  font: ${font.body2};
+  color: ${color.white};
 `;
 
 export const SelectionBox = styled.div`
@@ -95,9 +90,7 @@ export const ChooseBox = styled.div`
   }
   span {
     margin-left: 4px;
-    color: white;
-    font-family: Spoqa Han Sans Neo;
-    font-size: 16px;
-    line-height: 20px;
+    color: ${color.white};
+    font: ${font.body2};
   }
 `;
