@@ -15,10 +15,18 @@ type PropsType = {
 };
 
 const CommentBox = ({ curNo, commentList }: PropsType): JSX.Element => {
-  const testText1 = ["11111111111111111111111111111111111"];
+  const testText1 = [
+    "동해물과 백두산이 마르고 닳도록 하느님이 보우하사 우리 나라 만세. 무궁화 삼천리 화려강산. 대한사람 대한으로 길이 보전하세.",
+  ];
   const [onOffToggle, setOnOffToggle] = useState(false);
+  const [onOffAdd, setOnOffAdd] = useState(false);
+
   const setToggle = (value: boolean) => {
     setOnOffToggle(value);
+  };
+
+  const setAdd = (value: boolean) => {
+    setOnOffAdd(value);
   };
 
   const getRootCommentNumber = (
@@ -46,21 +54,33 @@ const CommentBox = ({ curNo, commentList }: PropsType): JSX.Element => {
         <S.More alt="more" src={more} />
         <S.CommentBoxBottom>
           <S.DetailLeft>
-            <ReplyComment setToggle={setToggle} />
+            <ReplyComment setToggle={setToggle} setAdd={setAdd} />
           </S.DetailLeft>
           <S.DetailRight>
             <Recommend />
             <S.CommentDate>9월 29일</S.CommentDate>
           </S.DetailRight>
         </S.CommentBoxBottom>
-        <S.InputContainer></S.InputContainer>
-        <S.CommentToComment display={onOffToggle ? "block" : "none"}>
-          {commentList.map((value) => {
-            if (value.upperNo === curNo) {
-              return <CommentBox commentList={commentList} curNo={value.no} />;
-            }
-          })}
-        </S.CommentToComment>
+        <div></div>
+        {onOffAdd && (
+          <S.InputContainer>
+            <S.CommentInput placeholder="덧글 쓰기..." />
+            <S.EnterButton >덧글 쓰기</S.EnterButton>
+          </S.InputContainer>
+        )}
+        {onOffToggle && (
+          <S.CommentToCommentContainer>
+            <S.CommentToComment>
+              {commentList.map((value) => {
+                if (value.upperNo === curNo) {
+                  return (
+                    <CommentBox commentList={commentList} curNo={value.no} />
+                  );
+                }
+              })}
+            </S.CommentToComment>
+          </S.CommentToCommentContainer>
+        )}
       </S.CommnetRight>
     </S.CommentBox>
   );

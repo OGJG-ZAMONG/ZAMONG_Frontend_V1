@@ -9,7 +9,8 @@ export { default as more } from "./icons/more.svg";
 export { default as profile } from "./icons/testProfile.svg";
 export { default as like } from "./icons/like.svg";
 export { default as disLike } from "./icons/disLike.svg";
-export { default as lightLike } from "./icons/lightLike.svg"
-export { default as lightDisLike } from "./icons/lightDisLike.svg"
+export { default as lightLike } from "./icons/lightLike.svg";
+export { default as lightDisLike } from "./icons/lightDisLike.svg";
 export { default as plus } from "./icons/plus.svg";
+export { default as minus } from "./icons/minus.svg";
 export { default as toggle } from "./icons/toggle.svg";

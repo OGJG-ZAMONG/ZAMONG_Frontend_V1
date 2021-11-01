@@ -1,5 +1,5 @@
 import * as S from "./styles";
-import { MouseEvent, useState } from "react";
+import { useState } from "react";
 import { like, disLike, lightLike, lightDisLike } from "../../../../../assets";
 import { color } from "../../../../../style/color";
 
@@ -10,13 +10,22 @@ const Recommend = (): JSX.Element => {
   const [downCount, setDownCount] = useState(0);
 
   const upThumb = () => {
+    if (onOffDownThumb) {
+      setOnOffDownThumb(false);
+      setDownCount(downCount - 1);
+    }
     if (!onOffUpThumb) {
       setUpCount(upCount + 1);
     } else {
       setUpCount(upCount - 1);
     }
   };
+
   const downThumb = () => {
+    if (onOffUpThumb) {
+      setOnOffUpThumb(false);
+      setUpCount(upCount - 1);
+    }
     if (!onOffDownThumb) {
       setDownCount(downCount + 1);
     } else {
@@ -44,7 +53,10 @@ const Recommend = (): JSX.Element => {
         }}
         color={onOffDownThumb ? color.red : color.gray}
       >
-        <S.DisLikeImg alt="dislike" src={onOffDownThumb ? lightDisLike: disLike} />
+        <S.DisLikeImg
+          alt="dislike"
+          src={onOffDownThumb ? lightDisLike : disLike}
+        />
         비추천&nbsp;
         {downCount}
       </S.CommentDisLike>

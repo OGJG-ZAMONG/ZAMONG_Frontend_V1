@@ -34,16 +34,26 @@ export const CommentInput = styled.input`
   grid-column: 1/12;
   height: 52px;
   padding-left: 16px;
+  ::placeholder {
+    color: ${color.lightGray};
+    font: ${font.body3};
+  }
 `;
 
 export const EnterButton = styled.div`
   color: ${color.white};
   background-color: ${color.blue};
-  text-align: center;
   border-radius: 10px;
-  line-height: 52px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
 `;
 
 export const CommentList = styled.div`
   margin-top: 48px;
+  display: flex;
+  flex-direction: column;
+  row-gap: 28px;
 `;

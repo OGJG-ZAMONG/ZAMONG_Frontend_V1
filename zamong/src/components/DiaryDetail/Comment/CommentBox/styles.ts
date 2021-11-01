@@ -35,10 +35,8 @@ export const More = styled.img`
 `;
 
 export const CommentBoxBottom = styled.div`
-  grid-column: 1/ 2;
   display: flex;
   justify-content: space-between;
-  margin-bottom: 16px;
 `;
 
 export const DetailLeft = styled.div`
@@ -55,33 +53,47 @@ export const CommentDate = styled.div`
   margin-left: 28px;
 `;
 
+export const CommentToCommentContainer = styled.div`
+  grid-column: 1/3;
+  display: flex;
+  flex-direction: column;
+  row-gap: 16px;
+`;
+
 export const InputContainer = styled.div`
-  width: 100%;
+  display: flex;
+  grid-gap: 20px;
 `;
 
 export const CommentInput = styled.input`
-  color: ${color.lightGray};
+  width: 100%;
+  color: ${color.white};
   font: ${font.body3};
   background-color: ${color.darkerGray};
   outline: none;
   border: none;
   border-radius: 10px;
-  grid-column: 1/12;
-  height: 52px;
-  padding-left: 16px;
-`;
+  padding: 16px;
+  ::placeholder {
+    color: ${color.lightGray};
+    font: ${font.body3};
+  }
+  `;
 
 export const EnterButton = styled.div`
+  padding: 16px 12px;
   color: ${color.white};
   background-color: ${color.blue};
   text-align: center;
   border-radius: 10px;
-  line-height: 52px;
+  white-space: nowrap;
+  cursor: pointer;
 `;
 
-export const CommentToComment = styled.div<{ display: string }>`
-  display: ${(props) => props.display};
-  grid-column: 1/ 3;
-  margin-bottom: 12px;
+export const CommentToComment = styled.div`
+  width: 100%;
   transition: 1s;
+  display: flex;
+  flex-direction: column;
+  row-gap: 16px;
 `;
