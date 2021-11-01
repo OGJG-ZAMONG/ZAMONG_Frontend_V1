@@ -8,7 +8,7 @@ import { AM, PM, Time } from "../../../model";
 
 type PropsType = {
   time: Time;
-  setTime: React.Dispatch<React.SetStateAction<Time>>;
+  setTime: (time: Time) => void;
   setModal: React.Dispatch<React.SetStateAction<boolean>>;
 };
 

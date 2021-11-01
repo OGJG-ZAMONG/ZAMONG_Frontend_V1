@@ -13,6 +13,12 @@ import { diaryWriteRequest } from "../../models/dto/request/diaryWriteRequest";
 type PropertysType = {
   title: string;
   content: string;
+  file: File | undefined;
+  date: Date;
+  startTime: Time;
+  endTime: Time;
+  quality: Code;
+  types: DreamTypeType[];
 };
 
 const qualitys: Code[] = [
@@ -40,27 +46,37 @@ const qualitys: Code[] = [
 
 const DiaryWrite = (): JSX.Element => {
   const MAXTITLE = 100;
+  const init = (): PropertysType => {
+    const initValue: PropertysType = {
+      title: "",
+      content: "",
+      file: undefined,
+      date: new Date(),
+      startTime: { type: AM, hour: 0, minute: 0 },
+      endTime: { type: AM, hour: 7, minute: 0 },
+      quality: qualitys[2],
+      types: [],
+    };
 
-  const [properties, setProperties] = useState<PropertysType>({
-    title: "",
-    content: "",
-  });
-  const [file, setFile] = useState<File | undefined>();
-  const [date, setDate] = useState<Date>(new Date());
-  const [startTime, setStartTime] = useState<Time>({
-    type: AM,
-    hour: 0,
-    minute: 0,
-  });
-  const [endTime, setEndTime] = useState<Time>({
-    type: AM,
-    hour: 7,
-    minute: 0,
-  });
-  const [quality, setQuality] = useState<Code>(qualitys[2]);
-  const [types, setTypes] = useState<DreamTypeType[]>([]);
+    return initValue;
+  };
+  const [properties, setProperties] = useState<PropertysType>(init());
 
-  const { title, content } = properties;
+  const setPropertiesWithName =
+    (name: string) =>
+    <T extends unknown>(value: T) => {
+      setProperties({ ...properties, [name]: value });
+    };
+
+  const setFile = (file: File | undefined) => setPropertiesWithName("file")(file);
+  const setDate = (date: Date) => setPropertiesWithName("date")(date);
+  const setStartTime = (time: Time) => setPropertiesWithName("startTime")(time);
+  const setEndTime = (time: Time) => setPropertiesWithName("endTime")(time);
+  const setQuality = (quality: Code) => setPropertiesWithName("quality")(quality);
+  const setTypes = (types: DreamTypeType[]) => setPropertiesWithName("types")(types);
+
+  const { title, content, file, date, startTime, endTime, quality, types } = properties;
+
   const onChangeHandler = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     const { name, value } = e.target;
     if (name === "title" && value.length > MAXTITLE) {
@@ -88,9 +104,9 @@ const DiaryWrite = (): JSX.Element => {
   };
 
   const timeToString = (time: Time): string => {
-    return `${(time.hour + (time.type === AM ? 0 : 12))
+    return `${(time.hour + (time.type === AM ? 0 : 12)).toString().padStart(2, "0")}-${time.minute
       .toString()
-      .padStart(2, "0")}-${time.minute.toString().padStart(2, "0")}-00`;
+      .padStart(2, "0")}-00`;
   };
 
   const toDateTime = (): [string, string] => {
@@ -134,9 +150,7 @@ const DiaryWrite = (): JSX.Element => {
                 value={title}
                 placeholder="제목 입력..."
               />
-              <S.TitleCount
-                color={title.length >= MAXTITLE ? color.red : color.gray}
-              >
+              <S.TitleCount color={title.length >= MAXTITLE ? color.red : color.gray}>
                 {title.length} / {MAXTITLE}
               </S.TitleCount>
             </div>
@@ -148,10 +162,7 @@ const DiaryWrite = (): JSX.Element => {
                   startState={[startTime, setStartTime]}
                   endState={[endTime, setEndTime]}
                 />
-                <DreamQuality
-                  qualityState={[quality, setQuality]}
-                  qualitys={qualitys}
-                />
+                <DreamQuality qualityState={[quality, setQuality]} qualitys={qualitys} />
                 <DreamType typesState={[types, setTypes]} />
               </S.DetailMarginConatiner>
             </div>
@@ -163,7 +174,7 @@ const DiaryWrite = (): JSX.Element => {
                 value={content}
                 placeholder="내용 입력..."
               />
-              <FileInput file={file} setFile={setFile} id="diary" />
+              <FileInput fileState={[file, setFile]} id="diary" />
             </div>
           </S.MarginConatiner>
           <S.ButtonContainer>

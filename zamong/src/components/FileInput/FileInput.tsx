@@ -1,13 +1,14 @@
 import { useState } from "react";
+import { State } from "../DiaryWrite/model";
 import * as S from "./styles";
 
 type PropsType = {
-  file: File | undefined;
-  setFile: React.Dispatch<React.SetStateAction<File | undefined>>;
+  fileState: State<File | undefined>;
   id: string;
 };
 
-const FileInput = ({ file, setFile, id }: PropsType): JSX.Element => {
+const FileInput = ({ fileState, id }: PropsType): JSX.Element => {
+  const [file, setFile] = fileState;
   const onChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFile(e.currentTarget.files![0]);
   };

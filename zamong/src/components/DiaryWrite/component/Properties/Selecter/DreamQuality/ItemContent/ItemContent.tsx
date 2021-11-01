@@ -7,7 +7,7 @@ import { Code } from "../../../../../model";
 type PropsType = {
   array: Code[];
   initValue: Code;
-  setValue: React.Dispatch<React.SetStateAction<Code>>;
+  setValue: (code: Code) => void;
   gap: number;
 };
 

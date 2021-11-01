@@ -64,7 +64,10 @@ const SellWrite = (): JSX.Element => {
                 value={content}
                 placeholder="내용 입력..."
               />
-              <FileInput file={file} setFile={setFile} id="sell" />
+              <FileInput
+                fileState={[file, (file: File | undefined) => setFile(file)]}
+                id="sell"
+              />
             </div>
           </I.MarginConatiner>
           <I.ButtonContainer>
