@@ -7,7 +7,7 @@ import {
   MainContainer,
   SellDreamContainer,
   DiaryWriteContainer,
-  DiaryDetailContainer
+  DiaryDetailContainer,
   SellManagementContainer,
   ProfileContainter,
 } from "../container";
