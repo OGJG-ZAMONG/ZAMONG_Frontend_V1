@@ -104,7 +104,7 @@ const DiaryWrite = (): JSX.Element => {
     ];
   };
 
-  const getRequestDate = (): diaryWriteRequest => {
+  const getRequestData = (): diaryWriteRequest => {
     const [start, end] = toDateTime();
     const dreamTypes = types.map((value) => {
       return value.code;

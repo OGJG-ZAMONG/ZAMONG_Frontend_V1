@@ -52,7 +52,7 @@ const SellWrite = (): JSX.Element => {
             <div>
               <I.Subtitle>꿈 상세</I.Subtitle>
               <I.DetailMarginConatiner>
-                <DreamType typesState={{ state: types, setState: setTypes }} />
+                <DreamType typesState={[types, setTypes]} />
                 <InputPrice />
               </I.DetailMarginConatiner>
             </div>
