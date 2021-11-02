@@ -61,22 +61,26 @@ const DiaryWrite = ({ dreamUUID }: PropsType): JSX.Element => {
       types: [],
     };
 
+    if (dreamUUID != null) {
+      //만약 꿈 식별자가 쿼리스트링에 있으면
+      isPostRef.current = true; //post를 이미 했다고 한다
+    }
+
     return initValue;
   };
-  const [isPost, setIsPost] = useState<boolean>(false); //저장할 때 post 요청이여야하는지 put요청이여야 하는지 정하는 boolean
   const [properties, setProperties] = useState<PropertysType>(init());
   const [file, setFile] = useState<File | undefined>();
   const setPropertiesWithName =
-    (name: string) =>
-    <T extends unknown>(value: T) => {
+    <T extends unknown>(name: string) =>
+    (value: T) => {
       setProperties({ ...properties, [name]: value });
     };
 
-  const setDate = (date: Date) => setPropertiesWithName("date")(date);
-  const setStartTime = (time: Time) => setPropertiesWithName("startTime")(time);
-  const setEndTime = (time: Time) => setPropertiesWithName("endTime")(time);
-  const setQuality = (quality: Code) => setPropertiesWithName("quality")(quality);
-  const setTypes = (types: DreamTypeType[]) => setPropertiesWithName("types")(types);
+  const setDate = setPropertiesWithName<Date>("date");
+  const setStartTime = setPropertiesWithName<Time>("startTime");
+  const setEndTime = setPropertiesWithName<Time>("endTime");
+  const setQuality = setPropertiesWithName<Code>("quality");
+  const setTypes = setPropertiesWithName<DreamTypeType[]>("types");
 
   const { title, content, date, startTime, endTime, quality, types } = properties;
 
