@@ -44,7 +44,11 @@ const qualitys: Code[] = [
   },
 ];
 
-const DiaryWrite = (): JSX.Element => {
+interface PropsType {
+  dreamUUID: string | null;
+}
+
+const DiaryWrite = ({ dreamUUID }: PropsType): JSX.Element => {
   const MAXTITLE = 100;
   const init = (): PropertysType => {
     const initValue: PropertysType = {
