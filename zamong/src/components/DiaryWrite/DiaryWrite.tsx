@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { DreamTypeType } from "../../constance/dreamType";
 import { color } from "../../style/color";
 import FileInput from "../FileInput/FileInput";
@@ -48,8 +48,37 @@ interface PropsType {
   dreamUUID: string | null;
 }
 
+const dateToString = (date: Date): string => {
+  return `${date.getFullYear()}-${(date.getMonth() + 1).toString().padStart(2, "0")}-${date
+    .getDate()
+    .toString()
+    .padStart(2, "0")}`;
+};
+
+const getMinutes = (time: Time): number => {
+  return (time.hour + (time.type === AM ? 0 : 12)) * 60 + time.minute;
+};
+
+const compareTime = (a: Time, b: Time): number => {
+  const aMins = getMinutes(a);
+  const bMins = getMinutes(b);
+
+  if (aMins > bMins) return 1;
+  else if (aMins < bMins) return -1;
+  return 0;
+};
+
+const timeToString = (time: Time): string => {
+  return `${(time.hour + (time.type === AM ? 0 : 12)).toString().padStart(2, "0")}-${time.minute
+    .toString()
+    .padStart(2, "0")}-00`;
+};
+
 const DiaryWrite = ({ dreamUUID }: PropsType): JSX.Element => {
   const MAXTITLE = 100;
+  const isPostRef = useRef(false); //저장할 때 post 요청이여야하는지 put요청이여야 하는지 정하는 boolean
+  const { current: isPost } = isPostRef;
+
   const init = (): PropertysType => {
     const initValue: PropertysType = {
       title: "",
@@ -91,32 +120,6 @@ const DiaryWrite = ({ dreamUUID }: PropsType): JSX.Element => {
     } else {
       setProperties({ ...properties, [name]: value });
     }
-  };
-
-  const dateToString = (date: Date): string => {
-    return `${date.getFullYear()}-${(date.getMonth() + 1).toString().padStart(2, "0")}-${date
-      .getDate()
-      .toString()
-      .padStart(2, "0")}`;
-  };
-
-  const getMinutes = (time: Time): number => {
-    return (time.hour + (time.type === AM ? 0 : 12)) * 60 + time.minute;
-  };
-
-  const compareTime = (a: Time, b: Time): number => {
-    const aMins = getMinutes(a);
-    const bMins = getMinutes(b);
-
-    if (aMins > bMins) return 1;
-    else if (aMins < bMins) return -1;
-    return 0;
-  };
-
-  const timeToString = (time: Time): string => {
-    return `${(time.hour + (time.type === AM ? 0 : 12)).toString().padStart(2, "0")}-${time.minute
-      .toString()
-      .padStart(2, "0")}-00`;
   };
 
   const toDateTime = (): [string, string] => {
