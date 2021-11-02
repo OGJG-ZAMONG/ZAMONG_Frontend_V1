@@ -9,7 +9,12 @@ import DreamTime from "./component/Properties/Selecter/DreamTime/DreamTime";
 import { AM, Code, Time } from "./model";
 import * as S from "./styles";
 import { diaryWriteRequest } from "../../models/dto/request/diaryWriteRequest";
-import { diaryWritePost } from "../../utils/api/DiaryWrite";
+import { diaryWritePost, diaryWritePut } from "../../utils/api/DiaryWrite";
+import { useHistory } from "react-router";
+import uri from "../../constance/uri";
+import ElapsedTime from "./component/ElapsedTime/ElapsedTime";
+import { AxiosResponse } from "axios";
+import { diaryWriteResponse } from "../../models/dto/response/diaryWriteResponse";
 
 type PropertysType = {
   title: string;
@@ -23,23 +28,23 @@ type PropertysType = {
 
 const qualitys: Code[] = [
   {
-    code: "BST",
+    code: "BEST",
     name: "😚 아주 좋아요",
   },
   {
-    code: "GD",
+    code: "GOOD",
     name: "🙂 좋아요",
   },
   {
-    code: "SO",
+    code: "SOSO",
     name: "😐 그저 그래요",
   },
   {
-    code: "BD",
+    code: "BAD",
     name: "☹️ 안좋아요",
   },
   {
-    code: "WST",
+    code: "WORST",
     name: "😬 아주 안좋아요",
   },
 ];
@@ -69,16 +74,16 @@ const compareTime = (a: Time, b: Time): number => {
 };
 
 const timeToString = (time: Time): string => {
-  return `${(time.hour + (time.type === AM ? 0 : 12)).toString().padStart(2, "0")}-${time.minute
+  return `${(time.hour + (time.type === AM ? 0 : 12)).toString().padStart(2, "0")}:${time.minute
     .toString()
-    .padStart(2, "0")}-00`;
+    .padStart(2, "0")}:00`;
 };
 
 const DiaryWrite = ({ dreamUUID }: PropsType): JSX.Element => {
   const MAXTITLE = 100;
   const isPostRef = useRef(false); //저장할 때 post 요청이여야하는지 put요청이여야 하는지 정하는 boolean
   const { current: isPost } = isPostRef;
-
+  const { push } = useHistory();
   const init = (): PropertysType => {
     const initValue: PropertysType = {
       title: "",
@@ -149,14 +154,25 @@ const DiaryWrite = ({ dreamUUID }: PropsType): JSX.Element => {
     };
   };
 
-  const onSave = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+  const [lastUpdateDate, setLastUpdateDate] = useState<Date | null>(null);
+
+  const onSave = async (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     e.preventDefault();
-    if (!isPost) {
-      //post 요청을 하지 않았으면
-      diaryWritePost(getRequestData());
-    } else {
-      //put 요청
-      // diaryWritePut(getRequestData(), );
+
+    const ifMap = new Map<boolean, Promise<AxiosResponse<diaryWriteResponse>>>()
+      .set(true, diaryWritePost(getRequestData())) //post 요청일 때
+      .set(false, diaryWritePut(getRequestData(), dreamUUID!)); //put 요청일때
+    try {
+      const response = await ifMap.get(!isPost)!;
+      const { updated_at, uuid } = response.data.content.response;
+
+      setLastUpdateDate(new Date(updated_at));
+      push(`/diary/write?dreamUUID=${uuid}`);
+      isPostRef.current = true;
+      alert("저장 완료");
+    } catch (error) {
+      console.log(error);
+      alert("오류가 발생했습니다.");
     }
   };
 
@@ -202,7 +218,12 @@ const DiaryWrite = ({ dreamUUID }: PropsType): JSX.Element => {
             </div>
           </S.MarginConatiner>
           <S.ButtonContainer>
-            <S.LastChange>마지막 저장 8분전</S.LastChange>
+            {lastUpdateDate && (
+              <S.LastChange>
+                마지막 저장&nbsp;
+                <ElapsedTime from={lastUpdateDate} interval={1000}></ElapsedTime> 전
+              </S.LastChange>
+            )}
             <S.BorderButton onClick={onSave}>저장</S.BorderButton>
             <S.BlueButton>작성</S.BlueButton>
           </S.ButtonContainer>
