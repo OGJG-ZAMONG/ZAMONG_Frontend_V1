@@ -20,7 +20,6 @@ type PropertysType = {
   quality: Code;
   types: DreamTypeType[];
 };
-type OnClickFunction = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
 
 const qualitys: Code[] = [
   {
@@ -60,6 +59,7 @@ const DiaryWrite = (): JSX.Element => {
 
     return initValue;
   };
+  const [isPost, setIsPost] = useState<boolean>(false); //저장할 때 post 요청이여야하는지 put요청이여야 하는지 정하는 boolean
   const [properties, setProperties] = useState<PropertysType>(init());
   const [file, setFile] = useState<File | undefined>();
   const setPropertiesWithName =
@@ -138,9 +138,16 @@ const DiaryWrite = (): JSX.Element => {
     };
   };
 
-  const onPost: OnClickFunction = async (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {};
-  const onPut: OnClickFunction = async (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {};
-  const [onSave, setOnSave] = useState<OnClickFunction>(onPost);
+  const onSave = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+    e.preventDefault();
+    if (!isPost) {
+      //post 요청을 하지 않았으면
+      diaryWritePost(getRequestData());
+    } else {
+      //put 요청
+      // diaryWritePut(getRequestData(), );
+    }
+  };
 
   return (
     <>
