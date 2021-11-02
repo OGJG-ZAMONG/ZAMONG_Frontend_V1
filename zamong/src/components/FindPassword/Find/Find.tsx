@@ -1,6 +1,10 @@
 import * as S from "./styles";
 
-const Find = () => {
+type propsType = {
+  next : () => void;
+}
+
+const Find = ( { next } : propsType ) => {
 
 
   return (
@@ -11,7 +15,7 @@ const Find = () => {
         <S.Input />
         <S.EventBox>
           <S.PrevButton>이전</S.PrevButton>
-          <S.NextButton>다음</S.NextButton>
+          <S.NextButton onClick={next}>다음</S.NextButton>
         </S.EventBox>
       </S.PaddingBox>
     </S.FindBox>

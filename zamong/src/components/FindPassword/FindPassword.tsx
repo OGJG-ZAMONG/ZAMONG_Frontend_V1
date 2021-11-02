@@ -18,11 +18,11 @@ const FindPassword = () => {
   };
 
   const FindPassword:JSX.Element[] = [
-    <Find />,
-    <Change />
+    <Find next={onNext}/>,
+    <Change prev={onPrev}/>
   ]
 
-  return (FindPassword[1]);
+  return (FindPassword[index]);
 };
 
 export default FindPassword;

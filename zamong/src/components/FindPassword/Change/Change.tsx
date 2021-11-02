@@ -1,6 +1,10 @@
 import * as S from "./styles";
 
-const Change = () => {
+type propsType = {
+  prev : () => void;
+}
+
+const Change = ( { prev } : propsType ) => {
 
   return (
     <S.ChangeBox>
@@ -17,7 +21,7 @@ const Change = () => {
         </S.GuideContaier>
         <S.Input />
         <S.EventBox>
-          <S.PrevButton>이전</S.PrevButton>
+          <S.PrevButton onClick={prev}>이전</S.PrevButton>
           <S.NextButton>변경</S.NextButton>
         </S.EventBox>
       </S.PaddingBox>
