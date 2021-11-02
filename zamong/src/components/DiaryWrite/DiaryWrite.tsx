@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useRef, useState } from "react";
 import { DreamTypeType } from "../../constance/dreamType";
 import { color } from "../../style/color";
 import FileInput from "../FileInput/FileInput";
@@ -9,12 +9,14 @@ import DreamTime from "./component/Properties/Selecter/DreamTime/DreamTime";
 import { AM, Code, Time } from "./model";
 import * as S from "./styles";
 import { diaryWriteRequest } from "../../models/dto/request/diaryWriteRequest";
-import { diaryWritePost, diaryWritePut } from "../../utils/api/DiaryWrite";
+import {
+  diaryWriteApiType,
+  diaryWriteFilePost as diaryWriteImagePost,
+  diaryWritePost,
+  diaryWritePut,
+} from "../../utils/api/DiaryWrite";
 import { useHistory } from "react-router";
-import uri from "../../constance/uri";
 import ElapsedTime from "./component/ElapsedTime/ElapsedTime";
-import { AxiosResponse } from "axios";
-import { diaryWriteResponse } from "../../models/dto/response/diaryWriteResponse";
 
 type PropertysType = {
   title: string;
@@ -53,16 +55,14 @@ interface PropsType {
   dreamUUID: string | null;
 }
 
-const dateToString = (date: Date): string => {
-  return `${date.getFullYear()}-${(date.getMonth() + 1).toString().padStart(2, "0")}-${date
+const dateToString = (date: Date): string =>
+  `${date.getFullYear()}-${(date.getMonth() + 1).toString().padStart(2, "0")}-${date
     .getDate()
     .toString()
     .padStart(2, "0")}`;
-};
 
-const getMinutes = (time: Time): number => {
-  return (time.hour + (time.type === AM ? 0 : 12)) * 60 + time.minute;
-};
+const getMinutes = (time: Time): number =>
+  (time.hour + (time.type === AM ? 0 : 12)) * 60 + time.minute;
 
 const compareTime = (a: Time, b: Time): number => {
   const aMins = getMinutes(a);
@@ -156,23 +156,58 @@ const DiaryWrite = ({ dreamUUID }: PropsType): JSX.Element => {
 
   const [lastUpdateDate, setLastUpdateDate] = useState<Date | null>(null);
 
+  const isPropertyValid = (): boolean => title.length > 0 || content.length > 0 || types.length > 0;
+
+  const saveFile = async (uuid: string) => {
+    if (file) {
+      try {
+        await diaryWriteImagePost(file, uuid);
+      } catch (error) {
+        console.log(error);
+        alert("파일 업로드에 실패했습니다.");
+      }
+    }
+  };
+
   const onSave = async (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+    if (!isPropertyValid()) {
+      alert("빈칸 또는 꿈의 유형을 채워주세요.");
+      return false;
+    }
+
     e.preventDefault();
 
-    const ifMap = new Map<boolean, Promise<AxiosResponse<diaryWriteResponse>>>()
-      .set(true, diaryWritePost(getRequestData())) //post 요청일 때
-      .set(false, diaryWritePut(getRequestData(), dreamUUID!)); //put 요청일때
+    const ifMap = new Map<boolean, diaryWriteApiType>()
+      .set(true, diaryWritePost) //post 요청일 때
+      .set(false, diaryWritePut); //put 요청일때
+
     try {
-      const response = await ifMap.get(!isPost)!;
+      const response = await ifMap.get(!isPost)!(getRequestData(), dreamUUID!)!;
       const { updated_at, uuid } = response.data.content.response;
 
       setLastUpdateDate(new Date(updated_at));
       push(`/diary/write?dreamUUID=${uuid}`);
       isPostRef.current = true;
+
       alert("저장 완료");
+
+      saveFile(uuid);
+      return true;
     } catch (error) {
       console.log(error);
       alert("오류가 발생했습니다.");
+      return false;
+    }
+  };
+
+  const onPost = async (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+    if (!isPropertyValid()) {
+      alert("빈칸 또는 꿈의 유형을 채워주세요.");
+      return;
+    }
+
+    if (await onSave(e)) {
+      push(`/diary`);
     }
   };
 
@@ -225,7 +260,7 @@ const DiaryWrite = ({ dreamUUID }: PropsType): JSX.Element => {
               </S.LastChange>
             )}
             <S.BorderButton onClick={onSave}>저장</S.BorderButton>
-            <S.BlueButton>작성</S.BlueButton>
+            <S.BlueButton onClick={onPost}>작성</S.BlueButton>
           </S.ButtonContainer>
         </S.WriteSection>
       </S.ContentContainer>
