@@ -1,11 +1,8 @@
 import { Link } from "react-router-dom";
-import Header from "../Header/Header";
+import HelloImg from "../../assets/delusional/delusional3.png"
 import * as S from "./styles";
 import {
-  Dream,
-  MyDreamDiary,
   DreamList,
-  Footer,
   FollowList,
   MyDreamDiaryList,
   FollowDreamDiaryList,
@@ -26,7 +23,7 @@ const MainPage = (): JSX.Element => {
               <Link to="/login">로그인  </Link>
             </S.HelloContent>
             <S.HelloImage>
-              {/*<img src={HelloImg} alt="hello img" />*/}
+              <img src={HelloImg} alt="hello img" />
             </S.HelloImage>
           </S.HelloContainer>
         </S.HelloSection>

@@ -54,7 +54,7 @@ export const Input = styled.input`
 
 export const Check = styled(Input)`
   margin-bottom: 16px;
-`
+`;
 
 export const EventBox = styled.div`
   display: flex;
