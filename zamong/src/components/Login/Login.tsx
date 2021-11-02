@@ -27,7 +27,8 @@ const Login = (): JSX.Element => {
     };
     try {
       await login(data);
-      // push("/");
+      alert("로그인에 성공하셨습니다.");
+      push("/");
     } catch {
       alert("로그인에 실패하셨습니다.");
     }
