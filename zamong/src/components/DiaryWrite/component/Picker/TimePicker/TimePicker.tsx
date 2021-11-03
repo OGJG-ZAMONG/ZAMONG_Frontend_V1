@@ -4,18 +4,11 @@ import Modal from "../Modal/Modal";
 import { HEIGHT, range, toNumber, toString } from "../model";
 import PickerColumn from "../PickerColunm/PickerColumn";
 import { useEffect, useState } from "react";
-
-export type Time = {
-  type: string;
-  hour: number;
-  minute: number;
-};
-export const AM = "AM";
-export const PM = "PM";
+import Time, { AM, PM } from "../../../../../interface/Time";
 
 type PropsType = {
   time: Time;
-  setTime: React.Dispatch<React.SetStateAction<Time>>;
+  setTime: (time: Time) => void;
   setModal: React.Dispatch<React.SetStateAction<boolean>>;
 };
 

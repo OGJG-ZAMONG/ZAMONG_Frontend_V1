@@ -1,20 +1,16 @@
-import dreamType, {
-  DreamTypeType,
-} from "../../../../../../../../constance/dreamType";
+import dreamType from "../../../../../../../../constance/dreamType";
+import Code from "../../../../../../../../interface/Code";
 import Tag from "../../../../../../../Tag/Tag";
 import * as G from "../../../../../styles";
 import * as S from "../styles";
 
 type PropsType = {
-  selected: DreamTypeType[];
-  insertItem: (item: DreamTypeType) => void;
+  selected: Code[];
+  insertItem: (item: Code) => void;
 };
 
 const Content = ({ selected, insertItem }: PropsType): JSX.Element => {
-  const onClickHandler = (
-    e: React.MouseEvent<HTMLDivElement, MouseEvent>,
-    item: DreamTypeType
-  ) => {
+  const onClickHandler = (e: React.MouseEvent<HTMLDivElement, MouseEvent>, item: Code) => {
     e.preventDefault();
     insertItem(item);
   };

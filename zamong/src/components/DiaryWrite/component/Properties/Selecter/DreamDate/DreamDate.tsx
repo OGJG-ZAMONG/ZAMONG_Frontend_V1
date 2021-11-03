@@ -1,10 +1,15 @@
 import { useEffect, useState } from "react";
+import { State } from "../../../../model";
 import DatePicker from "../../../Picker/DatePicker/DatePicker";
 import * as S from "../../../styles";
-import TimePicker, { Time } from "../../../Picker/TimePicker/TimePicker";
 import Selecter from "../Selecter/Selecter";
-const DreamDate = (): JSX.Element => {
-  const [nowDate, setNowDate] = useState(new Date());
+
+type PropsType = {
+  dateState: State<Date>;
+};
+
+const DreamDate = ({ dateState }: PropsType): JSX.Element => {
+  const [nowDate, setNowDate] = dateState;
   const [modal, setModal] = useState(false);
 
   const dateToString = (date: Date): string => {
@@ -12,9 +17,7 @@ const DreamDate = (): JSX.Element => {
       date.getMonth() + 1
     }월 ${date.getDate()}일`;
   };
-  useEffect(() => {
-    console.log(nowDate);
-  }, [nowDate]);
+
   const Content = (): JSX.Element => {
     return (
       <>
