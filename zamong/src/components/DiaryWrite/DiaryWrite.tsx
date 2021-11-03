@@ -11,7 +11,7 @@ import * as S from "./styles";
 import { diaryWriteRequest } from "../../models/dto/request/diaryWriteRequest";
 import {
   diaryWriteApiType,
-  diaryWriteFilePost as diaryWriteImagePost,
+  diaryWriteImagePost,
   diaryWritePost,
   diaryWritePut,
 } from "../../utils/api/DiaryWrite";

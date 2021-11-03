@@ -37,7 +37,7 @@ export const diaryWritePut = async (
   }
 };
 
-export const diaryWriteFilePost = async (
+export const diaryWriteImagePost = async (
   file: File,
   dreamUUID: string
 ): Promise<AxiosResponse<any>> => {
