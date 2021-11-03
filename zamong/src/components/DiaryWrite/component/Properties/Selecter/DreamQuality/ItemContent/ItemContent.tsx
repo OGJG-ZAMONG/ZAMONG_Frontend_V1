@@ -9,15 +9,13 @@ type PropsType = {
   initValue: Code;
   setValue: (code: Code) => void;
   gap: number;
+  isHover: boolean;
 };
 
-const ItemContent = ({ array, initValue, setValue, gap }: PropsType): JSX.Element => {
-  const [isHover, setIsHover] = useState<boolean>(false);
+const ItemContent = ({ array, initValue, setValue, gap, isHover }: PropsType): JSX.Element => {
   const container = useRef<HTMLDivElement>(null);
   const [selected, setSelected] = useState<number>(array.indexOf(initValue));
   const [lefts, setLefts] = useState<number[]>(Array<number>(array.length).fill(0));
-  const onOverHandler = () => setIsHover(true);
-  const onOutHandler = () => setIsHover(false);
 
   useEffect(() => {
     setValue(array[selected]);
@@ -58,7 +56,7 @@ const ItemContent = ({ array, initValue, setValue, gap }: PropsType): JSX.Elemen
   };
   return (
     <>
-      <I.SubTitleContainer ref={container} onMouseEnter={onOverHandler} onMouseLeave={onOutHandler}>
+      <I.SubTitleContainer ref={container}>
         {array.map((value, index) => {
           return (
             <I.Item
