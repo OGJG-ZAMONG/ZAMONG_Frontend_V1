@@ -1,5 +1,5 @@
-import React, { useRef, useState } from "react";
-import { DreamTypeType } from "../../constance/dreamType";
+import React, { useLayoutEffect, useRef, useState } from "react";
+import dreamType, { DreamTypeType } from "../../constance/dreamType";
 import { color } from "../../style/color";
 import FileInput from "../FileInput/FileInput";
 import DreamType from "./component/Properties/Accordion/AccordionMenus/DreamType/DreamType";
@@ -17,8 +17,9 @@ import {
 import { useHistory } from "react-router";
 import ElapsedTime from "./component/ElapsedTime/ElapsedTime";
 import Code from "../../interface/Code";
-import Time, { AM } from "../../interface/Time";
+import Time, { AM, PM } from "../../interface/Time";
 import { qualitys } from "../../constance/dreamQualitys";
+import { getDreamDetail } from "../../utils/api/DreamDetail";
 
 type PropertysType = {
   title: string;
@@ -58,30 +59,85 @@ const timeToString = (time: Time): string => {
     .padStart(2, "0")}:00`;
 };
 
+const getTimeFromDate = (date: Date): Time => {
+  const hour = date.getHours();
+  const minute = date.getMinutes();
+
+  return {
+    type: hour < 12 ? AM : PM,
+    hour: hour % 12,
+    minute: minute,
+  };
+};
+
 const DiaryWrite = ({ dreamUUID }: PropsType): JSX.Element => {
   const MAXTITLE = 100;
   const isPostRef = useRef(false); //저장할 때 post 요청이여야하는지 put요청이여야 하는지 정하는 boolean
   const { current: isPost } = isPostRef;
   const { push } = useHistory();
-  const init = (): PropertysType => {
-    const initValue: PropertysType = {
-      title: "",
-      content: "",
-      date: new Date(),
-      startTime: { type: AM, hour: 0, minute: 0 },
-      endTime: { type: AM, hour: 7, minute: 0 },
-      quality: qualitys[2],
-      types: [],
-    };
+
+  const initValue: PropertysType = {
+    title: "",
+    content: "",
+    date: new Date(),
+    startTime: { type: AM, hour: 0, minute: 0 },
+    endTime: { type: AM, hour: 7, minute: 0 },
+    quality: qualitys[2],
+    types: [],
+  };
+
+  const init = async (): Promise<PropertysType> => {
+    const returnValue = { ...initValue };
 
     if (dreamUUID != null) {
       //만약 꿈 식별자가 쿼리스트링에 있으면
       isPostRef.current = true; //post를 이미 했다고 한다
+
+      //async를 쓰기 위해 즉시 실행 함수를 사용한다
+      try {
+        const response = await getDreamDetail(dreamUUID);
+        const {
+          updated_at,
+          title,
+          content,
+          sleep_begin_date_time,
+          sleep_end_date_time,
+          quality,
+          dream_types,
+        } = response.data.content.response;
+
+        setLastUpdateDate(new Date(updated_at));
+        const qualityCode = qualitys.find((value) => value.code === quality)!;
+        const date = new Date(sleep_begin_date_time);
+        const startTime = getTimeFromDate(new Date(sleep_begin_date_time));
+        const endTime = getTimeFromDate(new Date(sleep_end_date_time));
+        const dreamTypes = dream_types.map(
+          (value) => dreamType.find((item) => item.code === value)!
+        );
+
+        returnValue.title = title;
+        returnValue.content = content;
+        returnValue.date = date;
+        returnValue.startTime = startTime;
+        returnValue.endTime = endTime;
+        returnValue.quality = qualityCode;
+        returnValue.types = dreamTypes;
+      } catch (error) {
+        console.log(error);
+        alert("이전 정보를 불러오는데 실패했습니다.");
+      }
     }
 
-    return initValue;
+    return returnValue;
   };
-  const [properties, setProperties] = useState<PropertysType>(init());
+
+  useLayoutEffect(() => {
+    init().then((response) => {
+      setProperties(response);
+    });
+  }, []);
+
+  const [properties, setProperties] = useState<PropertysType>(initValue);
   const [file, setFile] = useState<File | undefined>();
   const setPropertiesWithName =
     <T extends unknown>(name: string) =>
