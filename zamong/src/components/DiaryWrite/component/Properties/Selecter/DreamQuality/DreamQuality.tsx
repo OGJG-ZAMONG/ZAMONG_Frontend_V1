@@ -2,30 +2,25 @@ import { useEffect, useRef, useState } from "react";
 import Selecter from "../Selecter/Selecter";
 import { color } from "../../../../../../style/color";
 import ItemContent from "./ItemContent/ItemContent";
+import { State } from "../../../../model";
+import Code from "../../../../../../interface/Code";
+import { qualitys } from "../../../../../../constance/dreamQualitys";
 
-const DreamQuality = (): JSX.Element => {
-  const qualitys = [
-    "😚 아주 좋아요",
-    "🙂 좋아요",
-    "😐 그저 그래요",
-    "☹️ 안좋아요",
-    "😬 아주 안좋아요",
-  ];
+type PropsType = {
+  qualityState: State<Code>;
+};
 
+const DreamQuality = ({ qualityState }: PropsType): JSX.Element => {
   const GAP = 16;
-  const [quality, setQuality] = useState<string>(qualitys[2]);
+  const [quality, setQuality] = qualityState;
+  // const [quality, setQuality] = useState<Code>(qualitys[2]);
 
   return (
     <>
       <Selecter
         title="꿈의 품질"
         content={
-          <ItemContent
-            array={qualitys}
-            gap={GAP}
-            initValue={quality}
-            setValue={setQuality}
-          />
+          <ItemContent array={qualitys} gap={GAP} initValue={quality} setValue={setQuality} />
         }
       />
     </>

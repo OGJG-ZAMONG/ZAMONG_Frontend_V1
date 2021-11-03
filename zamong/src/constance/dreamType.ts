@@ -1,39 +1,36 @@
-export type DreamTypeType = {
-  code: string;
-  name: string;
-};
+import Code from "../interface/Code";
 
-const dreamType: DreamTypeType[] = [
+const dreamType: Code[] = [
   {
-    code: "LCD",
+    code: "LUCID_DREAM",
     name: "루시드 드림",
   },
   {
-    code: "NTM",
+    code: "NIGHTMARE",
     name: "악몽",
   },
   {
-    code: "AUS",
+    code: "AUSPICIOUS",
     name: "길몽",
   },
   {
-    code: "PRS",
+    code: "PARALYSIS",
     name: "가위눌림",
   },
   {
-    code: "FAW",
+    code: "FALSE_AWAKE",
     name: "거짓깨어남",
   },
   {
-    code: "TMG",
+    code: "TAEMONG",
     name: "태몽",
   },
   {
-    code: "WDR",
+    code: "WET_DREAM",
     name: "몽정",
   },
   {
-    code: "HDR",
+    code: "HOLY_DREAM",
     name: "영몽",
   },
 ];
