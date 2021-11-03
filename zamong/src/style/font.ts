@@ -1,5 +1,5 @@
-const medium = 400;
-const regular = 300;
+const medium = 500;
+const regular = 400;
 export const font = {
   headline1: `bold 32px 'Spoqa Han Sans Neo', 'sans-serif'`,
   headline2: `${medium} 28px 'Spoqa Han Sans Neo', 'sans-serif'`,
