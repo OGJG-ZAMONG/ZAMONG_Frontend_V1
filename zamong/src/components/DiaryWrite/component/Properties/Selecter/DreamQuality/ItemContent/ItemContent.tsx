@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import * as I from "../styles";
 import * as S from "../../../../styles";
 import { color } from "../../../../../../../style/color";
@@ -43,6 +43,10 @@ const ItemContent = ({ array, initValue, setValue, gap }: PropsType): JSX.Elemen
       setLefts(Array<number>(array.length).fill(0));
     }
   }, [isHover]);
+
+  useLayoutEffect(() => {
+    setSelected(array.indexOf(initValue));
+  }, [initValue]);
 
   const onItemClickHandler = (index: number) => setSelected(index);
   const getOpacity = (index: number): number => {
