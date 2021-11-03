@@ -31,7 +31,6 @@ const Content = ({ selected, insertItem }: PropsType): JSX.Element => {
         <S.Title>유형</S.Title>
         <S.TagContainer>{tagRender}</S.TagContainer>
       </S.TitleContainer>
-      {/* <S.TagContainer></S.TagContainer> */}
     </>
   );
 };
