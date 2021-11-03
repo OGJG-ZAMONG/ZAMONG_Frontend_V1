@@ -10,7 +10,14 @@ type PropsType = {
 
 const FileInput = ({ file, setFile, id, initPath }: PropsType): JSX.Element => {
   const onChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setFile(e.currentTarget.files![0]);
+    if (e.currentTarget.files!?.length <= 0) {
+      setFile(undefined);
+      setPath("");
+    } else {
+      console.log(e.currentTarget.files);
+
+      setFile(e.currentTarget.files![0]);
+    }
   };
   const [path, setPath] = useState<string>(initPath ? initPath : "");
   const [isHover, setisHover] = useState<boolean>(false);
@@ -28,7 +35,6 @@ const FileInput = ({ file, setFile, id, initPath }: PropsType): JSX.Element => {
         };
       });
     }
-    console.log(initPath);
   }, [file]);
 
   useLayoutEffect(() => {
@@ -46,7 +52,7 @@ const FileInput = ({ file, setFile, id, initPath }: PropsType): JSX.Element => {
       <S.Container>
         <S.InputContainer>
           <S.Label htmlFor={id}>사진 선택</S.Label>
-          <S.Input id={id} type="file" accept=".jpg,.png" onChange={onChangeHandler.bind(this)} />
+          <S.Input id={id} type="file" accept=".jpg,.png" onChange={onChangeHandler} />
           <S.PreviewContainer>
             <S.FileName
               onMouseEnter={() => setisHover(true)}
