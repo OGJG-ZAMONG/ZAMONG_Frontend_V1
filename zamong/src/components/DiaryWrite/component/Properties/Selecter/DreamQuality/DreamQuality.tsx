@@ -4,13 +4,13 @@ import { color } from "../../../../../../style/color";
 import ItemContent from "./ItemContent/ItemContent";
 import { State } from "../../../../model";
 import Code from "../../../../../../interface/Code";
+import { qualitys } from "../../../../../../constance/dreamQualitys";
 
 type PropsType = {
   qualityState: State<Code>;
-  qualitys: Code[];
 };
 
-const DreamQuality = ({ qualityState, qualitys }: PropsType): JSX.Element => {
+const DreamQuality = ({ qualityState }: PropsType): JSX.Element => {
   const GAP = 16;
   const [quality, setQuality] = qualityState;
   // const [quality, setQuality] = useState<Code>(qualitys[2]);

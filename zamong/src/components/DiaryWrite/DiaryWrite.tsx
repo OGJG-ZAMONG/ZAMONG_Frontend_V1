@@ -18,6 +18,7 @@ import { useHistory } from "react-router";
 import ElapsedTime from "./component/ElapsedTime/ElapsedTime";
 import Code from "../../interface/Code";
 import Time, { AM } from "../../interface/Time";
+import { qualitys } from "../../constance/dreamQualitys";
 
 type PropertysType = {
   title: string;
@@ -215,7 +216,7 @@ const DiaryWrite = ({ dreamUUID }: PropsType): JSX.Element => {
                   startState={[startTime, setStartTime]}
                   endState={[endTime, setEndTime]}
                 />
-                <DreamQuality qualityState={[quality, setQuality]} qualitys={qualitys} />
+                <DreamQuality qualityState={[quality, setQuality]} />
                 <DreamType typesState={[types, setTypes]} />
               </S.DetailMarginConatiner>
             </div>
