@@ -1,13 +1,15 @@
 import * as S from "./styles";
 import { FC, MutableRefObject, useEffect, useRef, useState } from "react";
 import { getCalendarData } from "../../../utils/api/calendar";
+import { color } from "../../../style/color";
 const Calendar: FC = (): JSX.Element => {
   const date: Date = new Date();
-  const [year, setYear] = useState<number>(date.getFullYear());
-  const [month, setMonth] = useState<number>(date.getMonth());
   const DayContainer: MutableRefObject<any> = useRef();
   const week: Array<string> = ["일", "월", "화", "수", "목", "금", "토"];
   const Today: string = `${date.getFullYear()} ${date.getMonth()} ${date.getDate()}`;
+  const [year, setYear] = useState<number>(date.getFullYear());
+  const [month, setMonth] = useState<number>(date.getMonth());
+  const [data, setData] = useState<any>([]);
 
   useEffect(() => {
     for (let i = 0; i < 41; i++) {
@@ -16,11 +18,40 @@ const Calendar: FC = (): JSX.Element => {
       }
     }
     makeCalendar(year, month);
-    getCalendarData(window.localStorage.getItem("access_token"), year, month + 1)
-    .then((res) => console.log(res.data))
-    .catch((err) => console.log(err))
+    getCalendarData(
+      window.localStorage.getItem("access_token"),
+      year,
+      month + 1
+    )
+      .then((res) => setData(res.data.content.response.timetables))
+      .catch((err) => console.log(err));
 
   }, [month]);
+
+  useEffect(() => {
+    if (data.length === 0) {
+      return;
+    } else {
+      data.map((i: any) => {
+        const div = document.createElement("div");
+        div.innerHTML = i.title;
+        const Date = i.date.split("-")[2];
+        const DateIndex =
+          Number(Date.split("")[0]) * 10 + Number(Date.split("")[1]);
+        DayContainer.current.childNodes[DateIndex].insertBefore(div, null);
+      });
+    }
+    //제목 삭제 알고리즘
+    // for (let i = 0; i < 41; i++) {
+    //   let Length = DayContainer.current.childNodes[i].children.length;
+
+    //   if (Length >= 2) {
+    //     for (let j = 0; j < Length; j++) {
+    //       DayContainer.current.childNodes[i].lastChild.remove();
+    //     }
+    //   }
+    // }
+  }, [data]);
 
   const makeCalendar = (year: number, month: number) => {
     const dateLength: number = new Date(year, month + 1, 0).getDate();
@@ -28,11 +59,13 @@ const Calendar: FC = (): JSX.Element => {
 
     for (let i = newDate; i < dateLength + newDate; i++) {
       const div = document.createElement("div");
+      div.setAttribute("key", `${year}-${month}-${i}`);
       div.innerHTML = `${i - (newDate - 1)}`;
       if (`${year} ${month} ${div.innerHTML}` === Today) {
-        div.style.backgroundColor = "#0A84FF";
-        div.style.display = "inline";
-        div.style.padding = "4px 4px";
+        div.style.backgroundColor = `${color.blue}`;
+        // div.style.display = "inline";
+        // div.style.width = "20px";
+        // div.style.height = "20px";
         div.style.borderRadius = "100%";
         div.style.color = "white";
       }

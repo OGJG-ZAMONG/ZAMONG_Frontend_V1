@@ -121,23 +121,22 @@ export const WriteDiaryImg = styled.img`
 export const HeaderSelections = styled.div`
   height: 24px;
   display: flex;
+  align-items: center;
   font: ${font.body2};
   font-weight: 400px;
 `;
 
-export const HeaderSelect = styled.div`
+export const HeaderSelect = styled.select`
+  color: ${color.white};
+  font: ${font.body2};
   height: 100%;
   margin-left: 25px;
   display: flex;
   cursor: pointer;
-  img {
-    width: 15px;
-    height: 15px;
-    cursor: pointer;
-    margin-top: 3px;
-    margin-left: 4px;
-    transition: 0.2s;
-  }
+  outline: none;
+  text-decoration: none;
+  border: none;
+  background-color: inherit;
 `;
 
 export const Label = styled.label`

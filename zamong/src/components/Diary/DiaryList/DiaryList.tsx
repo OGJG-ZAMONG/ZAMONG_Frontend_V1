@@ -1,37 +1,15 @@
 import * as S from "./styles";
 import { FC, useEffect, useRef, useState } from "react";
-import { edit, pointer } from "../../../assets/index";
+import { edit } from "../../../assets/index";
 import Calendar from "../Calendar/Calendar";
 import MyDreamDiary from "../../CardDream/MyDreamDiary/MyDreamDiary";
-import { getCalendarData } from "../../../utils/api/calendar";
 
 const DiaryList: FC = (): JSX.Element => {
-  const [selected, setSelected] = useState<boolean>(false);
-  const Pointer = useRef<HTMLImageElement | any>(null);
   const testArray = [];
 
   for (let i = 0; i < 20; i++) {
     testArray.push(i);
   }
-
-  // useEffect(() => {
-  // }, [])
-
-  useEffect(() => {
-    if (selected === true) {
-      Pointer.current.style.transform = "rotate(0deg)";
-    } else if (selected === false) {
-      Pointer.current.style.transform = "rotate(180deg)";
-    }
-  }, [selected]);
-
-  const setClicked = () => {
-    if (selected === false) {
-      setSelected(true);
-    } else {
-      setSelected(false);
-    }
-  };
 
   return (
     <S.Container>
@@ -60,9 +38,9 @@ const DiaryList: FC = (): JSX.Element => {
               </S.Label>
               <label>공유됨</label>
             </>
-            <S.HeaderSelect onClick={setClicked}>
-              <span>최근순</span>
-              <img src={pointer} ref={Pointer} />
+            <S.HeaderSelect >
+              <option value="최근순">최근순</option>
+              <option value="인기순">인기순</option>
             </S.HeaderSelect>
           </S.HeaderSelections>
         </S.DiaryListHeader>
