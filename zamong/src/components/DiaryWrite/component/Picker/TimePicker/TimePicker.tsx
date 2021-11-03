@@ -4,7 +4,7 @@ import Modal from "../Modal/Modal";
 import { HEIGHT, range, toNumber, toString } from "../model";
 import PickerColumn from "../PickerColunm/PickerColumn";
 import { useEffect, useState } from "react";
-import { AM, PM, Time } from "../../../model";
+import Time, { AM, PM } from "../../../../../interface/Time";
 
 type PropsType = {
   time: Time;

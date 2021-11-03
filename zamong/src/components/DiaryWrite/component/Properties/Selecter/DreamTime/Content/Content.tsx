@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
+import Time, { AM } from "../../../../../../../interface/Time";
 import { color } from "../../../../../../../style/color";
-import { AM, State, Time } from "../../../../../model";
+import { State } from "../../../../../model";
 import TimePicker from "../../../../Picker/TimePicker/TimePicker";
 import * as S from "../../../../styles";
 
@@ -24,26 +25,12 @@ const Content = ({ startState, endState }: PropsType): JSX.Element => {
 
   return (
     <S.Container>
-      <S.Subtitle onClick={() => setStartModal(true)}>
-        {timeToString(startTime)} 부터
-      </S.Subtitle>
+      <S.Subtitle onClick={() => setStartModal(true)}>{timeToString(startTime)} 부터</S.Subtitle>
       {startModal && (
-        <TimePicker
-          time={startTime}
-          setTime={setStartTime}
-          setModal={setStartModal}
-        />
+        <TimePicker time={startTime} setTime={setStartTime} setModal={setStartModal} />
       )}
-      <S.Subtitle onClick={() => setEndModal(true)}>
-        &nbsp;{timeToString(endTime)} 까지
-      </S.Subtitle>
-      {endModal && (
-        <TimePicker
-          time={endTime}
-          setTime={setEndTime}
-          setModal={setEndModal}
-        />
-      )}
+      <S.Subtitle onClick={() => setEndModal(true)}>&nbsp;{timeToString(endTime)} 까지</S.Subtitle>
+      {endModal && <TimePicker time={endTime} setTime={setEndTime} setModal={setEndModal} />}
     </S.Container>
   );
 };
