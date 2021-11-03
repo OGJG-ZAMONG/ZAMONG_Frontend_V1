@@ -1,15 +1,12 @@
 import { Link } from "react-router-dom";
-import Header from "../Header/Header";
+import HelloImg from "../../assets/delusional/delusional3.png"
 import * as S from "./styles";
-import HelloImg from "../../assets/delusional/delusional3.png";
-import Dream from "../Dream/Dream";
-import MyDreamDiary from "../CardDream/MyDreamDiary/MyDreamDiary";
-import DreamList from "./DreamList/DreamList";
-import Footer from "../Footer/Footer";
-import FollowList from "./FollowList/FollowList";
-import MyDreamDiaryList from "./DreamDiaryList/MyDreamDiaryList/MyDreamDiaryList";
-import FollowDreamDiaryList from "./DreamDiaryList/FollowDreamDiaryList/FollowDreamDiaryList";
-// import MyDreamDiary from "../CardDream/MyDreamDiary/MyDreamDiary";
+import {
+  DreamList,
+  FollowList,
+  MyDreamDiaryList,
+  FollowDreamDiaryList,
+} from "./Index";
 
 const MainPage = (): JSX.Element => {
   return (
