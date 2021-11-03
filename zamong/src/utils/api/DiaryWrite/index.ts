@@ -13,7 +13,7 @@ export const diaryWritePost = async (
   data: diaryWriteRequest,
   dreamUUID: string
 ): Promise<AxiosResponse<diaryWriteResponse>> => {
-  // const token = localStorage.getItem("access_token");
+  const token = localStorage.getItem("access_token");
   const request = getRequestWithToken(token!);
   try {
     const response = await request.post<diaryWriteResponse>(uri.dreamShare, data);
@@ -22,13 +22,11 @@ export const diaryWritePost = async (
     return Promise.reject(error);
   }
 };
-const token =
-  "eyJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE2MzU5MzA5ODQsImV4cCI6MTYzNTkzODE4NCwic3ViIjoiZTljNzc2YjYtZGE3Yy00ZjM0LWFiNWMtNjA2MGNkNGNiODI4IiwidHlwZSI6ImFjY2VzcyJ9.3HLbWFhF2mca6IiJQwpaFNFlFBt1WQF7yR6IVlDbTXs";
 export const diaryWritePut = async (
   data: diaryWriteRequest,
   dreamUUID: string
 ): Promise<AxiosResponse<diaryWriteResponse>> => {
-  // const token = localStorage.getItem("access_token");
+  const token = localStorage.getItem("access_token");
   const request = getRequestWithToken(token!);
   try {
     const response = await request.put<diaryWriteResponse>(`${uri.dreamShare}/${dreamUUID}`, data);
@@ -42,7 +40,7 @@ export const diaryWriteImagePost = async (
   file: File,
   dreamUUID: string
 ): Promise<AxiosResponse<any>> => {
-  // const token = localStorage.getItem("access_token");
+  const token = localStorage.getItem("access_token");
   const request = getRequestWithToken(token!);
   try {
     const formData = new FormData();
