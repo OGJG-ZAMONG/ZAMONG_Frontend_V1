@@ -133,6 +133,7 @@ const DiaryWrite = ({ dreamUUID }: PropsType): JSX.Element => {
         return returnValue;
       } catch (error) {
         console.log(error);
+        push("/diary/write");
         alert("이전 정보를 불러오는데 실패했습니다.");
       }
     }
@@ -230,6 +231,8 @@ const DiaryWrite = ({ dreamUUID }: PropsType): JSX.Element => {
   };
 
   const onPost = async (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+    e.preventDefault();
+
     if (!isPropertyValid()) {
       alert("빈칸 또는 꿈의 유형을 채워주세요.");
       return;
