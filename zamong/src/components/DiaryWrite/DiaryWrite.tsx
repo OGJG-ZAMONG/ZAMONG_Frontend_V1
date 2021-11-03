@@ -6,7 +6,7 @@ import DreamType from "./component/Properties/Accordion/AccordionMenus/DreamType
 import DreamDate from "./component/Properties/Selecter/DreamDate/DreamDate";
 import DreamQuality from "./component/Properties/Selecter/DreamQuality/DreamQuality";
 import DreamTime from "./component/Properties/Selecter/DreamTime/DreamTime";
-import { AM, Code, Time } from "./model";
+import { AM, Time } from "./model";
 import * as S from "./styles";
 import { diaryWriteRequest } from "../../models/dto/request/diaryWriteRequest";
 import {
@@ -17,6 +17,7 @@ import {
 } from "../../utils/api/DiaryWrite";
 import { useHistory } from "react-router";
 import ElapsedTime from "./component/ElapsedTime/ElapsedTime";
+import Code from "../../interface/Code";
 
 type PropertysType = {
   title: string;

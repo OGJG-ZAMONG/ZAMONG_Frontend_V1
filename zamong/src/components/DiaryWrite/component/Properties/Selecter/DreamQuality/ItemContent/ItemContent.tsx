@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import * as I from "../styles";
 import * as S from "../../../../styles";
 import { color } from "../../../../../../../style/color";
-import { Code } from "../../../../../model";
+import Code from "../../../../../../../interface/Code";
 
 type PropsType = {
   array: Code[];
@@ -11,18 +11,11 @@ type PropsType = {
   gap: number;
 };
 
-const ItemContent = ({
-  array,
-  initValue,
-  setValue,
-  gap,
-}: PropsType): JSX.Element => {
+const ItemContent = ({ array, initValue, setValue, gap }: PropsType): JSX.Element => {
   const [isHover, setIsHover] = useState<boolean>(false);
   const container = useRef<HTMLDivElement>(null);
   const [selected, setSelected] = useState<number>(array.indexOf(initValue));
-  const [lefts, setLefts] = useState<number[]>(
-    Array<number>(array.length).fill(0)
-  );
+  const [lefts, setLefts] = useState<number[]>(Array<number>(array.length).fill(0));
   const onOverHandler = () => setIsHover(true);
   const onOutHandler = () => setIsHover(false);
 
@@ -61,11 +54,7 @@ const ItemContent = ({
   };
   return (
     <>
-      <I.SubTitleContainer
-        ref={container}
-        onMouseEnter={onOverHandler}
-        onMouseLeave={onOutHandler}
-      >
+      <I.SubTitleContainer ref={container} onMouseEnter={onOverHandler} onMouseLeave={onOutHandler}>
         {array.map((value, index) => {
           return (
             <I.Item
