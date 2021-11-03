@@ -242,8 +242,6 @@ const DiaryWrite = ({ dreamUUID }: PropsType): JSX.Element => {
 
   useLayoutEffect(() => {
     init().then((response) => {
-      console.log(response);
-
       setProperties(response);
     });
   }, []);
