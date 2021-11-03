@@ -1,6 +1,4 @@
-import { read } from "fs";
 import { useLayoutEffect, useState } from "react";
-import { State } from "../DiaryWrite/model";
 import * as S from "./styles";
 
 type PropsType = {

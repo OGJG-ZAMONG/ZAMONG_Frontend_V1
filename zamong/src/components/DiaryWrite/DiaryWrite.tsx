@@ -1,5 +1,5 @@
 import React, { useLayoutEffect, useRef, useState } from "react";
-import dreamType, { DreamTypeType } from "../../constance/dreamType";
+import dreamType from "../../constance/dreamType";
 import { color } from "../../style/color";
 import FileInput from "../FileInput/FileInput";
 import DreamType from "./component/Properties/Accordion/AccordionMenus/DreamType/DreamType";
@@ -28,7 +28,7 @@ type PropertysType = {
   startTime: Time;
   endTime: Time;
   quality: Code;
-  types: DreamTypeType[];
+  types: Code[];
 };
 
 interface PropsType {
@@ -71,11 +71,6 @@ const getTimeFromDate = (date: Date): Time => {
 };
 
 const DiaryWrite = ({ dreamUUID }: PropsType): JSX.Element => {
-  const MAXTITLE = 100;
-  const isPostRef = useRef(false); //저장할 때 post 요청이여야하는지 put요청이여야 하는지 정하는 boolean
-  const { current: isPost } = isPostRef;
-  const { push } = useHistory();
-
   const initValue: PropertysType = {
     title: "",
     content: "",
@@ -85,7 +80,16 @@ const DiaryWrite = ({ dreamUUID }: PropsType): JSX.Element => {
     quality: qualitys[2],
     types: [],
   };
+  const MAXTITLE = 100;
+  const isPostRef = useRef(false); //저장할 때 post 요청이여야하는지 put요청이여야 하는지 정하는 boolean
+  const { current: isPost } = isPostRef;
+  const { push } = useHistory();
   const [initImage, setInitImage] = useState<string>("");
+  const [properties, setProperties] = useState<PropertysType>(initValue);
+  const [file, setFile] = useState<File | undefined>();
+  const { title, content, date, startTime, endTime, quality, types } = properties;
+  const [lastUpdateDate, setLastUpdateDate] = useState<Date | null>(null);
+  const isPropertyValid = (): boolean => title.length > 0 || content.length > 0 || types.length > 0;
 
   const init = async (): Promise<PropertysType> => {
     const returnValue = { ...initValue };
@@ -135,16 +139,6 @@ const DiaryWrite = ({ dreamUUID }: PropsType): JSX.Element => {
     return returnValue;
   };
 
-  useLayoutEffect(() => {
-    init().then((response) => {
-      console.log(response);
-
-      setProperties(response);
-    });
-  }, []);
-
-  const [properties, setProperties] = useState<PropertysType>(initValue);
-  const [file, setFile] = useState<File | undefined>();
   const setPropertiesWithName =
     <T extends unknown>(name: string) =>
     (value: T) => {
@@ -155,9 +149,7 @@ const DiaryWrite = ({ dreamUUID }: PropsType): JSX.Element => {
   const setStartTime = setPropertiesWithName<Time>("startTime");
   const setEndTime = setPropertiesWithName<Time>("endTime");
   const setQuality = setPropertiesWithName<Code>("quality");
-  const setTypes = setPropertiesWithName<DreamTypeType[]>("types");
-
-  const { title, content, date, startTime, endTime, quality, types } = properties;
+  const setTypes = setPropertiesWithName<Code[]>("types");
 
   const onChangeHandler = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     const { name, value } = e.target;
@@ -194,10 +186,6 @@ const DiaryWrite = ({ dreamUUID }: PropsType): JSX.Element => {
       sleep_end_datetime: end,
     };
   };
-
-  const [lastUpdateDate, setLastUpdateDate] = useState<Date | null>(null);
-
-  const isPropertyValid = (): boolean => title.length > 0 || content.length > 0 || types.length > 0;
 
   const saveFile = async (uuid: string) => {
     if (file) {
@@ -251,6 +239,14 @@ const DiaryWrite = ({ dreamUUID }: PropsType): JSX.Element => {
       push(`/diary`);
     }
   };
+
+  useLayoutEffect(() => {
+    init().then((response) => {
+      console.log(response);
+
+      setProperties(response);
+    });
+  }, []);
 
   return (
     <>

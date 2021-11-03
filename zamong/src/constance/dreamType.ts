@@ -1,9 +1,6 @@
-export type DreamTypeType = {
-  code: string;
-  name: string;
-};
+import Code from "../interface/Code";
 
-const dreamType: DreamTypeType[] = [
+const dreamType: Code[] = [
   {
     code: "LUCID_DREAM",
     name: "루시드 드림",

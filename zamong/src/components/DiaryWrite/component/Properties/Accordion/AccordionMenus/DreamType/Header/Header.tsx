@@ -1,18 +1,15 @@
-import { DreamTypeType } from "../../../../../../../../constance/dreamType";
+import Code from "../../../../../../../../interface/Code";
 import Tag from "../../../../../../../Tag/Tag";
 import * as G from "../../../../../styles";
 import * as S from "../styles";
 
 type PropsType = {
-  selected: DreamTypeType[];
+  selected: Code[];
   deleteItem: (index: number) => void;
 };
 
 const Header = ({ selected, deleteItem }: PropsType): JSX.Element => {
-  const onClickHandler = (
-    e: React.MouseEvent<HTMLDivElement, MouseEvent>,
-    index: number
-  ) => {
+  const onClickHandler = (e: React.MouseEvent<HTMLDivElement, MouseEvent>, index: number) => {
     e.preventDefault();
     deleteItem(index);
   };

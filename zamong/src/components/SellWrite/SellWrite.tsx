@@ -5,7 +5,7 @@ import { useState } from "react";
 import { color } from "../../style/color";
 import InputPrice from "./component/InputPrice/InputPrice";
 import FileInput from "../FileInput/FileInput";
-import { DreamTypeType } from "../../constance/dreamType";
+import Code from "../../interface/Code";
 
 const SellWrite = (): JSX.Element => {
   const MAXTITLE = 100;
@@ -18,7 +18,7 @@ const SellWrite = (): JSX.Element => {
     content: "",
   });
   const [file, setFile] = useState<File | undefined>();
-  const [types, setTypes] = useState<DreamTypeType[]>([]);
+  const [types, setTypes] = useState<Code[]>([]);
 
   const { title, content } = properties;
   const onChangeHandler = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
