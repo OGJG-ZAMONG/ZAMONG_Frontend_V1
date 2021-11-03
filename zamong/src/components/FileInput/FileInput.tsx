@@ -7,13 +7,14 @@ type PropsType = {
   file: File | undefined;
   setFile: React.Dispatch<React.SetStateAction<File | undefined>>;
   id: string;
+  initPath?: string;
 };
 
-const FileInput = ({ file, setFile, id }: PropsType): JSX.Element => {
+const FileInput = ({ file, setFile, id, initPath }: PropsType): JSX.Element => {
   const onChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFile(e.currentTarget.files![0]);
   };
-  const [path, setPath] = useState<string>("");
+  const [path, setPath] = useState<string>(initPath ? initPath : "");
   const [isHover, setisHover] = useState<boolean>(false);
 
   useLayoutEffect(() => {
@@ -26,14 +27,21 @@ const FileInput = ({ file, setFile, id }: PropsType): JSX.Element => {
 
         reader.onload = (e) => {
           if (typeof e.target?.result === "string") setPath(e.target?.result);
-          else setPath("");
         };
       });
-    } else {
-      setPath("");
     }
-    console.log(file);
+    console.log(initPath);
   }, [file]);
+
+  useLayoutEffect(() => {
+    if (initPath) setPath(initPath);
+  }, [initPath]);
+
+  const getFileName = (): string => {
+    if (file !== undefined) return file.name;
+    if (path !== "") return "선택된 사진";
+    else return "선택되지 않음";
+  };
 
   return (
     <>
@@ -46,7 +54,7 @@ const FileInput = ({ file, setFile, id }: PropsType): JSX.Element => {
               onMouseEnter={() => setisHover(true)}
               onMouseLeave={() => setisHover(false)}
             >
-              {file === undefined ? "선택되지 않음" : file?.name}
+              {getFileName()}
             </S.FileName>
             {path !== "" && (
               <S.PreviewImagecontainer isHover={isHover}>

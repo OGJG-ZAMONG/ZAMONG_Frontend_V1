@@ -85,6 +85,7 @@ const DiaryWrite = ({ dreamUUID }: PropsType): JSX.Element => {
     quality: qualitys[2],
     types: [],
   };
+  const [initImage, setInitImage] = useState<string>("");
 
   const init = async (): Promise<PropertysType> => {
     const returnValue = { ...initValue };
@@ -104,6 +105,7 @@ const DiaryWrite = ({ dreamUUID }: PropsType): JSX.Element => {
           sleep_end_date_time,
           quality,
           dream_types,
+          attachment_image,
         } = response.data.content.response;
 
         setLastUpdateDate(new Date(updated_at));
@@ -122,17 +124,21 @@ const DiaryWrite = ({ dreamUUID }: PropsType): JSX.Element => {
         returnValue.endTime = endTime;
         returnValue.quality = qualityCode;
         returnValue.types = dreamTypes;
+
+        setInitImage(attachment_image);
+        return returnValue;
       } catch (error) {
         console.log(error);
         alert("이전 정보를 불러오는데 실패했습니다.");
       }
     }
-
     return returnValue;
   };
 
   useLayoutEffect(() => {
     init().then((response) => {
+      console.log(response);
+
       setProperties(response);
     });
   }, []);
@@ -284,7 +290,7 @@ const DiaryWrite = ({ dreamUUID }: PropsType): JSX.Element => {
                 value={content}
                 placeholder="내용 입력..."
               />
-              <FileInput file={file} setFile={setFile} id="diary" />
+              <FileInput file={file} setFile={setFile} id="diary" initPath={initImage} />
             </div>
           </S.MarginConatiner>
           <S.ButtonContainer>
