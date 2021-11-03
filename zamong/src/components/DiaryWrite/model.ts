@@ -8,8 +8,3 @@ export type Time = {
   hour: number;
   minute: number;
 };
-
-export type Code = {
-  code: string;
-  name: string;
-};
