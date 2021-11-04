@@ -3,8 +3,6 @@ import { font } from "../../../style/font";
 import { color } from "../../../style/color";
 
 export const Container = styled.div`
-  width: 630px;
-  height: 711px;
   margin-right: 20px;
 `;
 
@@ -97,6 +95,7 @@ export const Days = styled.div`
   }
   span {
     display: flex;
+    font-size: 14px;
     justify-content: center;
     align-items: center;
     height: 23px;
@@ -118,11 +117,11 @@ export const Days = styled.div`
     overflow: hidden;
     padding: 1px 4px;
     margin: 2.5px auto;
+    margin-left: 10%; 
     &:hover {
       width: auto;
       overflow: unset;
       box-shadow: 0px 0px 8px ${color.black}80;
-      transition: all 1s ease-out;
     }
   }
 `;

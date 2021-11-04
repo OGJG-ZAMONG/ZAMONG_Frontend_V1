@@ -12,11 +12,11 @@ const Calendar: FC = (): JSX.Element => {
   const [data, setData] = useState<any>([]);
 
   useEffect(() => {
-    //달력이 바뀌면 전 요소들 삭제 
+    //달력이 바뀌면 전 요소들 삭제
     for (let i = 0; i < 41; i++) {
       if (DayContainer.current.childNodes[i].children.length >= 1) {
-        while(DayContainer.current.childNodes[i].lastElementChild) {
-          DayContainer.current.childNodes[i].removeChild(DayContainer.current.childNodes[i].lastChild)
+        while (DayContainer.current.childNodes[i].lastElementChild) {
+          DayContainer.current.childNodes[i].removeChild(DayContainer.current.childNodes[i].lastChild);
         }
       }
     }
@@ -25,13 +25,12 @@ const Calendar: FC = (): JSX.Element => {
       window.localStorage.getItem("access_token"),
       year,
       month + 1
-    )
-      .then((res) => setData(res.data.content.response.timetables))
-      .catch((err) => console.log(err));
-      
+    ).then((res) => setData(res.data.content.response.timetables))
+     .catch((err) => console.log(err));
   }, [month]);
 
   useEffect(() => {
+    //만약 데이터가 없으면 추가하지않고 있으면 해당 날짜의 위치에 요소를 삽입
     if (data.length === 0) {
       return;
     } else {
@@ -41,18 +40,20 @@ const Calendar: FC = (): JSX.Element => {
         const Date = i.date.split("-")[2];
         const DateIndex =
           Number(Date.split("")[0]) * 10 + Number(Date.split("")[1]);
-        DayContainer.current.childNodes[DateIndex].insertBefore(div, null);
+        if (DayContainer.current.childNodes[DateIndex].children.length < 4) {
+          DayContainer.current.childNodes[DateIndex].insertBefore(div, null);
+        }
       });
     }
   }, [data]);
 
+  //달력을 그리는 함수
   const makeCalendar = (year: number, month: number) => {
     const dateLength: number = new Date(year, month + 1, 0).getDate();
     const newDate: number = new Date(year, month).getDay();
 
     for (let i = newDate; i < dateLength + newDate; i++) {
       const span = document.createElement("span");
-      span.setAttribute("key", `${year}-${month}-${i}`);
       span.innerHTML = `${i - (newDate - 1)}`;
       if (`${year} ${month} ${span.innerHTML}` === Today) {
         span.style.backgroundColor = `${color.blue}`;
@@ -72,6 +73,7 @@ const Calendar: FC = (): JSX.Element => {
     return dayArray;
   };
 
+  //다음달로 이동하기
   const nextMonth = () => {
     setMonth(month + 1);
     if (month >= 11) {
@@ -80,11 +82,13 @@ const Calendar: FC = (): JSX.Element => {
     }
   };
 
+  //현재 달로 이동하기
   const todayDate = () => {
     setYear(date.getFullYear());
     setMonth(date.getMonth());
   };
 
+  //이전 달로 이동하기
   const prevMonth = () => {
     setMonth(month - 1);
     if (month < 1) {
