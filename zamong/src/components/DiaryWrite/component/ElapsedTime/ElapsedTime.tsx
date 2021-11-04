@@ -26,7 +26,7 @@ const ElapsedTime = ({ from, interval }: PropsType): JSX.Element => {
     const timeInterval = setInterval(changeTime, interval);
 
     return () => clearInterval(timeInterval);
-  }, []);
+  }, [from]);
   return <span>{pastTime}</span>;
 };
 
