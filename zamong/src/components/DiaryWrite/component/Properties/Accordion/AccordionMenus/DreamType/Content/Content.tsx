@@ -19,16 +19,18 @@ const Content = ({ selected, insertItem }: PropsType): JSX.Element => {
     if (!selected.some((item) => item.code === value.code)) {
       //선택 되지 않은 것들만 출력한다
       return (
-        <div onClick={(e) => onClickHandler(e, value)}>
+        <S.TagStyle onClick={(e) => onClickHandler(e, value)}>
           <Tag>{value.name}</Tag>
-        </div>
+        </S.TagStyle>
       );
     }
   });
   return (
     <>
-      <S.Title>유형</S.Title>
-      <S.TagContainer>{tagRender}</S.TagContainer>
+      <S.TitleContainer>
+        <S.Title>유형</S.Title>
+        <S.TagContainer>{tagRender}</S.TagContainer>
+      </S.TitleContainer>
     </>
   );
 };

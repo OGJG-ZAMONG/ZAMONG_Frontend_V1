@@ -2,24 +2,28 @@ import styled from "@emotion/styled";
 import { color } from "../../../../../../../style/color";
 import { font } from "../../../../../../../style/font";
 
-export const TagContainer = styled.div`
-  background-color: ${color.hoverBlack};
+export const TitleContainer = styled.div`
   display: flex;
-  padding: 16px;
+  align-items: center;
+  margin-top: 16px;
+`;
+
+export const TagContainer = styled.div`
+  display: flex;
   column-gap: 12px;
   row-gap: 12px;
-  flex-wrap: nowrap;
-  width: 100%;
-  height: 100px;
-  border-radius: 10px;
   box-sizing: border-box;
+  min-height: 27px;
+`;
+
+export const TagStyle = styled.div`
+  cursor: pointer;
 `;
 
 export const Title = styled.div`
   font: ${font.body3};
   color: ${color.white};
-  margin-top: 16px;
-  margin-bottom: 12px;
+  margin-right: 28px;
 `;
 
 export const TypeContainer = styled.div`

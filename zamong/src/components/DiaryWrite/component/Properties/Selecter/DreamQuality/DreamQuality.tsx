@@ -13,14 +13,23 @@ type PropsType = {
 const DreamQuality = ({ qualityState }: PropsType): JSX.Element => {
   const GAP = 16;
   const [quality, setQuality] = qualityState;
-  // const [quality, setQuality] = useState<Code>(qualitys[2]);
+  const [isHover, setIsHover] = useState<boolean>(false);
+  const onEnterHandler = () => setIsHover(true);
+  const onLeaveHandler = () => setIsHover(false);
 
   return (
     <>
       <Selecter
+        onHover={{ onEnter: onEnterHandler, onLeave: onLeaveHandler }}
         title="꿈의 품질"
         content={
-          <ItemContent array={qualitys} gap={GAP} initValue={quality} setValue={setQuality} />
+          <ItemContent
+            array={qualitys}
+            gap={GAP}
+            initValue={quality}
+            setValue={setQuality}
+            isHover={isHover}
+          />
         }
       />
     </>

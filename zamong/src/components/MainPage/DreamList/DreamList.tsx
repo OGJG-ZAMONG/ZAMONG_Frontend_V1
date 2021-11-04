@@ -1,12 +1,12 @@
 import * as S from "./styles";
-import * as I from "../Index";
+import * as I from "../styles";
 import Dream from "../../Dream/Dream";
 import { DownChevron } from "../../../assets";
 
 const DreamList = (): JSX.Element => {
   return (
     <div>
-      {/* <G.SectionTitle>공개된 꿈 목록</G.SectionTitle>*/}
+      <I.SectionTitle>공개된 꿈 목록</I.SectionTitle>
       <div>
         <Dream />
         <Dream />

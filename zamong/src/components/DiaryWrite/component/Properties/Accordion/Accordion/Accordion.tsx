@@ -1,13 +1,7 @@
 import * as S from "./styles";
 import { DownChevron } from "../../../../../../assets";
 
-import {
-  MouseEvent,
-  MouseEventHandler,
-  useEffect,
-  useRef,
-  useState,
-} from "react";
+import { MouseEvent, MouseEventHandler, useEffect, useRef, useState } from "react";
 
 type Props = {
   header: JSX.Element;

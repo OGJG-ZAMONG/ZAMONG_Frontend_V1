@@ -3,8 +3,6 @@ import { font } from "../../../style/font";
 import { color } from "../../../style/color";
 
 export const Container = styled.div`
-  width: 630px;
-  height: 711px;
   margin-right: 20px;
 `;
 
@@ -62,8 +60,6 @@ export const Next = styled.div`
 `;
 
 export const CalendarContainer = styled.div`
-  height: 674px;
-  width: 630px;
   display: grid;
   grid-template-columns: repeat(7, 90px);
   border-radius: 10px;
@@ -75,7 +71,6 @@ export const DayContainer = styled.div`
   display: inherit;
   grid-template-columns: repeat(7, 90px);
   text-align: center;
-
 `;
 
 export const WeekDays = styled.div`
@@ -90,10 +85,43 @@ export const WeekDays = styled.div`
 
 export const Days = styled.div`
   width: 90px;
-  height: 95px;
+  height: 105px;
   border-top: 1px solid ${color.gray};
-  padding-top: 10px;
+  position: relative;
+  display: grid;
+  grid-template-rows: repeat(4, 1fr);
   &:nth-child(7n + 1) {
     color: ${color.red};
+  }
+  span {
+    display: flex;
+    font-size: 14px;
+    justify-content: center;
+    align-items: center;
+    height: 23px;
+    width: 23px;
+    margin: 3px auto;
+  }
+  div {
+    width: 80%;
+    min-width: 80%;
+    height: 18px;
+    font-size: 14px;
+    color: ${color.white};
+    background-color: ${color.darkGray};
+    border-radius: 5px;
+    cursor: pointer;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    word-break: keep-all;
+    overflow: hidden;
+    padding: 1px 4px;
+    margin: 2.5px auto;
+    margin-left: 10%; 
+    &:hover {
+      width: auto;
+      overflow: unset;
+      box-shadow: 0px 0px 8px ${color.black}80;
+    }
   }
 `;
