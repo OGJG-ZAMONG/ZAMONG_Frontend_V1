@@ -1,5 +1,5 @@
 import styled from "@emotion/styled";
-import * as G from "../globalstyle";
+import * as G from "../styles";
 import { Link } from "react-router-dom";
 import { font } from "../../../style/font";
 
