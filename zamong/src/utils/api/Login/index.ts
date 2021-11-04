@@ -1,5 +1,5 @@
 import uri from "../../../constance/uri";
-import { getRequest } from "../default";
+import instance from "../axios";
 
 interface DataType {
   user_identity: string;
@@ -7,23 +7,30 @@ interface DataType {
 }
 
 interface TokenType {
-  status: number,
-  timestamp: string,
+  status: number;
+  timestamp: string;
   content: {
-      collection_value: boolean,
-      response: {
-          access_token: string,
-          refresh_token: string,
-      }
-  }
+    collection_value: boolean;
+    response: {
+      access_token: string;
+      refresh_token: string;
+    };
+  };
 }
 
 export const login = async (data: DataType) => {
   try {
-    const request = getRequest();
-    const response = await request.post<TokenType>(uri.login, data);
-    localStorage.setItem('access_token', response.data.content.response.access_token);
-    localStorage.setItem('refresh_token', response.data.content.response.refresh_token);
+    const response = await instance.post<TokenType>(uri.login, data);
+
+    localStorage.setItem(
+      "access_token",
+      response.data.content.response.access_token
+    );
+    localStorage.setItem(
+      "refresh_token",
+      response.data.content.response.refresh_token
+    );
+
     return response.data;
   } catch (error: any) {
     return Promise.reject(error);
