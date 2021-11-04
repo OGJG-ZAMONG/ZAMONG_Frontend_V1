@@ -73,7 +73,6 @@ export const DayContainer = styled.div`
   display: inherit;
   grid-template-columns: repeat(7, 90px);
   text-align: center;
-
 `;
 
 export const WeekDays = styled.div`
@@ -91,7 +90,8 @@ export const Days = styled.div`
   height: 105px;
   border-top: 1px solid ${color.gray};
   position: relative;
-  /* padding-top: 10px; */
+  display: grid;
+  grid-template-rows: repeat(4, 1fr);
   &:nth-child(7n + 1) {
     color: ${color.red};
   }
@@ -99,23 +99,30 @@ export const Days = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 30px;
-    width: 30px;
-    margin: 5px auto;
+    height: 23px;
+    width: 23px;
+    margin: 3px auto;
   }
-
   div {
-    position: absolute;
-    /* display: inline; */
+    width: 80%;
     min-width: 80%;
-    height: 20px;
+    height: 18px;
     font-size: 14px;
     color: ${color.white};
     background-color: ${color.darkGray};
+    border-radius: 5px;
     cursor: pointer;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    word-break: keep-all;
+    overflow: hidden;
+    padding: 1px 4px;
+    margin: 2.5px auto;
     &:hover {
-
-      transition: 0.5s;
+      width: auto;
+      overflow: unset;
+      box-shadow: 0px 0px 8px ${color.black}80;
+      transition: all 1s ease-out;
     }
   }
 `;
