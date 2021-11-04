@@ -62,8 +62,6 @@ export const Next = styled.div`
 `;
 
 export const CalendarContainer = styled.div`
-  height: 674px;
-  width: 630px;
   display: grid;
   grid-template-columns: repeat(7, 90px);
   border-radius: 10px;
@@ -90,10 +88,34 @@ export const WeekDays = styled.div`
 
 export const Days = styled.div`
   width: 90px;
-  height: 95px;
+  height: 105px;
   border-top: 1px solid ${color.gray};
-  padding-top: 10px;
+  position: relative;
+  /* padding-top: 10px; */
   &:nth-child(7n + 1) {
     color: ${color.red};
+  }
+  span {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 30px;
+    width: 30px;
+    margin: 5px auto;
+  }
+
+  div {
+    position: absolute;
+    /* display: inline; */
+    min-width: 80%;
+    height: 20px;
+    font-size: 14px;
+    color: ${color.white};
+    background-color: ${color.darkGray};
+    cursor: pointer;
+    &:hover {
+
+      transition: 0.5s;
+    }
   }
 `;

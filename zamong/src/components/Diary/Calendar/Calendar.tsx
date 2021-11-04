@@ -4,7 +4,7 @@ import { getCalendarData } from "../../../utils/api/calendar";
 import { color } from "../../../style/color";
 const Calendar: FC = (): JSX.Element => {
   const date: Date = new Date();
-  const DayContainer: MutableRefObject<any> = useRef();
+  const DayContainer: MutableRefObject<any> = useRef<HTMLDivElement>(null);
   const week: Array<string> = ["일", "월", "화", "수", "목", "금", "토"];
   const Today: string = `${date.getFullYear()} ${date.getMonth()} ${date.getDate()}`;
   const [year, setYear] = useState<number>(date.getFullYear());
@@ -12,9 +12,12 @@ const Calendar: FC = (): JSX.Element => {
   const [data, setData] = useState<any>([]);
 
   useEffect(() => {
+    //달력이 바뀌면 전 요소들 삭제 
     for (let i = 0; i < 41; i++) {
       if (DayContainer.current.childNodes[i].children.length >= 1) {
-        DayContainer.current.childNodes[i].firstChild.remove();
+        while(DayContainer.current.childNodes[i].lastElementChild) {
+          DayContainer.current.childNodes[i].removeChild(DayContainer.current.childNodes[i].lastChild)
+        }
       }
     }
     makeCalendar(year, month);
@@ -25,7 +28,7 @@ const Calendar: FC = (): JSX.Element => {
     )
       .then((res) => setData(res.data.content.response.timetables))
       .catch((err) => console.log(err));
-
+      
   }, [month]);
 
   useEffect(() => {
@@ -41,16 +44,6 @@ const Calendar: FC = (): JSX.Element => {
         DayContainer.current.childNodes[DateIndex].insertBefore(div, null);
       });
     }
-    //제목 삭제 알고리즘
-    // for (let i = 0; i < 41; i++) {
-    //   let Length = DayContainer.current.childNodes[i].children.length;
-
-    //   if (Length >= 2) {
-    //     for (let j = 0; j < Length; j++) {
-    //       DayContainer.current.childNodes[i].lastChild.remove();
-    //     }
-    //   }
-    // }
   }, [data]);
 
   const makeCalendar = (year: number, month: number) => {
@@ -58,18 +51,15 @@ const Calendar: FC = (): JSX.Element => {
     const newDate: number = new Date(year, month).getDay();
 
     for (let i = newDate; i < dateLength + newDate; i++) {
-      const div = document.createElement("div");
-      div.setAttribute("key", `${year}-${month}-${i}`);
-      div.innerHTML = `${i - (newDate - 1)}`;
-      if (`${year} ${month} ${div.innerHTML}` === Today) {
-        div.style.backgroundColor = `${color.blue}`;
-        // div.style.display = "inline";
-        // div.style.width = "20px";
-        // div.style.height = "20px";
-        div.style.borderRadius = "100%";
-        div.style.color = "white";
+      const span = document.createElement("span");
+      span.setAttribute("key", `${year}-${month}-${i}`);
+      span.innerHTML = `${i - (newDate - 1)}`;
+      if (`${year} ${month} ${span.innerHTML}` === Today) {
+        span.style.backgroundColor = `${color.blue}`;
+        span.style.borderRadius = "100%";
+        span.style.color = "white";
       }
-      DayContainer.current.childNodes[i].insertBefore(div, null);
+      DayContainer.current.childNodes[i].insertBefore(span, null);
     }
   };
 
