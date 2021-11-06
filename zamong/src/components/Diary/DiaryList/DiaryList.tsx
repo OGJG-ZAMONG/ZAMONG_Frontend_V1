@@ -18,7 +18,7 @@ const DiaryList: FC = (): JSX.Element => {
         <S.TodayBox>
           <Calendar />
           <S.TodayDream>
-            <S.TodayDreamText>오늘</S.TodayDreamText>
+            <S.TodayDreamText>오늘 꾼 꿈 목록</S.TodayDreamText>
             <S.DiarySignContainer>
               {testArray.map((value) => {
                 return <MyDreamDiary key={value} />;

@@ -3,6 +3,7 @@ import { font } from "../../../style/font";
 import { color } from "../../../style/color";
 
 export const Container = styled.div`
+  height: 100%;
   margin-right: 20px;
 `;
 

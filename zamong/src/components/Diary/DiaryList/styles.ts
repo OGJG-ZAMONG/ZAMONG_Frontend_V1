@@ -1,6 +1,7 @@
 import styled from "@emotion/styled";
 import { font } from "../../../style/font";
 import { color } from "../../../style/color";
+import { Checked } from "../../../assets";
 
 export const Container = styled.div`
   background-color: ${color.black};
@@ -17,7 +18,6 @@ export const TodayContainer = styled.div`
   justify-content: center;
   min-height: 711px;
   margin: 0 auto;
-  min-height: 711px;
 `;
 
 export const Title = styled.div`
@@ -29,36 +29,37 @@ export const Title = styled.div`
 `;
 
 export const TodayDream = styled.div`
-  height: 711px;
-  width: 650px;
+  height: 100%;
+  width: 100%;
   background-color: ${color.darkerGray};
   border-radius: 10px;
   padding: 0 10px;
 `;
 
 export const TodayBox = styled.div`
+  height: 710px;
   width: 100%;
   display: flex;
   justify-content: center;
 `;
 
 export const TodayDreamText = styled.div`
-  width: 37px;
-  height: 25px;
+  width: auto;
+  height: 40px;
+  display: flex;
+  align-items: center;
   color: ${color.white};
-  margin: 20px 0 4px 0;
   font: ${font.subtitle};
   font-weight: 500;
   line-height: 10px;
 `;
 
 export const DiarySignContainer = styled.div`
-  height: 93%;
+  height: calc(100% - 40px);
   width: 100%;
   overflow: auto;
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  grid-template-rows: 40%;
   grid-gap: 15px;
 `;
 
@@ -155,15 +156,14 @@ export const Box = styled.div`
 `;
 
 export const Input = styled.input`
+  position: relative;
   width: 24px;
   height: 24px;
   display: none;
   border-radius: 5px;
   &:checked ~ div::after {
-    content: "✓";
-    color: ${color.black};
+    content: "";
     position: absolute;
-    left: 4px;
     color: ${color.white};
   }
 `;
