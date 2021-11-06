@@ -47,8 +47,8 @@ const FollowDreamDiaryList = (): JSX.Element => {
     setIndex(changeIndex);
   };
 
-  const dreamListRender = dreamList.map(() => {
-    return <FollowDreamDiary />;
+  const dreamListRender = dreamList.map((value) => {
+    return <FollowDreamDiary dream={value} />;
   });
 
   const onPrev = () => moveIndex(-1);
