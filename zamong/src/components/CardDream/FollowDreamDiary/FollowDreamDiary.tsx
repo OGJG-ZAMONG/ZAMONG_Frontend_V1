@@ -1,4 +1,3 @@
-import defaultImage from "../../../assets/DefaultPostingImages/1.jpg";
 import * as S from "./styles";
 import * as I from "../index";
 import { Dream } from "../../../models/dto/response/followShareDreamResponse";
