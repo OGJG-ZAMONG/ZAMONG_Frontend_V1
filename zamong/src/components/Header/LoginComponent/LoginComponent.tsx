@@ -5,13 +5,14 @@ import Chat from "../../../assets/icons/Chat.svg";
 import Coin from "../../../assets/icons/Coin.svg";
 import Discovery from "../../../assets/icons/Discovery.svg";
 import ShoppingCart from "../../../assets/icons/ShoppingCart.svg";
+import { Link } from "react-router-dom";
 
 const LoginComponent = (): JSX.Element => {
   return (
     <>
       <S.NavigationContainer>
         <S.LinksContainer>
-          <S.LinkComponentContainer to="/">
+          <S.LinkComponentContainer to="/chat">
             <img alt="chat" src={Chat} />
             <span>채팅</span>
           </S.LinkComponentContainer>
@@ -23,7 +24,7 @@ const LoginComponent = (): JSX.Element => {
             <img alt="Coin" src={Coin} />
             <span>꿈 구매</span>
           </S.LinkComponentContainer>
-          <S.LinkComponentContainer to="/">
+          <S.LinkComponentContainer to="/sell">
             <img alt="ShoppingCart" src={ShoppingCart} />
             <span>꿈 판매</span>
           </S.LinkComponentContainer>
@@ -33,7 +34,9 @@ const LoginComponent = (): JSX.Element => {
           <span>USER04</span>
         </S.UserProfileContainer>
       </S.NavigationContainer>
-      <BorderButton>로그아웃</BorderButton>
+      <Link to="/">
+        <BorderButton>로그아웃</BorderButton>
+      </Link>
     </>
   );
 };
