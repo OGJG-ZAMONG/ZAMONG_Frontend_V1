@@ -2,6 +2,10 @@ import styled from "@emotion/styled";
 import { font } from "../../style/font";
 import { color } from "../../style/color";
 
+export const DreamCardContainer = styled.div`
+  width: 100%;
+`;
+
 export const DreamImageContainer = styled.div<{ img: any }>`
   width: 100%;
   display: flex;
