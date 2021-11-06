@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 import Filter from "./Filter/Filter";
 import { useLayoutEffect, useState } from "react";
 import LoginComponent from "./LoginComponent";
-import NonLoginComponent from "./LoginComponent/index";
+import NonLoginComponent from "./NonLoginComponent";
 
 const Header = (): JSX.Element => {
   const paddingValue = 10;
@@ -37,8 +37,8 @@ const Header = (): JSX.Element => {
               <Filter />
             </S.SearchContainer>
             <S.RightContentContainer>
-              <LoginComponent />
-              {/* <NonLoginComponent /> */}
+              {/* <LoginComponent /> */}
+              <NonLoginComponent />
             </S.RightContentContainer>
           </S.RightOuter>
         </S.RightContainer>
