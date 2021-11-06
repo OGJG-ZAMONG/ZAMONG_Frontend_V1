@@ -26,7 +26,7 @@ const Slider = ({ children, index, size, gap, columnCount }: PropsType) => {
 
   return (
     <S.Container ref={container}>
-      <S.List ref={list} x={-x} gap={GAP}>
+      <S.List ref={list} x={-x} gap={gap}>
         {children}
       </S.List>
     </S.Container>
