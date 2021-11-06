@@ -6,8 +6,9 @@ export const Container = styled.div`
   overflow: hidden;
 `;
 
-export const List = styled.div<{ size: number }>`
-  display: grid;
+export const List = styled.div<{ x: number }>`
+  display: flex;
   column-gap: 20px;
-  grid-template-columns: repeat(${(props) => props.size}, 1fr);
+  transform: translateX(${(props) => props.x}px);
+  transition: transform 0.5s cubic-bezier(0.19, 1, 0.22, 1);
 `;
