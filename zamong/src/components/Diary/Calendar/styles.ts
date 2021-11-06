@@ -116,12 +116,12 @@ export const Days = styled.div`
     white-space: nowrap;
     word-break: keep-all;
     overflow: hidden;
-    padding: 0 10px;
+    padding: 1px 5px;
     margin: 2.5px auto;
     margin-left: 10%; 
     &:hover {
       width: auto;
-      z-index: 99;
+      z-index: 2;
       overflow: unset;
       box-shadow: 0px 0px 8px ${color.black}80;
     }

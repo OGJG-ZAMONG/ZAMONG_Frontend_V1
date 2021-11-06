@@ -92,7 +92,6 @@ export const DiaryList = styled.div`
   grid-template-columns: repeat(4, 1fr);
   grid-template-rows: 1fr;
   grid-gap: 15px;
-  /* height: auto; */
   margin-bottom: 500px;
 `;
 
@@ -106,6 +105,9 @@ export const WriteDiary = styled(Link)`
   backdrop-filter: blur(20px);
   background-color: ${color.darkerGray};
   text-decoration: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   &:hover {
     margin-top: 3px;
     transition: all 0.3s ease-out;
@@ -113,13 +115,10 @@ export const WriteDiary = styled(Link)`
 `;
 
 export const WriteDiaryText = styled.div`
-  margin: 89px 86px;
-  font-family: Spoqa Han Sans Neo;
-  font-weight: 500;
-  font-size: 20px;
+  font: ${font.subtitle};
   color: ${color.lightGray};
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
 `;
 
 export const WriteDiaryImg = styled.img`
