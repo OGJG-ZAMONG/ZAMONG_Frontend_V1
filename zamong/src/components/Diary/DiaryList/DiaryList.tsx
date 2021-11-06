@@ -21,7 +21,11 @@ const DiaryList: FC = (): JSX.Element => {
             <S.TodayDreamText>오늘 꾼 꿈 목록</S.TodayDreamText>
             <S.DiarySignContainer>
               {testArray.map((value) => {
-                return <MyDreamDiary key={value} />;
+                return (
+                  <S.MyDreamDiaryContainer>
+                    <MyDreamDiary key={value} />
+                  </S.MyDreamDiaryContainer>
+                );
               })}
             </S.DiarySignContainer>
           </S.TodayDream>
@@ -38,14 +42,14 @@ const DiaryList: FC = (): JSX.Element => {
               </S.Label>
               <label>공유됨</label>
             </>
-            <S.HeaderSelect >
+            <S.HeaderSelect>
               <option value="최근순">최근순</option>
               <option value="인기순">인기순</option>
             </S.HeaderSelect>
           </S.HeaderSelections>
         </S.DiaryListHeader>
         <S.DiaryList>
-          <S.WriteDiary>
+          <S.WriteDiary to="/diary/write">
             <S.WriteDiaryText>
               <S.WriteDiaryImg src={edit} />
               <div>꿈 일기 쓰기</div>

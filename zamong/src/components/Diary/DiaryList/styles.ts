@@ -2,6 +2,7 @@ import styled from "@emotion/styled";
 import { font } from "../../../style/font";
 import { color } from "../../../style/color";
 import { Checked } from "../../../assets";
+import { Link } from "react-router-dom";
 
 export const Container = styled.div`
   background-color: ${color.black};
@@ -33,7 +34,6 @@ export const TodayDream = styled.div`
   width: 100%;
   background-color: ${color.darkerGray};
   border-radius: 10px;
-  padding: 0 10px;
 `;
 
 export const TodayBox = styled.div`
@@ -44,14 +44,14 @@ export const TodayBox = styled.div`
 `;
 
 export const TodayDreamText = styled.div`
-  width: auto;
+  width: calc(100% - 20px);
   height: 40px;
   display: flex;
   align-items: center;
   color: ${color.white};
   font: ${font.subtitle};
-  font-weight: 500;
-  line-height: 10px;
+  border-bottom: 0.5px solid ${color.gray};
+  margin: 0 auto;
 `;
 
 export const DiarySignContainer = styled.div`
@@ -60,15 +60,17 @@ export const DiarySignContainer = styled.div`
   overflow: auto;
   display: grid;
   grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: 40%;
   grid-gap: 15px;
+  &::-webkit-scrollbar {
+    display: none;
+  }
 `;
 
 export const DiaryListContainer = styled.div`
-  height: 100vh;
   width: 1280px;
   color: ${color.white};
   display: flex;
-  justify-content: center;
   flex-direction: column;
   margin: 0 auto;
 `;
@@ -82,19 +84,19 @@ export const DiaryListHeader = styled.div`
   height: 30px;
   display: flex;
   justify-content: space-between;
-  padding-bottom: 3%;
+  margin-bottom: 28px;
 `;
 
 export const DiaryList = styled.div`
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  grid-template-rows: repeat(4, 1fr);
+  grid-template-rows: 1fr;
   grid-gap: 15px;
-  height: 1120px;
-  overflow: auto;
+  /* height: auto; */
+  margin-bottom: 500px;
 `;
 
-export const WriteDiary = styled.div`
+export const WriteDiary = styled(Link)`
   aspect-ratio: 3/2;
   width: 100%;
   box-sizing: border-box;
@@ -103,6 +105,11 @@ export const WriteDiary = styled.div`
   cursor: pointer;
   backdrop-filter: blur(20px);
   background-color: ${color.darkerGray};
+  text-decoration: none;
+  &:hover {
+    margin-top: 3px;
+    transition: all 0.3s ease-out;
+  }
 `;
 
 export const WriteDiaryText = styled.div`
@@ -167,3 +174,7 @@ export const Input = styled.input`
     color: ${color.white};
   }
 `;
+
+export const MyDreamDiaryContainer = styled.div`
+    padding: 15px 10px;
+`
