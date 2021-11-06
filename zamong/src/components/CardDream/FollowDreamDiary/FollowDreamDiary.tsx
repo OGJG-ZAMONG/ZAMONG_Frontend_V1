@@ -9,9 +9,7 @@ const FollowDreamDiary = (): JSX.Element => {
         <S.UserImage src={defaultImage} />
         <I.DiaryDate>8월 15일</I.DiaryDate>
       </I.DreamImageContainer>
-      <I.DreamTitle>
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit, se
-      </I.DreamTitle>
+      <I.DreamTitle>Lorem ipsum dolor sit amet, consectetur adipiscing elit, se</I.DreamTitle>
     </div>
   );
 };
