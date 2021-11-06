@@ -3,9 +3,8 @@ export interface Dream {
   default_posting_image: string;
   profile: string;
   title: string;
-  lucy_count: number;
-  dream_types: string[];
-  share_datetime: string;
+  created_at: string;
+  is_shared: boolean;
 }
 
 export interface followShareDreamResponse {
