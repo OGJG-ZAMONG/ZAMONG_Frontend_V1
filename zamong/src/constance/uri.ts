@@ -4,7 +4,8 @@ enum uri {
   idDuplicate = "/auth/user-id/duplicate",
   dreamShare = "/dream/share",
   dreamShareImage = "/dream/share/image",
-  login = '/auth/login',
+  login = "/auth/login",
+  myProfile = "/user/me",
 }
 
 export default uri;
