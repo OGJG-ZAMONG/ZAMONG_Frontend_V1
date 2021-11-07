@@ -17,13 +17,13 @@ const Filter = (): JSX.Element => {
     return <Tag>{value.name}</Tag>;
   });
 
+  const onSpreadClick = () => {
+    setIsActive(!isActive);
+  };
+
   return (
     <S.FilterContainer>
-      <S.FilterButton
-        onClick={() => {
-          setIsActive(!isActive);
-        }}
-      >
+      <S.FilterButton onClick={onSpreadClick}>
         <img alt="filter icon" src={FilterIcon} />
         <S.FilterInner>
           필터설정
