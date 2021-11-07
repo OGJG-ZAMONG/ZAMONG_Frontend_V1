@@ -23,7 +23,6 @@ const DiaryList: FC = (): JSX.Element => {
 
   const handleCheckboxChange = (e: any) => {
     setIsChecked(e.target.checked);
-    console.log(e.target.checked);
   };
   return (
     <S.Container>

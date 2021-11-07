@@ -26,4 +26,5 @@ export const DreamTitle = styled.div`
 
 export const DiaryDate = styled.div`
   font: ${font.body3};
+  color: ${color.black};
 `;
