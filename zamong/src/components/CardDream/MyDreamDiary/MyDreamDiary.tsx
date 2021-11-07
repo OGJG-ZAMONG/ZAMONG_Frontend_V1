@@ -1,6 +1,5 @@
 import * as S from "./styles";
 import * as I from "../index";
-import { DefaultImage } from "../../../assets/index";
 import lockOpen from "../../../assets/icon/lockOpen.svg";
 import { FC } from "react";
 
@@ -12,15 +11,15 @@ interface Props {
   uuid: string
 }
 
-const MyDreamDiary: FC = ({}): JSX.Element => {
+const MyDreamDiary: FC<Props> = ({uuid, img, locked, title, date}): JSX.Element => {
   return (
-    <div>
-      <I.DreamImageContainer img={DefaultImage}>
+    <div key={uuid}>
+      <I.DreamImageContainer img={img}>
         <S.LockIcon src={lockOpen} />
-        <I.DiaryDate>8월 15일</I.DiaryDate>
+        <I.DiaryDate>{date}</I.DiaryDate>
       </I.DreamImageContainer>
       <I.DreamTitle>
-        Lorem ipsum dolor sit amet, consetur adipiscing elit, se
+        {title}
       </I.DreamTitle>
     </div>
   );

@@ -1,6 +1,6 @@
 import * as S from "./styles";
 import { FC, MutableRefObject, useEffect, useRef, useState } from "react";
-import { getCalendarData } from "../../../utils/api/calendar";
+import { getCalendarData } from "../../../utils/api/Diary/Calendar";
 import { color } from "../../../style/color";
 const Calendar: FC = (): JSX.Element => {
   const date: Date = new Date();

@@ -3,27 +3,56 @@ import { FC, useEffect, useRef, useState } from "react";
 import { edit } from "../../../assets/index";
 import Calendar from "../Calendar/Calendar";
 import MyDreamDiary from "../../CardDream/MyDreamDiary/MyDreamDiary";
+import { getMyDreamData } from "../../../utils/api/Diary/MyDreams";
 
 const DiaryList: FC = (): JSX.Element => {
+  const [data, setData] = useState([]);
+  const [FilterStatus, setFilterStatus] = useState<string>("created");
+  const FilterStatusRef = useRef<HTMLSelectElement>(null);
+
   const testArray = [];
 
   for (let i = 0; i < 20; i++) {
     testArray.push(i);
   }
 
+  useEffect(() => {
+    console.log(data);
+  }, []);
+
+  useEffect(() => {
+    getMyDreamData(window.localStorage.getItem("access_token"), FilterStatus)
+      .then((res) => {
+        setData(res.data.content.response.share_dreams);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, [FilterStatus])
+  
   return (
     <S.Container>
+      {/* 오늘 꾼 꿈 목록과 달력 컨테이너 */}
       <S.TodayContainer>
         <S.Title>나의 꿈 일기</S.Title>
         <S.TodayBox>
+          {/* 여기 달력 */}
           <Calendar />
           <S.TodayDream>
             <S.TodayDreamText>오늘 꾼 꿈 목록</S.TodayDreamText>
             <S.DiarySignContainer>
-              {testArray.map((value) => {
+              {/* 여기서 맵 돌림 */}
+              {data.map((value: any, index: number) => {
                 return (
                   <S.MyDreamDiaryContainer>
-                    <MyDreamDiary key={value} />
+                    <MyDreamDiary
+                      img={value.default_posting_image}
+                      locked={value.is_shared}
+                      title={value.title}
+                      date={value.created_at}
+                      uuid={value.uuid}
+                      key={index}
+                    />
                   </S.MyDreamDiaryContainer>
                 );
               })}
@@ -31,6 +60,7 @@ const DiaryList: FC = (): JSX.Element => {
           </S.TodayDream>
         </S.TodayBox>
       </S.TodayContainer>
+      {/* 내가 쓴 일기 목록 컨테이너 */}
       <S.DiaryListContainer>
         <S.DiaryListHeader>
           <S.DiaryListTitle>내가 쓴 일기 목록</S.DiaryListTitle>
@@ -42,21 +72,32 @@ const DiaryList: FC = (): JSX.Element => {
               </S.Label>
               <label>공유됨</label>
             </>
-            <S.HeaderSelect>
+            <S.HeaderSelect ref={FilterStatusRef} onChange={(e) => setFilterStatus(e.target.selectedIndex === 0 ? "created" : "lucy")}>
               <option value="최근순">최근순</option>
               <option value="인기순">인기순</option>
             </S.HeaderSelect>
           </S.HeaderSelections>
         </S.DiaryListHeader>
         <S.DiaryList>
+          {/* 꿈 작성하기 버튼 */}
           <S.WriteDiary to="/diary/write">
             <S.WriteDiaryText>
               <S.WriteDiaryImg src={edit} />
               <div>꿈 일기 쓰기</div>
             </S.WriteDiaryText>
           </S.WriteDiary>
-          {testArray.map((value) => {
-            return <MyDreamDiary key={value} />;
+          {/* 여기서 맵 돌리기 처리 */}
+          {data.map((value: any, index: number) => {
+            return (
+              <MyDreamDiary
+                img={value.default_posting_image}
+                locked={value.is_shared}
+                title={value.title}
+                date={value.created_at}
+                uuid={value.uuid}
+                key={index}
+              />
+            );
           })}
         </S.DiaryList>
       </S.DiaryListContainer>

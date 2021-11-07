@@ -61,7 +61,6 @@ export const DiarySignContainer = styled.div`
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   grid-template-rows: 40%;
-  grid-gap: 15px;
   &::-webkit-scrollbar {
     display: none;
   }
