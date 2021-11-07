@@ -16,7 +16,35 @@ const LoginComponent = (): JSX.Element => {
     profile: string;
   }
 
+  interface Nav {
+    img: string;
+    text: string;
+    to: string;
+  }
+
   const [data, setData] = useState<DataType | null>(null);
+  const navs: Nav[] = [
+    {
+      img: Chat,
+      text: "채팅",
+      to: "/chat",
+    },
+    {
+      img: Discovery,
+      text: "꿈 해몽",
+      to: "/",
+    },
+    {
+      img: Coin,
+      text: "꿈 구매",
+      to: "/",
+    },
+    {
+      img: ShoppingCart,
+      text: "꿈 판매",
+      to: "/sell",
+    },
+  ];
 
   const setHeaderData = async () => {
     try {
@@ -33,29 +61,22 @@ const LoginComponent = (): JSX.Element => {
     setHeaderData();
   }, []);
 
+  const navRender = navs.map((value) => {
+    const { img, text, to } = value;
+    return (
+      <S.LinkComponentContainer to={to}>
+        <img alt="chat" src={img} />
+        <span>{text}</span>
+      </S.LinkComponentContainer>
+    );
+  });
+
   return (
     <>
       {data ? (
         <>
           <S.NavigationContainer>
-            <S.LinksContainer>
-              <S.LinkComponentContainer to="/chat">
-                <img alt="chat" src={Chat} />
-                <span>채팅</span>
-              </S.LinkComponentContainer>
-              <S.LinkComponentContainer to="/">
-                <img alt="Discovery" src={Discovery} />
-                <span>꿈 해몽</span>
-              </S.LinkComponentContainer>
-              <S.LinkComponentContainer to="/">
-                <img alt="Coin" src={Coin} />
-                <span>꿈 구매</span>
-              </S.LinkComponentContainer>
-              <S.LinkComponentContainer to="/sell">
-                <img alt="ShoppingCart" src={ShoppingCart} />
-                <span>꿈 판매</span>
-              </S.LinkComponentContainer>
-            </S.LinksContainer>
+            <S.LinksContainer>{navRender}</S.LinksContainer>
             <S.UserProfileContainer>
               <S.UserProfileImg alt="user-img" src={data.profile} />
               <span>{data.name}</span>
