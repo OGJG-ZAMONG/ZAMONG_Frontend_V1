@@ -37,6 +37,10 @@ const Filter = (): JSX.Element => {
       </S.FilterButton>
       {isActive && (
         <S.FilterBox>
+          <S.FilterAppliedContainer>
+            <S.AppliedTitle>적용됨</S.AppliedTitle>
+            <S.TagsContainer>{selectedTypeRender}</S.TagsContainer>
+          </S.FilterAppliedContainer>
           <S.FilterSearchContainer>
             <S.FilterSearchInput
               onChange={onChangeHandler}
@@ -45,10 +49,6 @@ const Filter = (): JSX.Element => {
             />
             <S.TagsContainer>{leftTypeRender}</S.TagsContainer>
           </S.FilterSearchContainer>
-          <S.FilterAppliedContainer>
-            <S.AppliedTitle>적용됨</S.AppliedTitle>
-            <S.TagsContainer>{selectedTypeRender}</S.TagsContainer>
-          </S.FilterAppliedContainer>
         </S.FilterBox>
       )}
     </S.FilterContainer>
