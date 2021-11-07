@@ -23,7 +23,6 @@ export const TopContent = styled.div`
 export const ProfileBox = styled.div<{ img: string }>`
   width: 200px;
   height: 197px;
-  border: 1px solid blue;
   background-size: cover;
   border-radius: 120px;
   box-sizing: border-box;
