@@ -37,8 +37,7 @@ const Header = (): JSX.Element => {
               <Filter />
             </S.SearchContainer>
             <S.RightContentContainer>
-              {/* <LoginComponent /> */}
-              <NonLoginComponent />
+              <LoginComponent />
             </S.RightContentContainer>
           </S.RightOuter>
         </S.RightContainer>
