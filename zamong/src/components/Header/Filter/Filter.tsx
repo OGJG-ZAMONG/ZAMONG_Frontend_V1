@@ -11,7 +11,23 @@ const Filter = (): JSX.Element => {
   const [selected, setSelected] = useState<Code[]>([]);
   const [searchText, setSearchText] = useState<string>("");
 
-  const RenderleftType = (array: Code[]) => array.map((value) => <Tag>{value.name}</Tag>);
+  const onSelectedClick = (index: number) => {
+    setSelected(selected.filter((value, i) => i !== index));
+  };
+
+  const onLeftClick = (value: Code) => {
+    setSelected(selected.concat(value));
+  };
+
+  const FilterleftType = (array: Code[]) =>
+    array.filter((value) => selected.every((item) => value.code !== item.code));
+
+  const RenderleftType = (array: Code[]) =>
+    FilterleftType(array).map((value) => (
+      <S.TagConatiner onClick={() => onLeftClick(value)}>
+        <Tag>{value.name}</Tag>
+      </S.TagConatiner>
+    ));
 
   const leftTypeRender =
     searchText.length <= 0
@@ -21,14 +37,16 @@ const Filter = (): JSX.Element => {
             const name = value.name.replace(" ", "");
             const search = searchText.replace(" ", "");
 
-            const re = name.indexOf(search) !== -1;
-
-            return re;
+            return name.indexOf(search) !== -1;
           })
         );
 
-  const selectedTypeRender = selected.map((value) => {
-    return <Tag>{value.name}</Tag>;
+  const selectedTypeRender = selected.map((value, index) => {
+    return (
+      <S.TagConatiner onClick={() => onSelectedClick(index)}>
+        <Tag>{value.name}</Tag>
+      </S.TagConatiner>
+    );
   });
 
   const onSpreadClick = () => setIsActive(!isActive);
