@@ -146,10 +146,20 @@ export const HeaderSelect = styled.select`
 `;
 
 export const Label = styled.label`
-  width: 20px;
-  height: 20px;
-  position: relative;
-  margin-right: 9px;
+  height: 100%;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font: ${font.body2};
+  cursor: pointer;
+  input {
+    width: 22px;
+    height: 22px;
+    margin-right: 8px;
+    border-radius: 10px;
+    cursor: pointer;
+  }
 `;
 
 export const Box = styled.div`
@@ -174,5 +184,5 @@ export const Input = styled.input`
 `;
 
 export const MyDreamDiaryContainer = styled.div`
-    padding: 15px 10px;
-`
+  padding: 15px 10px;
+`;

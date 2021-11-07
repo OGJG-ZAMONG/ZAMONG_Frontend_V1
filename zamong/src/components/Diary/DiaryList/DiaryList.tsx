@@ -8,17 +8,8 @@ import { getMyDreamData } from "../../../utils/api/Diary/MyDreams";
 const DiaryList: FC = (): JSX.Element => {
   const [data, setData] = useState([]);
   const [FilterStatus, setFilterStatus] = useState<string>("created");
+  const [isChecked, setIsChecked] = useState<boolean>(false);
   const FilterStatusRef = useRef<HTMLSelectElement>(null);
-
-  const testArray = [];
-
-  for (let i = 0; i < 20; i++) {
-    testArray.push(i);
-  }
-
-  useEffect(() => {
-    console.log(data);
-  }, []);
 
   useEffect(() => {
     getMyDreamData(window.localStorage.getItem("access_token"), FilterStatus)
@@ -28,8 +19,12 @@ const DiaryList: FC = (): JSX.Element => {
       .catch((err) => {
         console.log(err);
       });
-  }, [FilterStatus])
-  
+  }, [FilterStatus]);
+
+  const handleCheckboxChange = (e: any) => {
+    setIsChecked(e.target.checked);
+    console.log(e.target.checked);
+  };
   return (
     <S.Container>
       {/* 오늘 꾼 꿈 목록과 달력 컨테이너 */}
@@ -65,14 +60,19 @@ const DiaryList: FC = (): JSX.Element => {
         <S.DiaryListHeader>
           <S.DiaryListTitle>내가 쓴 일기 목록</S.DiaryListTitle>
           <S.HeaderSelections>
-            <>
-              <S.Label htmlFor="checkbox">
-                <S.Input type="checkbox" id="checkbox" />
-                <S.Box />
-              </S.Label>
-              <label>공유됨</label>
-            </>
-            <S.HeaderSelect ref={FilterStatusRef} onChange={(e) => setFilterStatus(e.target.selectedIndex === 0 ? "created" : "lucy")}>
+            <S.Label>
+              <input type="checkbox" onChange={handleCheckboxChange} />
+              <span>공유됨</span>
+            </S.Label>
+
+            <S.HeaderSelect
+              ref={FilterStatusRef}
+              onChange={(e) =>
+                setFilterStatus(
+                  e.target.selectedIndex === 0 ? "created" : "lucy"
+                )
+              }
+            >
               <option value="최근순">최근순</option>
               <option value="인기순">인기순</option>
             </S.HeaderSelect>
