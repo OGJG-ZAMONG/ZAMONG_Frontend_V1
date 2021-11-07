@@ -8,6 +8,7 @@ import Tag from "../../Tag/Tag";
 const Filter = (): JSX.Element => {
   const [isActive, setIsActive] = useState<boolean>(false);
   const [selected, setSelected] = useState<Code[]>([]);
+  const [searchText, setSearchText] = useState<string>("");
 
   const leftTypeRender = dreamType.map((value) => {
     return <Tag>{value.name}</Tag>;
@@ -19,6 +20,10 @@ const Filter = (): JSX.Element => {
 
   const onSpreadClick = () => {
     setIsActive(!isActive);
+  };
+
+  const onChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchText(e.target.value);
   };
 
   return (
@@ -33,7 +38,11 @@ const Filter = (): JSX.Element => {
       {isActive && (
         <S.FilterBox>
           <S.FilterSearchContainer>
-            <S.FilterSearchInput placeholder="필터 검색..." />
+            <S.FilterSearchInput
+              onChange={onChangeHandler}
+              value={searchText}
+              placeholder="필터 검색..."
+            />
             <S.TagsContainer>{leftTypeRender}</S.TagsContainer>
           </S.FilterSearchContainer>
           <S.FilterAppliedContainer>
