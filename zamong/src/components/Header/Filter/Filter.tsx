@@ -2,8 +2,20 @@ import * as S from "./styles";
 import { FilterIcon } from "../../../assets";
 import { DownChevronIcon } from "../../../assets";
 import { useState } from "react";
+import Code from "../../../interface/Code";
+import dreamType from "../../../constance/dreamType";
+import Tag from "../../Tag/Tag";
 const Filter = (): JSX.Element => {
   const [isActive, setIsActive] = useState<boolean>(false);
+  const [selected, setSelected] = useState<Code[]>([]);
+
+  const leftTypeRender = dreamType.map((value) => {
+    return <Tag>{value.name}</Tag>;
+  });
+
+  const selectedTypeRender = selected.map((value) => {
+    return <Tag>{value.name}</Tag>;
+  });
 
   return (
     <S.FilterContainer>
@@ -22,11 +34,11 @@ const Filter = (): JSX.Element => {
         <S.FilterBox>
           <S.FilterSearchContainer>
             <S.FilterSearchInput placeholder="필터 검색..." />
-            <S.TagsContainer>{/* tags */}</S.TagsContainer>
+            <S.TagsContainer>{leftTypeRender}</S.TagsContainer>
           </S.FilterSearchContainer>
           <S.FilterAppliedContainer>
             <S.AppliedTitle>적용됨</S.AppliedTitle>
-            <S.TagsContainer>{/* tags */}</S.TagsContainer>
+            <S.TagsContainer>{selectedTypeRender}</S.TagsContainer>
           </S.FilterAppliedContainer>
         </S.FilterBox>
       )}
