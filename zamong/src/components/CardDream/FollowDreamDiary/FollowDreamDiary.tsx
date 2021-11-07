@@ -1,6 +1,6 @@
 import * as S from "./styles";
 import * as I from "../index";
-import { Dream } from "../../../models/dto/response/followShareDreamResponse";
+import { Dream } from "../../../models/dto/response/shareDreamResponse";
 
 interface PropsType {
   dream: Dream;

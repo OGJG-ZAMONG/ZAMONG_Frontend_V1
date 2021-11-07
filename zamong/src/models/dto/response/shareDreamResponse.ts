@@ -7,7 +7,7 @@ export interface Dream {
   is_shared: boolean;
 }
 
-export interface followShareDreamResponse {
+export interface shareDreamResponse {
   status: number;
   timestamp: string;
   content: {

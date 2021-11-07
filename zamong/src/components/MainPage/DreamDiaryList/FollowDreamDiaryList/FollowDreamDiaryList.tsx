@@ -3,8 +3,8 @@ import * as I from "../style";
 import * as G from "../../styles";
 import { useLayoutEffect, useRef, useState } from "react";
 import { getFollowShareDream } from "../../../../utils/api/Main";
-import { followShareDreamRequest } from "../../../../models/dto/request/followShareDreamRequest";
-import { Dream } from "../../../../models/dto/response/followShareDreamResponse";
+import { shareDreamRequest } from "../../../../models/dto/request/shareDreamRequest";
+import { Dream } from "../../../../models/dto/response/shareDreamResponse";
 import Slider from "../../Slider/Slider";
 
 const FollowDreamDiaryList = (): JSX.Element => {
@@ -16,7 +16,7 @@ const FollowDreamDiaryList = (): JSX.Element => {
 
   const getFollowShareDreamList = async () => {
     try {
-      const param: followShareDreamRequest = {
+      const param: shareDreamRequest = {
         size: pageSize,
         page: page,
       };
