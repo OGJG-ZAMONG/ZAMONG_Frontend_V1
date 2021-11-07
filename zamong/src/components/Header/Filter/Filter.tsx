@@ -5,26 +5,34 @@ import { useState } from "react";
 import Code from "../../../interface/Code";
 import dreamType from "../../../constance/dreamType";
 import Tag from "../../Tag/Tag";
+
 const Filter = (): JSX.Element => {
   const [isActive, setIsActive] = useState<boolean>(false);
   const [selected, setSelected] = useState<Code[]>([]);
   const [searchText, setSearchText] = useState<string>("");
 
-  const leftTypeRender = dreamType.map((value) => {
-    return <Tag>{value.name}</Tag>;
-  });
+  const RenderleftType = (array: Code[]) => array.map((value) => <Tag>{value.name}</Tag>);
+
+  const leftTypeRender =
+    searchText.length <= 0
+      ? RenderleftType(dreamType)
+      : RenderleftType(
+          dreamType.filter((value) => {
+            const name = value.name.replace(" ", "");
+            const search = searchText.replace(" ", "");
+
+            const re = name.indexOf(search) !== -1;
+
+            return re;
+          })
+        );
 
   const selectedTypeRender = selected.map((value) => {
     return <Tag>{value.name}</Tag>;
   });
 
-  const onSpreadClick = () => {
-    setIsActive(!isActive);
-  };
-
-  const onChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setSearchText(e.target.value);
-  };
+  const onSpreadClick = () => setIsActive(!isActive);
+  const onChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => setSearchText(e.target.value);
 
   return (
     <S.FilterContainer>
