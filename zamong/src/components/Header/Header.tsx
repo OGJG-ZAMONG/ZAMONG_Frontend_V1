@@ -3,14 +3,15 @@ import Logo from "../../assets/logo/testLogo.png";
 import SearchIcon from "../../assets/icon/searchIcon.svg";
 import { Link } from "react-router-dom";
 import Filter from "./Filter/Filter";
-import { useLayoutEffect, useState } from "react";
+import { useState } from "react";
 import LoginComponent from "./LoginComponent";
-import NonLoginComponent from "./NonLoginComponent";
+import Code from "../../interface/Code";
 
 const Header = (): JSX.Element => {
   const paddingValue = 10;
   const [headerPadding, setHeaderPadding] = useState<number>(paddingValue);
   const [headerLineOpacity, setHeaderLineOpacity] = useState<number>(0);
+  const [selectedType, setSelectedType] = useState<Code[]>([]);
 
   window.addEventListener("scroll", (event) => {
     setHeaderPadding(window.pageYOffset === 0 ? paddingValue : 0);
@@ -34,7 +35,7 @@ const Header = (): JSX.Element => {
                 <img alt="search icon" src={SearchIcon} />
                 <S.SearchInput placeholder="검색할 내용을 입력하세요." />
               </S.SearchInputContainer>
-              <Filter />
+              <Filter selectedState={[selectedType, setSelectedType]} />
             </S.SearchContainer>
             <S.RightContentContainer>
               <LoginComponent />

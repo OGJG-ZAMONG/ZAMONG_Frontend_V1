@@ -6,9 +6,13 @@ import Code from "../../../interface/Code";
 import dreamType from "../../../constance/dreamType";
 import Tag from "../../Tag/Tag";
 
-const Filter = (): JSX.Element => {
+interface PropsType {
+  selectedState: [Code[], React.Dispatch<React.SetStateAction<Code[]>>];
+}
+
+const Filter = ({ selectedState }: PropsType): JSX.Element => {
   const [isActive, setIsActive] = useState<boolean>(false);
-  const [selected, setSelected] = useState<Code[]>([]);
+  const [selected, setSelected] = selectedState;
   const [searchText, setSearchText] = useState<string>("");
 
   const onSelectedClick = (index: number) => {
