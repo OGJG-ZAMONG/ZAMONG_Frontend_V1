@@ -12,7 +12,7 @@ const Header = (): JSX.Element => {
   const [headerPadding, setHeaderPadding] = useState<number>(paddingValue);
   const [headerLineOpacity, setHeaderLineOpacity] = useState<number>(0);
   const [selectedType, setSelectedType] = useState<Code[]>([]);
-  const [searchText, setSearchText] = useState<string>();
+  const [searchText, setSearchText] = useState<string>("");
 
   window.addEventListener("scroll", (event) => {
     setHeaderPadding(window.pageYOffset === 0 ? paddingValue : 0);
