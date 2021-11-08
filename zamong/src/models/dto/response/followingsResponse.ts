@@ -1,4 +1,4 @@
-export interface follower {
+export interface following {
   uuid: string;
   profile: string;
   id: string;
@@ -6,13 +6,13 @@ export interface follower {
   is_following: boolean;
 }
 
-export interface followrResponse {
+export interface followingResponse {
   status: number;
   timestamp: string;
   content: {
     collection_value: boolean;
     response: {
-      followers: follower[];
+      followings: following[];
       total_size: number;
       total_page: number;
     };

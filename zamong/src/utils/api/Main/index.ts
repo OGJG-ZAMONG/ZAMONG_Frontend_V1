@@ -3,7 +3,8 @@ import { shareDreamRequest } from "../../../models/dto/request/shareDreamRequest
 import { myShareDreamRequest } from "../../../models/dto/request/myShareDreamRequest";
 import { shareDreamResponse } from "../../../models/dto/response/shareDreamResponse";
 import { getRequestWithToken } from "../default";
-import { followrResponse } from "../../../models/dto/response/followerResponse";
+import { followingResponse } from "../../../models/dto/response/followingsResponse";
+import { getMyProfile } from "../Profile";
 
 export const getFollowShareDream = async (param: shareDreamRequest) => {
   const token = localStorage.getItem("access_token");
@@ -43,9 +44,14 @@ export const getShareDream = async (param: shareDreamRequest) => {
 export const getFollowList = async (param: { page: number; size: number }) => {
   const token = localStorage.getItem("access_token");
   const request = getRequestWithToken(token!);
+  const split = uri.following.split("/");
 
   try {
-    const response = await request.get<followrResponse>(uri.follower, { params: param });
+    const { uuid } = (await getMyProfile(token!)).data.content.response;
+
+    const url = `/${split[1]}/${uuid}/${split[2]}`;
+
+    const response = await request.get<followingResponse>(url, { params: param });
     return response;
   } catch (error) {
     return Promise.reject(error);
