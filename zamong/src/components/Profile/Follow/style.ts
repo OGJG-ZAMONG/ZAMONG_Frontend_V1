@@ -53,7 +53,7 @@ export const UserNickName = styled.span`
 `;
 
 export const RightBox = styled.div`
-  width: 328px;
+  width: 348px;
   height: 60px;
   display: flex;
 `;
