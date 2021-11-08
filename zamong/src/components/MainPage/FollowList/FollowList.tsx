@@ -1,21 +1,42 @@
 import * as S from "./styles";
 import More from "../../../assets/icons/more.svg";
 import DefaultImage from "../../../assets/DefaultPostingImages/1.jpg";
+import { useLayoutEffect, useState } from "react";
+import { following } from "../../../models/dto/response/followingsResponse";
+import { getFollowList } from "../../../utils/api/Main";
 
 const FollowList = (): JSX.Element => {
+  const [followings, setFollowings] = useState<following[]>([]);
+
+  const setFollowList = async () => {
+    const param = {
+      page: 0,
+      size: 8,
+    };
+    try {
+      const { followings: data } = (await getFollowList(param)).data.content.response;
+
+      setFollowings(data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const followersRender = followings.slice(0, 8).map((value) => {
+    return <S.Follow img={value.profile} to="/" />;
+  });
+
+  useLayoutEffect(() => {
+    setFollowList();
+  }, []);
+
   return (
     <S.Container>
       <S.SectionTitle>
-        <span>팔로워</span>
+        <span>팔로잉</span>
       </S.SectionTitle>
       <S.FollowContainer>
-        <S.Follow img={DefaultImage} to="/"></S.Follow>
-        <S.Follow img={DefaultImage} to="/"></S.Follow>
-        <S.Follow img={DefaultImage} to="/"></S.Follow>
-        <S.Follow img={DefaultImage} to="/"></S.Follow>
-        <S.Follow img={DefaultImage} to="/"></S.Follow>
-        <S.Follow img={DefaultImage} to="/"></S.Follow>
-        <S.Follow img={DefaultImage} to="/"></S.Follow>
+        {followersRender}
         <S.MoreIcon alt="more" src={More} />
       </S.FollowContainer>
     </S.Container>
