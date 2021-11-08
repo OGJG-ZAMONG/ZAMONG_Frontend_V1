@@ -3,7 +3,6 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import { useHistory } from "react-router";
 import { login } from "../../utils/api/Login";
-import { AxiosResponse } from "axios";
 
 const Login = (): JSX.Element => {
   const [userIdentity, setUserIdentity] = useState("");
