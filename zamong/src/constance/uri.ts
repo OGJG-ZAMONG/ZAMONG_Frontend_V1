@@ -9,6 +9,7 @@ enum uri {
   dreamShareMe = "/dream/share/me",
   myProfile = "/user/me",
   follower = "/user/follower",
+  following = "/user/following",
 }
 
 export default uri;
