@@ -1,6 +1,6 @@
 import * as S from "./styles";
 import Logo from "../../assets/logo/testLogo.png";
-import SearchIcon from "../../assets/icon/searchIcon.svg";
+import SearchIcon from "../../assets/icons/searchIcon.svg";
 import { Link } from "react-router-dom";
 import Filter from "./Filter/Filter";
 import { useState } from "react";

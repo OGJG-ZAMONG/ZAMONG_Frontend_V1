@@ -1,7 +1,7 @@
 import * as S from "./styles";
 import * as I from "../index";
 import { DefaultImage } from "../../../assets/index";
-import lockOpen from "../../../assets/icon/lockOpen.svg";
+import lockOpen from "../../../assets/icons/lockOpen.svg";
 
 const MyDreamDiary = (): JSX.Element => {
   return (
