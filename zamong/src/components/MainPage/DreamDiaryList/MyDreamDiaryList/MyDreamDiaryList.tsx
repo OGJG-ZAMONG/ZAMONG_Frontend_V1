@@ -1,20 +1,44 @@
 import MyDreamDiary from "../../../CardDream/MyDreamDiary/MyDreamDiary";
+import { getMyDreamDiary } from "../../../../utils/api/Main";
 import * as I from "../style";
 import * as G from "../../styles";
 import Slider from "../../Slider/Slider";
-import { useState } from "react";
+import { useLayoutEffect, useState } from "react";
+import { myShareDreamRequest } from "../../../../models/dto/request/myShareDreamRequest";
+import { Dream } from "../../../../models/dto/response/shareDreamResponse";
 
 const MyDreamDiaryList = (): JSX.Element => {
   const [index, setIndex] = useState<number>(0);
+  const [page, setPage] = useState<number>(0);
+  const [dreams, setDreams] = useState<Dream[]>([]);
+
   const GAP = 20;
   const COLUMN_COUNT = 4;
-  const SIZE = 10;
+
+  const setMyDiary = async () => {
+    const param: myShareDreamRequest = {
+      page: page,
+      size: 8,
+      sort: "created",
+    };
+
+    try {
+      const { share_dreams } = (await getMyDreamDiary(param)).data.content.response;
+      setDreams(dreams.concat(share_dreams));
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   const moveIndex = (offset: number) => {
     const changeIndex = index + offset;
 
-    if (changeIndex < 0 || changeIndex > SIZE - COLUMN_COUNT) {
+    if (changeIndex < 0 || changeIndex > dreams.length - COLUMN_COUNT) {
       return;
+    }
+
+    if (changeIndex > dreams.length - COLUMN_COUNT - 1) {
+      setPage(page + 1);
     }
 
     setIndex(changeIndex);
@@ -29,20 +53,20 @@ const MyDreamDiaryList = (): JSX.Element => {
     e.preventDefault();
     moveIndex(-1);
   };
+
+  const dreamRender = dreams.map((value) => {
+    return <MyDreamDiary />;
+  });
+
+  useLayoutEffect(() => {
+    setMyDiary();
+  }, [page]);
+
   return (
     <I.Container>
       <G.SectionTitle>최근 적은 꿈 일기</G.SectionTitle>
-      <Slider index={index} size={SIZE} gap={GAP} columnCount={COLUMN_COUNT}>
-        <MyDreamDiary />
-        <MyDreamDiary />
-        <MyDreamDiary />
-        <MyDreamDiary />
-        <MyDreamDiary />
-        <MyDreamDiary />
-        <MyDreamDiary />
-        <MyDreamDiary />
-        <MyDreamDiary />
-        <MyDreamDiary />
+      <Slider index={index} size={dreams.length} gap={GAP} columnCount={COLUMN_COUNT}>
+        {dreamRender}
       </Slider>
       <I.Button onClick={onPrev} left={0}>
         
