@@ -54,8 +54,8 @@ const MyDreamDiaryList = (): JSX.Element => {
     moveIndex(-1);
   };
 
-  const dreamRender = dreams.map((value) => {
-    return <MyDreamDiary />;
+  const dreamRender = dreams.map((value, index) => {
+    return <MyDreamDiary key={index} dream={value} />;
   });
 
   useLayoutEffect(() => {
