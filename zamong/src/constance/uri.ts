@@ -6,6 +6,8 @@ enum uri {
   dreamShareImage = "/dream/share/image",
   login = "/auth/login",
   myProfile = "/user/me",
+  followingList = "/following",
+  followerList = "/follower",
 }
 
 export default uri;
