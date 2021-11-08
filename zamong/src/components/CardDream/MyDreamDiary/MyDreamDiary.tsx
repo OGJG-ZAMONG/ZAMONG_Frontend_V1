@@ -1,6 +1,8 @@
 import * as S from "./styles";
 import * as I from "../index";
 import lockOpen from "../../../assets/icon/lockOpen.svg";
+import lock from "../../../assets/icons/lock.svg";
+
 import { Dream } from "../../../models/dto/response/shareDreamResponse";
 
 interface PropsType {
@@ -21,7 +23,7 @@ const MyDreamDiary = ({ dream }: PropsType): JSX.Element => {
   return (
     <I.DreamCardContainer>
       <I.DreamImageContainer img={default_posting_image}>
-        <S.LockIcon src={lockOpen} />
+        <S.LockIcon src={is_shared ? lockOpen : lock} />
         <I.DiaryDate>{dateToString(new Date(created_at))}</I.DiaryDate>
       </I.DreamImageContainer>
       <I.DreamTitle>{title}</I.DreamTitle>
