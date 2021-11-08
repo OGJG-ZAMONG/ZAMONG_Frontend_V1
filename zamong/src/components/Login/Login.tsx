@@ -3,7 +3,6 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import { useHistory } from "react-router";
 import { login } from "../../utils/api/Login";
-import { AxiosResponse } from "axios";
 
 const Login = (): JSX.Element => {
   const [userIdentity, setUserIdentity] = useState("");
@@ -34,6 +33,12 @@ const Login = (): JSX.Element => {
     }
   };
 
+  const keyUp = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if(e.keyCode === 13){
+      onRequest();
+    }
+  }
+
   return (
     <S.LoginBox>
       <S.PaddingBox>
@@ -52,6 +57,7 @@ const Login = (): JSX.Element => {
             value={userPassWord}
             type="password"
             onChange={pwChange}
+            onKeyUp={keyUp}
           />
           <S.EventBox>
             <S.LinkBox>
