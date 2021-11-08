@@ -1,6 +1,7 @@
 import styled from "@emotion/styled";
-import * as G from "../globalstyle";
+import * as G from "../styles";
 import { Link } from "react-router-dom";
+import { font } from "../../../style/font";
 
 export const Container = styled.div`
   display: flex;
@@ -31,6 +32,7 @@ export const MoreIcon = styled.img`
 `;
 
 export const SectionTitle = styled(G.SectionTitle)`
+  font: ${font.headline3};
   display: flex;
   align-items: center;
   margin-bottom: 0px;

@@ -1,6 +1,6 @@
 import MyDreamDiary from "../../../CardDream/MyDreamDiary/MyDreamDiary";
 import * as I from "../style";
-import * as G from "../../globalstyle";
+import * as G from "../../styles";
 
 const MyDreamDiaryList = (): JSX.Element => {
   return (

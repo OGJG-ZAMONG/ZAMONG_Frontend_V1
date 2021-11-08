@@ -7,7 +7,7 @@ import { useEffect, useState } from "react";
 
 type PropsType = {
   date: Date;
-  setDate: React.Dispatch<React.SetStateAction<Date>>;
+  setDate: (date: Date) => void;
   setModal: React.Dispatch<React.SetStateAction<boolean>>;
 };
 

@@ -1,29 +1,21 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import * as I from "../styles";
 import * as S from "../../../../styles";
 import { color } from "../../../../../../../style/color";
+import Code from "../../../../../../../interface/Code";
 
 type PropsType = {
-  array: string[];
-  initValue: string;
-  setValue: React.Dispatch<React.SetStateAction<string>>;
+  array: Code[];
+  initValue: Code;
+  setValue: (code: Code) => void;
   gap: number;
+  isHover: boolean;
 };
 
-const ItemContent = ({
-  array,
-  initValue,
-  setValue,
-  gap,
-}: PropsType): JSX.Element => {
-  const [isHover, setIsHover] = useState<boolean>(false);
+const ItemContent = ({ array, initValue, setValue, gap, isHover }: PropsType): JSX.Element => {
   const container = useRef<HTMLDivElement>(null);
   const [selected, setSelected] = useState<number>(array.indexOf(initValue));
-  const [lefts, setLefts] = useState<number[]>(
-    Array<number>(array.length).fill(0)
-  );
-  const onOverHandler = () => setIsHover(true);
-  const onOutHandler = () => setIsHover(false);
+  const [lefts, setLefts] = useState<number[]>(Array<number>(array.length).fill(0));
 
   useEffect(() => {
     setValue(array[selected]);
@@ -50,6 +42,10 @@ const ItemContent = ({
     }
   }, [isHover]);
 
+  useLayoutEffect(() => {
+    setSelected(array.indexOf(initValue));
+  }, [initValue]);
+
   const onItemClickHandler = (index: number) => setSelected(index);
   const getOpacity = (index: number): number => {
     if (isHover) {
@@ -60,11 +56,7 @@ const ItemContent = ({
   };
   return (
     <>
-      <I.SubTitleContainer
-        ref={container}
-        onMouseEnter={onOverHandler}
-        onMouseLeave={onOutHandler}
-      >
+      <I.SubTitleContainer ref={container}>
         {array.map((value, index) => {
           return (
             <I.Item
@@ -73,7 +65,7 @@ const ItemContent = ({
               onClick={() => onItemClickHandler(index)}
               opacity={getOpacity(index)}
             >
-              {value}
+              {value.name}
             </I.Item>
           );
         })}
