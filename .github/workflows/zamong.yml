@@ -3,7 +3,6 @@ on:
   push:
     branches:
       - master
-      - feature/191-deploy-s3-action
 
 jobs:
   build:
