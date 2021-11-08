@@ -4,11 +4,11 @@ import lockOpen from "../../../assets/icon/lockOpen.svg";
 import { Dream } from "../../../models/dto/response/shareDreamResponse";
 
 interface PropsType {
-  dream: Dream;
+  dream?: Dream;
 }
 
 const MyDreamDiary = ({ dream }: PropsType): JSX.Element => {
-  const { created_at, default_posting_image, is_shared, title, uuid } = dream;
+  const { created_at, default_posting_image, is_shared, title, uuid } = dream!;
 
   const dateToString = (date: Date) => {
     if (date.getFullYear() !== new Date().getFullYear()) {
@@ -19,13 +19,13 @@ const MyDreamDiary = ({ dream }: PropsType): JSX.Element => {
   };
 
   return (
-    <div>
+    <I.DreamCardContainer>
       <I.DreamImageContainer img={default_posting_image}>
         <S.LockIcon src={lockOpen} />
         <I.DiaryDate>{dateToString(new Date(created_at))}</I.DiaryDate>
       </I.DreamImageContainer>
       <I.DreamTitle>{title}</I.DreamTitle>
-    </div>
+    </I.DreamCardContainer>
   );
 };
 
