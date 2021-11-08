@@ -95,21 +95,23 @@ export const DiaryList = styled.div`
 `;
 
 export const WriteDiary = styled(Link)`
-  aspect-ratio: 3/2;
   width: 100%;
   box-sizing: border-box;
   aspect-ratio: 3/2;
   border-radius: 20px;
   cursor: pointer;
-  backdrop-filter: blur(20px);
+  border: 1px solid ${color.darkerGray};
   background-color: ${color.darkerGray};
+  background: 0 0 0 0.5;
   text-decoration: none;
   display: flex;
   align-items: center;
+  align-self: flex-start;
   justify-content: center;
   &:hover {
-    margin-top: 3px;
+    margin-top: 5px;
     transition: all 0.3s ease-out;
+    border: 1px solid ${color.gray};
   }
 `;
 

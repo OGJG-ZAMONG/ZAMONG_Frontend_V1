@@ -25,6 +25,11 @@ export const DreamTitle = styled.div`
 `;
 
 export const DiaryDate = styled.div`
-  font: ${font.body3};
-  color: ${color.black};
+  font: ${font.description};
+  background-color: ${color.black};
+  backdrop-filter: blur(10px);
+  color: ${color.white};
+  background: rgb(0, 0, 0, 0.4);
+  padding: 3px 5px;
+  border-radius: 5px;
 `;

@@ -24,7 +24,7 @@ const MyDreamDiary: FC<Props> = ({
   return (
     <div key={uuid}>
       <I.DreamImageContainer img={img}>
-        <S.LockIcon src={locked ? Locked : Unlocked} />
+        <S.LockIcon src={locked ? Unlocked : Locked} />
         <I.DiaryDate>{`${RDate[0]}년 ${RDate[1]}월 ${Day}일`}</I.DiaryDate>
       </I.DreamImageContainer>
       <I.DreamTitle>{title}</I.DreamTitle>

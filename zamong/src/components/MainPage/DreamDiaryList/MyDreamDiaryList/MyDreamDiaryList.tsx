@@ -7,10 +7,10 @@ const MyDreamDiaryList = (): JSX.Element => {
     <I.Container>
       <G.SectionTitle>최근 적은 꿈 일기</G.SectionTitle>
       <I.DreamPostingList>
-        <MyDreamDiary img={""} locked={false} title={""} date={""} uuid={""}/>
-        <MyDreamDiary img={""} locked={false} title={""} date={""} uuid={""}/>
-        <MyDreamDiary img={""} locked={false} title={""} date={""} uuid={""}/>
-        <MyDreamDiary img={""} locked={false} title={""} date={""} uuid={""}/>
+        <MyDreamDiary img={""} locked={false} title={""} date={"2021-10-21"} uuid={""}/>
+        <MyDreamDiary img={""} locked={false} title={""} date={"2021-10-21"} uuid={""}/>
+        <MyDreamDiary img={""} locked={false} title={""} date={"2021-10-21"} uuid={""}/>
+        <MyDreamDiary img={""} locked={false} title={""} date={"2021-10-21"} uuid={""}/>
       </I.DreamPostingList>
       <I.Button left={0}></I.Button>
       <I.Button left={100}></I.Button>
