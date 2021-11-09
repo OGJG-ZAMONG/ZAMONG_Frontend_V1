@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import * as S from "./style";
+import * as F from "./Follower/style";
 import { Follower, Follow, AccountInfo } from "../../assets";
 import FollowerContent from "./Follower/FollowerContent";
 import FollowContent from "./Follow/FollowContent";
@@ -15,6 +16,9 @@ interface ProfileType {
   share_dream_count: number;
   lucy_count: number;
 }
+interface IdType {
+  myid: string;
+}
 
 const ProfilePage = (): JSX.Element => {
   const accessToken = localStorage.getItem("access_token") || "";
@@ -28,25 +32,26 @@ const ProfilePage = (): JSX.Element => {
     share_dream_count: 0,
     lucy_count: 0,
   });
+
   const { uuid, name, email, id, profile, share_dream_count, lucy_count } =
     profileState;
-  const [content, setContent] = useState(<FollowerContent />);
+  const FOLLORWER = 1;
+  const FOLLORWING = 2;
+  const ACCOUNTINFO = 3;
+  const [contentState, setContentState] = useState(FOLLORWER);
 
   const onFollowerClick = () => {
-    if (content !== <FollowerContent />) {
-      setContent(<FollowerContent />);
-    }
+    setContentState(FOLLORWER);
   };
+
   const onFollowClick = () => {
-    if (content !== <FollowContent />) {
-      setContent(<FollowContent />);
-    }
+    setContentState(FOLLORWING);
   };
+
   const onAccountInfoClick = () => {
-    if (content !== <AccountContent />) {
-      setContent(<AccountContent />);
-    }
+    setContentState(ACCOUNTINFO);
   };
+
   useEffect(() => {
     myProfile();
   }, []);
@@ -59,7 +64,17 @@ const ProfilePage = (): JSX.Element => {
       throw error;
     }
   };
-  console.log();
+
+  const renderContent = (): JSX.Element => {
+    const contentMap = new Map<number, React.FC<IdType>>()
+      .set(FOLLORWER, FollowerContent)
+      .set(FOLLORWING, FollowContent)
+      .set(ACCOUNTINFO, AccountContent);
+    const content = React.createElement(contentMap.get(contentState)!, {
+      myid: uuid,
+    });
+    return <>{content}</>;
+  };
 
   return (
     <>
@@ -105,7 +120,7 @@ const ProfilePage = (): JSX.Element => {
             </S.ChooseBox>
           </S.SelectionContent>
         </S.SelectionBox>
-        <div>{content}</div>
+        <div>{renderContent()}</div>
       </S.ProfileContent>
     </>
   );
