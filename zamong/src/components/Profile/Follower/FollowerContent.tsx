@@ -19,22 +19,16 @@ interface IdType {
 
 const FollowerContent: FC<IdType> = (props) => {
   const accessToken = localStorage.getItem("access_token") || "";
-  const [FollowerState, setFollower] = useState<FollowerType>({
+  const [followerState, setFollower] = useState<FollowerType>({
     followers: [],
     total_size: 0,
   });
-
-  const userLength: number[] = [];
-  const MaxUser = 12;
-  for (let i = 0; i < MaxUser; i++) {
-    userLength.push(i);
-  }
 
   useEffect(() => {
     follower();
   }, [props]);
 
-  useEffect(() => {}, [FollowerState]);
+  useEffect(() => {}, [followerState]);
 
   const follower = async () => {
     try {
@@ -48,11 +42,11 @@ const FollowerContent: FC<IdType> = (props) => {
     <>
       <S.Content>
         <S.Follower>
-          팔로워 <span>{FollowerState.total_size}명</span>
+          팔로워 <span>{followerState.total_size}명</span>
         </S.Follower>
         <S.FollowerList>
-          {FollowerState.followers &&
-            FollowerState.followers.map((data, v) => {
+          {followerState.followers &&
+            followerState.followers.map((data, v) => {
               return (
                 <S.UserBox>
                   <S.LeftBox>
@@ -61,7 +55,7 @@ const FollowerContent: FC<IdType> = (props) => {
                   </S.LeftBox>
                   <S.RightBox>
                     <S.FollowDate>
-                      팔로우를 시작한 날짜 :
+                      팔로우를 시작한 날짜 :{" "}
                       {data.follow_datetime.substring(0, 10)}
                     </S.FollowDate>
                     <S.FollowBtn>팔로우중</S.FollowBtn>
