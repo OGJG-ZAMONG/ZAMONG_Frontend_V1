@@ -31,7 +31,6 @@ export const UserBox = styled.div`
 
 export const LeftBox = styled.div`
   height: 60px;
-  display: flex;
 `;
 
 export const Profile = styled.div`
@@ -55,7 +54,6 @@ export const UserNickName = styled.span`
 export const RightBox = styled.div`
   width: 348px;
   height: 60px;
-  display: flex;
 `;
 
 export const FollowDate = styled.span`
