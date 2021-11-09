@@ -95,21 +95,21 @@ export const DiaryList = styled.div`
 `;
 
 export const WriteDiary = styled(Link)`
-  width: 100%;
+  width: 99.5%;
   box-sizing: border-box;
   aspect-ratio: 3/2;
   border-radius: 20px;
   cursor: pointer;
   border: 1px solid ${color.darkerGray};
-  background-color: ${color.darkerGray};
+  background-color: ${color.gray};
   background: 0 0 0 0.5;
   text-decoration: none;
   display: flex;
   align-items: center;
-  align-self: flex-start;
   justify-content: center;
   &:hover {
-    margin-top: 5px;
+    width: 100%;
+    margin-top: 3px;
     transition: all 0.3s ease-out;
     border: 1px solid ${color.gray};
   }
@@ -118,6 +118,7 @@ export const WriteDiary = styled(Link)`
 export const WriteDiaryText = styled.div`
   font: ${font.subtitle};
   color: ${color.lightGray};
+  color: ${color.white};
   display: flex;
   justify-content: space-between;
 `;

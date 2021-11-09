@@ -1,5 +1,5 @@
 import * as S from "./styles";
-import { FC, useEffect, useRef, useState } from "react";
+import { FC, useCallback, useEffect, useRef, useState } from "react";
 import { edit } from "../../../assets/index";
 import Calendar from "../Calendar/Calendar";
 import MyDreamDiary from "../../CardDream/MyDreamDiary/MyDreamDiary";
@@ -38,6 +38,7 @@ const DiaryList: FC = (): JSX.Element => {
   const handleCheckboxChange = (e: any) => {
     setIsChecked(e.target.checked);
   };
+
   return (
     <S.Container>
       {/* 오늘 꾼 꿈 목록과 달력 컨테이너 */}
