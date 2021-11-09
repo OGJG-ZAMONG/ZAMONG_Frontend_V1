@@ -33,6 +33,12 @@ const Login = (): JSX.Element => {
     }
   };
 
+  const keyUp = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === "Enter") {
+      onRequest();
+    }
+  };
+
   return (
     <S.LoginBox>
       <S.PaddingBox>
@@ -46,11 +52,13 @@ const Login = (): JSX.Element => {
             onChange={idChange}
           />
           <S.GuideWord>비밀번호</S.GuideWord>
+
           <S.Input
             name="pw"
             value={userPassWord}
             type="password"
             onChange={pwChange}
+            onKeyUp={keyUp}
           />
           <S.EventBox>
             <S.LinkBox>
