@@ -1,7 +1,6 @@
 import styled from "@emotion/styled";
 import { font } from "../../../style/font";
 import { color } from "../../../style/color";
-import { Checked } from "../../../assets";
 import { Link } from "react-router-dom";
 
 export const Container = styled.div`

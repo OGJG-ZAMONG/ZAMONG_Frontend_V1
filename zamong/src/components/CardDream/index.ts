@@ -25,6 +25,7 @@ export const DreamTitle = styled.div`
 `;
 
 export const DiaryDate = styled.div`
+  height: 24px;
   font: ${font.description};
   background-color: ${color.black};
   backdrop-filter: blur(10px);

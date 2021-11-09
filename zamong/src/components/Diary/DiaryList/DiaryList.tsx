@@ -1,5 +1,5 @@
 import * as S from "./styles";
-import { FC, useCallback, useEffect, useRef, useState } from "react";
+import { FC, useEffect, useRef, useState } from "react";
 import { edit } from "../../../assets/index";
 import Calendar from "../Calendar/Calendar";
 import MyDreamDiary from "../../CardDream/MyDreamDiary/MyDreamDiary";
@@ -13,17 +13,26 @@ const DiaryList: FC = (): JSX.Element => {
   const [diaryWrittenToday, setDiaryWrittenToday] = useState<Array<object>>([]);
   const [FilterStatus, setFilterStatus] = useState<string>("created");
   const [isChecked, setIsChecked] = useState<boolean>(false);
+  const [page, setPage] = useState<number>(0);
+  const [maxPage, setMaxPage] = useState<number>(0);
   const FilterStatusRef = useRef<HTMLSelectElement>(null);
 
   useEffect(() => {
-    getMyDreamData(window.localStorage.getItem("access_token"), FilterStatus)
+    setPage(0);
+    // setDiaryWritten([]);
+    getMyDreamData(
+      window.localStorage.getItem("access_token"),
+      FilterStatus,
+      page
+    )
       .then((res) => {
         setDiaryWritten(res.data.content.response.share_dreams);
+        setMaxPage(res.data.content.response.total_page);
       })
       .catch((err) => {
         console.log(err);
       });
-  }, [FilterStatus, isChecked]);
+  }, [FilterStatus]);
 
   useEffect(() => {
     getDreamsWrittenToday(window.localStorage.getItem("access_token"))
@@ -35,8 +44,37 @@ const DiaryList: FC = (): JSX.Element => {
       });
   }, []);
 
+  useEffect(() => {
+    getMyDreamData(
+      window.localStorage.getItem("access_token"),
+      FilterStatus,
+      page
+    )
+      .then((res) => {
+        setDiaryWritten([
+          ...diaryWritten,
+          ...res.data.content.response.share_dreams,
+        ]);
+      })
+      .catch((err) => console.log(err));
+  }, [page]);
+
   const handleCheckboxChange = (e: any) => {
     setIsChecked(e.target.checked);
+  };
+
+  window.onscroll = (e) => {
+    const scrollHeight = document.documentElement.scrollHeight;
+    const scrollTop = document.documentElement.scrollTop;
+    const clientHeight = document.documentElement.clientHeight;
+
+    if (scrollTop + clientHeight >= scrollHeight) {
+      if (page === maxPage) {
+        return;
+      } else {
+        setPage(page + 1);
+      }
+    }
   };
 
   return (
