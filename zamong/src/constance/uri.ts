@@ -5,6 +5,7 @@ enum uri {
   dreamShare = "/dream/share",
   dreamShareImage = "/dream/share/image",
   login = "/auth/login",
+  refresh = "/auth/refresh",
   myProfile = "/user/me",
 }
 
