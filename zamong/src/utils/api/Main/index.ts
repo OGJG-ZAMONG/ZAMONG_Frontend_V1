@@ -1,6 +1,6 @@
 import uri from "../../../constance/uri";
 import { shareDreamRequest } from "../../../models/dto/request/shareDreamRequest";
-import { myShareDreamRequest } from "../../../models/dto/request/myShareDreamRequest";
+import { shareDreamWithSortRequest } from "../../../models/dto/request/shareDreamWithSortRequest";
 import { shareDreamResponse } from "../../../models/dto/response/shareDreamResponse";
 import { getRequestWithToken } from "../default";
 import { followingResponse } from "../../../models/dto/response/followingsResponse";
@@ -17,7 +17,7 @@ export const getFollowShareDream = async (param: shareDreamRequest) => {
   }
 };
 
-export const getMyDreamDiary = async (param: myShareDreamRequest) => {
+export const getMyDreamDiary = async (param: shareDreamWithSortRequest) => {
   const token = localStorage.getItem("access_token");
   const request = getRequestWithToken(token!);
 

@@ -4,7 +4,7 @@ import * as I from "../style";
 import * as G from "../../styles";
 import Slider from "../../Slider/Slider";
 import { useLayoutEffect, useState } from "react";
-import { myShareDreamRequest } from "../../../../models/dto/request/myShareDreamRequest";
+import { shareDreamWithSortRequest } from "../../../../models/dto/request/shareDreamWithSortRequest";
 import { Dream } from "../../../../models/dto/response/shareDreamResponse";
 
 const MyDreamDiaryList = (): JSX.Element => {
@@ -16,7 +16,7 @@ const MyDreamDiaryList = (): JSX.Element => {
   const COLUMN_COUNT = 4;
 
   const setMyDiary = async () => {
-    const param: myShareDreamRequest = {
+    const param: shareDreamWithSortRequest = {
       page: page,
       size: 8,
       sort: "created",
