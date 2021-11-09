@@ -1,36 +1,74 @@
+import React, { FC, useEffect, useState } from "react";
+import { getFollower } from "../../../utils/api/Profile";
 import * as S from "./style";
 
-const FollowerContent = (): JSX.Element => {
+interface Follower {
+  uuid: string;
+  profile: string;
+  id: string;
+  follow_datetime: string;
+  is_following: boolean;
+}
+interface FollowerType {
+  followers: Follower[];
+  total_size: number;
+}
+interface IdType {
+  myid: string;
+}
+
+const FollowerContent: FC<IdType> = (props) => {
+  const accessToken = localStorage.getItem("access_token") || "";
+  const [FollowerState, setFollower] = useState<FollowerType>({
+    followers: [],
+    total_size: 0,
+  });
+
   const userLength: number[] = [];
   const MaxUser = 12;
   for (let i = 0; i < MaxUser; i++) {
     userLength.push(i);
   }
+
+  useEffect(() => {
+    follower();
+  }, [props]);
+
+  useEffect(() => {}, [FollowerState]);
+
+  const follower = async () => {
+    try {
+      const response = await getFollower(accessToken, props.myid);
+      setFollower(response.data.content.response);
+    } catch (error) {
+      throw error;
+    }
+  };
   return (
     <>
       <S.Content>
         <S.Follower>
-          팔로워 <span>12명</span>
+          팔로워 <span>{FollowerState.total_size}명</span>
         </S.Follower>
         <S.FollowerList>
-          {userLength.map((v) => {
-            return (
-              <>
+          {FollowerState.followers &&
+            FollowerState.followers.map((data, v) => {
+              return (
                 <S.UserBox>
                   <S.LeftBox>
-                    <S.Profile></S.Profile>
-                    <S.UserNickName>dsmwhitie</S.UserNickName>
+                    <S.Profile>{data.is_following}</S.Profile>
+                    <S.UserNickName>{data.id}</S.UserNickName>
                   </S.LeftBox>
                   <S.RightBox>
                     <S.FollowDate>
-                      팔로우를 시작한 날짜 : 10월 18일
+                      팔로우를 시작한 날짜 :
+                      {data.follow_datetime.substring(0, 10)}
                     </S.FollowDate>
                     <S.FollowBtn>팔로우중</S.FollowBtn>
                   </S.RightBox>
                 </S.UserBox>
-              </>
-            );
-          })}
+              );
+            })}
         </S.FollowerList>
       </S.Content>
     </>
