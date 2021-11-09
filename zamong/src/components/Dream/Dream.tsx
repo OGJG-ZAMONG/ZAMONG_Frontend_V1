@@ -1,18 +1,37 @@
 import * as S from "./styles";
-import defaultImage from "../../assets/DefaultPostingImages/1.jpg";
 import { useState } from "react";
 import Tag from "../Tag/Tag";
+import { DreamList } from "../../models/dto/response/dreamListResponse";
+import dreamType from "../../constance/dreamType";
 
-const Dream = (): JSX.Element => {
-  const [isUserImageHover, setIsUserImageHover] = useState<boolean>();
+interface PropsType {
+  dream: DreamList;
+}
+
+const Dream = ({ dream }: PropsType): JSX.Element => {
+  const [isUserImageHover, setIsUserImageHover] = useState<boolean>(false);
+  const { share_datetime, default_posting_image, profile, title, lucy_count, dream_types } = dream;
+
+  const dateToString = (date: Date) => {
+    if (date.getFullYear() !== new Date().getFullYear())
+      return `${date.getFullYear()}-${date.getMonth() + 1}=${date.getDate()}`;
+
+    return `${date.getMonth() +   1}월 ${date.getDate()}일`;
+  };
+
+  const tagRender = dreamType
+    .filter((value) => dream_types.some((item) => item === value.code))
+    .map((value) => {
+      return <Tag>{value.name}</Tag>;
+    });
 
   return (
     <>
       <S.DreamContainer>
-        <S.DreamImage img={defaultImage}>
+        <S.DreamImage img={default_posting_image}>
           <S.DreamUserImage
             alt="user image"
-            src={defaultImage}
+            src={profile}
             onMouseEnter={() => {
               setIsUserImageHover(true);
             }}
@@ -23,20 +42,12 @@ const Dream = (): JSX.Element => {
           {isUserImageHover && <S.UserName>USER04</S.UserName>}
         </S.DreamImage>
         <S.DreamInfoContainer>
-          <S.DreamTitle>
-            대법관은 대법원장의 제청으로 국회의 동의를 얻어 대통령이 임명한다.
-            대통령은 조약을...
-          </S.DreamTitle>
-          <S.DreamLucy>86LUCY</S.DreamLucy>
-          <S.DreamDate>8월 1일 </S.DreamDate>
+          <S.DreamTitle>{title}</S.DreamTitle>
+          <S.DreamLucy>{lucy_count}LUCY</S.DreamLucy>
+          <S.DreamDate>{dateToString(new Date(share_datetime))}</S.DreamDate>
         </S.DreamInfoContainer>
         <S.DreamTagContainer>
-          <S.DreamTagInner>
-            <Tag>악몽</Tag>
-            <Tag>첫 게시물</Tag>
-            <Tag>루시드 드림</Tag>
-            <Tag>거짓 깨어남</Tag>
-          </S.DreamTagInner>
+          <S.DreamTagInner>{tagRender}</S.DreamTagInner>
         </S.DreamTagContainer>
       </S.DreamContainer>
       <S.Line></S.Line>
