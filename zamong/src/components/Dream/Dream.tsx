@@ -10,13 +10,13 @@ interface PropsType {
 
 const Dream = ({ dream }: PropsType): JSX.Element => {
   const [isUserImageHover, setIsUserImageHover] = useState<boolean>(false);
-  const { share_datetime, default_posting_image, profile, title, lucy_count, dream_types } = dream;
-
+  const { share_datetime, default_posting_image, user, title, lucy_count, dream_types } = dream;
+  const { profile, id } = user;
   const dateToString = (date: Date) => {
     if (date.getFullYear() !== new Date().getFullYear())
       return `${date.getFullYear()}-${date.getMonth() + 1}=${date.getDate()}`;
 
-    return `${date.getMonth() +   1}월 ${date.getDate()}일`;
+    return `${date.getMonth() + 1}월 ${date.getDate()}일`;
   };
 
   const tagRender = dreamType
@@ -39,7 +39,7 @@ const Dream = ({ dream }: PropsType): JSX.Element => {
               setIsUserImageHover(false);
             }}
           />
-          {isUserImageHover && <S.UserName>USER04</S.UserName>}
+          {isUserImageHover && <S.UserName>{id}</S.UserName>}
         </S.DreamImage>
         <S.DreamInfoContainer>
           <S.DreamTitle>{title}</S.DreamTitle>

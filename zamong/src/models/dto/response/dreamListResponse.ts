@@ -1,7 +1,11 @@
 export interface DreamList {
   uuid: string;
   default_posting_image: string;
-  profile: string;
+  user: {
+    uuid: string;
+    profile: string;
+    id: string;
+  };
   title: string;
   lucy_count: number;
   dream_types: string[];
