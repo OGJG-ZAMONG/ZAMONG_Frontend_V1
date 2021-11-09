@@ -5,6 +5,7 @@ import { shareDreamResponse } from "../../../models/dto/response/shareDreamRespo
 import { getRequestWithToken } from "../default";
 import { followingResponse } from "../../../models/dto/response/followingsResponse";
 import { getMyProfile } from "../Profile";
+import { dreamListResponse } from "../../../models/dto/response/dreamListResponse";
 
 export const getFollowShareDream = async (param: shareDreamRequest) => {
   const token = localStorage.getItem("access_token");
@@ -29,12 +30,12 @@ export const getMyDreamDiary = async (param: shareDreamWithSortRequest) => {
   }
 };
 
-export const getShareDream = async (param: shareDreamRequest) => {
+export const getShareDream = async (param: shareDreamWithSortRequest) => {
   const token = localStorage.getItem("access_token");
   const request = getRequestWithToken(token!);
 
   try {
-    const response = await request.get<shareDreamResponse>(uri.dreamShare, { params: param });
+    const response = await request.get<dreamListResponse>(uri.dreamShare, { params: param });
     return response;
   } catch (error) {
     return Promise.reject(error);

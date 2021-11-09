@@ -4,17 +4,18 @@ import Dream from "../../Dream/Dream";
 import { DownChevron } from "../../../assets";
 import { getShareDream } from "../../../utils/api/Main";
 import { useEffect, useState } from "react";
-import { Dream as DreamType } from "../../../models/dto/response/shareDreamResponse";
-import { shareDreamRequest } from "../../../models/dto/request/shareDreamRequest";
+import { DreamList as DreamType } from "../../../models/dto/response/dreamListResponse";
+import { shareDreamWithSortRequest } from "../../../models/dto/request/shareDreamWithSortRequest";
 
 const DreamList = (): JSX.Element => {
   const [dreams, setDreams] = useState<DreamType[]>([]);
   const [page, setPage] = useState<number>(0);
 
   const setDreamList = async () => {
-    const param: shareDreamRequest = {
+    const param: shareDreamWithSortRequest = {
       page: page,
       size: 5,
+      sort: "shared",
     };
 
     try {
@@ -30,7 +31,7 @@ const DreamList = (): JSX.Element => {
   };
 
   const dreamsRender = dreams.map((value) => {
-    return <Dream />;
+    return <Dream dream={value} />;
   });
 
   useEffect(() => {
