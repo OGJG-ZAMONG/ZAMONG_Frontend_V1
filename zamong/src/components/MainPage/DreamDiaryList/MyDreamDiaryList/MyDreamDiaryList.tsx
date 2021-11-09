@@ -63,18 +63,22 @@ const MyDreamDiaryList = (): JSX.Element => {
   }, [page]);
 
   return (
-    <I.Container>
-      <G.SectionTitle>최근 적은 꿈 일기</G.SectionTitle>
-      <Slider index={index} size={dreams.length} gap={GAP} columnCount={COLUMN_COUNT}>
-        {dreamRender}
-      </Slider>
-      <I.Button onClick={onPrev} left={0}>
-        
-      </I.Button>
-      <I.Button onClick={onNext} left={100}>
-        
-      </I.Button>
-    </I.Container>
+    <>
+      {dreams.length > 0 && (
+        <I.Container>
+          <G.SectionTitle>최근 적은 꿈 일기</G.SectionTitle>
+          <Slider index={index} size={dreams.length} gap={GAP} columnCount={COLUMN_COUNT}>
+            {dreamRender}
+          </Slider>
+          <I.Button onClick={onPrev} left={0}>
+            
+          </I.Button>
+          <I.Button onClick={onNext} left={100}>
+            
+          </I.Button>
+        </I.Container>
+      )}
+    </>
   );
 };
 
