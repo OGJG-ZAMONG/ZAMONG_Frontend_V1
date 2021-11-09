@@ -31,15 +31,19 @@ const FollowList = (): JSX.Element => {
   }, []);
 
   return (
-    <S.Container>
-      <S.SectionTitle>
-        <span>팔로잉</span>
-      </S.SectionTitle>
-      <S.FollowContainer>
-        {followersRender}
-        <S.MoreIcon alt="more" src={More} />
-      </S.FollowContainer>
-    </S.Container>
+    <>
+      {followings.length > 0 && (
+        <S.Container>
+          <S.SectionTitle>
+            <span>팔로잉</span>
+          </S.SectionTitle>
+          <S.FollowContainer>
+            {followersRender}
+            <S.MoreIcon alt="more" src={More} />
+          </S.FollowContainer>
+        </S.Container>
+      )}
+    </>
   );
 };
 
