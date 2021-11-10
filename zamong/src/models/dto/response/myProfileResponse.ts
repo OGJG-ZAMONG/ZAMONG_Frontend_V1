@@ -14,3 +14,44 @@ export interface myProfileResponse {
     };
   };
 }
+export interface FollowingListResponse {
+  status: number;
+  timestamp: string;
+  content: {
+    collection_value: boolean;
+    response: {
+      followings: [
+        {
+          uuid: string;
+          profile: string;
+          id: string;
+          follow_datetime: string;
+          is_following: boolean;
+        }
+      ];
+      total_size: number;
+      total_page: number;
+    };
+  };
+}
+
+export interface FollowerListResponse {
+  status: number;
+  timestamp: string;
+  content: {
+    collection_value: boolean;
+    response: {
+      followers: [
+        {
+          uuid: string;
+          profile: string;
+          id: string;
+          follow_datetime: string;
+          is_following: boolean;
+        }
+      ];
+      total_size: number;
+      total_page: number;
+    };
+  };
+}

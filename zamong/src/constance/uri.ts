@@ -7,9 +7,12 @@ enum uri {
   login = "/auth/login",
   dreamShareFollow = "/dream/share/follow",
   dreamShareMe = "/dream/share/me",
-  myProfile = "/user/me",
   follower = "/user/follower",
   following = "/user/following",
+  refresh = "/auth/refresh",
+  myProfile = "/user/me",
+  followingList = "/following",
+  followerList = "/follower",
 }
 
 export default uri;

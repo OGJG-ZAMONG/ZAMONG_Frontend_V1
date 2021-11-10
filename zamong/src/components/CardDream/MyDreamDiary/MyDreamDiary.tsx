@@ -19,7 +19,7 @@ const MyDreamDiary = ({ dream }: PropsType): JSX.Element => {
 
     return `${date.getMonth() + 1}월 ${date.getDate()}일`;
   };
-
+import lockOpen from "../../../assets/icons/lockOpen.svg";
   return (
     <I.DreamCardContainer>
       <I.DreamImageContainer img={default_posting_image}>
