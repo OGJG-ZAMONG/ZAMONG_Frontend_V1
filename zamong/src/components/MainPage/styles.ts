@@ -28,15 +28,21 @@ export const HelloTitle = styled.div`
 `;
 
 export const HelloContent = styled.div`
-  display: flex;
   margin-top: 28px;
   font: ${font.body3};
-  a {
-    margin-right: 16px;
+  display: flex;
+  row-gap: 8px;
+  flex-direction: column;
+  div {
     color: ${color.white};
     cursor: pointer;
     text-decoration: none;
   }
+`;
+
+export const HelloInner = styled.div`
+  column-gap: 16px;
+  display: flex;
 `;
 
 export const HelloImage = styled.div`
