@@ -90,11 +90,12 @@ export const DiaryList = styled.div`
   grid-template-columns: repeat(4, 1fr);
   grid-template-rows: 1fr;
   grid-gap: 15px;
-  margin-bottom: 500px;
+  margin-bottom: 300px;
+  min-height: 100vh;
 `;
 
 export const WriteDiary = styled(Link)`
-  width: 99.5%;
+  width: 100%;
   box-sizing: border-box;
   aspect-ratio: 3/2;
   border-radius: 20px;
@@ -107,10 +108,8 @@ export const WriteDiary = styled(Link)`
   align-items: center;
   justify-content: center;
   &:hover {
-    width: 100%;
-    margin-top: 3px;
-    transition: all 0.3s ease-out;
-    border: 1px solid ${color.gray};
+    margin-top: 8px;
+    transition: all 0.3s ease-in-out;
   }
 `;
 
@@ -141,10 +140,13 @@ export const HeaderSelect = styled.select`
   margin-left: 25px;
   display: flex;
   cursor: pointer;
-  outline: none;
+  /* outline: none; */
   text-decoration: none;
   border: none;
   background-color: inherit;
+  option {
+    background: ${color.black};
+  }
 `;
 
 export const Label = styled.label`

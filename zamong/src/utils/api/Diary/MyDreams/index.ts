@@ -7,7 +7,7 @@ export const getMyDreamData = async (
 ) => {
   try {
     const request = getRequestWithToken(access_token, "json");
-    return await request.get(`/dream/share/me?page=${page}&size=8&sort=${type}`);
+    return await request.get(`/dream/share/me?page=${page}&size=16&sort=${type}`);
   } catch (error) {
     throw error;
   }

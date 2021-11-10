@@ -1,5 +1,5 @@
 import * as S from "./styles";
-import { FC, useEffect, useRef, useState } from "react";
+import { FC, useEffect, useMemo, useRef, useState } from "react";
 import { edit } from "../../../assets/index";
 import Calendar from "../Calendar/Calendar";
 import MyDreamDiary from "../../CardDream/MyDreamDiary/MyDreamDiary";
@@ -7,6 +7,7 @@ import {
   getMyDreamData,
   getDreamsWrittenToday,
 } from "../../../utils/api/Diary/MyDreams";
+import { useHistory } from "react-router";
 
 const DiaryList: FC = (): JSX.Element => {
   const [diaryWritten, setDiaryWritten] = useState<Array<object>>([]);
@@ -18,8 +19,8 @@ const DiaryList: FC = (): JSX.Element => {
   const FilterStatusRef = useRef<HTMLSelectElement>(null);
 
   useEffect(() => {
+    setDiaryWritten([]);
     setPage(0);
-    // setDiaryWritten([]);
     getMyDreamData(
       window.localStorage.getItem("access_token"),
       FilterStatus,
@@ -27,7 +28,7 @@ const DiaryList: FC = (): JSX.Element => {
     )
       .then((res) => {
         setDiaryWritten(res.data.content.response.share_dreams);
-        setMaxPage(res.data.content.response.total_page);
+        setMaxPage(res.data.content.response.total_page - 1);
       })
       .catch((err) => {
         console.log(err);
@@ -63,19 +64,83 @@ const DiaryList: FC = (): JSX.Element => {
     setIsChecked(e.target.checked);
   };
 
-  window.onscroll = (e) => {
+  window.onscroll = () => {
     const scrollHeight = document.documentElement.scrollHeight;
     const scrollTop = document.documentElement.scrollTop;
     const clientHeight = document.documentElement.clientHeight;
 
     if (scrollTop + clientHeight >= scrollHeight) {
-      if (page === maxPage) {
-        return;
-      } else {
-        setPage(page + 1);
-      }
+      setTimeout(() => {
+        if (page === maxPage) {
+          return;
+        } else {
+          setPage(page + 1);
+        }
+      }, 0);
     }
   };
+
+  //리로딩시 페이지 최상단으로
+  useEffect(() => {
+    window.onbeforeunload = () => {
+      window.scrollTo(0, 0);
+    };
+  }, []);
+
+  const RenderDiaryWrittenToday = useMemo(
+    () =>
+      diaryWrittenToday.map((value: any, index: number) => {
+        return (
+          <S.MyDreamDiaryContainer>
+            <MyDreamDiary
+              img={value.default_posting_image}
+              locked={value.is_shared}
+              title={value.title}
+              date={value.created_at}
+              uuid={value.uuid}
+              key={index}
+            />
+          </S.MyDreamDiaryContainer>
+        );
+      }),
+    [diaryWrittenToday]
+  );
+
+  const RenderDiaryWritten = useMemo(
+    () =>
+      diaryWritten.map((value: any, index: number) => {
+        return (
+          <MyDreamDiary
+            img={value.default_posting_image}
+            locked={value.is_shared}
+            title={value.title}
+            date={value.created_at}
+            uuid={value.uuid}
+            key={index}
+          />
+        );
+      }),
+    [diaryWritten]
+  );
+
+  const RenderDiaryFiltered = useMemo(
+    () =>
+      diaryWritten
+        .filter((value: any) => value.is_shared)
+        .map((value: any, index: number) => {
+          return (
+            <MyDreamDiary
+              img={value.default_posting_image}
+              locked={value.is_shared}
+              title={value.title}
+              date={value.created_at}
+              uuid={value.uuid}
+              key={index}
+            />
+          );
+        }),
+    [diaryWritten]
+  );
 
   return (
     <S.Container>
@@ -97,20 +162,7 @@ const DiaryList: FC = (): JSX.Element => {
                 </S.WriteDiary>
               </S.MyDreamDiaryContainer>
               {/* 여기서 맵 돌림 */}
-              {diaryWrittenToday.map((value: any, index: number) => {
-                return (
-                  <S.MyDreamDiaryContainer>
-                    <MyDreamDiary
-                      img={value.default_posting_image}
-                      locked={value.is_shared}
-                      title={value.title}
-                      date={value.created_at}
-                      uuid={value.uuid}
-                      key={index}
-                    />
-                  </S.MyDreamDiaryContainer>
-                );
-              })}
+              {RenderDiaryWrittenToday}
             </S.DiarySignContainer>
           </S.TodayDream>
         </S.TodayBox>
@@ -139,42 +191,7 @@ const DiaryList: FC = (): JSX.Element => {
           </S.HeaderSelections>
         </S.DiaryListHeader>
         <S.DiaryList>
-          {/* 꿈 작성하기 버튼 */}
-          {/* <S.WriteDiary to="/diary/write">
-            <S.WriteDiaryText>
-              <S.WriteDiaryImg src={edit} />
-              <div>꿈 일기 쓰기</div>
-            </S.WriteDiaryText>
-          </S.WriteDiary> */}
-          {/* 여기서 맵 돌리기 처리 */}
-
-          {isChecked
-            ? diaryWritten
-                .filter((value: any) => value.is_shared)
-                .map((value: any, index: number) => {
-                  return (
-                    <MyDreamDiary
-                      img={value.default_posting_image}
-                      locked={value.is_shared}
-                      title={value.title}
-                      date={value.created_at}
-                      uuid={value.uuid}
-                      key={index}
-                    />
-                  );
-                })
-            : diaryWritten.map((value: any, index: number) => {
-                return (
-                  <MyDreamDiary
-                    img={value.default_posting_image}
-                    locked={value.is_shared}
-                    title={value.title}
-                    date={value.created_at}
-                    uuid={value.uuid}
-                    key={index}
-                  />
-                );
-              })}
+          {isChecked ? RenderDiaryFiltered : RenderDiaryWritten}
         </S.DiaryList>
       </S.DiaryListContainer>
     </S.Container>
