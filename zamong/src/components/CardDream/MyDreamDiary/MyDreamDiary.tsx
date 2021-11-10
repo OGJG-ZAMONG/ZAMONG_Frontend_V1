@@ -1,6 +1,6 @@
 import * as S from "./styles";
 import * as I from "../index";
-import lockOpen from "../../../assets/icon/lockOpen.svg";
+import lockOpen from "../../../assets/icons/lockOpen.svg";
 import lock from "../../../assets/icons/lock.svg";
 
 import { Dream } from "../../../models/dto/response/shareDreamResponse";
@@ -19,7 +19,6 @@ const MyDreamDiary = ({ dream }: PropsType): JSX.Element => {
 
     return `${date.getMonth() + 1}월 ${date.getDate()}일`;
   };
-import lockOpen from "../../../assets/icons/lockOpen.svg";
   return (
     <I.DreamCardContainer>
       <I.DreamImageContainer img={default_posting_image}>
