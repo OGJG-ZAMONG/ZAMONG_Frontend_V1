@@ -7,7 +7,6 @@ import {
   getMyDreamData,
   getDreamsWrittenToday,
 } from "../../../utils/api/Diary/MyDreams";
-import { useHistory } from "react-router";
 
 const DiaryList: FC = (): JSX.Element => {
   const [diaryWritten, setDiaryWritten] = useState<Array<object>>([]);
