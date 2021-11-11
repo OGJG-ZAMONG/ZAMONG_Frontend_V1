@@ -17,17 +17,19 @@ interface TokenType {
 const getDateWithAddHour = (hour: number) => {
   const date = new Date();
   date.setHours(date.getHours() + hour);
-  return  date;
+  return date;
 };
 
-const refresh = async (
-  config: AxiosRequestConfig
-): Promise<AxiosRequestConfig> => {
+const refresh = async (config: AxiosRequestConfig): Promise<AxiosRequestConfig> => {
   const expireAt = localStorage.getItem("expireAt")!;
   let accessToken = localStorage.getItem("access_token");
   let refreshToken = localStorage.getItem("refresh_token");
 
-  if ( getDateWithAddHour(0).getTime() > new Date(expireAt).getTime() || refreshToken) {
+  if (!refreshToken) {
+    window.location.href = "/";
+  }
+
+  if (new Date().getTime() > new Date(expireAt).getTime()) {
     const data = {
       refresh_token: refreshToken,
     };
@@ -36,10 +38,11 @@ const refresh = async (
       const response = await request.post<TokenType>(uri.refresh, data);
       accessToken = response.data.content.response.access_token;
       refreshToken = response.data.content.response.refresh_token;
+      console.log("ASD");
 
       localStorage.setItem("access_token", accessToken);
       localStorage.setItem("refresh_token", refreshToken);
-      localStorage.setItem("expireAt", getDateWithAddHour(1).toString());
+      localStorage.setItem("expireAt", getDateWithAddHour(2).toString());
     } catch {
       window.location.href = "/";
     }
