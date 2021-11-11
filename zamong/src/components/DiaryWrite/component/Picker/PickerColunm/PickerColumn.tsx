@@ -72,13 +72,17 @@ const PickerColumn = ({ type, array, initValue, setValue }: DateColumnType): JSX
   const onWheelHandler = (event: React.WheelEvent<HTMLDivElement>) => {
     clearTimeout(timer);
     setIsWheel(true);
-    var value = event.deltaY;
+    let value = event.deltaY;
     if (Math.abs(value) === 100) {
       value = 18 * Math.sign(value);
     }
 
-    setY(CalculateY(y, value));
-    setSelectedIndex(CalculateIndex(y));
+    const calcY = CalculateY(y, value);
+    setY(calcY);
+
+    const index = CalculateIndex(calcY);
+    setSelectedIndex(index);
+
     setTimer(setTimeout(onTimeout, 100));
   };
 

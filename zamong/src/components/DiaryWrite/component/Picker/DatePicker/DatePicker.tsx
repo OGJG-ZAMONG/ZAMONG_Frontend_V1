@@ -18,14 +18,11 @@ const DatePicker = ({ date, setDate, setModal }: PropsType): JSX.Element => {
     month: date.getMonth() + 1,
     day: date.getDate(),
   });
-  const { year, month } = nowDate;
+  const { year, month, day } = nowDate;
 
-  const [dayArray, setDayArray] = useState<number[]>(
-    range(1, getMaxDate(year, month) + 1)
-  );
+  const [dayArray, setDayArray] = useState<number[]>(range(1, getMaxDate(year, month) + 1));
 
   useEffect(() => {
-    //모달이 꺼질때 값 설정
     return () =>
       setNowDate((oldData) => {
         setDate(new Date(`${oldData.year}-${oldData.month}-${oldData.day}`));
