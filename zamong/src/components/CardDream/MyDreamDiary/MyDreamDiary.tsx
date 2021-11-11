@@ -18,14 +18,19 @@ const MyDreamDiary: FC<Props> = ({
   title,
   date,
 }): JSX.Element => {
-  const RDate = date.substring(0, 10).split("-");
-  const Day =
-    Number(RDate[2].split("")[0]) * 10 + Number(RDate[2].split("")[1]);
+    const dateToString = (date: Date) => {
+    if (date.getFullYear() !== new Date().getFullYear()) {
+      return `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}`;
+    }
+
+    return `${date.getMonth() + 1}월 ${date.getDate()}일`;
+  };
+    
   return (
     <div key={uuid}>
       <I.DreamImageContainer img={img}>
         <S.LockIcon src={locked ? Unlocked : Locked} />
-        <I.DiaryDate>{`${RDate[0]}년 ${RDate[1]}월 ${Day}일`}</I.DiaryDate>
+        <I.DiaryDate>{dateToString(new Date(date))}</I.DiaryDate>
       </I.DreamImageContainer>
       <I.DreamTitle>{title}</I.DreamTitle>
     </div>
