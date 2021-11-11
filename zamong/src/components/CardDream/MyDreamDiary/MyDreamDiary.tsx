@@ -11,29 +11,23 @@ interface Props {
   uuid: string;
 }
 
-const MyDreamDiary: FC<Props> = ({
-  uuid,
-  img,
-  locked,
-  title,
-  date,
-}): JSX.Element => {
-    const dateToString = (date: Date) => {
+const MyDreamDiary: FC<Props> = ({ uuid, img, locked, title, date }): JSX.Element => {
+  const dateToString = (date: Date) => {
     if (date.getFullYear() !== new Date().getFullYear()) {
       return `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}`;
     }
 
     return `${date.getMonth() + 1}월 ${date.getDate()}일`;
   };
-    
+
   return (
-    <div key={uuid}>
+    <I.DreamCardContainer key={uuid}>
       <I.DreamImageContainer img={img}>
         <S.LockIcon src={locked ? Unlocked : Locked} />
         <I.DiaryDate>{dateToString(new Date(date))}</I.DiaryDate>
       </I.DreamImageContainer>
       <I.DreamTitle>{title}</I.DreamTitle>
-    </div>
+    </I.DreamCardContainer>
   );
 };
 
