@@ -3,6 +3,7 @@ import Recommend from "./Recommend/Recommend";
 import ReplyComment from "./ReplyComment/ReplyComment";
 import { more, profile } from "../../../../assets/index";
 import { useState } from "react";
+import { postComment } from "../../../../utils/api/DreamDetail";
 
 type ComType = {
   upperNo: number | null;
@@ -20,7 +21,8 @@ const CommentBox = ({ curNo, commentList }: PropsType): JSX.Element => {
   ];
   const [onOffToggle, setOnOffToggle] = useState(false);
   const [onOffAdd, setOnOffAdd] = useState(false);
-
+  const [comment, setComment] = useState("");
+  
   const setToggle = (value: boolean) => {
     setOnOffToggle(value);
   };
@@ -44,6 +46,21 @@ const CommentBox = ({ curNo, commentList }: PropsType): JSX.Element => {
     return null;
   };
 
+  const commentChange = (e: React.FormEvent<HTMLInputElement>) => {
+    const { value } = e.currentTarget;
+    setComment(value);
+  };
+
+  const writeReComment = async () => {
+    const data = {
+      content: comment,
+      p_comment: null,
+    };
+    //준서씨에게 받아올 uuid
+    const uuid = "78ca0578-03e8-4e8f-bf99-a98b268acb5b";
+    await postComment(uuid, data);
+  };
+
   return (
     <S.CommentBox>
       <S.CommentProfile>
@@ -64,8 +81,8 @@ const CommentBox = ({ curNo, commentList }: PropsType): JSX.Element => {
         <div></div>
         {onOffAdd && (
           <S.InputContainer>
-            <S.CommentInput placeholder="덧글 쓰기..." />
-            <S.EnterButton >덧글 쓰기</S.EnterButton>
+            <S.CommentInput name="comment" value={comment} placeholder="덧글 쓰기..." onChange={commentChange}/>
+            <S.EnterButton onClick={writeReComment}>덧글 쓰기</S.EnterButton>
           </S.InputContainer>
         )}
         {onOffToggle && (

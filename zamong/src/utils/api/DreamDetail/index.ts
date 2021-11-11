@@ -1,14 +1,65 @@
 import uri from "../../../constance/uri";
+import instance from "../axios";
 import { dreamDetailResponse } from "../../../models/dto/response/dreamDetailResponse";
 import { getRequestWithToken } from "../default";
+
+interface DataType {
+  content: string;
+  p_comment: string | null;
+}
 
 export const getDreamDetail = async (dreamUUID: string) => {
   const token = localStorage.getItem("access_token");
 
   const request = getRequestWithToken(token!);
   try {
-    const response = await request.get<dreamDetailResponse>(`${uri.dreamShare}/${dreamUUID}`);
+    const response = await request.get<dreamDetailResponse>(
+      `${uri.dreamShare}/${dreamUUID}`
+    );
     return response;
+  } catch (error) {
+    return Promise.reject(error);
+  }
+};
+
+interface commentType {
+  status: number;
+  timestamp: string;
+  content: {
+    collection_value: boolean;
+    response: {
+      comments: [
+        {
+          uuid: string;
+          is_checked: boolean;
+          date_time: string;
+          user_uuid: string;
+          user_profile: string;
+          content: string;
+          like_count: number;
+          dislike_count: number;
+          is_like: boolean;
+          is_dis_like: boolean;
+        }
+      ];
+    };
+  };
+}
+
+export const responseComment = async (uuid: string) => {
+  try {
+    const response = await instance.get<commentType>(
+      uri.getComment.replace("DREAM_UUID", uuid)
+    );
+    return response;
+  } catch (error) {
+    return Promise.reject(error);
+  }
+};
+
+export const postComment = async (uuid: string, data: DataType) => {
+  try {
+    await instance.post(uri.writeComment.replace("DREAM_UUID", uuid), data);
   } catch (error) {
     return Promise.reject(error);
   }
