@@ -10,12 +10,7 @@ type DateColumnType = {
   setValue: (value: number | string) => void;
 };
 
-const PickerColumn = ({
-  type,
-  array,
-  initValue,
-  setValue,
-}: DateColumnType): JSX.Element => {
+const PickerColumn = ({ type, array, initValue, setValue }: DateColumnType): JSX.Element => {
   const [selectedIndex, setSelectedIndex] = useState(array.indexOf(initValue));
   const [timer, setTimer] = useState<NodeJS.Timeout>(setTimeout(() => {}, 0));
   const [y, setY] = useState(-(selectedIndex * HEIGHT));
@@ -42,6 +37,7 @@ const PickerColumn = ({
       return Math.abs(Math.round(y / HEIGHT));
     }
   };
+
   const onTimeout = (): void => {
     setIsWheel(false);
   };
@@ -86,10 +82,9 @@ const PickerColumn = ({
     setTimer(setTimeout(onTimeout, 100));
   };
 
-  const onClickHandler = (index: number, value: string | number) => {
+  const onClickHandler = (index: number) => {
     setY(-(index * HEIGHT));
     setSelectedIndex(index);
-    setValue(value);
   };
 
   return (
@@ -101,7 +96,7 @@ const PickerColumn = ({
               isWheel={isWheel}
               key={index}
               color={selectedIndex === index ? color.white : color.gray}
-              onClick={() => onClickHandler(index, value)}
+              onClick={() => onClickHandler(index)}
               height={HEIGHT}
               angle={(selectedIndex - index) * 25}
               opacity={CalculateOpacity(index, selectedIndex)}
