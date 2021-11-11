@@ -55,7 +55,9 @@ const MyDreamDiaryList = (): JSX.Element => {
   };
 
   const dreamRender = dreams.map((value, index) => {
-    return <MyDreamDiary key={index} dream={value} />;
+    const { default_posting_image: img, is_shared : locked, title, created_at : date, uuid } = value;
+    
+    return <MyDreamDiary key={index} img={img} locked={locked} title={title} date={date} uuid={uuid} />;
   });
 
   useLayoutEffect(() => {

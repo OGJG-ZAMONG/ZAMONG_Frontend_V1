@@ -3,6 +3,7 @@ import { font } from "../../../style/font";
 import { color } from "../../../style/color";
 
 export const Container = styled.div`
+  height: 100%;
   margin-right: 20px;
 `;
 
@@ -85,7 +86,7 @@ export const WeekDays = styled.div`
 
 export const Days = styled.div`
   width: 90px;
-  height: 105px;
+  height: 106px;
   border-top: 1px solid ${color.gray};
   position: relative;
   display: grid;
@@ -105,7 +106,7 @@ export const Days = styled.div`
   div {
     width: 80%;
     min-width: 80%;
-    height: 18px;
+    height: 80%;
     font-size: 14px;
     color: ${color.white};
     background-color: ${color.darkGray};
@@ -115,11 +116,12 @@ export const Days = styled.div`
     white-space: nowrap;
     word-break: keep-all;
     overflow: hidden;
-    padding: 1px 4px;
+    padding: 1px 5px;
     margin: 2.5px auto;
     margin-left: 10%; 
     &:hover {
       width: auto;
+      z-index: 2;
       overflow: unset;
       box-shadow: 0px 0px 8px ${color.black}80;
     }

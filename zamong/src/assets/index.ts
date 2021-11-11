@@ -29,3 +29,6 @@ export { default as Profile } from "./profile/profile.svg";
 export { default as Follower } from "./profile/follower.svg";
 export { default as Follow } from "./profile/follow.svg";
 export { default as AccountInfo } from "./profile/accountInfo.svg";
+export { default as Checked } from "./icons/Checked.png";
+export { default as Locked } from "./icons/locked.svg";
+export { default as Unlocked } from "./icons/lockOpen.svg";

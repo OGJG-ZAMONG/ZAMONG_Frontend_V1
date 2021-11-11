@@ -1,32 +1,39 @@
 import * as S from "./styles";
 import * as I from "../index";
-import lockOpen from "../../../assets/icons/lockOpen.svg";
-import lock from "../../../assets/icons/lock.svg";
+import { Locked, Unlocked } from "../../../assets";
+import { FC } from "react";
 
-import { Dream } from "../../../models/dto/response/shareDreamResponse";
-
-interface PropsType {
-  dream?: Dream;
+interface Props {
+  img: string;
+  locked: boolean;
+  title: string;
+  date: string;
+  uuid: string;
 }
 
-const MyDreamDiary = ({ dream }: PropsType): JSX.Element => {
-  const { created_at, default_posting_image, is_shared, title, uuid } = dream!;
-
-  const dateToString = (date: Date) => {
+const MyDreamDiary: FC<Props> = ({
+  uuid,
+  img,
+  locked,
+  title,
+  date,
+}): JSX.Element => {
+    const dateToString = (date: Date) => {
     if (date.getFullYear() !== new Date().getFullYear()) {
       return `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}`;
     }
 
     return `${date.getMonth() + 1}월 ${date.getDate()}일`;
   };
+    
   return (
-    <I.DreamCardContainer>
-      <I.DreamImageContainer img={default_posting_image}>
-        <S.LockIcon src={is_shared ? lockOpen : lock} />
-        <I.DiaryDate>{dateToString(new Date(created_at))}</I.DiaryDate>
+    <div key={uuid}>
+      <I.DreamImageContainer img={img}>
+        <S.LockIcon src={locked ? Unlocked : Locked} />
+        <I.DiaryDate>{dateToString(new Date(date))}</I.DiaryDate>
       </I.DreamImageContainer>
       <I.DreamTitle>{title}</I.DreamTitle>
-    </I.DreamCardContainer>
+    </div>
   );
 };
 
