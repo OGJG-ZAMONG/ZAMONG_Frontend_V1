@@ -1,34 +1,40 @@
-import { FC } from "react";
+import { FC, useState } from "react";
 import * as S from "./styles";
-import defaultImage from "../../../assets/DefaultPostingImages/1.jpg";
-import { defaultProfile } from "../../../assets";
 import Tag from "../../Tag/Tag";
+import dreamType from '../../../constance/dreamType';
 
 interface Props {
   price: number;
   date: string;
-  userName: string;
   title: string;
   tag: Array<string>;
+  img: string;
+  user: any;
 }
 
 const SellingDream: FC<Props> = ({
   price,
   date,
-  userName,
   title,
   tag,
+  img,
+  user
 }): JSX.Element => {
+  // const [renderTag, setRenderTag] = useState();
+  const newTag = tag.forEach((value, index) => {
+    
+  })
+
   return (
     <S.Container>
-      <S.SellingDreamContainer img={defaultImage}>
-        <S.Price>{price}₩</S.Price>
+      <S.SellingDreamContainer img={img}>
+        <S.Price>{price} ₩</S.Price>
         <S.DiaryDate>{date}</S.DiaryDate>
       </S.SellingDreamContainer>
       <S.PostInfoContainer>
         <S.UserInfoContainer>
-          <S.ProfilePicture src={defaultProfile} />
-          <S.UserName>{userName}</S.UserName>
+          <S.ProfilePicture src={user.profile} />
+          <S.UserName>{user.id}</S.UserName>
         </S.UserInfoContainer>
         <S.TagsContainer>
           {tag.map((value: string, index: number) => {

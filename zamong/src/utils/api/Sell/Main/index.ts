@@ -5,7 +5,7 @@ export const getCurrentSellingDreams = async (
 ) => {
   try {
     const request = getRequestWithToken(access_token, "json").get(
-      `/dream/sell/continue?page=${page}&size=10`
+      `/dream/sell/continue?page=${page}&size=16`
     );
     return await request;
   } catch (error) {

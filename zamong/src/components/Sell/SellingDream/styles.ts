@@ -41,6 +41,7 @@ export const Price = styled.div`
   font: ${font.body2};
   display: flex;
   justify-content: center;
+  align-items: center;
   padding: 6px 8px;
 `;
 

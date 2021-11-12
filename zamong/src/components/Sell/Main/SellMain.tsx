@@ -1,23 +1,45 @@
 import * as S from "./styles";
 import React, { FC, useState, useEffect } from "react";
 import SellingDream from "../SellingDream/SellingDream";
+import { getCurrentSellingDreams } from "../../../utils/api/Sell/Main";
 
 const SellMain: FC = (): JSX.Element => {
-  const MaxPage = 16;
-  const pageLength: number[] = [];
-  const finalPageLength: number[][] = [];
+  const [maxPage, setMaxPage] = useState<number>(0);
+  const [maxSize, setMaxSize] = useState<number>(0);
   const [pageIndex, setPageIndex] = useState<number>(0);
   const [pageDepth, setPageDepth] = useState<number>(0);
+  const [dreamData, setDreamData] = useState<Array<object>>([]);
+  const [renderList, setRenderList] = useState<number[][]>([[]]);
 
-  for (let i = 0; i < MaxPage; i++) {
-    pageLength.push(i + 1);
-  }
-  for (let i = 0; i < MaxPage; i += 10) {
-    finalPageLength.push(pageLength.slice(i, i + 10));
-  }
+  useEffect(() => {
+    window.scrollTo(0, 0);
+
+    getCurrentSellingDreams(
+      window.localStorage.getItem("access_token"),
+      pageIndex
+    )
+      .then((res) => {
+        setDreamData(res.data.content.response.sell_dreams);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+
+  }, [pageIndex]);
+
+  useEffect(() => {
+    getCurrentSellingDreams(
+      window.localStorage.getItem("access_token"),
+      pageIndex
+    ).then((res) => {
+      setMaxPage(res.data.content.response.total_page);
+      setMaxSize(res.data.content.response.total_size);
+      getPageList(res.data.content.response.total_page, 10);
+    });
+  }, []);
 
   const nextPage = () => {
-    if (pageIndex >= MaxPage - 1) {
+    if (pageIndex >= maxPage - 1) {
       return;
     } else {
       setPageIndex(pageIndex + 1);
@@ -36,6 +58,25 @@ const SellMain: FC = (): JSX.Element => {
     setPageIndex(e.target.innerHTML - 1);
   };
 
+  const getPageList = (pageCount: number, pageColumn: number) => {
+    const list: number[][] = [];
+
+    for (let i = 0; i < Math.ceil(pageCount / pageColumn); i++) {
+      const l: number[] = [];
+
+      for (let j = 1; j < pageColumn; j++) {
+        if (i * pageColumn + j > pageCount) {
+          continue;
+        }
+        l.push(i * pageColumn + j);
+      }
+      list.push(l);
+    }
+
+    console.log(list)
+    setRenderList(list)
+  };
+
   return (
     <S.Container>
       <S.Information>
@@ -46,15 +87,16 @@ const SellMain: FC = (): JSX.Element => {
       </S.Information>
       <S.SellingDreamListText>판매중인 꿈 목록</S.SellingDreamListText>
       <S.SellingDreamListContainer>
-        {pageLength.map((v) => {
+        {dreamData.map((value: any) => {
           return (
             <SellingDream
-              key={v}
-              price={1000}
-              date={"8월 10일"}
-              userName={"USER04"}
-              title={"대법관은 대법원장의 제청으로 국회의 동의를 얻어..."}
-              tag={["루시드 드림", "악몽"]}
+              key={value.uuid}
+              user={value.user}
+              price={value.cost}
+              date={value.updated_at}
+              title={value.title}
+              tag={value.dream_types}
+              img={value.default_posting_image}
             />
           );
         })}
@@ -62,11 +104,11 @@ const SellMain: FC = (): JSX.Element => {
       <S.PageNationContainer>
         <S.Prev onClick={prevPage}>{"<"} 이전</S.Prev>
         <S.PageContainer onClick={setPage}>
-          {finalPageLength[pageDepth].map((value: number, index: number) => {
-            if (pageIndex >= Math.max(...finalPageLength[pageDepth])) {
+          {renderList[pageDepth].map((value: number, index: number) => {
+            if (pageIndex >= Math.max(...renderList[pageDepth])) {
               setPageDepth(pageDepth + 1);
             } else if (
-              pageIndex + 1 < Math.min(...finalPageLength[pageDepth]) &&
+              pageIndex + 1 < Math.min(...renderList[pageDepth]) &&
               pageDepth != 0
             ) {
               setPageDepth(pageDepth - 1);
@@ -86,7 +128,6 @@ const SellMain: FC = (): JSX.Element => {
             );
           })}
         </S.PageContainer>
-
         <S.Next onClick={nextPage}>다음 {">"}</S.Next>
       </S.PageNationContainer>
     </S.Container>
