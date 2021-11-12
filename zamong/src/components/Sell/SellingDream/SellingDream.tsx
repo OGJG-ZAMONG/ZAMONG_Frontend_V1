@@ -5,7 +5,7 @@ import dreamType from '../../../constance/dreamType';
 
 interface Props {
   price: number;
-  date: string;
+  date: Date;
   title: string;
   tag: Array<string>;
   img: string;
@@ -25,11 +25,19 @@ const SellingDream: FC<Props> = ({
     
   })
 
+  const dateToString = (date: Date) => {
+    if (date.getFullYear() !== new Date().getFullYear()) {
+      return `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}`;
+    }
+
+    return `${date.getMonth() + 1}월 ${date.getDate()}일`;
+  };
+
   return (
     <S.Container>
       <S.SellingDreamContainer img={img}>
         <S.Price>{price} ₩</S.Price>
-        <S.DiaryDate>{date}</S.DiaryDate>
+        <S.DiaryDate>{dateToString(new Date(date))}</S.DiaryDate>
       </S.SellingDreamContainer>
       <S.PostInfoContainer>
         <S.UserInfoContainer>
