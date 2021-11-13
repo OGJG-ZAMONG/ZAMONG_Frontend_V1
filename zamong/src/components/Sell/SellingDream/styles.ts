@@ -30,7 +30,6 @@ export const UserImage = styled.img`
 `;
 
 export const Price = styled.div`
-  aspect-ratio: 2.3 / 1;
   backdrop-filter: blur(10px);
   background: rgb(0, 0, 0, 0.4);
   border-radius: 100px;

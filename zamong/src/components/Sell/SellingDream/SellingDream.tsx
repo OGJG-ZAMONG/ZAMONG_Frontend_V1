@@ -10,9 +10,9 @@ interface Props {
   tag: Array<string>;
   img: string;
   user: {
-    uuid: string,
-    profile: "string",
-    id: string
+    uuid: string;
+    profile: "string";
+    id: string;
   };
 }
 
