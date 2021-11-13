@@ -38,7 +38,6 @@ const refresh = async (config: AxiosRequestConfig): Promise<AxiosRequestConfig> 
       const response = await request.post<TokenType>(uri.refresh, data);
       accessToken = response.data.content.response.access_token;
       refreshToken = response.data.content.response.refresh_token;
-      console.log("ASD");
 
       localStorage.setItem("access_token", accessToken);
       localStorage.setItem("refresh_token", refreshToken);
