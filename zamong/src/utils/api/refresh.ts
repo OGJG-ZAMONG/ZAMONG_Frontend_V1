@@ -21,13 +21,14 @@ const getDateWithAddHour = (hour: number) => {
 };
 
 const refresh = async (config: AxiosRequestConfig): Promise<AxiosRequestConfig> => {
-  const expireAt = localStorage.getItem("expireAt")!;
+  const expireAt = localStorage.getItem("expireAt");
   let accessToken = localStorage.getItem("access_token");
-  let refreshToken = localStorage.getItem("refresh_token");
+  const refreshToken = localStorage.getItem("refresh_token");
 
-  if (!refreshToken) {
+  if (!refreshToken || !expireAt) {
     //리프레시 토큰이 없으면 로그인 상태가 아님
     window.location.href = "/";
+    return config;
   }
 
   if (new Date().getTime() > new Date(expireAt).getTime()) {
@@ -37,18 +38,20 @@ const refresh = async (config: AxiosRequestConfig): Promise<AxiosRequestConfig> 
     };
 
     try {
-      const response = await request.post<TokenType>(uri.refresh, data);
-      accessToken = response.data.content.response.access_token;
-      refreshToken = response.data.content.response.refresh_token;
+      const { access_token, refresh_token } = (await request.post<TokenType>(uri.refresh, data))
+        .data.content.response;
+      accessToken = access_token;
 
-      localStorage.setItem("access_token", accessToken);
-      localStorage.setItem("refresh_token", refreshToken);
+      localStorage.setItem("access_token", access_token);
+      localStorage.setItem("refresh_token", refresh_token);
       localStorage.setItem("expireAt", getDateWithAddHour(2).toString());
     } catch {
       //리프레시 토큰 만료
       window.location.href = "/";
+      return config;
     }
   }
+
   config.headers["Authorization"] = `Bearer ${accessToken}`;
 
   return config;
