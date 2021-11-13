@@ -13,6 +13,7 @@ enum uri {
   myProfile = "/user/me",
   followingList = "/following",
   followerList = "/follower",
+  dreamSell = "/dream/sell",
 }
 
 export default uri;
