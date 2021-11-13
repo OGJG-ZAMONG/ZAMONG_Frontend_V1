@@ -24,7 +24,6 @@ const SellMain: FC = (): JSX.Element => {
       .catch((error) => {
         console.log(error);
       });
-
   }, [pageIndex]);
 
   useEffect(() => {
@@ -55,7 +54,9 @@ const SellMain: FC = (): JSX.Element => {
   };
 
   const setPage = (e: React.MouseEvent<HTMLDivElement> | any) => {
-    setPageIndex(e.target.innerHTML - 1);
+    if (Number(e.target.innerHTML)) {
+      setPageIndex(e.target.innerHTML - 1);
+    }
   };
 
   const getPageList = (pageCount: number, pageColumn: number) => {
@@ -73,8 +74,7 @@ const SellMain: FC = (): JSX.Element => {
       list.push(l);
     }
 
-    console.log(list)
-    setRenderList(list)
+    setRenderList(list);
   };
 
   return (
