@@ -65,7 +65,7 @@ const LoginComponent = (): JSX.Element => {
     const { img, text, to } = value;
     return (
       <S.LinkComponentContainer to={to}>
-        <img alt="chat" src={img} />
+        <img alt={`nav ${text}`} src={img} />
         <span>{text}</span>
       </S.LinkComponentContainer>
     );
