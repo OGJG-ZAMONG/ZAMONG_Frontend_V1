@@ -26,10 +26,12 @@ const refresh = async (config: AxiosRequestConfig): Promise<AxiosRequestConfig> 
   let refreshToken = localStorage.getItem("refresh_token");
 
   if (!refreshToken) {
+    //리프레시 토큰이 없으면 로그인 상태가 아님
     window.location.href = "/";
   }
 
   if (new Date().getTime() > new Date(expireAt).getTime()) {
+    //엑세스 토큰 만료
     const data = {
       refresh_token: refreshToken,
     };
@@ -43,6 +45,7 @@ const refresh = async (config: AxiosRequestConfig): Promise<AxiosRequestConfig> 
       localStorage.setItem("refresh_token", refreshToken);
       localStorage.setItem("expireAt", getDateWithAddHour(2).toString());
     } catch {
+      //리프레시 토큰 만료
       window.location.href = "/";
     }
   }
