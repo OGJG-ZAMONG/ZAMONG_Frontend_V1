@@ -1,16 +1,16 @@
 import { BorderButton } from "../styles";
 import * as S from "./styles";
-import defaultImg from "../../../assets/DefaultPostingImages/1.jpg";
 import Chat from "../../../assets/icons/Chat.svg";
 import Coin from "../../../assets/icons/Coin.svg";
 import Discovery from "../../../assets/icons/Discovery.svg";
 import ShoppingCart from "../../../assets/icons/ShoppingCart.svg";
-import { Link } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import { useLayoutEffect, useState } from "react";
 import { getMyProfile } from "../../../utils/api/Profile";
 import NonLoginComponent from "../NonLoginComponent";
 
 const LoginComponent = (): JSX.Element => {
+  const { push } = useHistory();
   interface DataType {
     name: string;
     profile: string;
@@ -71,6 +71,13 @@ const LoginComponent = (): JSX.Element => {
     );
   });
 
+  const onLogoutHandler = () => {
+    localStorage.removeItem("access_token");
+    localStorage.removeItem("refresh_token");
+    localStorage.removeItem("expireAt");
+    window.location.href = "/";
+  };
+
   return (
     <>
       {data ? (
@@ -84,7 +91,7 @@ const LoginComponent = (): JSX.Element => {
               </S.UserProfileContainer>
             </S.NoDecoLink>
           </S.NavigationContainer>
-          <BorderButton>로그아웃</BorderButton>
+          <BorderButton onClick={onLogoutHandler}>로그아웃</BorderButton>
         </>
       ) : (
         <NonLoginComponent />
