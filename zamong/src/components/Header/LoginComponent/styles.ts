@@ -39,3 +39,9 @@ export const UserProfileContainer = styled.div`
   display: flex;
   align-items: center;
 `;
+
+export const NoDecoLink = styled(Link)`
+  text-decoration: none;
+  font: ${font.body3};
+  color: ${color.white};
+`;
