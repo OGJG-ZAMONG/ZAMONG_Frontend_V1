@@ -2,7 +2,7 @@ import uri from "../../../constance/uri";
 import { shareDreamRequest } from "../../../models/dto/request/shareDreamRequest";
 import { shareDreamWithSortRequest } from "../../../models/dto/request/shareDreamWithSortRequest";
 import { shareDreamResponse } from "../../../models/dto/response/shareDreamResponse";
-import { getRequestWithToken } from "../default";
+import { getRequest, getRequestWithToken } from "../default";
 import { followingResponse } from "../../../models/dto/response/followingsResponse";
 import { getMyProfile } from "../Profile";
 import { dreamListResponse } from "../../../models/dto/response/dreamListResponse";
@@ -31,8 +31,7 @@ export const getMyDreamDiary = async (param: shareDreamWithSortRequest) => {
 };
 
 export const getShareDream = async (param: shareDreamWithSortRequest) => {
-  const token = localStorage.getItem("access_token");
-  const request = getRequestWithToken(token!);
+  const request = getRequest();
 
   try {
     const response = await request.get<dreamListResponse>(uri.dreamShare, { params: param });
