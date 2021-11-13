@@ -63,22 +63,6 @@ const DiaryList: FC = (): JSX.Element => {
     setIsChecked(e.target.checked);
   };
 
-  window.onscroll = () => {
-    const scrollHeight = document.documentElement.scrollHeight;
-    const scrollTop = document.documentElement.scrollTop;
-    const clientHeight = document.documentElement.clientHeight;
-
-    if (scrollTop + clientHeight >= scrollHeight) {
-      setTimeout(() => {
-        if (page === maxPage) {
-          return;
-        } else {
-          setPage(page + 1);
-        }
-      }, 0);
-    }
-  };
-
   //리로딩시 페이지 최상단으로
   useEffect(() => {
     window.onbeforeunload = () => {
@@ -140,6 +124,22 @@ const DiaryList: FC = (): JSX.Element => {
         }),
     [diaryWritten]
   );
+
+  window.onscroll = () => {
+    const scrollHeight = document.documentElement.scrollHeight;
+    const scrollTop = document.documentElement.scrollTop;
+    const clientHeight = document.documentElement.clientHeight;
+
+    if (scrollTop + clientHeight >= scrollHeight) {
+      setTimeout(() => {
+        if (page === maxPage) {
+          return;
+        } else {
+          setPage(page + 1);
+        }
+      }, 0);
+    }
+  };
 
   return (
     <S.Container>
