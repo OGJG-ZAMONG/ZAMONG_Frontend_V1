@@ -6,9 +6,14 @@ import { color } from "../../style/color";
 import InputPrice from "./component/InputPrice/InputPrice";
 import FileInput from "../FileInput/FileInput";
 import Code from "../../interface/Code";
+import { useHistory } from "react-router";
+import { postSellDream } from "../../utils/api/SellWrite";
+import { sellWriteResponse } from "../../models/dto/request/sellWriteResquest";
+import dreamType from "../../constance/dreamType";
 
 const SellWrite = (): JSX.Element => {
   const MAXTITLE = 100;
+  const { push } = useHistory();
 
   interface propertysType {
     title: string;
@@ -53,7 +58,25 @@ const SellWrite = (): JSX.Element => {
     }
   };
 
-  const onWrite = async () => {};
+  const onWrite = async () => {
+    if (window.confirm("작성하시겠습니까?")) {
+      const dream_types = types.map((value) => value.code);
+
+      const data: sellWriteResponse = {
+        title: title,
+        content: content,
+        dream_types: dream_types,
+        cost: price,
+      };
+
+      if (await postSellDream(data)) {
+        alert("작성 완료.");
+        push("/sell");
+      } else {
+        alert("작성 실패.");
+      }
+    }
+  };
 
   return (
     <>
@@ -93,7 +116,7 @@ const SellWrite = (): JSX.Element => {
           </I.MarginConatiner>
           <I.ButtonContainer>
             <I.BorderButton onClick={onCancel}>취소</I.BorderButton>
-            <I.BlueButton>작성</I.BlueButton>
+            <I.BlueButton onClick={onWrite}>작성</I.BlueButton>
           </I.ButtonContainer>
         </I.WriteSection>
       </I.ContentContainer>
