@@ -47,6 +47,14 @@ const SellWrite = (): JSX.Element => {
     setPropertiesWithName<string>(name)(v);
   };
 
+  const onCancel = () => {
+    if (window.confirm("작성한 정보를 모두 잃게 됩니다. 취소하시겠습니까?")) {
+      push("/sell");
+    }
+  };
+
+  const onWrite = async () => {};
+
   return (
     <>
       <I.ContentContainer>
@@ -84,7 +92,7 @@ const SellWrite = (): JSX.Element => {
             </div>
           </I.MarginConatiner>
           <I.ButtonContainer>
-            <I.BorderButton>취소</I.BorderButton>
+            <I.BorderButton onClick={onCancel}>취소</I.BorderButton>
             <I.BlueButton>작성</I.BlueButton>
           </I.ButtonContainer>
         </I.WriteSection>
