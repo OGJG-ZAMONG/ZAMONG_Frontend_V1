@@ -9,26 +9,44 @@ import Code from "../../interface/Code";
 
 const SellWrite = (): JSX.Element => {
   const MAXTITLE = 100;
+
   interface propertysType {
     title: string;
     content: string;
+    types: Code[];
+    price: number;
   }
+
   const [properties, setProperties] = useState<propertysType>({
     title: "",
     content: "",
+    types: [],
+    price: -1,
   });
-  const [file, setFile] = useState<File | undefined>();
-  const [types, setTypes] = useState<Code[]>([]);
 
-  const { title, content } = properties;
+  const { title, content, types, price } = properties;
+
+  const setPropertiesWithName =
+    <T extends unknown>(name: string) =>
+    (value: T) => {
+      setProperties({ ...properties, [name]: value });
+    };
+
+  const setTypes = setPropertiesWithName<Code[]>("types");
+  const setPrice = setPropertiesWithName<number>("price");
+
+  const [file, setFile] = useState<File | undefined>();
+
   const onChangeHandler = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     const { name, value } = e.target;
-    if (name === "title" && value.length > MAXTITLE) {
-      setProperties({ ...properties, [name]: value.substring(0, MAXTITLE) });
-    } else {
-      setProperties({ ...properties, [name]: value });
-    }
+    const valueMap = new Map<string, string>()
+      .set("title", value.substring(0, MAXTITLE))
+      .set("content", value);
+
+    const v = valueMap.get(name)!;
+    setPropertiesWithName<string>(name)(v);
   };
+
   return (
     <>
       <I.ContentContainer>
