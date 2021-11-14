@@ -1,4 +1,3 @@
-import * as S from "./styles";
 import * as I from "../DiaryWrite/styles";
 import DreamType from "../DiaryWrite/component/Properties/Accordion/AccordionMenus/DreamType/DreamType";
 import { useState } from "react";
@@ -9,7 +8,6 @@ import Code from "../../interface/Code";
 import { useHistory } from "react-router";
 import { postSellDream } from "../../utils/api/SellWrite";
 import { sellWriteResponse } from "../../models/dto/request/sellWriteResquest";
-import dreamType from "../../constance/dreamType";
 
 const SellWrite = (): JSX.Element => {
   const MAXTITLE = 100;
