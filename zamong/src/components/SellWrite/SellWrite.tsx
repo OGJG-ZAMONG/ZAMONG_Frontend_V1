@@ -21,7 +21,7 @@ const SellWrite = (): JSX.Element => {
     title: "",
     content: "",
     types: [],
-    price: -1,
+    price: 0,
   });
 
   const { title, content, types, price } = properties;
