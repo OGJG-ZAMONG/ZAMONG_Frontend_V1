@@ -1,6 +1,12 @@
 import Selecter from "../../../DiaryWrite/component/Properties/Selecter/Selecter/Selecter";
 import * as S from "./styles";
-const InputPrice = (): JSX.Element => {
+
+interface PropsType {
+  price: number;
+  setPrice: (price: number) => void;
+}
+
+const InputPrice = ({ price, setPrice }: PropsType): JSX.Element => {
   const Content = (): JSX.Element => {
     return (
       <>
@@ -11,6 +17,7 @@ const InputPrice = (): JSX.Element => {
       </>
     );
   };
+
   return <Selecter title="꿈의 가격" content={<Content />}></Selecter>;
 };
 
