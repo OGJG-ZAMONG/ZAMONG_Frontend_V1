@@ -69,7 +69,7 @@ const SellWrite = (): JSX.Element => {
               <I.Subtitle>꿈 상세</I.Subtitle>
               <I.DetailMarginConatiner>
                 <DreamType typesState={[types, setTypes]} />
-                <InputPrice />
+                <InputPrice price={price} setPrice={setPrice} />
               </I.DetailMarginConatiner>
             </div>
             <div>
