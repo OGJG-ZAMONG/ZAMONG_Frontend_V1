@@ -8,6 +8,7 @@ import Code from "../../interface/Code";
 import { useHistory } from "react-router";
 import { postSellDream } from "../../utils/api/SellWrite";
 import { sellWriteResponse } from "../../models/dto/request/sellWriteResquest";
+import { dreamShareImagePost } from "../../utils/api/DiaryWrite";
 
 const SellWrite = (): JSX.Element => {
   const MAXTITLE = 100;
@@ -56,6 +57,17 @@ const SellWrite = (): JSX.Element => {
     }
   };
 
+  const saveFile = async (uuid: string) => {
+    if (file) {
+      try {
+        await dreamShareImagePost(file, uuid);
+      } catch (error) {
+        console.log(error);
+        alert("파일 업로드에 실패했습니다.");
+      }
+    }
+  };
+
   const onWrite = async () => {
     if (window.confirm("작성하시겠습니까?")) {
       const dream_types = types.map((value) => value.code);
@@ -67,10 +79,13 @@ const SellWrite = (): JSX.Element => {
         cost: price,
       };
 
-      if (await postSellDream(data)) {
+      try {
+        const { uuid } = (await postSellDream(data)).data.content.response;
+        saveFile(uuid);
+
         alert("작성 완료.");
         push("/sell");
-      } else {
+      } catch (error) {
         alert("작성 실패.");
       }
     }
