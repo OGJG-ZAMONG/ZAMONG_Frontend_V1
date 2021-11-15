@@ -20,7 +20,9 @@ const getDateWithAddHour = (hour: number) => {
   return date;
 };
 
-const refresh = async (config: AxiosRequestConfig): Promise<AxiosRequestConfig> => {
+const refresh = async (
+  config: AxiosRequestConfig
+): Promise<AxiosRequestConfig> => {
   const expireAt = localStorage.getItem("expireAt");
   let accessToken = localStorage.getItem("access_token");
   const refreshToken = localStorage.getItem("refresh_token");
@@ -38,8 +40,9 @@ const refresh = async (config: AxiosRequestConfig): Promise<AxiosRequestConfig> 
     };
 
     try {
-      const { access_token, refresh_token } = (await request.post<TokenType>(uri.refresh, data))
-        .data.content.response;
+      const { access_token, refresh_token } = (
+        await request.post<TokenType>(uri.refresh, data)
+      ).data.content.response;
       accessToken = access_token;
 
       localStorage.setItem("access_token", access_token);
