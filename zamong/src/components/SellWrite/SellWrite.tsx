@@ -8,7 +8,7 @@ import Code from "../../interface/Code";
 import { useHistory } from "react-router";
 import { postSellDream, putSellDream } from "../../utils/api/SellWrite";
 import { sellWriteResponse } from "../../models/dto/request/sellWriteResquest";
-import { dreamShareImagePost } from "../../utils/api/DiaryWrite";
+import { dreamPostingImagePost } from "../../utils/api/DreamPosting";
 import { getSellDreamDetail } from "../../utils/api/Sell/Main";
 import dreamType from "../../constance/dreamType";
 
@@ -93,7 +93,7 @@ const SellWrite = ({ uuid }: PropsType): JSX.Element => {
   const saveFile = async (uuid: string) => {
     if (file) {
       try {
-        await dreamShareImagePost(file, uuid);
+        await dreamPostingImagePost(file, uuid);
       } catch (error) {
         console.log(error);
         alert("파일 업로드에 실패했습니다.");
