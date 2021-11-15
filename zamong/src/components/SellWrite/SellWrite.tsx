@@ -141,7 +141,7 @@ const SellWrite = ({ uuid }: PropsType): JSX.Element => {
     <>
       <I.ContentContainer>
         <I.WriteSection>
-          <I.Title>꿈 판매글 작성하기</I.Title>
+          <I.Title>꿈 판매글 {uuid ? "수정" : "작성"}하기</I.Title>
           <I.MarginConatiner>
             <div>
               <I.Subtitle>꿈 제목</I.Subtitle>
@@ -175,7 +175,7 @@ const SellWrite = ({ uuid }: PropsType): JSX.Element => {
           </I.MarginConatiner>
           <I.ButtonContainer>
             <I.BorderButton onClick={onCancel}>취소</I.BorderButton>
-            <I.BlueButton onClick={onWrite}>작성</I.BlueButton>
+            <I.BlueButton onClick={onWrite}>{uuid ? "수정" : "작성"}</I.BlueButton>
           </I.ButtonContainer>
         </I.WriteSection>
       </I.ContentContainer>
