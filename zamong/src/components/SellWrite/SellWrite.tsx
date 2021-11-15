@@ -1,6 +1,6 @@
 import * as I from "../DiaryWrite/styles";
 import DreamType from "../DiaryWrite/component/Properties/Accordion/AccordionMenus/DreamType/DreamType";
-import { useState } from "react";
+import { useLayoutEffect, useState } from "react";
 import { color } from "../../style/color";
 import InputPrice from "./component/InputPrice/InputPrice";
 import FileInput from "../FileInput/FileInput";
@@ -13,6 +13,17 @@ import { dreamShareImagePost } from "../../utils/api/DiaryWrite";
 const SellWrite = (): JSX.Element => {
   const MAXTITLE = 100;
   const { push } = useHistory();
+
+  useLayoutEffect(() => {
+    //새로고침시 확인 여부 묻기
+    window.onbeforeunload = function () {
+      return "Are you really want to perform the action?";
+    };
+
+    return () => {
+      window.onbeforeunload = function () {};
+    };
+  }, []);
 
   interface propertysType {
     title: string;
