@@ -9,6 +9,8 @@ import { useHistory } from "react-router";
 import { postSellDream } from "../../utils/api/SellWrite";
 import { sellWriteResponse } from "../../models/dto/request/sellWriteResquest";
 import { dreamShareImagePost } from "../../utils/api/DiaryWrite";
+import { getSellDreamDetail } from "../../utils/api/Sell/Main";
+import dreamType from "../../constance/dreamType";
 
 interface PropsType {
   uuid: string | null;
@@ -23,6 +25,7 @@ const SellWrite = ({ uuid }: PropsType): JSX.Element => {
     window.onbeforeunload = function () {
       return "Are you really want to perform the action?";
     };
+    init();
 
     return () => {
       window.onbeforeunload = function () {};
@@ -41,6 +44,29 @@ const SellWrite = ({ uuid }: PropsType): JSX.Element => {
     content: "",
     types: [],
     price: 0,
+  };
+
+  const init = async () => {
+    if (uuid) {
+      //uuid가 있으면
+      try {
+        const response = await getSellDreamDetail(uuid);
+        const { title, content, cost, dream_types } = response.data.content.response;
+        const dreamTypes = dreamType.filter((value) =>
+          dream_types.some((item) => item === value.code)
+        );
+
+        const data: propertysType = {
+          title: title,
+          content: content,
+          price: cost,
+          types: dreamTypes,
+        };
+        setProperties(data);
+      } catch (error) {
+        alert("이전 정보를 불러오는데 실패했습니다.");
+      }
+    }
   };
 
   const [properties, setProperties] = useState<propertysType>({ ...initValue });
