@@ -10,7 +10,7 @@ import * as S from "./styles";
 import { diaryWriteRequest } from "../../models/dto/request/diaryWriteRequest";
 import {
   diaryWriteApiType,
-  diaryWriteImagePost,
+  dreamShareImagePost,
   diaryWritePost,
   diaryWritePut,
 } from "../../utils/api/DiaryWrite";
@@ -191,7 +191,7 @@ const DiaryWrite = ({ dreamUUID }: PropsType): JSX.Element => {
   const saveFile = async (uuid: string) => {
     if (file) {
       try {
-        await diaryWriteImagePost(file, uuid);
+        await dreamShareImagePost(file, uuid);
       } catch (error) {
         console.log(error);
         alert("파일 업로드에 실패했습니다.");
