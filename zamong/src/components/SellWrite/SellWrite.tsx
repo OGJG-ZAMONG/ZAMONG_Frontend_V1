@@ -32,12 +32,14 @@ const SellWrite = (): JSX.Element => {
     price: number;
   }
 
-  const [properties, setProperties] = useState<propertysType>({
+  const initValue: propertysType = {
     title: "",
     content: "",
     types: [],
     price: 0,
-  });
+  };
+
+  const [properties, setProperties] = useState<propertysType>({ ...initValue });
 
   const { title, content, types, price } = properties;
 
