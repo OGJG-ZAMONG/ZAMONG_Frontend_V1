@@ -51,7 +51,8 @@ const SellWrite = ({ uuid }: PropsType): JSX.Element => {
       //uuid가 있으면
       try {
         const response = await getSellDreamDetail(uuid);
-        const { title, content, cost, dream_types } = response.data.content.response;
+        const { title, content, cost, dream_types, attachment_image } =
+          response.data.content.response;
         const dreamTypes = dreamType.filter((value) =>
           dream_types.some((item) => item === value.code)
         );
@@ -63,6 +64,7 @@ const SellWrite = ({ uuid }: PropsType): JSX.Element => {
           types: dreamTypes,
         };
         setProperties(data);
+        setInitImage(attachment_image);
       } catch (error) {
         alert("이전 정보를 불러오는데 실패했습니다.");
       }
@@ -70,6 +72,7 @@ const SellWrite = ({ uuid }: PropsType): JSX.Element => {
   };
 
   const [properties, setProperties] = useState<propertysType>({ ...initValue });
+  const [initImage, setInitImage] = useState<string>("");
 
   const { title, content, types, price } = properties;
 
@@ -167,7 +170,7 @@ const SellWrite = ({ uuid }: PropsType): JSX.Element => {
                 value={content}
                 placeholder="내용 입력..."
               />
-              <FileInput file={file} setFile={setFile} id="sell" />
+              <FileInput file={file} setFile={setFile} id="sell" initPath={initImage} />
             </div>
           </I.MarginConatiner>
           <I.ButtonContainer>
