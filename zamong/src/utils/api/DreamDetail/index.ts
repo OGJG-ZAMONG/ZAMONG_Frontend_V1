@@ -22,29 +22,38 @@ export const getDreamDetail = async (dreamUUID: string) => {
   }
 };
 
+export interface Comment {
+  uuid: string;
+  is_checked: boolean;
+  date_time: string;
+  user_uuid: string;
+  user_profile: string;
+  content: string;
+  like_count: number;
+  dislike_count: number;
+  is_like: boolean;
+  is_dis_like: boolean;
+}
+
 interface commentType {
   status: number;
   timestamp: string;
   content: {
     collection_value: boolean;
     response: {
-      comments: [
-        {
-          uuid: string;
-          is_checked: boolean;
-          date_time: string;
-          user_uuid: string;
-          user_profile: string;
-          content: string;
-          like_count: number;
-          dislike_count: number;
-          is_like: boolean;
-          is_dis_like: boolean;
-        }
-      ];
+      comments: Comment[];
     };
   };
 }
+
+export const postComment = async (uuid: string, data: DataType) => {
+  try {
+    await instance.post(uri.writeComment.replace("DREAM_UUID", uuid), data);
+    window.location.reload();
+  } catch (error) {
+    return Promise.reject(error);
+  }
+};
 
 export const responseComment = async (uuid: string) => {
   try {
@@ -57,9 +66,12 @@ export const responseComment = async (uuid: string) => {
   }
 };
 
-export const postComment = async (uuid: string, data: DataType) => {
+export const responseReComment = async (uuid: string) => {
   try {
-    await instance.post(uri.writeComment.replace("DREAM_UUID", uuid), data);
+    const response = await instance.get<commentType>(
+      uri.getReComment.replace("DREAM_UUID", uuid)
+    )
+    return response;
   } catch (error) {
     return Promise.reject(error);
   }
