@@ -27,6 +27,12 @@ export const LinkComponentContainer = styled(Link)`
   font: ${font.body3};
 `;
 
+export const NavText = styled.span`
+  @media only screen and (max-width: 1205px) {
+    display: none;
+  }
+`;
+
 export const UserProfileImg = styled.img`
   width: 36px;
   height: 36px;
