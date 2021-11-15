@@ -1,5 +1,5 @@
 import uri from "../../../constance/uri";
-import instance, { request } from "../axios";
+import { request } from "../axios";
 
 interface DataType {
   user_identity: string;
