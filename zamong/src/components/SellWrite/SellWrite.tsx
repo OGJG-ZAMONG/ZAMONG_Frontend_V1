@@ -6,7 +6,7 @@ import InputPrice from "./component/InputPrice/InputPrice";
 import FileInput from "../FileInput/FileInput";
 import Code from "../../interface/Code";
 import { useHistory } from "react-router";
-import { postSellDream } from "../../utils/api/SellWrite";
+import { postSellDream, putSellDream } from "../../utils/api/SellWrite";
 import { sellWriteResponse } from "../../models/dto/request/sellWriteResquest";
 import { dreamShareImagePost } from "../../utils/api/DiaryWrite";
 import { getSellDreamDetail } from "../../utils/api/Sell/Main";
@@ -117,8 +117,6 @@ const SellWrite = ({ uuid }: PropsType): JSX.Element => {
   const onWrite = async () => {
     const state = uuid ? "수정" : "작성";
 
-    
-
     if (window.confirm(`${state}하시겠습니까?`)) {
       const dream_types = types.map((value) => value.code);
 
@@ -129,9 +127,11 @@ const SellWrite = ({ uuid }: PropsType): JSX.Element => {
         cost: price,
       };
 
+      const requestAction = uuid ? putSellDream : postSellDream;
+
       try {
-        const { uuid } = (await postSellDream(data)).data.content.response;
-        saveFile(uuid);
+        const { uuid: newUUID } = (await requestAction(data, uuid!)).data.content.response;
+        saveFile(newUUID);
 
         alert(`${state} 완료.`);
         push("/sell");
