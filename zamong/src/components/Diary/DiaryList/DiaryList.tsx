@@ -42,6 +42,10 @@ const DiaryList: FC = (): JSX.Element => {
       .catch((err) => {
         console.log(err);
       });
+
+    window.onbeforeunload = () => {
+      window.scrollTo(0, 0);
+    };
   }, []);
 
   useEffect(() => {
@@ -62,13 +66,6 @@ const DiaryList: FC = (): JSX.Element => {
   const handleCheckboxChange = (e: any) => {
     setIsChecked(e.target.checked);
   };
-
-  //리로딩시 페이지 최상단으로
-  useEffect(() => {
-    window.onbeforeunload = () => {
-      window.scrollTo(0, 0);
-    };
-  }, []);
 
   const RenderDiaryWrittenToday = useMemo(
     () =>

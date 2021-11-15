@@ -4,7 +4,6 @@ import { color } from "../../../style/color";
 
 export const Container = styled.div`
   height: 100%;
-  margin-right: 20px;
 `;
 
 export const Date = styled.div`
@@ -24,8 +23,8 @@ export const CalendarHeader = styled.div`
 export const Controller = styled.div`
   display: flex;
   justify-content: space-between;
-  width: 133px;
-  height: 32px;
+  width: 21%;
+  height: 100%;
   font: ${font.body1};
   font-weight: 500;
 `;
@@ -35,19 +34,20 @@ export const Prev = styled.div`
   height: 32px;
   background-color: ${color.darkerGray};
   border-radius: 5px;
-  text-align: center;
-  line-height: 32px;
   cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 `;
 
 export const DateStatus = styled.div`
-  width: 53px;
-  height: 32px;
+  width: 55px;
   background-color: ${color.darkerGray};
   border-radius: 5px;
-  text-align: center;
-  line-height: 32px;
   cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `;
 
 export const Next = styled.div`
@@ -55,38 +55,39 @@ export const Next = styled.div`
   height: 32px;
   background-color: ${color.darkerGray};
   border-radius: 5px;
-  text-align: center;
-  line-height: 32px;
   cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `;
 
 export const CalendarContainer = styled.div`
-  display: grid;
-  grid-template-columns: repeat(7, 90px);
   border-radius: 10px;
   background-color: ${color.darkerGray};
   font: ${font.body2};
 `;
 
+export const WeekContainer = styled.div`
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+`;
+
 export const DayContainer = styled.div`
-  display: inherit;
-  grid-template-columns: repeat(7, 90px);
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  grid-template-rows: repeat(6, 1fr);
   text-align: center;
 `;
 
 export const WeekDays = styled.div`
-  width: 90px;
-  height: 36px;
+  padding: 8px 0;
   text-align: center;
-  line-height: 36px;
   &:first-child {
     color: ${color.red};
   }
 `;
 
 export const Days = styled.div`
-  width: 90px;
-  height: 106px;
   border-top: 1px solid ${color.gray};
   position: relative;
   display: grid;
@@ -118,7 +119,7 @@ export const Days = styled.div`
     overflow: hidden;
     padding: 1px 5px;
     margin: 2.5px auto;
-    margin-left: 10%; 
+    margin-left: 10%;
     &:hover {
       width: auto;
       z-index: 2;
