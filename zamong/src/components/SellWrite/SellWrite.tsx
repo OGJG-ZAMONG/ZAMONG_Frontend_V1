@@ -115,7 +115,11 @@ const SellWrite = ({ uuid }: PropsType): JSX.Element => {
   };
 
   const onWrite = async () => {
-    if (window.confirm("작성하시겠습니까?")) {
+    const state = uuid ? "수정" : "작성";
+
+    
+
+    if (window.confirm(`${state}하시겠습니까?`)) {
       const dream_types = types.map((value) => value.code);
 
       const data: sellWriteResponse = {
@@ -129,10 +133,10 @@ const SellWrite = ({ uuid }: PropsType): JSX.Element => {
         const { uuid } = (await postSellDream(data)).data.content.response;
         saveFile(uuid);
 
-        alert("작성 완료.");
+        alert(`${state} 완료.`);
         push("/sell");
       } catch (error) {
-        alert("작성 실패.");
+        alert(`${state} 실패.`);
       }
     }
   };
