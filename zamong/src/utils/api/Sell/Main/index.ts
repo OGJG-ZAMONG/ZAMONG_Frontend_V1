@@ -13,9 +13,9 @@ export const getCurrentSellingDreams = async (access_token: any, page: number) =
   }
 };
 
-export const getSellDreamDetail = (uuid: string) => {
+export const getSellDreamDetail = async (uuid: string) => {
   try {
-    const response = instance.get<sellDreamDetailResponse>(`${uri.dreamSell}/${uuid}`);
+    const response = await instance.get<sellDreamDetailResponse>(`${uri.dreamSell}/${uuid}`);
     return response;
   } catch (error) {
     return Promise.reject(error);
