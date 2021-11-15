@@ -63,19 +63,22 @@ const LoginComponent = (): JSX.Element => {
 
   const navRender = navs.map((value) => {
     const { img, text, to } = value;
+
     return (
       <S.LinkComponentContainer to={to}>
-        <img alt={`nav ${text}`} src={img} />
-        <span>{text}</span>
+        <S.LinkIcon alt={`nav ${text}`} src={img} />
+        <S.NavText>{text}</S.NavText>
       </S.LinkComponentContainer>
     );
   });
 
   const onLogoutHandler = () => {
-    localStorage.removeItem("access_token");
-    localStorage.removeItem("refresh_token");
-    localStorage.removeItem("expireAt");
-    window.location.href = "/";
+    if (window.confirm("로그아웃 하시겠습니까?")) {
+      localStorage.removeItem("access_token");
+      localStorage.removeItem("refresh_token");
+      localStorage.removeItem("expireAt");
+      window.location.href = "/";
+    }
   };
 
   return (
