@@ -10,7 +10,11 @@ import { postSellDream } from "../../utils/api/SellWrite";
 import { sellWriteResponse } from "../../models/dto/request/sellWriteResquest";
 import { dreamShareImagePost } from "../../utils/api/DiaryWrite";
 
-const SellWrite = (): JSX.Element => {
+interface PropsType {
+  uuid: string | null;
+}
+
+const SellWrite = ({ uuid }: PropsType): JSX.Element => {
   const MAXTITLE = 100;
   const { push } = useHistory();
 
