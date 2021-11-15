@@ -16,6 +16,12 @@ export const LinksContainer = styled.div`
   column-gap: 16px;
 `;
 
+export const LinkIcon = styled.img`
+  @media only screen and (max-width: 1205px) {
+    transform: scale(1.5);
+  }
+`; 
+
 export const LinkComponentContainer = styled(Link)`
   display: flex;
   align-items: center;

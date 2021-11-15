@@ -63,9 +63,10 @@ const LoginComponent = (): JSX.Element => {
 
   const navRender = navs.map((value) => {
     const { img, text, to } = value;
+
     return (
       <S.LinkComponentContainer to={to}>
-        <img alt={`nav ${text}`} src={img} />
+        <S.LinkIcon alt={`nav ${text}`} src={img} />
         <S.NavText>{text}</S.NavText>
       </S.LinkComponentContainer>
     );
