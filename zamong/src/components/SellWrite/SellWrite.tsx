@@ -20,18 +20,6 @@ const SellWrite = ({ uuid }: PropsType): JSX.Element => {
   const MAXTITLE = 100;
   const { push } = useHistory();
 
-  useLayoutEffect(() => {
-    //새로고침시 확인 여부 묻기
-    window.onbeforeunload = function () {
-      return "Are you really want to perform the action?";
-    };
-    init();
-
-    return () => {
-      window.onbeforeunload = function () {};
-    };
-  }, []);
-
   interface propertysType {
     title: string;
     content: string;
@@ -45,6 +33,21 @@ const SellWrite = ({ uuid }: PropsType): JSX.Element => {
     types: [],
     price: 0,
   };
+
+  const [properties, setProperties] = useState<propertysType>({ ...initValue });
+  const [initImage, setInitImage] = useState<string>("");
+  const [file, setFile] = useState<File | undefined>();
+
+  const { title, content, types, price } = properties;
+
+  const setPropertiesWithName =
+    <T extends unknown>(name: string) =>
+    (value: T) => {
+      setProperties({ ...properties, [name]: value });
+    };
+
+  const setTypes = setPropertiesWithName<Code[]>("types");
+  const setPrice = setPropertiesWithName<number>("price");
 
   const init = async () => {
     if (uuid) {
@@ -70,22 +73,6 @@ const SellWrite = ({ uuid }: PropsType): JSX.Element => {
       }
     }
   };
-
-  const [properties, setProperties] = useState<propertysType>({ ...initValue });
-  const [initImage, setInitImage] = useState<string>("");
-
-  const { title, content, types, price } = properties;
-
-  const setPropertiesWithName =
-    <T extends unknown>(name: string) =>
-    (value: T) => {
-      setProperties({ ...properties, [name]: value });
-    };
-
-  const setTypes = setPropertiesWithName<Code[]>("types");
-  const setPrice = setPropertiesWithName<number>("price");
-
-  const [file, setFile] = useState<File | undefined>();
 
   const onChangeHandler = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     const { name, value } = e.target;
@@ -114,7 +101,17 @@ const SellWrite = ({ uuid }: PropsType): JSX.Element => {
     }
   };
 
+  const checkIsValid = () => {
+    //유효한 데이터인지 확인
+    return !(title.length <= 0 || content.length <= 0 || types.length <= 0 || price <= 0);
+  };
+
   const onWrite = async () => {
+    if (!checkIsValid()) {
+      alert("빈칸을 채워주세요.");
+      return;
+    }
+
     const state = uuid ? "수정" : "작성";
 
     if (window.confirm(`${state}하시겠습니까?`)) {
@@ -140,6 +137,18 @@ const SellWrite = ({ uuid }: PropsType): JSX.Element => {
       }
     }
   };
+
+  useLayoutEffect(() => {
+    //새로고침시 확인 여부 묻기
+    window.onbeforeunload = function () {
+      return "Are you really want to perform the action?";
+    };
+    init();
+
+    return () => {
+      window.onbeforeunload = function () {};
+    };
+  }, []);
 
   return (
     <>
