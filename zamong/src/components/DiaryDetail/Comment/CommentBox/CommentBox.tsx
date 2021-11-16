@@ -8,6 +8,7 @@ import {
   postComment,
   responseReComment,
 } from "../../../../utils/api/DreamDetail";
+import { writer } from "repl";
 
 interface PropsType {
   comment: Comment;
@@ -18,6 +19,7 @@ const CommentBox = ({ comment, postUuid }: PropsType): JSX.Element => {
   const [onOffToggle, setOnOffToggle] = useState(false);
   const [onOffAdd, setOnOffAdd] = useState(false);
   const [input, setInput] = useState("");
+  const [isActivePlus, setIsActivePlus] = useState(false);
   const {
     uuid,
     content,
@@ -71,6 +73,14 @@ const CommentBox = ({ comment, postUuid }: PropsType): JSX.Element => {
       setInput("");
       setAdd(false);
       settingComment();
+      alert("댓글이 입력되었습니다.");
+      setIsActivePlus(false);
+    }
+  };
+
+  const keyUp = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === "Enter") {
+      writeReComment();
     }
   };
 
@@ -85,6 +95,8 @@ const CommentBox = ({ comment, postUuid }: PropsType): JSX.Element => {
         <S.CommentBoxBottom>
           <S.DetailLeft>
             <ReplyComment
+              isActivePlus={isActivePlus}
+              setIsActivePlus={setIsActivePlus}
               setToggle={setToggle}
               setAdd={setAdd}
               listLength={reCommentCount}
@@ -103,6 +115,7 @@ const CommentBox = ({ comment, postUuid }: PropsType): JSX.Element => {
               value={input}
               placeholder="덧글 쓰기..."
               onChange={commentChange}
+              onKeyUp={keyUp}
             />
             <S.EnterButton onClick={writeReComment}>덧글 쓰기</S.EnterButton>
           </S.InputContainer>

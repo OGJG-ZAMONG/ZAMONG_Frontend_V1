@@ -6,16 +6,20 @@ interface Props {
   setToggle: (value: boolean) => void;
   setAdd: (value: boolean) => void;
   listLength: number;
+  isActivePlus: boolean;
+  setIsActivePlus: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 const ReplyComment: FC<Props> = ({
   setToggle,
   setAdd,
   listLength,
+  isActivePlus,
+  setIsActivePlus,
 }): JSX.Element => {
   const [isToggle, setIsToggle] = useState(false);
+  // const
   const [isActiveToggle, setIsActiveToggle] = useState(false);
-  const [isActivePlus, setIsActivePlus] = useState(false);
 
   useEffect(() => {
     if (!listLength) {
@@ -24,6 +28,11 @@ const ReplyComment: FC<Props> = ({
       setIsToggle(true);
     }
   }, [listLength]);
+
+  const clickAdd = () => {
+    setIsActivePlus(!isActivePlus);
+    setAdd(!isActivePlus);
+  };
 
   return (
     <>
@@ -47,8 +56,7 @@ const ReplyComment: FC<Props> = ({
       </S.CommentToggle>
       <S.CommentPlus
         onClick={() => {
-          setIsActivePlus(!isActivePlus);
-          setAdd(!isActivePlus);
+          clickAdd();
         }}
       >
         <S.PlusImg alt="plus" src={isActivePlus ? minus : plus} />

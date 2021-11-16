@@ -49,6 +49,7 @@ interface commentType {
 export const postComment = async (uuid: string, data: DataType) => {
   try {
     await instance.post(uri.writeComment.replace("DREAM_UUID", uuid), data);
+    // window.location.reload();
   } catch (error) {
     return Promise.reject(error);
   }
@@ -69,7 +70,7 @@ export const responseReComment = async (uuid: string) => {
   try {
     const response = await instance.get<commentType>(
       uri.getReComment.replace("DREAM_UUID", uuid)
-    );
+    )
     return response;
   } catch (error) {
     return Promise.reject(error);

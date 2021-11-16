@@ -39,6 +39,13 @@ const DiaryDetail = (): JSX.Element => {
       await postComment(postUuid, data);
       setComment("");
       settingComment();
+      alert("댓글이 입력되었습니다.");
+    }
+  };
+
+  const keyUp = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === "Enter") {
+      writeComment();
     }
   };
 
@@ -53,6 +60,7 @@ const DiaryDetail = (): JSX.Element => {
           value={comment}
           placeholder="댓글 쓰기..."
           onChange={comentChange}
+          onKeyUp={keyUp}
         />
         <S.EnterButton onClick={writeComment}>댓글 쓰기</S.EnterButton>
       </S.InputContainer>
