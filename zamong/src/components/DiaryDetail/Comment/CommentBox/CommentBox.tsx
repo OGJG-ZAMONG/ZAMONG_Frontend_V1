@@ -2,24 +2,49 @@ import * as S from "./styles";
 import Recommend from "./Recommend/Recommend";
 import ReplyComment from "./ReplyComment/ReplyComment";
 import { more, profile } from "../../../../assets/index";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import {
+  Comment,
+  postComment,
+  responseReComment,
+} from "../../../../utils/api/DreamDetail";
 
-type ComType = {
-  upperNo: number | null;
-  no: number;
-};
+interface PropsType {
+  comment: Comment;
+  postUuid: string;
+}
 
-type PropsType = {
-  curNo: number;
-  commentList: Array<ComType>;
-};
-
-const CommentBox = ({ curNo, commentList }: PropsType): JSX.Element => {
-  const testText1 = [
-    "동해물과 백두산이 마르고 닳도록 하느님이 보우하사 우리 나라 만세. 무궁화 삼천리 화려강산. 대한사람 대한으로 길이 보전하세.",
-  ];
+const CommentBox = ({ comment, postUuid }: PropsType): JSX.Element => {
   const [onOffToggle, setOnOffToggle] = useState(false);
   const [onOffAdd, setOnOffAdd] = useState(false);
+  const [input, setInput] = useState("");
+  const [isActivePlus, setIsActivePlus] = useState(false);
+  const {
+    uuid,
+    content,
+    date_time,
+    dislike_count,
+    like_count,
+    is_like,
+    is_dis_like,
+    user_profile,
+  } = comment;
+  const [reComments, setReComments] = useState<Comment[]>([]);
+  const reCommentCount = reComments.length;
+
+  useEffect(() => {
+    settingComment();
+  }, []);
+
+  const settingComment = async () => {
+    setReComments(
+      (await responseReComment(uuid)).data.content.response.comments
+    );
+  };
+
+  const month = date_time.split("-")[1];
+  const day = date_time.split("-")[2].slice(0, 2);
+  const date = month + "월 " + day + "일";
 
   const setToggle = (value: boolean) => {
     setOnOffToggle(value);
@@ -29,19 +54,33 @@ const CommentBox = ({ curNo, commentList }: PropsType): JSX.Element => {
     setOnOffAdd(value);
   };
 
-  const getRootCommentNumber = (
-    no: number,
-    upperNo: number | null
-  ): number | null => {
-    if (upperNo === null) {
-      return no;
+  const commentChange = (e: React.FormEvent<HTMLInputElement>) => {
+    const { value } = e.currentTarget;
+    setInput(value);
+  };
+
+  const writeReComment = async () => {
+    if (input.replace(/(\s*)/g, "") === "") {
+      alert("공백은 입력하실 수 없습니다.");
+      setInput("");
+    } else {
+      const data = {
+        content: input,
+        p_comment: uuid,
+      };
+      await postComment(postUuid, data);
+      setInput("");
+      setAdd(false);
+      settingComment();
+      alert("댓글이 입력되었습니다.");
+      setIsActivePlus(false);
     }
-    commentList.forEach((item) => {
-      if (item.no === upperNo) {
-        getRootCommentNumber(item.no, item.upperNo);
-      }
-    });
-    return null;
+  };
+
+  const keyUp = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === "Enter") {
+      writeReComment();
+    }
   };
 
   return (
@@ -50,33 +89,43 @@ const CommentBox = ({ curNo, commentList }: PropsType): JSX.Element => {
         <img alt="profile" src={profile} />
       </S.CommentProfile>
       <S.CommnetRight>
-        <S.CommentText>{testText1}</S.CommentText>
+        <S.CommentText>{content}</S.CommentText>
         <S.More alt="more" src={more} />
         <S.CommentBoxBottom>
           <S.DetailLeft>
-            <ReplyComment setToggle={setToggle} setAdd={setAdd} />
+            <ReplyComment
+              isActivePlus={isActivePlus}
+              setIsActivePlus={setIsActivePlus}
+              setToggle={setToggle}
+              setAdd={setAdd}
+              listLength={reCommentCount}
+            />
           </S.DetailLeft>
           <S.DetailRight>
-            <Recommend />
-            <S.CommentDate>9월 29일</S.CommentDate>
+            <Recommend isLike={is_like} likeCount={like_count} isDisLike={is_dis_like} disLikeCount={dislike_count} uuid={uuid}/>
+            <S.CommentDate>{date}</S.CommentDate>
           </S.DetailRight>
         </S.CommentBoxBottom>
         <div></div>
         {onOffAdd && (
           <S.InputContainer>
-            <S.CommentInput placeholder="덧글 쓰기..." />
-            <S.EnterButton >덧글 쓰기</S.EnterButton>
+            <S.CommentInput
+              name="input"
+              value={input}
+              placeholder="덧글 쓰기..."
+              onChange={commentChange}
+              onKeyUp={keyUp}
+            />
+            <S.EnterButton onClick={writeReComment}>덧글 쓰기</S.EnterButton>
           </S.InputContainer>
         )}
         {onOffToggle && (
           <S.CommentToCommentContainer>
             <S.CommentToComment>
-              {commentList.map((value) => {
-                if (value.upperNo === curNo) {
-                  return (
-                    <CommentBox commentList={commentList} curNo={value.no} />
-                  );
-                }
+              {reComments.map((value, i) => {
+                return (
+                  <CommentBox postUuid={postUuid} comment={value} key={i} />
+                );
               })}
             </S.CommentToComment>
           </S.CommentToCommentContainer>
