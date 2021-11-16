@@ -8,7 +8,6 @@ import {
   postComment,
   responseReComment,
 } from "../../../../utils/api/DreamDetail";
-import { writer } from "repl";
 
 interface PropsType {
   comment: Comment;
@@ -25,10 +24,10 @@ const CommentBox = ({ comment, postUuid }: PropsType): JSX.Element => {
     content,
     date_time,
     dislike_count,
-    user_profile,
     like_count,
     is_like,
     is_dis_like,
+    user_profile,
   } = comment;
   const [reComments, setReComments] = useState<Comment[]>([]);
   const reCommentCount = reComments.length;
@@ -103,7 +102,7 @@ const CommentBox = ({ comment, postUuid }: PropsType): JSX.Element => {
             />
           </S.DetailLeft>
           <S.DetailRight>
-            <Recommend />
+            <Recommend isLike={is_like} likeCount={like_count} isDisLike={is_dis_like} disLikeCount={dislike_count} uuid={uuid}/>
             <S.CommentDate>{date}</S.CommentDate>
           </S.DetailRight>
         </S.CommentBoxBottom>

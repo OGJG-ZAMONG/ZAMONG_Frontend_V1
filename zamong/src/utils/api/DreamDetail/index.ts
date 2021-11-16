@@ -76,3 +76,15 @@ export const responseReComment = async (uuid: string) => {
     return Promise.reject(error);
   }
 };
+
+interface ThumbType {
+  type: string;
+}
+
+export const recommend = async (uuid: string, isThumb: ThumbType ) => {
+  try {
+    await instance.post(uri.recommend.replace("DREAM_UUID", uuid), isThumb);
+  } catch (error) {
+    return Promise.reject(error);
+  }
+}

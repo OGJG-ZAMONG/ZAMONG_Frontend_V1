@@ -1,5 +1,5 @@
 import * as S from "./styles";
-import { FC, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { plus, toggle, minus } from "../../../../../assets";
 
 interface Props {
@@ -10,13 +10,13 @@ interface Props {
   setIsActivePlus: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-const ReplyComment: FC<Props> = ({
+const ReplyComment = ({
   setToggle,
   setAdd,
   listLength,
   isActivePlus,
   setIsActivePlus,
-}): JSX.Element => {
+}: Props): JSX.Element => {
   const [isToggle, setIsToggle] = useState(false);
   // const
   const [isActiveToggle, setIsActiveToggle] = useState(false);

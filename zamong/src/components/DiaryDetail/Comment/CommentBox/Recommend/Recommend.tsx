@@ -1,35 +1,86 @@
 import * as S from "./styles";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { like, disLike, lightLike, lightDisLike } from "../../../../../assets";
 import { color } from "../../../../../style/color";
+import { recommend } from "../../../../../utils/api/DreamDetail";
 
-const Recommend = (): JSX.Element => {
-  const [onOffUpThumb, setOnOffUpThumb] = useState(false);
-  const [upCount, setUpCount] = useState(0);
-  const [onOffDownThumb, setOnOffDownThumb] = useState(false);
-  const [downCount, setDownCount] = useState(0);
+interface Props {
+  isLike: boolean;
+  isDisLike: boolean;
+  likeCount: number;
+  disLikeCount: number;
+  uuid: string;
+}
 
-  const upThumb = () => {
-    if (onOffDownThumb) {
-      setOnOffDownThumb(false);
-      setDownCount(downCount - 1);
-    }
-    if (!onOffUpThumb) {
-      setUpCount(upCount + 1);
-    } else {
-      setUpCount(upCount - 1);
-    }
-  };
+const Recommend = ({
+  isLike,
+  isDisLike,
+  likeCount,
+  disLikeCount,
+  uuid,
+}: Props): JSX.Element => {
+  // const [onOffUpThumb, setOnOffUpThumb] = useState(isLike);
+  // const [onOffDownThumb, setOnOffDownThumb] = useState(isDisLike);
 
-  const downThumb = () => {
-    if (onOffUpThumb) {
-      setOnOffUpThumb(false);
-      setUpCount(upCount - 1);
+  // const [upCount, setUpCount] = useState(likeCount);
+  // const [downCount, setDownCount] = useState(disLikeCount);
+
+  interface Thumb {
+    likeCount: number;
+    likeActive: boolean;
+    dislikeCount: number;
+    dislikeActive: boolean;
+  }
+
+  const [thumbs, setThumbs] = useState<Thumb>({
+    likeCount: likeCount,
+    likeActive: isLike,
+    dislikeCount: disLikeCount,
+    dislikeActive: isDisLike,
+  });
+
+  const {
+    likeCount: likeNum,
+    likeActive,
+    dislikeActive,
+    dislikeCount,
+  } = thumbs;
+
+  const LIKE = "like";
+  const DISLIKE = "dislike";
+
+  const onThumbAction = async (type: typeof LIKE | typeof DISLIKE) => {
+    const opposition: typeof LIKE | typeof DISLIKE =
+      type === LIKE ? DISLIKE : LIKE;
+
+    const oppositionActive = thumbs[`${opposition}Active`];
+    const supportActive = thumbs[`${type}Active`];
+
+    const thumbCopy = { ...thumbs };
+    thumbCopy[`${type}Active`] = !supportActive;
+
+    if (oppositionActive) {
+      thumbCopy[`${opposition}Active`] = false;      
+      thumbCopy[`${opposition}Count`] = thumbCopy[`${opposition}Count`] - 1;
     }
-    if (!onOffDownThumb) {
-      setDownCount(downCount + 1);
-    } else {
-      setDownCount(downCount - 1);
+
+    const offsetCount = supportActive ? -1 : 1;
+    thumbCopy[`${type}Count`] = thumbCopy[`${type}Count`] + offsetCount;
+
+    setThumbs(thumbCopy);
+
+    const typeMap = new Map<typeof LIKE | typeof DISLIKE, string>()
+      .set(LIKE, "LIKE")
+      .set(DISLIKE, "DISLIKE");
+
+    const isThumb = {
+      type: typeMap.get(type)!,
+    };
+
+    try {      
+      await recommend(uuid, isThumb);
+    } catch (error) {
+      console.log(error);
     }
   };
 
@@ -37,28 +88,26 @@ const Recommend = (): JSX.Element => {
     <S.Recommend>
       <S.CommentLike
         onClick={() => {
-          setOnOffUpThumb(!onOffUpThumb);
-          upThumb();
+          onThumbAction("like");
         }}
-        color={onOffUpThumb ? color.blue : color.gray}
+        color={likeActive ? color.blue : color.gray}
       >
-        <S.LikeImg alt="like" src={onOffUpThumb ? lightLike : like} />
+        <S.LikeImg alt="like" src={likeActive ? lightLike : like} />
         추천&nbsp;
-        {upCount}
+        {likeNum}
       </S.CommentLike>
       <S.CommentDisLike
         onClick={() => {
-          setOnOffDownThumb(!onOffDownThumb);
-          downThumb();
+          onThumbAction("dislike");
         }}
-        color={onOffDownThumb ? color.red : color.gray}
+        color={dislikeActive ? color.red : color.gray}
       >
         <S.DisLikeImg
           alt="dislike"
-          src={onOffDownThumb ? lightDisLike : disLike}
+          src={dislikeActive ? lightDisLike : disLike}
         />
         비추천&nbsp;
-        {downCount}
+        {dislikeCount}
       </S.CommentDisLike>
     </S.Recommend>
   );

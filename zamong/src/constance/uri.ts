@@ -16,6 +16,7 @@ enum uri {
   writeComment = "/dream/DREAM_UUID/comment",
   getComment = "/dream/DREAM_UUID/comment",
   getReComment = "/dream/comment/DREAM_UUID/comment",
+  recommend = "/dream/comment/DREAM_UUID/recommend",
 }
 
 export default uri;
