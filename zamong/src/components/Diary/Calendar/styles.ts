@@ -9,7 +9,6 @@ export const Container = styled.div`
 export const Date = styled.div`
   line-height: 25px;
   font: ${font.body1};
-  font-weight: 500;
 `;
 
 export const CalendarHeader = styled.div`
