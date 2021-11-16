@@ -108,7 +108,6 @@ export const Days = styled.div`
     width: 80%;
     min-width: 80%;
     height: 80%;
-    font-size: 14px;
     color: ${color.white};
     background-color: ${color.darkGray};
     border-radius: 5px;
@@ -118,7 +117,7 @@ export const Days = styled.div`
     word-break: keep-all;
     overflow: hidden;
     padding: 1px 5px;
-    margin: 2.5px auto;
+    margin: 0px auto;
     margin-left: 10%;
     &:hover {
       width: auto;

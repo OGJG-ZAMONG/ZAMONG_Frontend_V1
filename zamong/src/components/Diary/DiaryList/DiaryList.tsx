@@ -23,7 +23,8 @@ const DiaryList: FC = (): JSX.Element => {
     getMyDreamData(
       window.localStorage.getItem("access_token"),
       FilterStatus,
-      page
+      page,
+      false
     )
       .then((res) => {
         setDiaryWritten(res.data.content.response.share_dreams);
@@ -52,7 +53,8 @@ const DiaryList: FC = (): JSX.Element => {
     getMyDreamData(
       window.localStorage.getItem("access_token"),
       FilterStatus,
-      page
+      page,
+      false
     )
       .then((res) => {
         setDiaryWritten([

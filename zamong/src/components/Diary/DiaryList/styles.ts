@@ -63,7 +63,6 @@ export const DiarySignContainer = styled.div`
 `;
 
 export const DiaryListContainer = styled.div`
-  height: 100vh;
   width: 1280px;
   color: ${color.white};
   display: flex;
@@ -90,7 +89,6 @@ export const DiaryList = styled.div`
   grid-template-rows: 1fr;
   grid-gap: 15px;
   margin-bottom: 300px;
-  min-height: 100vh;
 `;
 
 export const WriteDiary = styled(Link)`
@@ -106,10 +104,6 @@ export const WriteDiary = styled(Link)`
   display: flex;
   align-items: center;
   justify-content: center;
-  &:hover {
-    margin-top: 4px;
-    transition: all 0.3s ease-in-out;
-  }
 `;
 
 export const WriteDiaryText = styled.div`
