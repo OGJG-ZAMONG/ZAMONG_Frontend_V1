@@ -87,7 +87,7 @@ const LoginComponent = (): JSX.Element => {
         <>
           <S.NavigationContainer>
             <S.LinksContainer>{navRender}</S.LinksContainer>
-            <S.NoDecoLink to="/profile">
+            <S.NoDecoLink to="/me">
               <S.UserProfileContainer>
                 <S.UserProfileImg alt="user-img" src={data.profile} />
                 <span>{data.name}</span>
