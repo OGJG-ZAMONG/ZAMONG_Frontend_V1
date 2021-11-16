@@ -5,15 +5,25 @@ import { plus, toggle, minus } from "../../../../../assets";
 interface Props {
   setToggle: (value: boolean) => void;
   setAdd: (value: boolean) => void;
+  listLength: number;
 }
 
-const ReplyComment: FC<Props> = ({ setToggle, setAdd }): JSX.Element => {
+const ReplyComment: FC<Props> = ({
+  setToggle,
+  setAdd,
+  listLength,
+}): JSX.Element => {
+  const [isToggle, setIsToggle] = useState(false);
   const [isActiveToggle, setIsActiveToggle] = useState(false);
-  const [isComment, checkComment] = useState(false); // 서버에서 보내면 값 확인
   const [isActivePlus, setIsActivePlus] = useState(false);
+
   useEffect(() => {
-    // checkComment(덧글의 개수);
-  }, []);
+    if (!listLength) {
+      setIsToggle(false);
+    } else if (listLength >= 1) {
+      setIsToggle(true);
+    }
+  }, [listLength]);
 
   return (
     <>
@@ -23,13 +33,17 @@ const ReplyComment: FC<Props> = ({ setToggle, setAdd }): JSX.Element => {
           setToggle(!isActiveToggle);
         }}
       >
-        {isActiveToggle ? "덧글 접기" : "덧글 보기"}
-        &nbsp;
-        <S.ToggleImg
-          alt="toggle"
-          src={toggle}
-          rotate={isActiveToggle ? 180 : 360}
-        />
+        {isToggle && (
+          <>
+            {isActiveToggle ? "덧글 접기" : "덧글 보기"}
+            &nbsp;
+            <S.ToggleImg
+              alt="toggle"
+              src={toggle}
+              rotate={isActiveToggle ? 180 : 360}
+            />
+          </>
+        )}
       </S.CommentToggle>
       <S.CommentPlus
         onClick={() => {

@@ -8,7 +8,7 @@ import {
 } from "../../../utils/api/DreamDetail";
 
 const DiaryDetail = (): JSX.Element => {
-  const uuid = "78ca0578-03e8-4e8f-bf99-a98b268acb5b";
+  const postUuid = "78ca0578-03e8-4e8f-bf99-a98b268acb5b";
   const [comment, setComment] = useState("");
   const [comments, setComments] = useState<Comment[]>([]);
 
@@ -17,7 +17,9 @@ const DiaryDetail = (): JSX.Element => {
   }, []);
 
   const settingComment = async () => {
-    setComments((await responseComment(uuid)).data.content.response.comments);
+    setComments(
+      (await responseComment(postUuid)).data.content.response.comments
+    );
   };
 
   const comentChange = (e: React.FormEvent<HTMLInputElement>) => {
@@ -26,16 +28,17 @@ const DiaryDetail = (): JSX.Element => {
   };
 
   const writeComment = async () => {
-    if( comment.replace(/(\s*)/g, "")  === "" ){
+    if (comment.replace(/(\s*)/g, "") === "") {
       alert("공백은 입력하실 수 없습니다.");
       setComment("");
-    }
-    else {
+    } else {
       const data = {
         content: comment,
         p_comment: null,
       };
-      await postComment(uuid, data);
+      await postComment(postUuid, data);
+      setComment("");
+      settingComment();
     }
   };
 
@@ -54,8 +57,8 @@ const DiaryDetail = (): JSX.Element => {
         <S.EnterButton onClick={writeComment}>댓글 쓰기</S.EnterButton>
       </S.InputContainer>
       <S.CommentList>
-        {comments.map((value) => {
-          return <CommentBox comment={value} />;
+        {comments.map((value, i) => {
+          return <CommentBox postUuid={postUuid} comment={value} key={i} />;
         })}
       </S.CommentList>
     </S.CommentContainer>

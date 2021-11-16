@@ -13,13 +13,13 @@ export const ToggleImg = styled.img<{ rotate: number }>`
   cursor: pointer;
   transform: rotate(${(props) => props.rotate}deg);
   transition: 0.5s;
+  margin-right: 16px;
 `;
 
 export const CommentPlus = styled.div`
   color: ${color.gray};
   display: flex;
   margin: auto 0;
-  margin-left: 16px;
   cursor: pointer;
 `;
 
