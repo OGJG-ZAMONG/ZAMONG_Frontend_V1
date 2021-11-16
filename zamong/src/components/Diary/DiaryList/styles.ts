@@ -6,18 +6,15 @@ import { Link } from "react-router-dom";
 export const Container = styled.div`
   background-color: ${color.black};
   width: 100%;
-  display: inline;
 `;
 
 export const TodayContainer = styled.div`
   width: 1280px;
-  height: 100vh;
   display: flex;
   color: ${color.white};
   flex-direction: column;
-  justify-content: center;
-  min-height: 711px;
   margin: 0 auto;
+  padding-top: 7%;
 `;
 
 export const Title = styled.div`
@@ -36,10 +33,10 @@ export const TodayDream = styled.div`
 `;
 
 export const TodayBox = styled.div`
-  height: 710px;
   width: 100%;
-  display: flex;
-  justify-content: center;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  column-gap: 20px;
 `;
 
 export const TodayDreamText = styled.div`
@@ -71,6 +68,7 @@ export const DiaryListContainer = styled.div`
   display: flex;
   flex-direction: column;
   margin: 0 auto;
+  padding-top: 10%;
 `;
 
 export const DiaryListTitle = styled.div`
@@ -91,7 +89,6 @@ export const DiaryList = styled.div`
   grid-template-rows: 1fr;
   grid-gap: 15px;
   margin-bottom: 300px;
-  min-height: 100vh;
 `;
 
 export const WriteDiary = styled(Link)`
@@ -107,10 +104,6 @@ export const WriteDiary = styled(Link)`
   display: flex;
   align-items: center;
   justify-content: center;
-  &:hover {
-    margin-top: 8px;
-    transition: all 0.3s ease-in-out;
-  }
 `;
 
 export const WriteDiaryText = styled.div`
@@ -140,7 +133,6 @@ export const HeaderSelect = styled.select`
   margin-left: 25px;
   display: flex;
   cursor: pointer;
-  /* outline: none; */
   text-decoration: none;
   border: none;
   background-color: inherit;

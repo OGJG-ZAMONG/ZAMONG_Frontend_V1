@@ -3,11 +3,12 @@ import { getRequestWithToken } from "../../default";
 export const getMyDreamData = async (
   access_token: any,
   type: string | null,
-  page: number
+  page: number,
+  shared: boolean
 ) => {
   try {
     const request = getRequestWithToken(access_token, "json");
-    return await request.get(`/dream/share/me?page=${page}&size=16&sort=${type}`);
+    return await request.get(`/dream/share/me?page=${page}&size=16&sort=${type}&shared=${shared}`);
   } catch (error) {
     throw error;
   }
