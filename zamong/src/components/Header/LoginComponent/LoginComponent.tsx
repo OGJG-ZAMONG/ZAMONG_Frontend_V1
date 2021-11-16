@@ -35,11 +35,6 @@ const LoginComponent = (): JSX.Element => {
       to: "/",
     },
     {
-      img: Coin,
-      text: "꿈 구매",
-      to: "/",
-    },
-    {
       img: ShoppingCart,
       text: "꿈 판매",
       to: "/sell",
