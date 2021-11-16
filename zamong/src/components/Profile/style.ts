@@ -65,7 +65,7 @@ export const NameBox = styled.p`
 export const SelectionBox = styled.div`
   width: 100%;
   height: 58px;
-  border-top: 1px solid white;
+  border-top: 1px solid #636366;
 `;
 
 export const SelectionContent = styled.div`
