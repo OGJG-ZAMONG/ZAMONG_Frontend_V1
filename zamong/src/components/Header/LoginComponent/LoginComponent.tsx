@@ -1,16 +1,16 @@
 import { BorderButton } from "../styles";
 import * as S from "./styles";
-import defaultImg from "../../../assets/DefaultPostingImages/1.jpg";
 import Chat from "../../../assets/icons/Chat.svg";
 import Coin from "../../../assets/icons/Coin.svg";
 import Discovery from "../../../assets/icons/Discovery.svg";
 import ShoppingCart from "../../../assets/icons/ShoppingCart.svg";
-import { Link } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import { useLayoutEffect, useState } from "react";
 import { getMyProfile } from "../../../utils/api/Profile";
 import NonLoginComponent from "../NonLoginComponent";
 
 const LoginComponent = (): JSX.Element => {
+  const { push } = useHistory();
   interface DataType {
     name: string;
     profile: string;
@@ -63,13 +63,23 @@ const LoginComponent = (): JSX.Element => {
 
   const navRender = navs.map((value) => {
     const { img, text, to } = value;
+
     return (
       <S.LinkComponentContainer to={to}>
-        <img alt="chat" src={img} />
-        <span>{text}</span>
+        <S.LinkIcon alt={`nav ${text}`} src={img} />
+        <S.NavText>{text}</S.NavText>
       </S.LinkComponentContainer>
     );
   });
+
+  const onLogoutHandler = () => {
+    if (window.confirm("로그아웃 하시겠습니까?")) {
+      localStorage.removeItem("access_token");
+      localStorage.removeItem("refresh_token");
+      localStorage.removeItem("expireAt");
+      window.location.href = "/";
+    }
+  };
 
   return (
     <>
@@ -77,12 +87,14 @@ const LoginComponent = (): JSX.Element => {
         <>
           <S.NavigationContainer>
             <S.LinksContainer>{navRender}</S.LinksContainer>
-            <S.UserProfileContainer>
-              <S.UserProfileImg alt="user-img" src={data.profile} />
-              <span>{data.name}</span>
-            </S.UserProfileContainer>
+            <S.NoDecoLink to="/profile">
+              <S.UserProfileContainer>
+                <S.UserProfileImg alt="user-img" src={data.profile} />
+                <span>{data.name}</span>
+              </S.UserProfileContainer>
+            </S.NoDecoLink>
           </S.NavigationContainer>
-          <BorderButton>로그아웃</BorderButton>
+          <BorderButton onClick={onLogoutHandler}>로그아웃</BorderButton>
         </>
       ) : (
         <NonLoginComponent />

@@ -3,7 +3,7 @@ enum uri {
   signup = "/auth/signup",
   idDuplicate = "/auth/user-id/duplicate",
   dreamShare = "/dream/share",
-  dreamShareImage = "/dream/share/image",
+  dreamImage = "/dream/image",
   login = "/auth/login",
   dreamShareFollow = "/dream/share/follow",
   dreamShareMe = "/dream/share/me",
@@ -17,6 +17,7 @@ enum uri {
   getComment = "/dream/DREAM_UUID/comment",
   getReComment = "/dream/comment/DREAM_UUID/comment",
   recommend = "/dream/comment/DREAM_UUID/recommend",
+  dreamSell = "/dream/sell",
 }
 
 export default uri;

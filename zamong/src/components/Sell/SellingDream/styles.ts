@@ -2,11 +2,7 @@ import styled from "@emotion/styled";
 import { font } from "../../../style/font";
 import { color } from "../../../style/color";
 
-export const Container = styled.div`
-`;
-
 export const SellingDreamContainer = styled.div<{ img: string }>`
-  width: 100%;
   display: flex;
   align-items: baseline;
   justify-content: space-between;
@@ -34,19 +30,25 @@ export const UserImage = styled.img`
 `;
 
 export const Price = styled.div`
-  aspect-ratio: 2.3 / 1;
-  background: #8e8e93;
+  backdrop-filter: blur(10px);
+  background: rgb(0, 0, 0, 0.4);
   border-radius: 100px;
   color: ${color.white};
+  padding: 5px 8px;
   font: ${font.body2};
   display: flex;
   justify-content: center;
-  padding: 6px 8px;
+  align-items: center;
 `;
 
 export const DiaryDate = styled.div`
   font: ${font.body2};
-  padding: 5px;
+  background-color: ${color.black};
+  backdrop-filter: blur(10px);
+  color: ${color.white};
+  background: rgb(0, 0, 0, 0.4);
+  padding: 3px 5px;
+  border-radius: 5px;
 `;
 
 export const PostInfoContainer = styled.div`
@@ -60,16 +62,16 @@ export const PostInfoContainer = styled.div`
 
 export const UserInfoContainer = styled.div`
   display: flex;
-  width: 40%;
+  width: 50%;
 `;
 
 export const TagsContainer = styled.div`
-  width: 60%;
+  width: 80%;
   display: flex;
   justify-content: right;
-  margin: auto 0;
+  align-items: center;
   div {
-    margin: 0 3%;
+    margin: 0 1%;
   }
 `;
 
@@ -81,9 +83,11 @@ export const ProfilePicture = styled.img`
 `;
 
 export const UserName = styled.div`
-  display: table-cell;
-  vertical-align: middle;
-  height: 100%;
+  width: 100%;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  word-break: keep-all;
+  overflow: hidden;
 `;
 
 export const SellingDreamTitle = styled.div`

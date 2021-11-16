@@ -1,5 +1,5 @@
 import uri from "../../../constance/uri";
-import instance from "../axios";
+import {request} from "../axios";
 
 interface InputType {
   name: string;
@@ -11,7 +11,7 @@ interface InputType {
 
 export const authEnticationCode = async (address: string) => {
   try {
-    const response = instance.post(uri.sendEmail, { address });
+    const response = request.post(uri.sendEmail, { address });
     return response;
   } catch (error) {
     return error;
@@ -20,7 +20,7 @@ export const authEnticationCode = async (address: string) => {
 
 export const signUp = async (inputs: InputType) => {
   try {
-    const response = instance.post(uri.signup, inputs);
+    const response = request.post(uri.signup, inputs);
     return response;
   } catch (error) {
     return error;
@@ -29,7 +29,7 @@ export const signUp = async (inputs: InputType) => {
 
 export const checkIdDuplicate = async (id: string) => {
   try {
-    await instance.post(uri.idDuplicate, { id });
+    await request.post(uri.idDuplicate, { id });
     return true;
   } catch (error) {
     console.log(error);

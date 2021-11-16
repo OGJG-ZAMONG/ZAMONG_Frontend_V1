@@ -23,7 +23,8 @@ const DiaryList: FC = (): JSX.Element => {
     getMyDreamData(
       window.localStorage.getItem("access_token"),
       FilterStatus,
-      page
+      page,
+      false
     )
       .then((res) => {
         setDiaryWritten(res.data.content.response.share_dreams);
@@ -42,13 +43,18 @@ const DiaryList: FC = (): JSX.Element => {
       .catch((err) => {
         console.log(err);
       });
+
+    window.onbeforeunload = () => {
+      window.scrollTo(0, 0);
+    };
   }, []);
 
   useEffect(() => {
     getMyDreamData(
       window.localStorage.getItem("access_token"),
       FilterStatus,
-      page
+      page,
+      false
     )
       .then((res) => {
         setDiaryWritten([
@@ -62,29 +68,6 @@ const DiaryList: FC = (): JSX.Element => {
   const handleCheckboxChange = (e: any) => {
     setIsChecked(e.target.checked);
   };
-
-  window.onscroll = () => {
-    const scrollHeight = document.documentElement.scrollHeight;
-    const scrollTop = document.documentElement.scrollTop;
-    const clientHeight = document.documentElement.clientHeight;
-
-    if (scrollTop + clientHeight >= scrollHeight) {
-      setTimeout(() => {
-        if (page === maxPage) {
-          return;
-        } else {
-          setPage(page + 1);
-        }
-      }, 0);
-    }
-  };
-
-  //리로딩시 페이지 최상단으로
-  useEffect(() => {
-    window.onbeforeunload = () => {
-      window.scrollTo(0, 0);
-    };
-  }, []);
 
   const RenderDiaryWrittenToday = useMemo(
     () =>
@@ -140,6 +123,22 @@ const DiaryList: FC = (): JSX.Element => {
         }),
     [diaryWritten]
   );
+
+  window.onscroll = () => {
+    const scrollHeight = document.documentElement.scrollHeight;
+    const scrollTop = document.documentElement.scrollTop;
+    const clientHeight = document.documentElement.clientHeight;
+
+    if (scrollTop + clientHeight >= scrollHeight) {
+      setTimeout(() => {
+        if (page === maxPage) {
+          return;
+        } else {
+          setPage(page + 1);
+        }
+      }, 0);
+    }
+  };
 
   return (
     <S.Container>
