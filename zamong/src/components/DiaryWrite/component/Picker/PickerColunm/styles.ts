@@ -55,8 +55,7 @@ export const DateCell = styled.div<{
   cursor: pointer;
   justify-content: center;
   user-select: none;
-  transition: ${(props) =>
-    props.isWheel ? "opacity 0.1s ease-out" : "opacity 0.25s ease-out, transform 0.25s ease-out;"};
+  transition: ${(props) => !props.isWheel && "transform 0.25s ease-out;"};
 
   transform: rotateX(${(props) => props.angle}deg);
   opacity: ${(props) => props.opacity};
