@@ -85,6 +85,7 @@ export const DiaryListHeader = styled.div`
 
 export const DiaryList = styled.div`
   display: grid;
+  min-height: 100vh;
   grid-template-columns: repeat(4, 1fr);
   grid-template-rows: 1fr;
   grid-gap: 15px;

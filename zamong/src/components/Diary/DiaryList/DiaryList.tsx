@@ -20,12 +20,7 @@ const DiaryList: FC = (): JSX.Element => {
   useEffect(() => {
     setDiaryWritten([]);
     setPage(0);
-    getMyDreamData(
-      window.localStorage.getItem("access_token"),
-      FilterStatus,
-      page,
-      false
-    )
+    getMyDreamData(FilterStatus, 0, isChecked)
       .then((res) => {
         setDiaryWritten(res.data.content.response.share_dreams);
         setMaxPage(res.data.content.response.total_page - 1);
@@ -33,10 +28,14 @@ const DiaryList: FC = (): JSX.Element => {
       .catch((err) => {
         console.log(err);
       });
-  }, [FilterStatus]);
+  }, [FilterStatus, isChecked]);
 
   useEffect(() => {
-    getDreamsWrittenToday(window.localStorage.getItem("access_token"))
+    setPage(0);
+  }, [isChecked]);
+
+  useEffect(() => {
+    getDreamsWrittenToday()
       .then((res) => {
         setDiaryWrittenToday(res.data.content.response.share_dreams);
       })
@@ -50,12 +49,7 @@ const DiaryList: FC = (): JSX.Element => {
   }, []);
 
   useEffect(() => {
-    getMyDreamData(
-      window.localStorage.getItem("access_token"),
-      FilterStatus,
-      page,
-      false
-    )
+    getMyDreamData(FilterStatus, page, isChecked)
       .then((res) => {
         setDiaryWritten([
           ...diaryWritten,
@@ -64,10 +58,6 @@ const DiaryList: FC = (): JSX.Element => {
       })
       .catch((err) => console.log(err));
   }, [page]);
-
-  const handleCheckboxChange = (e: any) => {
-    setIsChecked(e.target.checked);
-  };
 
   const RenderDiaryWrittenToday = useMemo(
     () =>
@@ -105,39 +95,22 @@ const DiaryList: FC = (): JSX.Element => {
     [diaryWritten]
   );
 
-  const RenderDiaryFiltered = useMemo(
-    () =>
-      diaryWritten
-        .filter((value: any) => value.is_shared)
-        .map((value: any, index: number) => {
-          return (
-            <MyDreamDiary
-              img={value.default_posting_image}
-              locked={value.is_shared}
-              title={value.title}
-              date={value.created_at}
-              uuid={value.uuid}
-              key={index}
-            />
-          );
-        }),
-    [diaryWritten]
-  );
-
   window.onscroll = () => {
     const scrollHeight = document.documentElement.scrollHeight;
     const scrollTop = document.documentElement.scrollTop;
     const clientHeight = document.documentElement.clientHeight;
 
     if (scrollTop + clientHeight >= scrollHeight) {
-      setTimeout(() => {
-        if (page === maxPage) {
-          return;
-        } else {
-          setPage(page + 1);
-        }
-      }, 0);
+      if (page === maxPage) {
+        return;
+      } else {
+        setPage(page + 1);
+      }
     }
+  };
+
+  const handleCheckBox = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setIsChecked(e.target.checked);
   };
 
   return (
@@ -171,13 +144,12 @@ const DiaryList: FC = (): JSX.Element => {
           <S.DiaryListTitle>내가 쓴 일기 목록</S.DiaryListTitle>
           <S.HeaderSelections>
             <S.Label>
-              <input type="checkbox" onChange={handleCheckboxChange} />
+              <input type="checkbox" onChange={handleCheckBox} />
               <span>공유됨</span>
             </S.Label>
-
             <S.HeaderSelect
               ref={FilterStatusRef}
-              onChange={(e) =>
+              onChange={(e: React.ChangeEvent<HTMLSelectElement>) =>
                 setFilterStatus(
                   e.target.selectedIndex === 0 ? "created" : "lucy"
                 )
@@ -188,9 +160,7 @@ const DiaryList: FC = (): JSX.Element => {
             </S.HeaderSelect>
           </S.HeaderSelections>
         </S.DiaryListHeader>
-        <S.DiaryList>
-          {isChecked ? RenderDiaryFiltered : RenderDiaryWritten}
-        </S.DiaryList>
+        <S.DiaryList>{RenderDiaryWritten}</S.DiaryList>
       </S.DiaryListContainer>
     </S.Container>
   );
