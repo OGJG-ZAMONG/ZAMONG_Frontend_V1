@@ -39,7 +39,7 @@ const SellingDream: FC<Props> = ({
   return (
     <div>
       <S.SellingDreamContainer img={img}>
-        <S.Price>{price.toLocaleString()}</S.Price>
+        <S.Price>{`${price.toLocaleString()}원`}</S.Price>
         <S.DiaryDate>{dateToString(new Date(date))}</S.DiaryDate>
       </S.SellingDreamContainer>
       <S.PostInfoContainer>
