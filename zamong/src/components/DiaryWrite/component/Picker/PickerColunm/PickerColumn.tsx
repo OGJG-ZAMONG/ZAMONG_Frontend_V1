@@ -113,7 +113,7 @@ const PickerColumn = ({ type, array, initValue, setValue }: DateColumnType): JSX
               onClick={() => onClickHandler(index, value)}
               height={HEIGHT}
               angle={CalculateAndgle(index)}
-              opacity={CalculateOpacity(index)}
+              opacity={1}
             >
               {value}
               {type}
