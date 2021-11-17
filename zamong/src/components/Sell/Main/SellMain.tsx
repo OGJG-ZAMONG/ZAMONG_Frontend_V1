@@ -13,11 +13,7 @@ const SellMain: FC = (): JSX.Element => {
 
   useEffect(() => {
     window.scrollTo(0, 0);
-
-    getCurrentSellingDreams(
-      window.localStorage.getItem("access_token"),
-      pageIndex
-    )
+    getCurrentSellingDreams(pageIndex)
       .then((res) => {
         setDreamData(res.data.content.response.sell_dreams);
       })
@@ -27,10 +23,7 @@ const SellMain: FC = (): JSX.Element => {
   }, [pageIndex]);
 
   useEffect(() => {
-    getCurrentSellingDreams(
-      window.localStorage.getItem("access_token"),
-      pageIndex
-    ).then((res) => {
+    getCurrentSellingDreams(pageIndex).then((res) => {
       setMaxPage(res.data.content.response.total_page);
       setMaxSize(res.data.content.response.total_size);
       getPageList(res.data.content.response.total_page, 10);

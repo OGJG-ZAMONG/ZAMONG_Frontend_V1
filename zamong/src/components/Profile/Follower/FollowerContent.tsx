@@ -2,7 +2,6 @@ import React, { FC, useEffect, useState } from "react";
 import { getFollower } from "../../../utils/api/Profile";
 import * as S from "./style";
 import { useHistory } from "react-router-dom";
-import UserProfilePage from "../UserProfilePage";
 interface Follower {
   uuid: string;
   profile: string;
