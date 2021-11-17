@@ -1,5 +1,15 @@
+import * as S from "./styles";
+
 const CardSkeleton = (): JSX.Element => {
-  return <></>;
+  return (
+    <>
+      <S.Container>
+        <S.Img />
+        <S.Title />
+        <S.TitleSecond />
+      </S.Container>
+    </>
+  );
 };
 
 export default CardSkeleton;
