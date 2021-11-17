@@ -1,23 +1,22 @@
-import { getRequestWithToken } from "../../default";
+import instance from "../../axios";
 
 export const getMyDreamData = async (
-  access_token: any,
   type: string | null,
   page: number,
   shared: boolean
 ) => {
   try {
-    const request = getRequestWithToken(access_token, "json");
-    return await request.get(`/dream/share/me?page=${page}&size=16&sort=${type}&shared=${shared}`);
+    return await instance.get(
+      `/dream/share/me?page=${page}&size=16&sort=${type}&shared=${shared}`
+    );
   } catch (error) {
     throw error;
   }
 };
 
-export const getDreamsWrittenToday = async (access_token: any) => {
+export const getDreamsWrittenToday = async () => {
   try {
-    const request = getRequestWithToken(access_token, "json");
-    return await request.get(`/dream/share/me/today`);
+    return await instance.get(`/dream/share/me/today`);
   } catch (error) {
     throw error;
   }
