@@ -239,7 +239,22 @@ const DiaryWrite = ({ dreamUUID }: PropsType): JSX.Element => {
     }
   };
 
+  const checkIsLogin = () => {
+    const expireAt = localStorage.getItem("expireAt");
+
+    if (!expireAt) {
+      push("/");
+      return;
+    }
+
+    if (new Date().getTime() > new Date(expireAt).getTime()) {
+      push("/");
+      return;
+    }
+  };
+
   useLayoutEffect(() => {
+    checkIsLogin();
     init().then((response) => {
       setProperties(response);
     });
