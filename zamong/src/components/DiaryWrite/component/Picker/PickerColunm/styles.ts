@@ -7,11 +7,7 @@ export const DateColumn = styled.div<{ height: number }>`
   height: ${(props) => props.height * 5}px;
   ::after {
     content: "";
-    background: linear-gradient(
-      180deg,
-      rgba(44, 44, 46, 0) 50%,
-      ${color.darkerGray}
-    );
+    background: linear-gradient(180deg, rgba(44, 44, 46, 0) 50%, ${color.darkerGray});
     width: 100%;
     height: 30%;
     position: absolute;
@@ -22,11 +18,7 @@ export const DateColumn = styled.div<{ height: number }>`
   }
   ::before {
     content: "";
-    background: linear-gradient(
-      0deg,
-      rgba(44, 44, 46, 0) 50%,
-      ${color.darkerGray}
-    );
+    background: linear-gradient(0deg, rgba(44, 44, 46, 0) 50%, ${color.darkerGray});
     width: 100%;
     height: 30%;
     position: absolute;
@@ -39,7 +31,7 @@ export const DateColumn = styled.div<{ height: number }>`
 export const DateColumnInner = styled.div<{ y: number; isWheel: boolean }>`
   position: relative;
   transition: ${(props) => (props.isWheel ? "" : "transform 0.25s ease-out")};
-  transform: translateY(${(props) => props.y}px);
+  transform: translateY(${(props) => props.y}px) perspective(300px);
 `;
 
 export const DateCell = styled.div<{
@@ -60,9 +52,7 @@ export const DateCell = styled.div<{
   justify-content: center;
   user-select: none;
   transition: ${(props) =>
-    props.isWheel
-      ? "opacity 0.1s ease-out"
-      : "opacity 0.25s ease-out, transform 0.25s ease-out;"};
+    props.isWheel ? "opacity 0.1s ease-out" : "opacity 0.25s ease-out, transform 0.25s ease-out;"};
 
   transform: rotateX(${(props) => props.angle}deg);
   opacity: ${(props) => props.opacity};
