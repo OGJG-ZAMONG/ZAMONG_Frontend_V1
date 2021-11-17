@@ -24,7 +24,6 @@ const Calendar: FC = (): JSX.Element => {
     }
     makeCalendar(year, month);
     getCalendarData(
-      window.localStorage.getItem("access_token"),
       year,
       month + 1
     )
