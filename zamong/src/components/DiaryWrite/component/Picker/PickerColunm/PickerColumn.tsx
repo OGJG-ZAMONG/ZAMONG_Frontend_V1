@@ -18,14 +18,6 @@ const PickerColumn = ({ type, array, initValue, setValue }: DateColumnType): JSX
 
   const OFFSET = HEIGHT * 2;
 
-  const CalculateOpacity = (index: number): number => {
-    const indexHeight = -(index * HEIGHT);
-    const offset = Math.abs(Math.abs(y) - Math.abs(indexHeight));
-    const percent = 1 - offset / (HEIGHT * 5);
-
-    return percent <= 0 ? 0 : percent;
-  };
-
   const CalculateAndgle = (index: number): number => {
     const indexHeight = -(index * HEIGHT);
     const offset = y - indexHeight;
