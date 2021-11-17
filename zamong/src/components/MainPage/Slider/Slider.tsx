@@ -25,11 +25,23 @@ const Slider = ({ children, index, size, gap, columnCount }: PropsType) => {
   }, [index]);
 
   return (
-    <S.Container ref={container}>
-      <S.List ref={list} x={-x} gap={gap}>
-        {children}
-      </S.List>
-    </S.Container>
+    <div>
+      <S.Container ref={container}>
+        <S.List ref={list} x={-x} gap={gap}>
+          {children}
+        </S.List>
+      </S.Container>
+      {index !== 0 && (
+        <S.Button onClick={onPrev} left={0}>
+          
+        </S.Button>
+      )}
+      {size - columnCount !== index && (
+        <S.Button onClick={onNext} left={100}>
+          
+        </S.Button>
+      )}
+    </div>
   );
 };
 

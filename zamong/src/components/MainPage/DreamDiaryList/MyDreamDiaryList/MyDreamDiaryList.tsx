@@ -30,34 +30,12 @@ const MyDreamDiaryList = (): JSX.Element => {
     }
   };
 
-  const moveIndex = (offset: number) => {
-    const changeIndex = index + offset;
-
-    if (changeIndex < 0 || changeIndex > dreams.length - COLUMN_COUNT) {
-      return;
-    }
-
-    if (changeIndex > dreams.length - COLUMN_COUNT - 1) {
-      setPage(page + 1);
-    }
-
-    setIndex(changeIndex);
-  };
-
-  const onNext = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
-    e.preventDefault();
-    moveIndex(1);
-  };
-
-  const onPrev = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
-    e.preventDefault();
-    moveIndex(-1);
-  };
-
   const dreamRender = dreams.map((value, index) => {
-    const { default_posting_image: img, is_shared : locked, title, created_at : date, uuid } = value;
-    
-    return <MyDreamDiary key={index} img={img} locked={locked} title={title} date={date} uuid={uuid} />;
+    const { default_posting_image: img, is_shared: locked, title, created_at: date, uuid } = value;
+
+    return (
+      <MyDreamDiary key={index} img={img} locked={locked} title={title} date={date} uuid={uuid} />
+    );
   });
 
   useLayoutEffect(() => {
@@ -69,15 +47,15 @@ const MyDreamDiaryList = (): JSX.Element => {
       {dreams.length > 0 && (
         <I.Container>
           <G.SectionTitle>최근 적은 꿈 일기</G.SectionTitle>
-          <Slider index={index} size={dreams.length} gap={GAP} columnCount={COLUMN_COUNT}>
+          <Slider
+            indexState={[index, setIndex]}
+            pageState={[page, setPage]}
+            size={dreams.length}
+            gap={GAP}
+            columnCount={COLUMN_COUNT}
+          >
             {dreamRender}
           </Slider>
-          <I.Button onClick={onPrev} left={0}>
-            
-          </I.Button>
-          <I.Button onClick={onNext} left={100}>
-            
-          </I.Button>
         </I.Container>
       )}
     </>
