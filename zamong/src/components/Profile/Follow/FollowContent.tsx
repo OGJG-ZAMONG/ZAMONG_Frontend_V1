@@ -51,7 +51,7 @@ const FollowContent: FC<IdType> = (props) => {
                 <>
                   <S.UserBox>
                     <S.LeftBox>
-                      <S.Profile>{data.profile}</S.Profile>
+                      <S.Profile img={data.profile} />
                       <S.UserNickName>{data.id}</S.UserNickName>
                     </S.LeftBox>
                     <S.RightBox>

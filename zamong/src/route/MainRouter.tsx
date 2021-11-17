@@ -27,7 +27,7 @@ const MainRouter: FC = (): JSX.Element => {
         <Route exact path="/sell" component={SellDreamContainer} />
         <Route exact path="/sell/write" component={SellWriteContainer} />
         <Route exact path="/chat" component={ChatContainer} />
-        <Route exact path="/profile" component={ProfileContainter} />
+        <Route exact path="/me" component={ProfileContainter} />
       </Switch>
     </Suspense>
   );

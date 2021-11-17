@@ -1,7 +1,8 @@
 import React, { FC, useEffect, useState } from "react";
 import { getFollower } from "../../../utils/api/Profile";
 import * as S from "./style";
-
+import { useHistory } from "react-router-dom";
+import UserProfilePage from "../UserProfilePage";
 interface Follower {
   uuid: string;
   profile: string;
@@ -18,6 +19,7 @@ interface IdType {
 }
 
 const FollowerContent: FC<IdType> = (props) => {
+  const { push } = useHistory();
   const accessToken = localStorage.getItem("access_token") || "";
   const [followerState, setFollower] = useState<FollowerType>({
     followers: [],
@@ -38,6 +40,7 @@ const FollowerContent: FC<IdType> = (props) => {
       throw error;
     }
   };
+
   return (
     <>
       <S.Content>
@@ -47,10 +50,13 @@ const FollowerContent: FC<IdType> = (props) => {
         <S.FollowerList>
           {followerState.followers &&
             followerState.followers.map((data, v) => {
+              const userProfile = () => {
+                //   return <UserProfilePage id={data.id} />;
+              };
               return (
                 <S.UserBox>
-                  <S.LeftBox>
-                    <S.Profile>{data.is_following}</S.Profile>
+                  <S.LeftBox onClick={userProfile}>
+                    <S.Profile img={data.profile} />
                     <S.UserNickName>{data.id}</S.UserNickName>
                   </S.LeftBox>
                   <S.RightBox>
