@@ -39,12 +39,3 @@ export const getFollower = async (access_token: string, uuid: string) => {
     throw error;
   }
 };
-
-export const ChangeId = async (access_token: string) => {
-  try {
-    const request = getRequestWithToken(access_token);
-    const response = await request.post<>();
-  } catch (error) {
-    throw error;
-  }
-};
