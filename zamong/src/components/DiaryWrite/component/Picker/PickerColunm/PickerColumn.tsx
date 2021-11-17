@@ -21,7 +21,7 @@ const PickerColumn = ({ type, array, initValue, setValue }: DateColumnType): JSX
   const CalculateOpacity = (index: number): number => {
     const indexHeight = -(index * HEIGHT);
     const offset = Math.abs(Math.abs(y) - Math.abs(indexHeight));
-    const percent = 1 - offset / (HEIGHT * 3);
+    const percent = 1 - offset / (HEIGHT * 5);
 
     return percent <= 0 ? 0 : percent;
   };
