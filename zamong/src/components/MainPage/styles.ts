@@ -48,8 +48,9 @@ export const HelloInner = styled.div`
 export const HelloImage = styled.div`
   position: absolute;
   top: 50%;
-  left: 518px;
+  left: 25%;
   transform: translate(-50%, -50%);
+  pointer-events: none;
 `;
 
 export const SectionContainer = styled.div`
