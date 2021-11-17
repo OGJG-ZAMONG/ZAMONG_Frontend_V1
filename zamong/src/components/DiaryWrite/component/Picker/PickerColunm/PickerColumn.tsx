@@ -10,12 +10,7 @@ type DateColumnType = {
   setValue: (value: number | string) => void;
 };
 
-const PickerColumn = ({
-  type,
-  array,
-  initValue,
-  setValue,
-}: DateColumnType): JSX.Element => {
+const PickerColumn = ({ type, array, initValue, setValue }: DateColumnType): JSX.Element => {
   const [selectedIndex, setSelectedIndex] = useState(array.indexOf(initValue));
   const [timer, setTimer] = useState<NodeJS.Timeout>(setTimeout(() => {}, 0));
   const [y, setY] = useState(-(selectedIndex * HEIGHT));
@@ -76,7 +71,7 @@ const PickerColumn = ({
   const onWheelHandler = (event: React.WheelEvent<HTMLDivElement>) => {
     clearTimeout(timer);
     setIsWheel(true);
-    var value = event.deltaY;
+    var value = -event.deltaY;
     if (Math.abs(value) === 100) {
       value = 18 * Math.sign(value);
     }
