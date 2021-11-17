@@ -1,13 +1,8 @@
-import { getRequestWithToken } from "../../default";
+import instance from "../../axios";
 
-export const getCalendarData = async (
-  access_token: any,
-  year: number,
-  month: number
-) => {
+export const getCalendarData = async (year: number, month: number) => {
   try {
-    const request = getRequestWithToken(access_token, "json");
-    return await request.get(
+    return await instance.get(
       `/dream/share/timetable/v2?year=${year}&month=${month}`
     );
   } catch (error) {

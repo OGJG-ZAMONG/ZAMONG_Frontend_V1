@@ -29,16 +29,13 @@ const Accordion = ({ header, content, padding }: Props): JSX.Element => {
 
   return (
     <S.Container>
-      <S.HeaderWrapper>
+      <S.HeaderWrapper
+        onClick={() => {
+          setIsActive(!isActive);
+        }}
+      >
         <S.Header>{header}</S.Header>
-        <S.Button
-          rotate={isActive ? 180 : 0}
-          onClick={() => {
-            setIsActive(!isActive);
-          }}
-          alt="down"
-          src={DownChevron}
-        />
+        <S.Button rotate={isActive ? 180 : 0} alt="down" src={DownChevron} />
       </S.HeaderWrapper>
       <S.ContentWrapper padding={isActive ? padding : 0} ref={parentRef}>
         <S.Content ref={childRef}>{content}</S.Content>

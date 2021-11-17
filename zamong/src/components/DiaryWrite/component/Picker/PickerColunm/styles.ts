@@ -5,41 +5,37 @@ import { font } from "../../../../../style/font";
 export const DateColumn = styled.div<{ height: number }>`
   overflow: hidden;
   height: ${(props) => props.height * 5}px;
-  ::after {
-    content: "";
-    background: linear-gradient(
-      180deg,
-      rgba(44, 44, 46, 0) 50%,
-      ${color.darkerGray}
-    );
-    width: 100%;
-    height: 30%;
-    position: absolute;
-    top: 100%;
-    left: 0;
-    transform: translateY(-100%);
-    pointer-events: none;
-  }
-  ::before {
-    content: "";
-    background: linear-gradient(
-      0deg,
-      rgba(44, 44, 46, 0) 50%,
-      ${color.darkerGray}
-    );
-    width: 100%;
-    height: 30%;
-    position: absolute;
-    top: 0;
-    left: 0;
-    pointer-events: none;
+  &:first-of-type {
+    ::after {
+      content: "";
+      width: 100%;
+      height: 40%;
+      left: 0;
+      position: absolute;
+      pointer-events: none;
+      z-index: 1000;
+      top: 100%;
+      transform: translateY(-100%);
+      background: linear-gradient(180deg, ${color.darkerGray}00 20%, ${color.darkerGray});
+    }
+    ::before {
+      content: "";
+      width: 100%;
+      height: 40%;
+      left: 0;
+      position: absolute;
+      pointer-events: none;
+      z-index: 1000;
+      top: 0;
+      background: linear-gradient(0deg, ${color.darkerGray}00 20%, ${color.darkerGray});
+    }
   }
 `;
 
 export const DateColumnInner = styled.div<{ y: number; isWheel: boolean }>`
   position: relative;
   transition: ${(props) => (props.isWheel ? "" : "transform 0.25s ease-out")};
-  transform: translateY(${(props) => props.y}px);
+  transform: translateY(${(props) => props.y}px) perspective(300px);
 `;
 
 export const DateCell = styled.div<{
@@ -59,10 +55,7 @@ export const DateCell = styled.div<{
   cursor: pointer;
   justify-content: center;
   user-select: none;
-  transition: ${(props) =>
-    props.isWheel
-      ? "opacity 0.1s ease-out"
-      : "opacity 0.25s ease-out, transform 0.25s ease-out;"};
+  transition: ${(props) => !props.isWheel && "transform 0.25s ease-out;"};
 
   transform: rotateX(${(props) => props.angle}deg);
   opacity: ${(props) => props.opacity};
