@@ -12,13 +12,7 @@ interface Props {
   uuid: string;
 }
 
-const Recommend = ({
-  isLike,
-  isDisLike,
-  likeCount,
-  disLikeCount,
-  uuid,
-}: Props): JSX.Element => {
+const Recommend = ({ isLike, isDisLike, likeCount, disLikeCount, uuid }: Props): JSX.Element => {
   // const [onOffUpThumb, setOnOffUpThumb] = useState(isLike);
   // const [onOffDownThumb, setOnOffDownThumb] = useState(isDisLike);
 
@@ -39,33 +33,36 @@ const Recommend = ({
     dislikeActive: isDisLike,
   });
 
-  const {
-    likeCount: likeNum,
-    likeActive,
-    dislikeActive,
-    dislikeCount,
-  } = thumbs;
+  const { likeCount: likeNum, likeActive, dislikeActive, dislikeCount } = thumbs;
 
   const LIKE = "like";
   const DISLIKE = "dislike";
 
-  const onThumbAction = async (type: typeof LIKE | typeof DISLIKE) => {
-    const opposition: typeof LIKE | typeof DISLIKE =
-      type === LIKE ? DISLIKE : LIKE;
+  type LIKEDISLIKE = typeof LIKE | typeof DISLIKE;
+  type LIKEDISLIKEActive = "likeActive" | "dislikeActive";
+  type LIKEDISLIKECount = "likeCount" | "dislikeCount";
+  const onThumbAction = async (type: LIKEDISLIKE) => {
+    const opposition: LIKEDISLIKE = type === LIKE ? DISLIKE : LIKE;
 
-    const oppositionActive = thumbs[`${opposition}Active`];
-    const supportActive = thumbs[`${type}Active`];
+    const oppositionActiveName: LIKEDISLIKEActive = `${opposition}Active`;
+    const supportActiveName: LIKEDISLIKEActive = `${type}Active`;
+
+    const oppositionCountName: LIKEDISLIKECount = `${opposition}Count`;
+    const supportCountName: LIKEDISLIKECount = `${type}Count`;
+
+    const oppositionActive = thumbs[oppositionActiveName];
+    const supportActive = thumbs[supportActiveName];
 
     const thumbCopy = { ...thumbs };
-    thumbCopy[`${type}Active`] = !supportActive;
+    thumbCopy[supportActiveName] = !supportActive;
 
     if (oppositionActive) {
-      thumbCopy[`${opposition}Active`] = false;      
-      thumbCopy[`${opposition}Count`] = thumbCopy[`${opposition}Count`] - 1;
+      thumbCopy[oppositionActiveName] = false;
+      thumbCopy[oppositionCountName] = thumbCopy[oppositionCountName] - 1;
     }
 
     const offsetCount = supportActive ? -1 : 1;
-    thumbCopy[`${type}Count`] = thumbCopy[`${type}Count`] + offsetCount;
+    thumbCopy[supportCountName] = thumbCopy[supportCountName] + offsetCount;
 
     setThumbs(thumbCopy);
 
@@ -77,7 +74,7 @@ const Recommend = ({
       type: typeMap.get(type)!,
     };
 
-    try {      
+    try {
       await recommend(uuid, isThumb);
     } catch (error) {
       console.log(error);
@@ -102,10 +99,7 @@ const Recommend = ({
         }}
         color={dislikeActive ? color.red : color.gray}
       >
-        <S.DisLikeImg
-          alt="dislike"
-          src={dislikeActive ? lightDisLike : disLike}
-        />
+        <S.DisLikeImg alt="dislike" src={dislikeActive ? lightDisLike : disLike} />
         비추천&nbsp;
         {dislikeCount}
       </S.CommentDisLike>
