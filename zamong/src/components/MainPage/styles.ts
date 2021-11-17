@@ -15,6 +15,7 @@ export const HelloSection = styled.div`
   height: 100vh;
   min-height: 976px;
   display: flex;
+  position: relative;
 `;
 
 export const HelloContainer = styled.div`
@@ -48,7 +49,7 @@ export const HelloInner = styled.div`
 export const HelloImage = styled.div`
   position: absolute;
   top: 50%;
-  left: 25%;
+  left: 15%;
   transform: translate(-50%, -50%);
   pointer-events: none;
 `;
