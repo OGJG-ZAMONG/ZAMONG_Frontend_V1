@@ -5,6 +5,7 @@ import { DreamList, FollowList, MyDreamDiaryList, FollowDreamDiaryList } from ".
 import { useLayoutEffect, useRef, useState } from "react";
 import { getMyProfile } from "../../utils/api/Profile";
 import { useHistory } from "react-router-dom";
+import Background from "../Background/Background";
 
 const MainPage = (): JSX.Element => {
   interface LinkType {
@@ -151,6 +152,7 @@ const MainPage = (): JSX.Element => {
           </div>
         </S.SectionContainer>
       </S.ContentContainer>
+      <Background />
     </>
   );
 };
