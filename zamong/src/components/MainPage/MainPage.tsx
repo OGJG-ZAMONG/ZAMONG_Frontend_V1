@@ -73,16 +73,13 @@ const MainPage = (): JSX.Element => {
   ];
 
   const loginCheck = async () => {
-    const expireAt = localStorage.getItem("expireAt");
-    if (expireAt && new Date(expireAt).getTime() > new Date().getTime()) {
-      //로그인 중
+    const accessToken = localStorage.getItem("access_token")!;
+    try {
+      const { id } = (await getMyProfile(accessToken)).data.content.response;
       setIsLogin(true);
-
-      const accessToken = localStorage.getItem("access_token")!;
-      try {
-        const { id } = (await getMyProfile(accessToken)).data.content.response;
-        setId(id);
-      } catch (error) {}
+      setId(id);
+    } catch (error) {
+      console.log(error);
     }
   };
 
