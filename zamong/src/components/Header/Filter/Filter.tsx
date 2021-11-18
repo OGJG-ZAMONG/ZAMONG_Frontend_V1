@@ -1,10 +1,11 @@
 import * as S from "./styles";
 import { FilterIcon } from "../../../assets";
 import { DownChevronIcon } from "../../../assets";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Code from "../../../interface/Code";
 import dreamType from "../../../constance/dreamType";
 import Tag from "../../Tag/Tag";
+import { KeyObject } from "crypto";
 
 interface PropsType {
   selectedState: [Code[], React.Dispatch<React.SetStateAction<Code[]>>];
@@ -54,8 +55,65 @@ const Filter = ({ selectedState }: PropsType): JSX.Element => {
   });
 
   const onSpreadClick = () => setIsActive(!isActive);
-  const onChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => setSearchText(e.target.value);
+  const onChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
+    e.preventDefault();
+    setSearchText(e.target.value);
+  };
 
+  const FilterContent = () => {
+    const containerRef = useRef<HTMLDivElement>(null);
+    const checkCollision = (e: MouseEvent) => {
+      if (!isActive) {
+        return;
+      }
+
+      if (!containerRef.current) {
+        return;
+      }
+
+      const { top, left, right, bottom } = containerRef.current.getBoundingClientRect();
+      const { x, y } = e;
+
+      if (top < y || bottom > y || left > x || right < x) {
+        setIsActive(false);
+      }
+    };
+
+    const checkESC = (e: KeyboardEvent) => {
+      e.preventDefault();
+
+      if (e.keyCode === 27) {
+        setIsActive(false);
+      }
+    };
+
+    useEffect(() => {
+      window.addEventListener("click", checkCollision);
+      window.addEventListener("keydown", checkESC);
+
+      return () => {
+        window.removeEventListener("click", checkCollision);
+        window.removeEventListener("keydown", checkESC);
+      };
+    }, []);
+
+    return (
+      <S.FilterBox ref={containerRef}>
+        <S.FilterAppliedContainer>
+          <S.AppliedTitle>적용됨</S.AppliedTitle>
+          <S.TagsContainer>{selectedTypeRender}</S.TagsContainer>
+        </S.FilterAppliedContainer>
+        <S.FilterSearchContainer>
+          <S.FilterSearchInput
+            onChange={onChangeHandler}
+            value={searchText}
+            placeholder="필터 검색..."
+          />
+          <S.TagsContainer>{leftTypeRender}</S.TagsContainer>
+        </S.FilterSearchContainer>
+      </S.FilterBox>
+    );
+  };
   return (
     <S.FilterContainer>
       <S.FilterButton onClick={onSpreadClick}>
@@ -65,22 +123,7 @@ const Filter = ({ selectedState }: PropsType): JSX.Element => {
           <img alt="down chevron" src={DownChevronIcon} />
         </S.FilterInner>
       </S.FilterButton>
-      {isActive && (
-        <S.FilterBox>
-          <S.FilterAppliedContainer>
-            <S.AppliedTitle>적용됨</S.AppliedTitle>
-            <S.TagsContainer>{selectedTypeRender}</S.TagsContainer>
-          </S.FilterAppliedContainer>
-          <S.FilterSearchContainer>
-            <S.FilterSearchInput
-              onChange={onChangeHandler}
-              value={searchText}
-              placeholder="필터 검색..."
-            />
-            <S.TagsContainer>{leftTypeRender}</S.TagsContainer>
-          </S.FilterSearchContainer>
-        </S.FilterBox>
-      )}
+      {isActive && <FilterContent />}
     </S.FilterContainer>
   );
 };
