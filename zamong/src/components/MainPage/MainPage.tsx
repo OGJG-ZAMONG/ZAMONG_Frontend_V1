@@ -78,9 +78,8 @@ const MainPage = (): JSX.Element => {
       //로그인 중
       setIsLogin(true);
 
-      const accessToken = localStorage.getItem("access_token")!;
       try {
-        const { id } = (await getMyProfile(accessToken)).data.content.response;
+        const { id } = (await getMyProfile()).data.content.response;
         setId(id);
       } catch (error) {}
     }

@@ -1,25 +1,23 @@
 import uri from "../../../constance/uri";
-import { getRequestWithToken } from "../default";
 import {
   FollowerListResponse,
   FollowingListResponse,
   myProfileResponse,
 } from "../../../models/dto/response/myProfileResponse";
+import instance from "../axios";
 
-export const getMyProfile = async (access_token: string) => {
+export const getMyProfile = async () => {
   try {
-    const request = getRequestWithToken(access_token);
-    const response = await request.get<myProfileResponse>(uri.myProfile);
+    const response = await instance.get<myProfileResponse>(uri.myProfile);
     return response;
   } catch (error) {
     throw error;
   }
 };
 
-export const getFollowing = async (access_token: string, uuid: string) => {
+export const getFollowing = async (uuid: string) => {
   try {
-    const request = getRequestWithToken(access_token);
-    const response = await request.get<FollowingListResponse>(
+    const response = await instance.get<FollowingListResponse>(
       `/user/${uuid}` + uri.followingList + `?page=0&size=4`
     );
     return response;
@@ -28,10 +26,9 @@ export const getFollowing = async (access_token: string, uuid: string) => {
   }
 };
 
-export const getFollower = async (access_token: string, uuid: string) => {
+export const getFollower = async (uuid: string) => {
   try {
-    const request = getRequestWithToken(access_token);
-    const response = await request.get<FollowerListResponse>(
+    const response = await instance.get<FollowerListResponse>(
       `/user/${uuid}` + uri.followerList + `?page=0&size=4`
     );
     return response;

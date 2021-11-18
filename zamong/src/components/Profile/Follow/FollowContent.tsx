@@ -20,7 +20,6 @@ interface IdType {
 }
 
 const FollowContent: FC<IdType> = (props) => {
-  const accessToken = localStorage.getItem("access_token") || "";
   const [followState, setFollow] = useState<FollowType>({
     followings: [],
     total_size: 0,
@@ -32,7 +31,7 @@ const FollowContent: FC<IdType> = (props) => {
 
   const follow = async () => {
     try {
-      const response = await getFollowing(accessToken, props.myid);
+      const response = await getFollowing(props.myid);
       setFollow(response.data.content.response);
     } catch (error) {
       throw error;
@@ -56,8 +55,7 @@ const FollowContent: FC<IdType> = (props) => {
                     </S.LeftBox>
                     <S.RightBox>
                       <S.FollowDate>
-                        팔로우를 시작한 날짜 :{" "}
-                        {data.follow_datetime.substring(0, 10)}
+                        팔로우를 시작한 날짜 : {data.follow_datetime.substring(0, 10)}
                       </S.FollowDate>
                       <S.FollowBtn>팔로우중</S.FollowBtn>
                     </S.RightBox>
