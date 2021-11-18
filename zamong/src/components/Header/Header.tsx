@@ -16,11 +16,7 @@ const Header = (): JSX.Element => {
   const [searchText, setSearchText] = useState<string>("");
 
   const scrollEvent = () => {
-    if (window.pageYOffset !== 0 && isTop) {
-      setIsTop(false);
-    } else if (window.pageYOffset === 0 && !isTop) {
-      setIsTop(true);
-    }
+    setIsTop(window.pageYOffset === 0);
   };
 
   useEffect(() => {
