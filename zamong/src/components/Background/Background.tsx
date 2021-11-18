@@ -1,7 +1,7 @@
 import * as S from "./styles";
 
 const Background = (): JSX.Element => {
-  return <div></div>;
+  return <S.Container></S.Container>;
 };
 
 export default Background;
