@@ -2,7 +2,7 @@ import { AxiosResponse } from "axios";
 import uri from "../../../constance/uri";
 import { diaryWriteRequest } from "../../../models/dto/request/diaryWriteRequest";
 import { diaryWriteResponse } from "../../../models/dto/response/diaryWriteResponse";
-import { getRequestWithToken } from "../default";
+import instance from "../axios";
 
 export type diaryWriteApiType = (
   data: diaryWriteRequest,
@@ -13,23 +13,20 @@ export const diaryWritePost = async (
   data: diaryWriteRequest,
   dreamUUID: string
 ): Promise<AxiosResponse<diaryWriteResponse>> => {
-  const token = localStorage.getItem("access_token");
-  const request = getRequestWithToken(token!);
   try {
-    const response = await request.post<diaryWriteResponse>(uri.dreamShare, data);
+    const response = await instance.post<diaryWriteResponse>(uri.dreamShare, data);
     return response;
   } catch (error) {
     return Promise.reject(error);
   }
 };
+
 export const diaryWritePut = async (
   data: diaryWriteRequest,
   dreamUUID: string
 ): Promise<AxiosResponse<diaryWriteResponse>> => {
-  const token = localStorage.getItem("access_token");
-  const request = getRequestWithToken(token!);
   try {
-    const response = await request.put<diaryWriteResponse>(`${uri.dreamShare}/${dreamUUID}`, data);
+    const response = await instance.put<diaryWriteResponse>(`${uri.dreamShare}/${dreamUUID}`, data);
     return response;
   } catch (error) {
     return Promise.reject(error);

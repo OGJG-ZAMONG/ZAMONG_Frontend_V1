@@ -73,14 +73,13 @@ const MainPage = (): JSX.Element => {
   ];
 
   const loginCheck = async () => {
-    const accessToken = localStorage.getItem("access_token")!;
-    try {
-      const { id } = (await getMyProfile(accessToken)).data.content.response;
+      try {
+        const { id } = (await getMyProfile()).data.content.response;
       setIsLogin(true);
-      setId(id);
-    } catch (error) {
-      console.log(error);
-    }
+        setId(id);
+      } catch (error) {
+        console.log(error);
+      }
   };
 
   useLayoutEffect(() => {
