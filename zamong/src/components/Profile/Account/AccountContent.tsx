@@ -7,14 +7,13 @@ interface IdType {
 }
 
 const AccountContent = (): JSX.Element => {
-  const accessToken = localStorage.getItem("access_token") || "";
   const [idState, setId] = useState<IdType>({
     id: "",
   });
 
   const myId = async () => {
     try {
-      const response = await getMyProfile(accessToken);
+      const response = await getMyProfile();
       setId(response.data.content.response);
     } catch (error) {
       throw error;

@@ -4,11 +4,7 @@ import { Follower, Follow, AccountInfo } from "../../assets";
 import FollowerContent from "./Follower/FollowerContent";
 import FollowContent from "./Follow/FollowContent";
 import AccountContent from "./Account/AccountContent";
-import {
-  getFollower,
-  getFollowing,
-  getMyProfile,
-} from "../../utils/api/Profile";
+import { getFollower, getFollowing, getMyProfile } from "../../utils/api/Profile";
 
 interface ProfileType {
   uuid: string;
@@ -30,7 +26,6 @@ interface FollowType {
 }
 
 const ProfilePage = (): JSX.Element => {
-  const accessToken = localStorage.getItem("access_token") || "";
   const [comp, setComp] = useState();
   const [followerState, setFollower] = useState<FollowerType>({
     total_size: 0,
@@ -47,8 +42,7 @@ const ProfilePage = (): JSX.Element => {
     share_dream_count: 0,
     lucy_count: 0,
   });
-  const { uuid, name, email, id, profile, share_dream_count, lucy_count } =
-    profileState;
+  const { uuid, name, email, id, profile, share_dream_count, lucy_count } = profileState;
   const FOLLORWER = 1;
   const FOLLORWING = 2;
   const ACCOUNTINFO = 3;
@@ -77,7 +71,7 @@ const ProfilePage = (): JSX.Element => {
 
   const myProfile = async () => {
     try {
-      const response = await getMyProfile(accessToken);
+      const response = await getMyProfile();
       setProfile(response.data.content.response);
     } catch (error) {
       throw error;
@@ -86,7 +80,7 @@ const ProfilePage = (): JSX.Element => {
 
   const follower = async () => {
     try {
-      const response = await getFollower(accessToken, uuid);
+      const response = await getFollower(uuid);
       setFollower(response.data.content.response);
     } catch (error) {
       throw error;
@@ -95,7 +89,7 @@ const ProfilePage = (): JSX.Element => {
 
   const follow = async () => {
     try {
-      const response = await getFollowing(accessToken, uuid);
+      const response = await getFollowing(uuid);
       setFollow(response.data.content.response);
     } catch (error) {
       throw error;
