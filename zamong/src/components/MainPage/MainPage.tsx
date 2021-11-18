@@ -73,16 +73,13 @@ const MainPage = (): JSX.Element => {
   ];
 
   const loginCheck = async () => {
-    const expireAt = localStorage.getItem("expireAt");
-    if (expireAt && new Date(expireAt).getTime() > new Date().getTime()) {
-      //로그인 중
-      setIsLogin(true);
-
       try {
         const { id } = (await getMyProfile()).data.content.response;
+      setIsLogin(true);
         setId(id);
-      } catch (error) {}
-    }
+      } catch (error) {
+        console.log(error);
+      }
   };
 
   useLayoutEffect(() => {
