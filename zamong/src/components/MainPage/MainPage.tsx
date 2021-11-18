@@ -73,13 +73,18 @@ const MainPage = (): JSX.Element => {
   ];
 
   const loginCheck = async () => {
-      try {
-        const { id } = (await getMyProfile()).data.content.response;
+    const expireAt = localStorage.getItem("expireAt");
+
+    if (!expireAt) {
+      return;
+    }
+    try {
+      const { id } = (await getMyProfile()).data.content.response;
       setIsLogin(true);
-        setId(id);
-      } catch (error) {
-        console.log(error);
-      }
+      setId(id);
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   useLayoutEffect(() => {
