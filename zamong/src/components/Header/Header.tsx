@@ -3,21 +3,38 @@ import Logo from "../../assets/logo/testLogo.png";
 import SearchIcon from "../../assets/icons/searchIcon.svg";
 import { Link } from "react-router-dom";
 import Filter from "./Filter/Filter";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import LoginComponent from "./LoginComponent";
 import Code from "../../interface/Code";
 
 const Header = (): JSX.Element => {
   const paddingValue = 10;
   const [headerPadding, setHeaderPadding] = useState<number>(paddingValue);
+  const [isTop, setIsTop] = useState<boolean>(true);
   const [headerLineOpacity, setHeaderLineOpacity] = useState<number>(0);
   const [selectedType, setSelectedType] = useState<Code[]>([]);
   const [searchText, setSearchText] = useState<string>("");
 
-  window.addEventListener("scroll", (event) => {
-    setHeaderPadding(window.pageYOffset === 0 ? paddingValue : 0);
-    setHeaderLineOpacity(window.pageYOffset === 0 ? 0 : 1);
-  });
+  const scrollEvent = () => {
+    if (window.pageYOffset !== 0 && isTop) {
+      setIsTop(false);
+    } else if (window.pageYOffset === 0 && !isTop) {
+      setIsTop(true);
+    }
+  };
+
+  useEffect(() => {
+    setHeaderPadding(isTop ? paddingValue : 0);
+    setHeaderLineOpacity(isTop ? 0 : 1);
+  }, [isTop]);
+
+  useEffect(() => {
+    window.addEventListener("scroll", scrollEvent);
+
+    return () => {
+      window.removeEventListener("scroll", scrollEvent);
+    };
+  }, []);
 
   const onChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => setSearchText(e.target.value);
 
