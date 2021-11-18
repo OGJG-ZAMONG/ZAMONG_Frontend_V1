@@ -16,6 +16,7 @@ import Time, { AM, PM } from "../../interface/Time";
 import { qualitys } from "../../constance/dreamQualitys";
 import { getDreamDetail } from "../../utils/api/DreamDetail";
 import { dreamPostingImagePost } from "../../utils/api/DreamPosting";
+import { getDreamsWrittenToday } from "../../utils/api/Diary/MyDreams";
 
 type PropertysType = {
   title: string;
@@ -243,11 +244,6 @@ const DiaryWrite = ({ dreamUUID }: PropsType): JSX.Element => {
     const expireAt = localStorage.getItem("expireAt");
 
     if (!expireAt) {
-      push("/");
-      return;
-    }
-
-    if (new Date().getTime() > new Date(expireAt).getTime()) {
       push("/");
       return;
     }
