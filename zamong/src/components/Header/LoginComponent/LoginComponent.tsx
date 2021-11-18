@@ -50,10 +50,6 @@ const LoginComponent = (): JSX.Element => {
       return;
     }
 
-    if (new Date().getTime() > new Date(expireAt).getTime()) {
-      return;
-    }
-
     try {
       setIsLoading(true);
       const token = localStorage.getItem("access_token");
