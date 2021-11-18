@@ -78,12 +78,13 @@ const MainPage = (): JSX.Element => {
     if (!expireAt) {
       return;
     }
+    setIsLogin(true);
     try {
       const { id } = (await getMyProfile()).data.content.response;
-      setIsLogin(true);
       setId(id);
     } catch (error) {
       console.log(error);
+      setIsLogin(false);
     }
   };
 
