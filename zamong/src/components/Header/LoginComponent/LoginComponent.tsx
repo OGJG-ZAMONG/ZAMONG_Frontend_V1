@@ -50,14 +50,9 @@ const LoginComponent = (): JSX.Element => {
       return;
     }
 
-    if (new Date().getTime() > new Date(expireAt).getTime()) {
-      return;
-    }
-
     try {
       setIsLoading(true);
-      const token = localStorage.getItem("access_token");
-      const response = await getMyProfile(token!);
+      const response = await getMyProfile();
       const { name, profile } = response.data.content.response;
       setData({ name: name, profile: profile });
       setIsLoading(false);
