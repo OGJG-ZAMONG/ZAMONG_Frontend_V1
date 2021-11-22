@@ -196,7 +196,7 @@ const DiaryWrite = ({ dreamUUID }: PropsType): JSX.Element => {
     }
   };
 
-  const onSave = async (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+  const onPost = async (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     if (!isPropertyValid()) {
       alert("빈칸 또는 꿈의 유형을 채워주세요.");
       return false;
@@ -218,27 +218,15 @@ const DiaryWrite = ({ dreamUUID }: PropsType): JSX.Element => {
 
       alert("저장 완료");
 
-      saveFile(uuid);
-      return true;
+      await saveFile(uuid);
+      push(`/diary`);
     } catch (error) {
       console.log(error);
       alert("오류가 발생했습니다.");
-      return false;
     }
   };
 
-  const onPost = async (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
-    e.preventDefault();
-
-    if (!isPropertyValid()) {
-      alert("빈칸 또는 꿈의 유형을 채워주세요.");
-      return;
-    }
-
-    if (await onSave(e)) {
-      push(`/diary`);
-    }
-  };
+  const onSave = () => [];
 
   const checkIsLogin = () => {
     const expireAt = localStorage.getItem("expireAt");
