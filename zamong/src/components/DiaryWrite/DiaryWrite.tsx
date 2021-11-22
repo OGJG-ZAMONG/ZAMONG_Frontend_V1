@@ -94,7 +94,6 @@ const DiaryWrite = ({ dreamUUID }: PropsType): JSX.Element => {
     const savedDiaryString = localStorage.getItem("saved_diary");
     if (!dreamUUID && savedDiaryString) {
       const savedDiary: PropertysType = JSON.parse(savedDiaryString);
-      console.log(savedDiary);
       savedDiary.date = new Date(savedDiary.date);
 
       returnValue = { ...savedDiary };
