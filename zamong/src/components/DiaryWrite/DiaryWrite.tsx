@@ -229,6 +229,7 @@ const DiaryWrite = ({ dreamUUID }: PropsType): JSX.Element => {
 
       await saveFile(uuid);
       push(`/diary`);
+      localStorage.removeItem("saved_diary");
     } catch (error) {
       console.log(error);
       alert("오류가 발생했습니다.");
