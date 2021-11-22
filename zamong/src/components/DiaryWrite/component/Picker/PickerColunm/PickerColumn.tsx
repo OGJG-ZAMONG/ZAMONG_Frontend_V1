@@ -18,9 +18,15 @@ const PickerColumn = ({ type, array, initValue, setValue }: DateColumnType): JSX
 
   const OFFSET = HEIGHT * 2;
 
-  const CalculateOpacity = (index: number, selectedIndex: number): number => {
-    var offset: number = Math.abs(selectedIndex - index);
-    return (50 - offset * 25 + 50) / 100;
+  const CalculateAndgle = (index: number): number => {
+    const indexHeight = -(index * HEIGHT);
+    const offset = y - indexHeight;
+    const percent = offset / (HEIGHT * 3);
+    const angle = percent * 70;
+
+    if (angle >= 180) return 180;
+    if (angle <= -180) return -180;
+    else return angle;
   };
 
   const CalculateIndex = (y: number): number => {
@@ -74,7 +80,7 @@ const PickerColumn = ({ type, array, initValue, setValue }: DateColumnType): JSX
   const onWheelHandler = (event: React.WheelEvent<HTMLDivElement>) => {
     clearTimeout(timer);
     setIsWheel(true);
-    let value = event.deltaY;
+    var value = -event.deltaY;
     if (Math.abs(value) === 100) {
       value = 18 * Math.sign(value);
     }
@@ -104,8 +110,8 @@ const PickerColumn = ({ type, array, initValue, setValue }: DateColumnType): JSX
               color={selectedIndex === index ? color.white : color.gray}
               onClick={() => onClickHandler(index)}
               height={HEIGHT}
-              angle={(selectedIndex - index) * 25}
-              opacity={CalculateOpacity(index, selectedIndex)}
+              angle={CalculateAndgle(index)}
+              opacity={1}
             >
               {value}
               {type}

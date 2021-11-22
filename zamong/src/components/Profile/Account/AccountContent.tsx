@@ -1,6 +1,30 @@
+import { useEffect, useState } from "react";
+import { getMyProfile } from "../../../utils/api/Profile";
 import * as S from "./style";
 
+interface IdType {
+  id: string;
+}
+
 const AccountContent = (): JSX.Element => {
+  const [idState, setId] = useState<IdType>({
+    id: "",
+  });
+
+  const myId = async () => {
+    try {
+      const response = await getMyProfile();
+      setId(response.data.content.response);
+    } catch (error) {
+      throw error;
+    }
+  };
+
+  useEffect(() => {
+    myId();
+  }, []);
+
+  const changeProfile = () => {};
   return (
     <>
       <S.Content>
@@ -8,7 +32,7 @@ const AccountContent = (): JSX.Element => {
           <S.TitleText>프로필</S.TitleText>
           <S.Box>
             <S.SubTitle>프로필 사진 변경</S.SubTitle>
-            <S.ChangeBtn>변경</S.ChangeBtn>
+            <S.ChangeBtn onClick={changeProfile}>변경</S.ChangeBtn>
           </S.Box>
         </S.ProfileBox>
         <S.AccountBox>
@@ -16,7 +40,7 @@ const AccountContent = (): JSX.Element => {
           <S.Box>
             <S.SubTitle>아이디</S.SubTitle>
             <div>
-              <S.IdText>dsm_jingeun04</S.IdText>
+              <S.IdText>{idState.id}</S.IdText>
               <S.ChangeBtn>변경</S.ChangeBtn>
             </div>
           </S.Box>

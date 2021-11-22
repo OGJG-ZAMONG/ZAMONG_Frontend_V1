@@ -9,6 +9,8 @@ export const Title = styled.div`
 
 export const TitleContainer = styled.div`
   width: 125px;
+  display: flex;
+  align-items: center;
 `;
 
 export const Container = styled.div`

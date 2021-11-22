@@ -33,6 +33,7 @@ export const FilterBox = styled.div`
   width: 538px;
   height: 230px;
   display: flex;
+  box-shadow: 0px 0px 10px ${color.black};
 `;
 
 export const FilterSearchInput = styled.input`

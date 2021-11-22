@@ -16,17 +16,19 @@ const Calendar: FC = (): JSX.Element => {
     for (let i = 0; i < 41; i++) {
       if (DayContainer.current.childNodes[i].children.length >= 1) {
         while (DayContainer.current.childNodes[i].lastElementChild) {
-          DayContainer.current.childNodes[i].removeChild(DayContainer.current.childNodes[i].lastChild);
+          DayContainer.current.childNodes[i].removeChild(
+            DayContainer.current.childNodes[i].lastChild
+          );
         }
       }
     }
     makeCalendar(year, month);
     getCalendarData(
-      window.localStorage.getItem("access_token"),
       year,
       month + 1
-    ).then((res) => setData(res.data.content.response.timetables))
-     .catch((err) => console.log(err));
+    )
+      .then((res) => setData(res.data.content.response.timetables))
+      .catch((err) => console.log(err));
   }, [month]);
 
   useEffect(() => {
@@ -46,7 +48,6 @@ const Calendar: FC = (): JSX.Element => {
       });
     }
   }, [data]);
-
 
   //달력을 그리는 함수
   const makeCalendar = (year: number, month: number) => {
@@ -111,9 +112,11 @@ const Calendar: FC = (): JSX.Element => {
         </S.Controller>
       </S.CalendarHeader>
       <S.CalendarContainer>
-        {week.map((week: any, index: number) => {
-          return <S.WeekDays key={index}>{week}</S.WeekDays>;
-        })}
+        <S.WeekContainer>
+          {week.map((week: any, index: number) => {
+            return <S.WeekDays key={index}>{week}</S.WeekDays>;
+          })}
+        </S.WeekContainer>
         <S.DayContainer ref={DayContainer}>{renderDay()}</S.DayContainer>
       </S.CalendarContainer>
     </S.Container>

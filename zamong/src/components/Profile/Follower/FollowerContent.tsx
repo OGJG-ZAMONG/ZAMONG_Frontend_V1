@@ -1,7 +1,7 @@
 import React, { FC, useEffect, useState } from "react";
 import { getFollower } from "../../../utils/api/Profile";
 import * as S from "./style";
-
+import { useHistory } from "react-router-dom";
 interface Follower {
   uuid: string;
   profile: string;
@@ -18,7 +18,7 @@ interface IdType {
 }
 
 const FollowerContent: FC<IdType> = (props) => {
-  const accessToken = localStorage.getItem("access_token") || "";
+  const { push } = useHistory();
   const [followerState, setFollower] = useState<FollowerType>({
     followers: [],
     total_size: 0,
@@ -32,12 +32,13 @@ const FollowerContent: FC<IdType> = (props) => {
 
   const follower = async () => {
     try {
-      const response = await getFollower(accessToken, props.myid);
+      const response = await getFollower(props.myid);
       setFollower(response.data.content.response);
     } catch (error) {
       throw error;
     }
   };
+
   return (
     <>
       <S.Content>
@@ -47,16 +48,18 @@ const FollowerContent: FC<IdType> = (props) => {
         <S.FollowerList>
           {followerState.followers &&
             followerState.followers.map((data, v) => {
+              const userProfile = () => {
+                //   return <UserProfilePage id={data.id} />;
+              };
               return (
                 <S.UserBox>
-                  <S.LeftBox>
-                    <S.Profile>{data.is_following}</S.Profile>
+                  <S.LeftBox onClick={userProfile}>
+                    <S.Profile img={data.profile} />
                     <S.UserNickName>{data.id}</S.UserNickName>
                   </S.LeftBox>
                   <S.RightBox>
                     <S.FollowDate>
-                      팔로우를 시작한 날짜 :{" "}
-                      {data.follow_datetime.substring(0, 10)}
+                      팔로우를 시작한 날짜 : {data.follow_datetime.substring(0, 10)}
                     </S.FollowDate>
                     <S.FollowBtn>팔로우중</S.FollowBtn>
                   </S.RightBox>

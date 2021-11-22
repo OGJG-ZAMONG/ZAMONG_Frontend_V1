@@ -8,18 +8,15 @@ import DreamQuality from "./component/Properties/Selecter/DreamQuality/DreamQual
 import DreamTime from "./component/Properties/Selecter/DreamTime/DreamTime";
 import * as S from "./styles";
 import { diaryWriteRequest } from "../../models/dto/request/diaryWriteRequest";
-import {
-  diaryWriteApiType,
-  diaryWriteImagePost,
-  diaryWritePost,
-  diaryWritePut,
-} from "../../utils/api/DiaryWrite";
+import { diaryWriteApiType, diaryWritePost, diaryWritePut } from "../../utils/api/DiaryWrite";
 import { useHistory } from "react-router";
 import ElapsedTime from "./component/ElapsedTime/ElapsedTime";
 import Code from "../../interface/Code";
 import Time, { AM, PM } from "../../interface/Time";
 import { qualitys } from "../../constance/dreamQualitys";
 import { getDreamDetail } from "../../utils/api/DreamDetail";
+import { dreamPostingImagePost } from "../../utils/api/DreamPosting";
+import { getDreamsWrittenToday } from "../../utils/api/Diary/MyDreams";
 
 type PropertysType = {
   title: string;
@@ -191,7 +188,7 @@ const DiaryWrite = ({ dreamUUID }: PropsType): JSX.Element => {
   const saveFile = async (uuid: string) => {
     if (file) {
       try {
-        await diaryWriteImagePost(file, uuid);
+        await dreamPostingImagePost(file, uuid);
       } catch (error) {
         console.log(error);
         alert("파일 업로드에 실패했습니다.");
@@ -243,7 +240,17 @@ const DiaryWrite = ({ dreamUUID }: PropsType): JSX.Element => {
     }
   };
 
+  const checkIsLogin = () => {
+    const expireAt = localStorage.getItem("expireAt");
+
+    if (!expireAt) {
+      push("/");
+      return;
+    }
+  };
+
   useLayoutEffect(() => {
+    checkIsLogin();
     init().then((response) => {
       setProperties(response);
     });
