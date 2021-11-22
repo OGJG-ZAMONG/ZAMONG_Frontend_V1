@@ -24,7 +24,6 @@ const DatePicker = ({ date, setDate, setModal }: PropsType): JSX.Element => {
 
   useEffect(() => {
     //nowDate가 바뀌면 바뀐 월에 따라 day array는 바뀌어야 한다
-    console.log(nowDate);
     const max = getMaxDate(year, month);
     setDayArray(range(1, max + 1));
   }, [nowDate]);
