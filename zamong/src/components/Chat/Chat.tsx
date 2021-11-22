@@ -11,6 +11,7 @@ for (let i = 0; i < 10; i++) {
 }
 
 const Chat: FC = (): JSX.Element => {
+
   return (
     <S.Container>
       <S.ChatListContainer>
@@ -42,7 +43,7 @@ const Chat: FC = (): JSX.Element => {
       <S.ChatLine />
       <S.ChatViewerContainer>
         <S.ChatViewHeader>
-          <S.ChatTitle>이 꿈을 안산다면 당신은 호구. </S.ChatTitle>
+          <S.ChatTitle>이 꿈을 안산다면 당신은 호구</S.ChatTitle>
           <S.HeaderNav>
             <S.UserReportBox>
               <S.ViewUserName>dsmhskr</S.ViewUserName>
@@ -65,6 +66,7 @@ const Chat: FC = (): JSX.Element => {
           <OpponentText message={"좋은 하루 보내세요"} />
           <MyText message={"ㅎㅎㅎㅎㅎ 넵"} />
           <MyText message={"ㅎㅎㅎㅎㅎ 넵"} />
+          <OpponentText message={"좋은 하루 보내세요"} />
         </S.ChatBox>
         <S.ChatInputBox>
           <S.ChatInput type="text" placeholder="내용을 입력하십시오." />
