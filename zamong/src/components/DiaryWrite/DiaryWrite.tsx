@@ -89,9 +89,18 @@ const DiaryWrite = ({ dreamUUID }: PropsType): JSX.Element => {
   const isPropertyValid = (): boolean => title.length > 0 || content.length > 0 || types.length > 0;
 
   const init = async (): Promise<PropertysType> => {
-    const returnValue = { ...initValue };
+    let returnValue = { ...initValue };
 
-    if (dreamUUID != null) {
+    const savedDiaryString = localStorage.getItem("saved_diary");
+    if (!dreamUUID && savedDiaryString) {
+      const savedDiary: PropertysType = JSON.parse(savedDiaryString);
+      console.log(savedDiary);
+      savedDiary.date = new Date(savedDiary.date);
+
+      returnValue = { ...savedDiary };
+    }
+
+    if (dreamUUID) {
       //만약 꿈 식별자가 쿼리스트링에 있으면
       isPostRef.current = true; //post를 이미 했다고 한다
 
@@ -226,7 +235,12 @@ const DiaryWrite = ({ dreamUUID }: PropsType): JSX.Element => {
     }
   };
 
-  const onSave = () => [];
+  const onSave = () => {
+    const objectString = JSON.stringify(properties);
+    localStorage.setItem("saved_diary", objectString);
+
+    alert("임시 저장되었습니다.");
+  };
 
   const checkIsLogin = () => {
     const expireAt = localStorage.getItem("expireAt");
