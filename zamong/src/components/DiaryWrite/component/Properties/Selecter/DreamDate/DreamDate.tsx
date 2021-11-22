@@ -13,20 +13,14 @@ const DreamDate = ({ dateState }: PropsType): JSX.Element => {
   const [modal, setModal] = useState(false);
 
   const dateToString = (date: Date): string => {
-    return `${date.getFullYear()}년 ${
-      date.getMonth() + 1
-    }월 ${date.getDate()}일`;
+    return `${date.getFullYear()}년 ${date.getMonth() + 1}월 ${date.getDate()}일`;
   };
 
   const Content = (): JSX.Element => {
     return (
       <>
-        <S.Subtitle onClick={() => setModal(true)}>
-          {dateToString(nowDate)}
-        </S.Subtitle>
-        {modal && (
-          <DatePicker date={nowDate} setDate={setNowDate} setModal={setModal} />
-        )}
+        <S.Subtitle onClick={() => setModal(true)}>{dateToString(nowDate)}</S.Subtitle>
+        {modal && <DatePicker date={nowDate} setDate={setNowDate} setModal={setModal} />}
       </>
     );
   };
