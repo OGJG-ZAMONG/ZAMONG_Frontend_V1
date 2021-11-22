@@ -89,9 +89,17 @@ const DiaryWrite = ({ dreamUUID }: PropsType): JSX.Element => {
   const isPropertyValid = (): boolean => title.length > 0 || content.length > 0 || types.length > 0;
 
   const init = async (): Promise<PropertysType> => {
-    const returnValue = { ...initValue };
+    let returnValue = { ...initValue };
 
-    if (dreamUUID != null) {
+    const savedDiaryString = localStorage.getItem("saved_diary");
+    if (!dreamUUID && savedDiaryString) {
+      const savedDiary: PropertysType = JSON.parse(savedDiaryString);
+      savedDiary.date = new Date(savedDiary.date);
+
+      returnValue = { ...savedDiary };
+    }
+
+    if (dreamUUID) {
       //만약 꿈 식별자가 쿼리스트링에 있으면
       isPostRef.current = true; //post를 이미 했다고 한다
 
@@ -196,7 +204,7 @@ const DiaryWrite = ({ dreamUUID }: PropsType): JSX.Element => {
     }
   };
 
-  const onSave = async (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+  const onPost = async (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     if (!isPropertyValid()) {
       alert("빈칸 또는 꿈의 유형을 채워주세요.");
       return false;
@@ -218,26 +226,20 @@ const DiaryWrite = ({ dreamUUID }: PropsType): JSX.Element => {
 
       alert("저장 완료");
 
-      saveFile(uuid);
-      return true;
+      await saveFile(uuid);
+      push(`/diary`);
+      localStorage.removeItem("saved_diary");
     } catch (error) {
       console.log(error);
       alert("오류가 발생했습니다.");
-      return false;
     }
   };
 
-  const onPost = async (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
-    e.preventDefault();
+  const onSave = () => {
+    const objectString = JSON.stringify(properties);
+    localStorage.setItem("saved_diary", objectString);
 
-    if (!isPropertyValid()) {
-      alert("빈칸 또는 꿈의 유형을 채워주세요.");
-      return;
-    }
-
-    if (await onSave(e)) {
-      push(`/diary`);
-    }
+    alert("임시 저장되었습니다.");
   };
 
   const checkIsLogin = () => {
