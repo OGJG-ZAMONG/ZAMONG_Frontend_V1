@@ -1,16 +1,49 @@
-import { FC } from "react";
+import { FC, useEffect } from "react";
 import * as S from "./styles";
 import { search, editGrey, send } from "../../assets";
 import ChatRoom from "./ChatRoom/ChatRoom";
 import MyText from "./ChatBalloon/My/MyText";
 import OpponentText from "./ChatBalloon/Opponent/OpponentText";
+import * as StompJs from "@stomp/stompjs";
 
 const testArray: number[] = [];
 for (let i = 0; i < 10; i++) {
   testArray.push(i);
 }
 
+
+
 const Chat: FC = (): JSX.Element => {
+
+  // const client = new StompJs.Client({
+  //   brokerURL: 'wss://52.78.219.131:8080/v1/api/dream/sell/chat/ws',
+  //   // brokerURL: 'ws://localhost:3031',
+  //   connectHeaders: {
+  //     login: 'user',
+  //     passcode: 'password',
+  //   },
+  //   debug: function (str) {
+  //     console.log(str);
+  //   },
+  //   reconnectDelay: 5000,
+  //   heartbeatIncoming: 4000,
+  //   heartbeatOutgoing: 4000,
+  // });
+
+  // useEffect(() => {
+    
+  // }, [])
+
+  // client.onConnect = function (frame) {
+  //   console.log(frame);
+  // };
+  
+  // client.onStompError = function (frame) {
+  //   console.log('Broker reported error: ' + frame.headers['message']);
+  //   console.log('Additional details: ' + frame.body);
+  // };
+
+  // client.activate();
 
   return (
     <S.Container>
