@@ -5,7 +5,7 @@ import { color } from "../../style/color";
 //chat list
 export const Container = styled.div`
   height: 100vh;
-  color: white;
+  color: ${color.white};
   margin: 0 32px;
   padding-top: 100px;
   display: grid;
@@ -36,6 +36,7 @@ export const ChatInfoText = styled.div`
 
 export const ChatCount = styled.div`
   color: #0a84ff;
+  color: ${color.blue};
 `;
 
 export const SearchChatContainer = styled.div`
@@ -48,9 +49,9 @@ export const SearchChatContent = styled.input<{ imgSrc: string }>`
   width: 100%;
   height: 100%;
   outline: none;
-  background-color: #2c2c2e;
   border: none;
-  color: white;
+  background-color: ${color.darkerGray};
+  color: ${color.white};
   border-radius: 10px;
   padding: 0 4%;
   &::-webkit-input-placeholder {
@@ -65,7 +66,7 @@ export const SearchChatContent = styled.input<{ imgSrc: string }>`
 //Line
 export const ChatLine = styled.div`
   height: 90%;
-  background-color: #636366;
+  background-color: ${color.darkGray};
   border-radius: 15px;
   width: 3px;
   display: flex;
@@ -75,7 +76,7 @@ export const ChatLine = styled.div`
 //chat view
 export const ChatViewerContainer = styled.div`
   height: 90%;
-  background-color: #2c2c2e;
+  background-color: ${color.darkerGray};
   border-radius: 10px;
   padding: 16px;
   position: relative;
@@ -85,7 +86,7 @@ export const ChatViewerContainer = styled.div`
 
 export const ChatViewHeader = styled.div`
   display: grid;
-  border-bottom: 1px solid #636366;
+  border-bottom: 1px solid ${color.darkerGray};
   height: 80px;
   grid-template-rows: repeat(2, 1fr);
 `;
@@ -98,7 +99,7 @@ export const HeaderNav = styled.div`
   display: flex;
   justify-content: space-between;
   font: ${font.body2};
-  color: #8e8e93;
+  color: ${color.gray};
 `;
 
 export const UserReportBox = styled.div`
@@ -145,9 +146,9 @@ export const ChatInput = styled.input`
   background-color: inherit;
   border-radius: inherit;
   width: 90%;
-  color: #ffffff;
+  color: ${color.white};
   &::placeholder {
-    color: white;
+    color: ${color.white};
   }
 `;
 
