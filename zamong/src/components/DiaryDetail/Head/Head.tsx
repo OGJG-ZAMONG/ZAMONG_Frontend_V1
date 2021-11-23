@@ -1,37 +1,85 @@
 import * as S from "./styles";
 import Tag from "../../Tag/Tag";
-import { defaultProfile, more } from "../../../assets";
+import { more } from "../../../assets";
+import { dreamDetail } from "../../../models/dto/response/dreamDetailResponse";
+import dreamType from "../../../constance/dreamType";
+import { qualitys } from "../../../constance/dreamQualitys";
+import DreamQuality from "../../DiaryWrite/component/Properties/Selecter/DreamQuality/DreamQuality";
 
-const DiaryDetailHeader = (): JSX.Element => {
+interface PropsType {
+  postData: dreamDetail;
+}
+
+const DiaryDetailHeader = ({ postData }: PropsType): JSX.Element => {
+  const {
+    title,
+    dream_types,
+    is_shared,
+    share_date_time,
+    sleep_begin_date_time,
+    sleep_end_date_time,
+    quality,
+    user,
+  } = postData;
+
+  const timeToString = (date: string) => {
+    const a = new Date(date);
+    const hours = a.getHours();
+    const minutes = a.getMinutes();
+
+    return hours + ":" + minutes;
+  };
+
+  const dayToString = (date: string | null) => {
+    if (date !== null) {
+      const a = new Date(date);
+      const month = a.getMonth();
+      const day = a.getDate();
+
+      return month + "월 " + day + "일";
+    }
+  };
+
+  const dreamTypes = dreamType.filter((value) => {
+    return dream_types.some((item) => item === value.code);
+  });
+
+  const dreamQualitys = qualitys.find((value) => {
+  
+    return value.code === quality;
+  })?.name;
+
   return (
     <S.HeadContainer>
-      <S.Title>
-        선거와 국민투표의 공정한 관리 및 정당에 관한 사무를 처리하기 위하여
-        선거관리위원회를 둔다. 대통령은 헌법과 법률이 정하는 바에 의하여
-        공무원을 임면한다.
-      </S.Title>
+      <S.Title>{title}</S.Title>
       <S.TagContainer>
-        <Tag>악몽</Tag>
-        <Tag>악몽</Tag>
-        <Tag>악몽</Tag>
+        {dreamTypes.map((value, i) => {
+          return <Tag key={i}>{value.name}</Tag>;
+        })}
       </S.TagContainer>
       <S.DreamInfo>
         <S.LeftInfo>
           <S.PostingDate>
-            <S.DreamingDate>꿈 꾼 날짜 : 9월 24일</S.DreamingDate>
-            <>공유한 날짜 : 9월 24일</>
+            <div>꿈 꾼 날짜 : {dayToString(sleep_begin_date_time)}</div>
+            {is_shared ? (
+              <div>공유한 날짜 : {dayToString(share_date_time)}</div>
+            ) : (
+              <></>
+            )}
           </S.PostingDate>
+          <>
+            <>
+              수면 시각 : {timeToString(sleep_begin_date_time)}부터{" "}
+              {timeToString(sleep_end_date_time)}까지
+            </>
+          </>
           <div>
-            <>수면 시각 : 0:17부터 7:23까지</>
-          </div>
-          <div>
-            <>꿈의 품질 : 😚 아주 좋아요</>
+            <>꿈의 품질 : {dreamQualitys}</>
           </div>
         </S.LeftInfo>
         <S.UserInfo>
-          <img alt="profile" src={defaultProfile} />
-          <S.Profile>
-            USER04</S.Profile>
+          <S.PrifilePhoto alt="profile" src={user.profile} />
+          <S.Profile>{user.id}</S.Profile>
           <img alt="more" src={more} />
         </S.UserInfo>
       </S.DreamInfo>

@@ -2,6 +2,18 @@ import uri from "../../../constance/uri";
 import instance from "../axios";
 import { dreamDetailResponse } from "../../../models/dto/response/dreamDetailResponse";
 
+export const getShareDream = async (uuid: string) => {
+  try {
+    const response = await instance.get<dreamDetailResponse>(
+      uri.shareDreamInfo.replace("DREAM_UUID", uuid)
+    );
+
+    return response;
+  } catch (error) {
+    return Promise.reject(error);
+  }
+};
+
 interface DataType {
   content: string;
   p_comment: string | null;
@@ -29,7 +41,7 @@ export interface Comment {
   is_dis_like: boolean;
 }
 
-interface commentType {
+interface CommentType {
   status: number;
   timestamp: string;
   content: {
@@ -51,7 +63,9 @@ export const postComment = async (uuid: string, data: DataType) => {
 
 export const responseComment = async (uuid: string) => {
   try {
-    const response = await instance.get<commentType>(uri.getComment.replace("DREAM_UUID", uuid));
+    const response = await instance.get<CommentType>(
+      uri.getComment.replace("DREAM_UUID", uuid)
+    );
     return response;
   } catch (error) {
     return Promise.reject(error);
@@ -60,7 +74,31 @@ export const responseComment = async (uuid: string) => {
 
 export const responseReComment = async (uuid: string) => {
   try {
-    const response = await instance.get<commentType>(uri.getReComment.replace("DREAM_UUID", uuid));
+    const response = await instance.get<CommentType>(
+      uri.getReComment.replace("DREAM_UUID", uuid)
+    );
+    return response;
+  } catch (error) {
+    return Promise.reject(error);
+  }
+};
+
+interface CommentCount {
+  status: number;
+  timestamp: string;
+  content: {
+    collection_value: boolean;
+    response: {
+      number: number;
+    };
+  };
+}
+
+export const getCommentCount = async (uuid: string) => {
+  try {
+    const response = await instance.get<CommentCount>(
+      uri.getCommentCount.replace("DREAM_UUID", uuid)
+    );
     return response;
   } catch (error) {
     return Promise.reject(error);
