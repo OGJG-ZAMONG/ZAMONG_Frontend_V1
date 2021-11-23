@@ -1,9 +1,12 @@
 import styled from "@emotion/styled";
 import { font } from "../../style/font";
 import { color } from "../../style/color";
+import { Link } from "react-router-dom";
 
-export const DreamCardContainer = styled.div`
+export const DreamCardContainer = styled(Link)`
   width: 100%;
+  outline: none;
+  text-decoration: none;
 `;
 
 export const DreamImageContainer = styled.div<{ img: any }>`

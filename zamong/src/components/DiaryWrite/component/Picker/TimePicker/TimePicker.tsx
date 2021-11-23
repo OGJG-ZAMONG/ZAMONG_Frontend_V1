@@ -20,18 +20,14 @@ const TimePicker = ({ time, setTime, setModal }: PropsType): JSX.Element => {
   });
   const { hour, minute, type } = nowTime;
 
-  useEffect(() => {
-    //모달이 꺼질때 값 설정
-    return () =>
-      setNowTime((oldData) => {
-        setTime({ ...oldData });
-        return oldData;
-      });
-  }, []);
-
   return (
     <>
-      <Modal setModal={setModal}>
+      <Modal
+        setModal={setModal}
+        closeEvent={() => {
+          setTime({ ...nowTime });
+        }}
+      >
         <G.ModalTitle>시간 선택</G.ModalTitle>
         <ColumnContainer height={HEIGHT}>
           <PickerColumn

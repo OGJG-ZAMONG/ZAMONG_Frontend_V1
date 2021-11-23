@@ -37,9 +37,9 @@ const SellingDream: FC<Props> = ({
   );
 
   return (
-    <div>
+    <S.Container to={`sell/detail?${user.uuid}`}>
       <S.SellingDreamContainer img={img}>
-        <S.Price>{price.toLocaleString()}</S.Price>
+        <S.Price>{`${price.toLocaleString()}원`}</S.Price>
         <S.DiaryDate>{dateToString(new Date(date))}</S.DiaryDate>
       </S.SellingDreamContainer>
       <S.PostInfoContainer>
@@ -54,7 +54,7 @@ const SellingDream: FC<Props> = ({
         </S.TagsContainer>
       </S.PostInfoContainer>
       <S.SellingDreamTitle>{title}</S.SellingDreamTitle>
-    </div>
+    </S.Container>
   );
 };
 

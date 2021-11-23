@@ -7,7 +7,7 @@ interface PropsType {
 }
 
 const FollowDreamDiary = ({ dream }: PropsType): JSX.Element => {
-  const { default_posting_image, profile, title, created_at } = dream;
+  const { default_posting_image, profile, title, created_at, uuid } = dream;
 
   const dateToString = (date: Date) => {
     if (date.getFullYear() !== new Date().getFullYear()) {
@@ -18,7 +18,7 @@ const FollowDreamDiary = ({ dream }: PropsType): JSX.Element => {
   };
 
   return (
-    <I.DreamCardContainer>
+    <I.DreamCardContainer to={`/diary/detail?${uuid}`}>
       <I.DreamImageContainer img={default_posting_image}>
         <S.UserImage src={profile} />
         <I.DiaryDate>{dateToString(new Date(created_at))}</I.DiaryDate>

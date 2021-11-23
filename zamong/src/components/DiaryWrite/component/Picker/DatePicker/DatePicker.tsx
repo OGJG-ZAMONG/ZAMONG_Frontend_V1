@@ -18,20 +18,9 @@ const DatePicker = ({ date, setDate, setModal }: PropsType): JSX.Element => {
     month: date.getMonth() + 1,
     day: date.getDate(),
   });
-  const { year, month } = nowDate;
+  const { year, month, day } = nowDate;
 
-  const [dayArray, setDayArray] = useState<number[]>(
-    range(1, getMaxDate(year, month) + 1)
-  );
-
-  useEffect(() => {
-    //모달이 꺼질때 값 설정
-    return () =>
-      setNowDate((oldData) => {
-        setDate(new Date(`${oldData.year}-${oldData.month}-${oldData.day}`));
-        return oldData;
-      });
-  }, []);
+  const [dayArray, setDayArray] = useState<number[]>(range(1, getMaxDate(year, month) + 1));
 
   useEffect(() => {
     //nowDate가 바뀌면 바뀐 월에 따라 day array는 바뀌어야 한다
@@ -41,7 +30,10 @@ const DatePicker = ({ date, setDate, setModal }: PropsType): JSX.Element => {
 
   return (
     <>
-      <Modal setModal={setModal}>
+      <Modal
+        closeEvent={() => setDate(new Date(`${nowDate.year}-${nowDate.month}-${nowDate.day}`))}
+        setModal={setModal}
+      >
         <G.ModalTitle>날짜 선택</G.ModalTitle>
         <S.ColumnContainer height={HEIGHT}>
           <PickerColumn

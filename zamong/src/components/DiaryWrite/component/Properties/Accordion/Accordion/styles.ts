@@ -24,6 +24,7 @@ export const ContentWrapper = styled.div<{ padding: number }>`
 export const HeaderWrapper = styled.div`
   display: flex;
   justify-content: space-between;
+  cursor: pointer;
 `;
 
 export const Button = styled.img<{ rotate: number }>`
