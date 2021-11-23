@@ -21,7 +21,7 @@ const MyDreamDiary: FC<Props> = ({ uuid, img, locked, title, date }): JSX.Elemen
   };
 
   return (
-    <I.DreamCardContainer key={uuid} to={`/diary/detail?${uuid}`}>
+    <I.DreamCardContainer key={uuid} to={`/diary/detail/${uuid}`}>
       <I.DreamImageContainer img={img}>
         <S.LockIcon src={locked ? Unlocked : Locked} />
         <I.DiaryDate>{dateToString(new Date(date))}</I.DiaryDate>
