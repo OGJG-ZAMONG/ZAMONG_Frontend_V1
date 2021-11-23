@@ -18,6 +18,7 @@ enum uri {
   getReComment = "/dream/comment/DREAM_UUID/comment",
   recommend = "/dream/comment/DREAM_UUID/recommend",
   dreamSell = "/dream/sell",
+  shareDreamInfo = "/dream/share/DREAM_UUID",
 }
 
 export default uri;

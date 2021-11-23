@@ -3,6 +3,18 @@ import instance from "../axios";
 import { dreamDetailResponse } from "../../../models/dto/response/dreamDetailResponse";
 import { getRequestWithToken } from "../default";
 
+export const getShareDream = async (uuid: string) => {
+  try {
+    const response = await instance.get<dreamDetailResponse>(
+      uri.shareDreamInfo.replace("DREAM_UUID", uuid)
+    );
+
+    return response;
+  } catch (error) {
+    return Promise.reject(error);
+  }
+};
+
 interface DataType {
   content: string;
   p_comment: string | null;
@@ -70,7 +82,7 @@ export const responseReComment = async (uuid: string) => {
   try {
     const response = await instance.get<commentType>(
       uri.getReComment.replace("DREAM_UUID", uuid)
-    )
+    );
     return response;
   } catch (error) {
     return Promise.reject(error);
@@ -81,10 +93,10 @@ interface ThumbType {
   type: string;
 }
 
-export const recommend = async (uuid: string, isThumb: ThumbType ) => {
+export const recommend = async (uuid: string, isThumb: ThumbType) => {
   try {
     await instance.post(uri.recommend.replace("DREAM_UUID", uuid), isThumb);
   } catch (error) {
     return Promise.reject(error);
   }
-}
+};
