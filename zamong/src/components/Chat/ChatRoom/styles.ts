@@ -13,20 +13,12 @@ export const ChatRoom = styled.div<{ background: string }>`
     cursor: pointer;
 `;
 
-
-export const ChatRoomName = styled.div`
-
-`;
-
 export const ChatUserInfoBox = styled.div`
   display: flex;
   justify-content: left;
   font: ${font.description};
 `;
 
-export const ListUserName = styled.div``;
-
-export const LastConnection = styled.div``;
 
 export const LastChat = styled.div`
   font: ${font.body3};
