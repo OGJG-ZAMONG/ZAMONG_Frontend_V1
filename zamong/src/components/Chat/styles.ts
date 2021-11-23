@@ -7,7 +7,7 @@ export const Container = styled.div`
   height: 100vh;
   color: ${color.white};
   margin: 0 32px;
-  padding-top: 100px;
+  padding-top: 120px;
   display: grid;
   grid-template-columns: 29% 5% 66%;
   grid-template-columns: minmax(350px ,29%) minmax(100px ,5%) minmax(500px ,66%);

@@ -1,49 +1,27 @@
-import { FC, useEffect } from "react";
+import { FC, useEffect, useState } from "react";
 import * as S from "./styles";
 import { search, editGrey, send } from "../../assets";
 import ChatRoom from "./ChatRoom/ChatRoom";
 import MyText from "./ChatBalloon/My/MyText";
 import OpponentText from "./ChatBalloon/Opponent/OpponentText";
-import * as StompJs from "@stomp/stompjs";
+import SockJs from "sockjs-client";
+import * as Stomp from "@stomp/stompjs";
+import { getChatRooms } from "../../utils/api/Chat";
 
 const testArray: number[] = [];
 for (let i = 0; i < 10; i++) {
   testArray.push(i);
 }
 
-
-
 const Chat: FC = (): JSX.Element => {
+  const [rooms, setRooms] = useState<Array<object>>([]);
+  const [selectedRoom, setSelectedRoom] = useState<number>(0);
 
-  // const client = new StompJs.Client({
-  //   brokerURL: 'wss://52.78.219.131:8080/v1/api/dream/sell/chat/ws',
-  //   // brokerURL: 'ws://localhost:3031',
-  //   connectHeaders: {
-  //     login: 'user',
-  //     passcode: 'password',
-  //   },
-  //   debug: function (str) {
-  //     console.log(str);
-  //   },
-  //   reconnectDelay: 5000,
-  //   heartbeatIncoming: 4000,
-  //   heartbeatOutgoing: 4000,
-  // });
-
-  // useEffect(() => {
-    
-  // }, [])
-
-  // client.onConnect = function (frame) {
-  //   console.log(frame);
-  // };
-  
-  // client.onStompError = function (frame) {
-  //   console.log('Broker reported error: ' + frame.headers['message']);
-  //   console.log('Additional details: ' + frame.body);
-  // };
-
-  // client.activate();
+  useEffect(() => {
+    getChatRooms()
+    .then((res) => setRooms(res.data.content.response.rooms))
+    .catch((err) => console.log(err))
+  }, [])
 
   return (
     <S.Container>
@@ -60,14 +38,17 @@ const Chat: FC = (): JSX.Element => {
           />
         </S.SearchChatContainer>
         <S.ChatList>
-          {testArray.map((i) => {
+          {rooms.map((value : any, index : number) => {
             return (
               <ChatRoom
-                ChatRoomName={"이 꿈 안사면 호구요"}
+                ChatRoomName={value.title}
                 UserName={"dsmhskr"}
                 LastConnection={"8시간 전"}
                 LastChat={"나: 아니 이 꿈이 1000원? 레전드로 가시는구나"}
-                key={i}
+                key={value.uuid}
+                Index={index}
+                selectedRoom={selectedRoom}
+                setSelectedRoom={setSelectedRoom}
               />
             );
           })}

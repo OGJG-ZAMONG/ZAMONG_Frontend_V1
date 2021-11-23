@@ -1,16 +1,20 @@
 import { FC } from "react";
 import * as S from "./styles";
+import { color } from '../../../style/color';
 
 interface Props {
   ChatRoomName: string;
   UserName: string;
   LastConnection: string;
   LastChat: string;
+  Index : number;
+  selectedRoom : number;
+  setSelectedRoom : any;
 }
 
-const ChatRoom: FC<Props> = ({ChatRoomName, UserName, LastConnection, LastChat}): JSX.Element => {
+const ChatRoom: FC<Props> = ({ChatRoomName, UserName, LastConnection, LastChat, Index, selectedRoom, setSelectedRoom}): JSX.Element => {
   return (
-    <S.ChatRoom>
+    <S.ChatRoom background={Index === selectedRoom ? `${color.blue}` : `${color.darkerGray}`} onClick={() => setSelectedRoom(Index)}>
       <S.ChatRoomName>
           {ChatRoomName}
       </S.ChatRoomName>
