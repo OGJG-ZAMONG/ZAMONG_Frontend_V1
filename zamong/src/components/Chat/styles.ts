@@ -16,7 +16,8 @@ export const Container = styled.div`
 export const ChatListContainer = styled.div`
   display: flex;
   flex-direction: column;
-  height: 560px;
+  /* height: 560px; */
+  height: 90%;
 `;
 
 export const ChatList = styled.div`

@@ -22,7 +22,7 @@ const Chat: FC = (): JSX.Element => {
     .then((res) => setRooms(res.data.content.response.rooms))
     .catch((err) => console.log(err))
   }, [])
-
+  
   return (
     <S.Container>
       <S.ChatListContainer>
