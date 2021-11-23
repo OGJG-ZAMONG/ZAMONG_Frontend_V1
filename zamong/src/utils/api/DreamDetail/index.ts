@@ -47,7 +47,7 @@ export interface Comment {
   is_dis_like: boolean;
 }
 
-interface commentType {
+interface CommentType {
   status: number;
   timestamp: string;
   content: {
@@ -69,7 +69,7 @@ export const postComment = async (uuid: string, data: DataType) => {
 
 export const responseComment = async (uuid: string) => {
   try {
-    const response = await instance.get<commentType>(
+    const response = await instance.get<CommentType>(
       uri.getComment.replace("DREAM_UUID", uuid)
     );
     return response;
@@ -80,8 +80,30 @@ export const responseComment = async (uuid: string) => {
 
 export const responseReComment = async (uuid: string) => {
   try {
-    const response = await instance.get<commentType>(
+    const response = await instance.get<CommentType>(
       uri.getReComment.replace("DREAM_UUID", uuid)
+    );
+    return response;
+  } catch (error) {
+    return Promise.reject(error);
+  }
+};
+
+interface CommentCount {
+  status: number;
+  timestamp: string;
+  content: {
+    collection_value: boolean;
+    response: {
+      number: number;
+    };
+  };
+}
+
+export const getCommentCount = async (uuid: string) => {
+  try {
+    const response = await instance.get<CommentCount>(
+      uri.getCommentCount.replace("DREAM_UUID", uuid)
     );
     return response;
   } catch (error) {
