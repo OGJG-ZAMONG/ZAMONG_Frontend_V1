@@ -7,15 +7,28 @@ export const PostingContainer = styled.div`
   display: flex;
   flex-direction: column;
   row-gap: 28px;
-`
+`;
 
 export const Text = styled.div`
   color: ${color.white};
   font: ${font.body3};
+`;
+
+export const PhotoGrid = styled.div`
+  display: grid;
+  grid-template-columns: repeat(11,1fr);
+  column-gap: 20px;
 `
 
-export const Photo = styled.div`
+export const Photo = styled.img`
+  grid-column: 1/8;
+  width: 100%;
+`;
 
+export const LucyImg = styled.img`
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
 `
 
 export const Lucy = styled.div`
@@ -27,4 +40,4 @@ export const Lucy = styled.div`
   text-align: center;
   color: ${color.gray};
   font: ${font.body3};
-`
+`;
