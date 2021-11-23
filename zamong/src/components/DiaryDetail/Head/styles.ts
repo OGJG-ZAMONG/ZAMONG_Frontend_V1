@@ -37,16 +37,19 @@ export const LeftInfo = styled.div`
 
 export const PostingDate = styled.div`
   display: flex;
-`;
-
-export const DreamingDate = styled.div`
-  margin-right: 16px;
+  column-gap: 16px;
 `;
 
 export const UserInfo = styled.div`
   display: flex;
   align-items: center;
   gap: 18px;
+`
+
+export const PrifilePhoto = styled.img`
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
 `
 
 export const Profile = styled.div`
