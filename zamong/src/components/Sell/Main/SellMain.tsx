@@ -12,7 +12,10 @@ const SellMain: FC = (): JSX.Element => {
   const [renderList, setRenderList] = useState<number[][]>([[]]);
 
   useEffect(() => {
-    window.scrollTo(0, 0);
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth'
+    });
     getCurrentSellingDreams(pageIndex)
       .then((res) => {
         setDreamData(res.data.content.response.sell_dreams);

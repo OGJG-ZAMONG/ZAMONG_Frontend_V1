@@ -5,21 +5,31 @@ import {
   postComment,
   responseComment,
   Comment,
+  getCommentCount,
 } from "../../../utils/api/DreamDetail";
+import { dreamDetail } from "../../../models/dto/response/dreamDetailResponse";
 
-const DiaryDetail = (): JSX.Element => {
-  const postUuid = "78ca0578-03e8-4e8f-bf99-a98b268acb5b";
+interface PropsType {
+  postData: dreamDetail;
+}
+
+const DiaryDetail = ({ postData }: PropsType): JSX.Element => {
+  const { uuid } = postData;
   const [comment, setComment] = useState("");
   const [comments, setComments] = useState<Comment[]>([]);
+  const [commentCount,setCommentCount] = useState(0);
 
   useEffect(() => {
-    settingComment();
-  }, []);
+    if(uuid!==""){
+      settingComment();
+      
+    }
+  }, [uuid]);
 
   const settingComment = async () => {
-    setComments(
-      (await responseComment(postUuid)).data.content.response.comments
-    );
+    const count = await getCommentCount(uuid);
+    setCommentCount(count.data.content.response.number);
+    setComments((await responseComment(uuid)).data.content.response.comments);
   };
 
   const comentChange = (e: React.FormEvent<HTMLInputElement>) => {
@@ -36,7 +46,7 @@ const DiaryDetail = (): JSX.Element => {
         content: comment,
         p_comment: null,
       };
-      await postComment(postUuid, data);
+      await postComment(uuid, data);
       setComment("");
       settingComment();
       alert("댓글이 입력되었습니다.");
@@ -52,7 +62,7 @@ const DiaryDetail = (): JSX.Element => {
   return (
     <S.CommentContainer>
       <S.CommentTitle>
-        Comment&nbsp;<S.CommentCount>{comments.length}</S.CommentCount>
+        Comment&nbsp;<S.CommentCount>{commentCount}</S.CommentCount>
       </S.CommentTitle>
       <S.InputContainer>
         <S.CommentInput
@@ -66,7 +76,7 @@ const DiaryDetail = (): JSX.Element => {
       </S.InputContainer>
       <S.CommentList>
         {comments.map((value, i) => {
-          return <CommentBox postUuid={postUuid} comment={value} key={i} />;
+          return <CommentBox postUuid={uuid} comment={value} key={i} />;
         })}
       </S.CommentList>
     </S.CommentContainer>
