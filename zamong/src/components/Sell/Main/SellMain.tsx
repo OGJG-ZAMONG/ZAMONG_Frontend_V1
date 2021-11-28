@@ -5,7 +5,7 @@ import { getCurrentSellingDreams } from "../../../utils/api/Sell/Main";
 
 const SellMain: FC = (): JSX.Element => {
   const [maxPage, setMaxPage] = useState<number>(0);
-  const [maxSize, setMaxSize] = useState<number>(0);
+  // const [maxSize, setMaxSize] = useState<number>(0);/
   const [pageIndex, setPageIndex] = useState<number>(0);
   const [pageDepth, setPageDepth] = useState<number>(0);
   const [dreamData, setDreamData] = useState<Array<object>>([]);
@@ -14,7 +14,7 @@ const SellMain: FC = (): JSX.Element => {
   useEffect(() => {
     window.scrollTo({
       top: 0,
-      behavior: 'smooth'
+      behavior: "smooth",
     });
     getCurrentSellingDreams(pageIndex)
       .then((res) => {
@@ -28,7 +28,7 @@ const SellMain: FC = (): JSX.Element => {
   useEffect(() => {
     getCurrentSellingDreams(pageIndex).then((res) => {
       setMaxPage(res.data.content.response.total_page);
-      setMaxSize(res.data.content.response.total_size);
+      // setMaxSize(res.data.content.response.total_size);
       getPageList(res.data.content.response.total_page, 10);
     });
   }, []);
