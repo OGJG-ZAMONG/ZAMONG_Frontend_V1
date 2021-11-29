@@ -152,7 +152,7 @@ const MainPage = (): JSX.Element => {
           </div>
         </S.SectionContainer>
       </S.ContentContainer>
-      <Background />
+      <Background startY={0} />
     </>
   );
 };

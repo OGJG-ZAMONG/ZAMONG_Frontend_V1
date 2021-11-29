@@ -1,4 +1,5 @@
 import { useLayoutEffect, useRef, useState } from "react";
+import Delusional from "../../interface/Delusional";
 import DelusionalImage from "./DelusionalImage/DelusionalImage";
 import * as S from "./styles";
 
@@ -12,12 +13,6 @@ const Background = ({ startY }: PropsType): JSX.Element => {
     max = Math.floor(max);
     return Math.floor(Math.random() * (max - min)) + min; //최댓값은 제외, 최솟값은 포함
   };
-
-  interface Delusional {
-    url: Promise<any>;
-    left: number;
-    top: number;
-  }
 
   const [imageList, setImageList] = useState<Delusional[]>([]);
 
