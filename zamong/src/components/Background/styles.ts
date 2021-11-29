@@ -8,4 +8,12 @@ export const Container = styled.div`
   position: fixed;
   top: 0px;
   left: 0px;
+  overflow: hidden;
+`;
+
+export const Inner = styled.div`
+  width: 100%;
+  height: 100%;
+  position: relative;
+  transition: top 1s cubic-bezier(0.075, 0.82, 0.165, 1);
 `;
