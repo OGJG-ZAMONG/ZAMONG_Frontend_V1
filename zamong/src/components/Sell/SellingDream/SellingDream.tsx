@@ -37,7 +37,7 @@ const SellingDream: FC<Props> = ({
   );
 
   return (
-    <div>
+    <S.Container to={`sell/detail?${user.uuid}`}>
       <S.SellingDreamContainer img={img}>
         <S.Price>{`${price.toLocaleString()}원`}</S.Price>
         <S.DiaryDate>{dateToString(new Date(date))}</S.DiaryDate>
@@ -48,13 +48,14 @@ const SellingDream: FC<Props> = ({
           <S.UserName>{user.id}</S.UserName>
         </S.UserInfoContainer>
         <S.TagsContainer>
-          {dreamTypes.map((value) => {
+          {dreamTypes.map((value, index) => {
+            if(index >= 2) return
             return <Tag key={value.code}>{value.name}</Tag>;
           })}
         </S.TagsContainer>
       </S.PostInfoContainer>
       <S.SellingDreamTitle>{title}</S.SellingDreamTitle>
-    </div>
+    </S.Container>
   );
 };
 

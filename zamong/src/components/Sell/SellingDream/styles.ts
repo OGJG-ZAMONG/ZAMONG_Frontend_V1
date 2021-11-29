@@ -1,6 +1,12 @@
 import styled from "@emotion/styled";
 import { font } from "../../../style/font";
 import { color } from "../../../style/color";
+import { Link } from "react-router-dom";
+
+export const Container = styled(Link)`
+  outline: none;
+  text-decoration: none;
+`;
 
 export const SellingDreamContainer = styled.div<{ img: string }>`
   display: flex;
@@ -76,8 +82,10 @@ export const TagsContainer = styled.div`
 `;
 
 export const ProfilePicture = styled.img`
-  width: 36px;
-  height: 36px;
+  max-width: 36px;
+  min-width: 36px;
+  min-height: 36px;
+  max-height: 36px;
   border-radius: 100%;
   margin-right: 6%;
 `;

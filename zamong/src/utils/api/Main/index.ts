@@ -45,7 +45,7 @@ export const getFollowList = async (param: { page: number; size: number }) => {
 
     const url = `/${split[1]}/${uuid}/${split[2]}`;
 
-    const response = await request.get<followingResponse>(url, { params: param });
+    const response = await instance.get<followingResponse>(url, { params: param });
     return response;
   } catch (error) {
     return Promise.reject(error);
