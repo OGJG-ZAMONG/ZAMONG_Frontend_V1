@@ -3,11 +3,7 @@ import Delusional from "../../interface/Delusional";
 import DelusionalImage from "./DelusionalImage/DelusionalImage";
 import * as S from "./styles";
 
-interface PropsType {
-  startY: number;
-}
-
-const Background = ({ startY }: PropsType): JSX.Element => {
+const Background = (): JSX.Element => {
   const getRandomInt = (min: number, max: number) => {
     min = Math.ceil(min);
     max = Math.floor(max);
@@ -17,7 +13,7 @@ const Background = ({ startY }: PropsType): JSX.Element => {
   const [imageList, setImageList] = useState<Delusional[]>([]);
 
   const containerRef = useRef<HTMLDivElement>(null);
-  const lastYRef = useRef<number>(startY);
+  const lastYRef = useRef<number>(0);
   const isLeftRef = useRef<boolean>(false);
 
   const { current: lastY } = lastYRef;
