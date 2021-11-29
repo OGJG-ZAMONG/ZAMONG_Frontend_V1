@@ -1,12 +1,13 @@
-import { FC, useEffect, useState } from "react";
-import * as S from "./styles";
+import { FC, useEffect, useState, useRef } from "react";
 import { search, editGrey, send } from "../../assets";
+import { Stomp } from "@stomp/stompjs";
+import { getChatRooms, getChat } from "../../utils/api/Chat";
+import * as S from "./styles";
 import ChatRoom from "./ChatRoom/ChatRoom";
 import MyText from "./ChatBalloon/My/MyText";
 import OpponentText from "./ChatBalloon/Opponent/OpponentText";
 import SockJs from "sockjs-client";
-import * as Stomp from "@stomp/stompjs";
-import { getChatRooms } from "../../utils/api/Chat";
+
 
 const testArray: number[] = [];
 for (let i = 0; i < 10; i++) {
@@ -14,15 +15,43 @@ for (let i = 0; i < 10; i++) {
 }
 
 const Chat: FC = (): JSX.Element => {
-  const [rooms, setRooms] = useState<Array<object>>([]);
+  const baseURL = "http://52.78.219.131:8080/v1/api";
+  const [rooms, setRooms] = useState<Array<any>>([]);
   const [selectedRoom, setSelectedRoom] = useState<number>(0);
+  const [chats, setChats] = useState([]);
+  const inputValue = useRef<any>(null);
+  const Socket = new SockJs(`${baseURL}/ws`);
+  const StompClient = Stomp.over(Socket);
 
   useEffect(() => {
     getChatRooms()
-    .then((res) => setRooms(res.data.content.response.rooms))
-    .catch((err) => console.log(err))
-  }, [])
-  
+      .then((res) => {
+        setRooms(res.data.content.response.rooms);
+        StompClient.connect({}, (frame: any) => {
+          // disconnect();
+          console.log("Connected" + frame);
+
+          StompClient.subscribe(
+            "/topic/" + res.data.content.response.rooms[0].uuid,
+            (messageOutput) => {
+              console.log(rooms[0] + "에서 온 메시지");
+            }
+          );
+
+          getChat(res.data.content.response.rooms[0].uuid).then((res) => {
+            setChats(res.data.content.response.chats);
+          });
+        });
+      })
+      .catch((err) => console.log(err));
+  }, [selectedRoom]);
+
+  const disconnect = () => {
+    if (StompClient != null) {
+      StompClient.disconnect();
+    }
+  };
+
   return (
     <S.Container>
       <S.ChatListContainer>
@@ -38,7 +67,7 @@ const Chat: FC = (): JSX.Element => {
           />
         </S.SearchChatContainer>
         <S.ChatList>
-          {rooms.map((value : any, index : number) => {
+          {rooms.map((value: any, index: number) => {
             return (
               <ChatRoom
                 ChatRoomName={value.title}
@@ -71,7 +100,7 @@ const Chat: FC = (): JSX.Element => {
           </S.HeaderNav>
         </S.ChatViewHeader>
         <S.ChatBox>
-          <MyText message={"안녕하세요 꿈 구매하고 싶은데요..."} />
+          {/* <MyText message={"안녕하세요 꿈 구매하고 싶은데요..."} />
           <OpponentText message={"아하 그러시구나"} />
           <OpponentText message={"1000원에 팔께요 ^^"} />
           <MyText
@@ -80,10 +109,23 @@ const Chat: FC = (): JSX.Element => {
           <OpponentText message={"좋은 하루 보내세요"} />
           <MyText message={"ㅎㅎㅎㅎㅎ 넵"} />
           <MyText message={"ㅎㅎㅎㅎㅎ 넵"} />
-          <OpponentText message={"좋은 하루 보내세요"} />
+          <OpponentText message={"좋은 하루 보내세요"} /> */}
+          {chats.map((value: any, index) => {
+            console.log(value);
+            return value.its_me === true ? (
+              <MyText message={value.chat} />
+            ) : (
+              <OpponentText message={value.chat} />
+            );
+          })}
         </S.ChatBox>
         <S.ChatInputBox>
-          <S.ChatInput type="text" placeholder="내용을 입력하십시오." />
+          <S.ChatInput
+            type="text"
+            placeholder="내용을 입력하십시오."
+            ref={inputValue}
+            onChange={() => console.log(inputValue.current.value)}
+          />
           <S.ChatSubmitIMG src={send} />
         </S.ChatInputBox>
       </S.ChatViewerContainer>

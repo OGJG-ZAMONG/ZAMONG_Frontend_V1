@@ -148,6 +148,7 @@ export const ChatInput = styled.input`
   border-radius: inherit;
   width: 90%;
   color: ${color.white};
+  font-size: 16px;
   &::placeholder {
     color: ${color.white};
   }

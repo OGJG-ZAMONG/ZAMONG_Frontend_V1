@@ -132,7 +132,7 @@ const DiaryList: FC = (): JSX.Element => {
                   </S.WriteDiaryText>
                 </S.WriteDiary>
               </S.MyDreamDiaryContainer>
-              {/* 여기서 맵 돌림 */}
+              {/* 여기서 맵 돌림 */} 
               {RenderDiaryWrittenToday}
             </S.DiarySignContainer>
           </S.TodayDream>
