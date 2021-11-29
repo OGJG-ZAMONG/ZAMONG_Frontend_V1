@@ -25,7 +25,7 @@ export const Title = styled.div`
 `;
 
 export const GuideWord = styled.div`
-  color: #8e8e93;
+  color: ${color.gray};
   font: ${font.body3};
 `;
 
