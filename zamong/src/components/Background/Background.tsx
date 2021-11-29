@@ -1,7 +1,7 @@
 import * as S from "./styles";
 
-const Background = (): JSX.Element => {
-  return <S.Container>
+interface PropsType {
+  startY: number;
       
   </S.Container>;
 };
