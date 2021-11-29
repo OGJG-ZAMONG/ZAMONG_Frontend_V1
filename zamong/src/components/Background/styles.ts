@@ -22,7 +22,7 @@ export const Delusional = styled.div<{ left: number; top: number; isActive: bool
   top: ${(props) => props.top}px;
   position: absolute;
   contain: paint;
-  transform: translate(-50%, -${(props) => (props.isActive ? 50 : 55)}%);
+  transform: translate(-50%, -${(props) => (props.isActive ? 50 : 30)}%);
   opacity: ${(props) => (props.isActive ? 1 : 0)};
   transition: transform 1s cubic-bezier(0.075, 0.82, 0.165, 1),
     opacity 1s cubic-bezier(0.075, 0.82, 0.165, 1);
