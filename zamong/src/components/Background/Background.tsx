@@ -37,10 +37,10 @@ const Background = ({ startY }: PropsType): JSX.Element => {
       const left = isLeft ? 0 : 100;
       const img = import(`../../assets/delusional/delusional${id}.png`);
 
-      lastYRef.current = screenBottom;
+      lastYRef.current = lastY + offset;
       isLeftRef.current = !isLeft;
 
-      setImageList(imageList.concat({ left: left, url: img, top: screenBottom }));
+      setImageList(imageList.concat({ left: left, url: img, top: lastY + offset }));
     }
 
     if (containerRef.current) {
