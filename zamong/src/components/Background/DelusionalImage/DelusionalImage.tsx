@@ -13,6 +13,7 @@ const DelusionalImage = ({ left, top, url }: PropsType): JSX.Element => {
   const [imgUrl, setImgUrl] = useState<string>("");
 
   useEffect(() => {
+
     url.then((value) => {
       setImgUrl(value.default);
       setIsActive(true);

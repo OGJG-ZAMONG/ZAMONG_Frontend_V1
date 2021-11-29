@@ -30,7 +30,12 @@ const Background = ({ startY }: PropsType): JSX.Element => {
   const offset = window.screen.height * 0.8;
 
   const onScrollHandler = () => {
-    const screenBottom = window.scrollY + window.screen.height;
+    const scrollY = window.scrollY * 0.2;
+    const screenBottom = scrollY + window.screen.height;
+
+    if (containerRef.current) {
+      containerRef.current.style.top = `${-scrollY}px`;
+    }
 
     if (screenBottom >= lastY + offset) {
       const id = getRandomInt(1, 21).toString();
@@ -41,10 +46,6 @@ const Background = ({ startY }: PropsType): JSX.Element => {
       isLeftRef.current = !isLeft;
 
       setImageList(imageList.concat({ left: left, url: img, top: lastY + offset }));
-    }
-
-    if (containerRef.current) {
-      containerRef.current.style.top = `${-window.scrollY}px`;
     }
   };
 
