@@ -37,6 +37,7 @@ export const ChangeBtn = styled.button`
   background-color: black;
   border-radius: 120px;
   color: #ffffff;
+  cursor: pointer;
 `;
 
 export const AccountBox = styled.div`
@@ -50,7 +51,7 @@ export const Box = styled.div`
   justify-content: space-between;
   margin-bottom: 18px;
   padding-bottom: 10px;
-  border-bottom: 1px solid white;
+  border-bottom: 1px solid #636366;
 `;
 
 export const IdText = styled.span`
@@ -71,4 +72,5 @@ export const DeleteBtn = styled.button`
   background-color: black;
   border-radius: 120px;
   color: #ff453a;
+  cursor: pointer;
 `;

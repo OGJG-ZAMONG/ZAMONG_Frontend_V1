@@ -1,23 +1,20 @@
 import styled from "@emotion/styled";
 import { font } from "../../../style/font";
 import { color } from "../../../style/color";
+import { Link } from "react-router-dom";
 
 export const Container = styled.div`
   background-color: ${color.black};
   width: 100%;
-  display: inline;
 `;
 
 export const TodayContainer = styled.div`
   width: 1280px;
-  height: 100vh;
   display: flex;
   color: ${color.white};
   flex-direction: column;
-  justify-content: center;
-  min-height: 711px;
   margin: 0 auto;
-  min-height: 711px;
+  padding-top: 120px;
 `;
 
 export const Title = styled.div`
@@ -29,47 +26,49 @@ export const Title = styled.div`
 `;
 
 export const TodayDream = styled.div`
-  height: 711px;
-  width: 650px;
+  height: 100%;
+  width: 100%;
   background-color: ${color.darkerGray};
   border-radius: 10px;
-  padding: 0 10px;
 `;
 
 export const TodayBox = styled.div`
   width: 100%;
-  display: flex;
-  justify-content: center;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  column-gap: 20px;
 `;
 
 export const TodayDreamText = styled.div`
-  width: 37px;
-  height: 25px;
+  width: calc(100% - 20px);
+  height: 40px;
+  display: flex;
+  align-items: center;
   color: ${color.white};
-  margin: 20px 0 4px 0;
   font: ${font.subtitle};
-  font-weight: 500;
-  line-height: 10px;
+  border-bottom: 0.5px solid ${color.gray};
+  margin: 0 auto;
 `;
 
 export const DiarySignContainer = styled.div`
-  height: 93%;
+  height: calc(100% - 40px);
   width: 100%;
   overflow: auto;
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   grid-template-rows: 40%;
-  grid-gap: 15px;
+  &::-webkit-scrollbar {
+    display: none;
+  }
 `;
 
 export const DiaryListContainer = styled.div`
-  height: 100vh;
   width: 1280px;
   color: ${color.white};
   display: flex;
-  justify-content: center;
   flex-direction: column;
   margin: 0 auto;
+  padding-top: 10%;
 `;
 
 export const DiaryListTitle = styled.div`
@@ -81,37 +80,39 @@ export const DiaryListHeader = styled.div`
   height: 30px;
   display: flex;
   justify-content: space-between;
-  padding-bottom: 3%;
+  margin-bottom: 28px;
 `;
 
 export const DiaryList = styled.div`
   display: grid;
+  min-height: 100vh;
   grid-template-columns: repeat(4, 1fr);
-  grid-template-rows: repeat(4, 1fr);
+  grid-template-rows: 1fr;
   grid-gap: 15px;
-  height: 1120px;
-  overflow: auto;
+  margin-bottom: 300px;
 `;
 
-export const WriteDiary = styled.div`
-  aspect-ratio: 3/2;
+export const WriteDiary = styled(Link)`
   width: 100%;
   box-sizing: border-box;
   aspect-ratio: 3/2;
   border-radius: 20px;
   cursor: pointer;
-  backdrop-filter: blur(20px);
-  background-color: ${color.darkerGray};
+  border: 1px solid ${color.darkerGray};
+  background-color: ${color.gray};
+  background: 0 0 0 0.5;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 `;
 
 export const WriteDiaryText = styled.div`
-  margin: 89px 86px;
-  font-family: Spoqa Han Sans Neo;
-  font-weight: 500;
-  font-size: 20px;
+  font: ${font.subtitle};
   color: ${color.lightGray};
+  color: ${color.white};
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
 `;
 
 export const WriteDiaryImg = styled.img`
@@ -121,30 +122,41 @@ export const WriteDiaryImg = styled.img`
 export const HeaderSelections = styled.div`
   height: 24px;
   display: flex;
+  align-items: center;
   font: ${font.body2};
   font-weight: 400px;
 `;
 
-export const HeaderSelect = styled.div`
+export const HeaderSelect = styled.select`
+  color: ${color.white};
+  font: ${font.body2};
   height: 100%;
   margin-left: 25px;
   display: flex;
   cursor: pointer;
-  img {
-    width: 15px;
-    height: 15px;
-    cursor: pointer;
-    margin-top: 3px;
-    margin-left: 4px;
-    transition: 0.2s;
+  text-decoration: none;
+  border: none;
+  background-color: inherit;
+  option {
+    background: ${color.black};
   }
 `;
 
 export const Label = styled.label`
-  width: 20px;
-  height: 20px;
-  position: relative;
-  margin-right: 9px;
+  height: 100%;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font: ${font.body2};
+  cursor: pointer;
+  input {
+    width: 22px;
+    height: 22px;
+    margin-right: 8px;
+    border-radius: 10px;
+    cursor: pointer;
+  }
 `;
 
 export const Box = styled.div`
@@ -156,15 +168,18 @@ export const Box = styled.div`
 `;
 
 export const Input = styled.input`
+  position: relative;
   width: 24px;
   height: 24px;
   display: none;
   border-radius: 5px;
   &:checked ~ div::after {
-    content: "✓";
-    color: ${color.black};
+    content: "";
     position: absolute;
-    left: 4px;
     color: ${color.white};
   }
+`;
+
+export const MyDreamDiaryContainer = styled.div`
+  padding: 15px 10px;
 `;

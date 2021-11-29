@@ -26,22 +26,23 @@ export const UserBox = styled.div`
   margin-bottom: 12px;
   display: flex;
   justify-content: space-between;
-  border-bottom: 1px solid white;
+  border-bottom: 1px solid #636366;
 `;
 
 export const LeftBox = styled.div`
   height: 60px;
   display: flex;
+  cursor: pointer;
 `;
 
-export const Profile = styled.div`
+export const Profile = styled.div<{ img: string }>`
   width: 36px;
   height: 36px;
   border-radius: 120px;
   background-size: cover;
-  border: 1px solid white;
   margin-top: 10px;
   box-sizing: border-box;
+  background-image: url(${(props) => props.img});
 `;
 
 export const UserNickName = styled.span`
@@ -53,7 +54,7 @@ export const UserNickName = styled.span`
 `;
 
 export const RightBox = styled.div`
-  width: 328px;
+  width: 348px;
   height: 60px;
   display: flex;
 `;

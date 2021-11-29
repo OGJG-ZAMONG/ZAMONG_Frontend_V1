@@ -1,21 +1,47 @@
 import * as S from "./styles";
 import Logo from "../../assets/logo/testLogo.png";
-import SearchIcon from "../../assets/icon/searchIcon.svg";
-import { Link } from "react-router-dom";
+import SearchIcon from "../../assets/icons/searchIcon.svg";
+import { Link, RouteComponentProps, withRouter } from "react-router-dom";
 import Filter from "./Filter/Filter";
-import { useState } from "react";
-import NonLoginComponent from "./NonLoginComponent";
-import LoginComponent from "./LoginComponent/index";
+import { useEffect, useState } from "react";
+import LoginComponent from "./LoginComponent";
+import Code from "../../interface/Code";
 
-const Header = (): JSX.Element => {
+const Header = ({history} : RouteComponentProps): JSX.Element => {
   const paddingValue = 10;
   const [headerPadding, setHeaderPadding] = useState<number>(paddingValue);
+  const [isTop, setIsTop] = useState<boolean>(true);
   const [headerLineOpacity, setHeaderLineOpacity] = useState<number>(0);
+  const [selectedType, setSelectedType] = useState<Code[]>([]);
+  const [searchText, setSearchText] = useState<string>("");
 
-  window.addEventListener("scroll", (event) => {
-    setHeaderPadding(window.pageYOffset === 0 ? paddingValue : 0);
-    setHeaderLineOpacity(window.pageYOffset === 0 ? 0 : 1);
-  });
+  const scrollEvent = () => {
+    setIsTop(window.pageYOffset === 0);
+  };
+
+  useEffect(() => {
+    setHeaderPadding(isTop ? paddingValue : 0);
+    setHeaderLineOpacity(isTop ? 0 : 1);
+  }, [isTop]);
+
+  useEffect(() => {
+    window.addEventListener("scroll", scrollEvent);
+
+    return () => {
+      window.removeEventListener("scroll", scrollEvent);
+    };
+  }, []);
+
+  useEffect(() => {
+    history.listen(() => {
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      });
+    });
+  })
+
+  const onChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => setSearchText(e.target.value);
 
   return (
     <S.HeaderContainer pd={headerPadding} lineOpacity={headerLineOpacity}>
@@ -32,13 +58,16 @@ const Header = (): JSX.Element => {
             <S.SearchContainer>
               <S.SearchInputContainer>
                 <img alt="search icon" src={SearchIcon} />
-                <S.SearchInput placeholder="검색할 내용을 입력하세요." />
+                <S.SearchInput
+                  value={searchText}
+                  onChange={onChangeHandler}
+                  placeholder="검색할 내용을 입력하세요."
+                />
               </S.SearchInputContainer>
-              <Filter />
+              <Filter selectedState={[selectedType, setSelectedType]} />
             </S.SearchContainer>
             <S.RightContentContainer>
               <LoginComponent />
-              {/* <NonLoginComponent /> */}
             </S.RightContentContainer>
           </S.RightOuter>
         </S.RightContainer>
@@ -47,4 +76,4 @@ const Header = (): JSX.Element => {
   );
 };
 
-export default Header;
+export default withRouter(Header);

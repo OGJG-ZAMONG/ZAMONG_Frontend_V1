@@ -1,38 +1,76 @@
 import * as S from "./styles";
 import { FC, MutableRefObject, useEffect, useRef, useState } from "react";
+import { getCalendarData } from "../../../utils/api/Diary/Calendar";
+import { color } from "../../../style/color";
+import { useHistory } from "react-router";
+
 const Calendar: FC = (): JSX.Element => {
   const date: Date = new Date();
-  const [year, setYear] = useState<number>(date.getFullYear());
-  const [month, setMonth] = useState<number>(date.getMonth());
-  const DayContainer: MutableRefObject<any> = useRef();
+  const DayContainer: MutableRefObject<any> = useRef<HTMLDivElement>(null);
   const week: Array<string> = ["일", "월", "화", "수", "목", "금", "토"];
   const Today: string = `${date.getFullYear()} ${date.getMonth()} ${date.getDate()}`;
+  const [year, setYear] = useState<number>(date.getFullYear());
+  const [month, setMonth] = useState<number>(date.getMonth());
+  const [data, setData] = useState<Array<object>>([]);
+  const router = useHistory();
 
   useEffect(() => {
+    //달력이 바뀌면 전 요소들 삭제
     for (let i = 0; i < 41; i++) {
       if (DayContainer.current.childNodes[i].children.length >= 1) {
-        DayContainer.current.childNodes[i].firstChild.remove();
+        while (DayContainer.current.childNodes[i].lastElementChild) {
+          DayContainer.current.childNodes[i].removeChild(
+            DayContainer.current.childNodes[i].lastChild
+          );
+        }
       }
     }
     makeCalendar(year, month);
+    getCalendarData(year, month + 1)
+      .then((res) => setData(res.data.content.response.timetables))
+      .catch((err) => console.log(err));
   }, [month]);
 
+  useEffect(() => {
+    //만약 데이터가 없으면 추가하지않고 있으면 해당 날짜의 위치에 요소를 삽입
+    if (data.length === 0) {
+      return;
+    } else {
+      data.map((value: any) => {
+        const div = document.createElement("div");
+        div.innerHTML = value.title;
+        const Date = value.date.split("-")[2];
+        const DateIndex =
+          Number(Date.split("")[0]) * 10 + Number(Date.split("")[1]);
+        if (DayContainer.current.childNodes[DateIndex].children.length < 4) {
+          DayContainer.current.childNodes[DateIndex].insertBefore(div, null);
+        }
+        div.onclick = () => {
+          handleCalendarClick(value.uuid);
+        };
+      });
+    }
+  }, [data]);
+
+  //달력을 그리는 함수
   const makeCalendar = (year: number, month: number) => {
     const dateLength: number = new Date(year, month + 1, 0).getDate();
     const newDate: number = new Date(year, month).getDay();
 
     for (let i = newDate; i < dateLength + newDate; i++) {
-      const div = document.createElement("div");
-      div.innerHTML = `${i - (newDate - 1)}`;
-      if (`${year} ${month} ${div.innerHTML}` === Today) {
-        div.style.backgroundColor = "#0A84FF";
-        div.style.display = "inline";
-        div.style.padding = "4px 4px";
-        div.style.borderRadius = "100%";
-        div.style.color = "white";
+      const span = document.createElement("span");
+      span.innerHTML = `${i - (newDate - 1)}`;
+      if (`${year} ${month} ${span.innerHTML}` === Today) {
+        span.style.backgroundColor = `${color.blue}`;
+        span.style.borderRadius = "100%";
+        span.style.color = "white";
       }
-      DayContainer.current.childNodes[i].insertBefore(div, null);
+      DayContainer.current.childNodes[i].insertBefore(span, null);
     }
+  };
+
+  const handleCalendarClick = (uuid: string) => {
+    router.push(`diary/detail/${uuid}`);
   };
 
   const renderDay = () => {
@@ -44,6 +82,7 @@ const Calendar: FC = (): JSX.Element => {
     return dayArray;
   };
 
+  //다음달로 이동하기
   const nextMonth = () => {
     setMonth(month + 1);
     if (month >= 11) {
@@ -52,11 +91,13 @@ const Calendar: FC = (): JSX.Element => {
     }
   };
 
+  //현재 달로 이동하기
   const todayDate = () => {
     setYear(date.getFullYear());
     setMonth(date.getMonth());
   };
 
+  //이전 달로 이동하기
   const prevMonth = () => {
     setMonth(month - 1);
     if (month < 1) {
@@ -78,9 +119,11 @@ const Calendar: FC = (): JSX.Element => {
         </S.Controller>
       </S.CalendarHeader>
       <S.CalendarContainer>
-        {week.map((week: any, index: number) => {
-          return <S.WeekDays key={index}>{week}</S.WeekDays>;
-        })}
+        <S.WeekContainer>
+          {week.map((week: any, index: number) => {
+            return <S.WeekDays key={index}>{week}</S.WeekDays>;
+          })}
+        </S.WeekContainer>
         <S.DayContainer ref={DayContainer}>{renderDay()}</S.DayContainer>
       </S.CalendarContainer>
     </S.Container>

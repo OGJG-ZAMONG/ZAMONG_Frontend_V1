@@ -1,28 +1,112 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import * as S from "./style";
-import { Profile, Follower, Follow, AccountInfo } from "../../assets";
+import { Follower, Follow, AccountInfo } from "../../assets";
 import FollowerContent from "./Follower/FollowerContent";
 import FollowContent from "./Follow/FollowContent";
 import AccountContent from "./Account/AccountContent";
+import { getFollower, getFollowing, getMyProfile } from "../../utils/api/Profile";
+
+interface ProfileType {
+  uuid: string;
+  name: string;
+  email: string;
+  id: string;
+  profile: string;
+  share_dream_count: number;
+  lucy_count: number;
+}
+interface IdType {
+  myid: string;
+}
+interface FollowerType {
+  total_size: number;
+}
+interface FollowType {
+  total_size: number;
+}
 
 const ProfilePage = (): JSX.Element => {
   const [comp, setComp] = useState();
-  const [content, setContent] = useState(<FollowerContent />);
+  const [followerState, setFollower] = useState<FollowerType>({
+    total_size: 0,
+  });
+  const [followState, setFollow] = useState<FollowType>({
+    total_size: 0,
+  });
+  const [profileState, setProfile] = useState<ProfileType>({
+    uuid: "",
+    name: "",
+    email: "",
+    id: "",
+    profile: "",
+    share_dream_count: 0,
+    lucy_count: 0,
+  });
+  const { uuid, name, email, id, profile, share_dream_count, lucy_count } = profileState;
+  const FOLLORWER = 1;
+  const FOLLORWING = 2;
+  const ACCOUNTINFO = 3;
+  const [contentState, setContentState] = useState(FOLLORWER);
+
   const onFollowerClick = () => {
-    if (content !== <FollowerContent />) {
-      setContent(<FollowerContent />);
-    }
+    setContentState(FOLLORWER);
   };
+
   const onFollowClick = () => {
-    if (content !== <FollowContent />) {
-      setContent(<FollowContent />);
-    }
+    setContentState(FOLLORWING);
   };
+
   const onAccountInfoClick = () => {
-    if (content !== <AccountContent />) {
-      setContent(<AccountContent />);
+    setContentState(ACCOUNTINFO);
+  };
+
+  useEffect(() => {
+    myProfile();
+  }, []);
+
+  useEffect(() => {
+    follower();
+    follow();
+  }, [uuid]);
+
+  const myProfile = async () => {
+    try {
+      const response = await getMyProfile();
+      setProfile(response.data.content.response);
+    } catch (error) {
+      throw error;
     }
   };
+
+  const follower = async () => {
+    try {
+      const response = await getFollower(uuid);
+      setFollower(response.data.content.response);
+    } catch (error) {
+      throw error;
+    }
+  };
+
+  const follow = async () => {
+    try {
+      const response = await getFollowing(uuid);
+      setFollow(response.data.content.response);
+    } catch (error) {
+      throw error;
+    }
+  };
+
+  const renderContent = (): JSX.Element => {
+    const contentMap = new Map<number, React.FC<IdType>>()
+      .set(FOLLORWER, FollowerContent)
+      .set(FOLLORWING, FollowContent)
+      .set(ACCOUNTINFO, AccountContent);
+    const content = React.createElement(contentMap.get(contentState)!, {
+      myid: uuid,
+    });
+    return <>{content}</>;
+  };
+
   return (
     <>
       {FollowerContent}
@@ -31,17 +115,17 @@ const ProfilePage = (): JSX.Element => {
       <S.ProfileContent>
         <S.TopBox>
           <S.TopContent>
-            <S.ProfileBox img={Profile} />
+            <S.ProfileBox img={profile} />
             <S.InfoBox>
-              <S.NickNameText>dms_jingenun04</S.NickNameText>
-              <S.EmailText>2014kjg@dsm.hs.kr</S.EmailText>
+              <S.NickNameText>{id}</S.NickNameText>
+              <S.EmailText>{email}</S.EmailText>
               <S.OneLineBox>
-                <span>팔로워 12명</span>
-                <span>팔로우 7명</span>
-                <span>내가 쓴 꿈 일기 18개</span>
-                <span>86LUCY</span>
+                <span>팔로워 {followerState.total_size}명</span>
+                <span>팔로우 {followState.total_size}명</span>
+                <span>내가 쓴 꿈 일기 {share_dream_count}개</span>
+                <span>{lucy_count}LUCY</span>
               </S.OneLineBox>
-              <S.NameBox>이름: 김진근</S.NameBox>
+              <S.NameBox>이름: {name}</S.NameBox>
             </S.InfoBox>
           </S.TopContent>
         </S.TopBox>
@@ -67,7 +151,7 @@ const ProfilePage = (): JSX.Element => {
             </S.ChooseBox>
           </S.SelectionContent>
         </S.SelectionBox>
-        <div>{content}</div>
+        <div>{renderContent()}</div>
       </S.ProfileContent>
     </>
   );

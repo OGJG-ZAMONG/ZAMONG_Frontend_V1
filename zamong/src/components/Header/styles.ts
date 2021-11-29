@@ -7,15 +7,14 @@ export const HeaderContainer = styled.div<{ pd: number; lineOpacity: number }>`
   font: ${font.body3};
   width: 100%;
   height: 64px;
-  background-color: ${(props) =>
-    props.lineOpacity === 1 ? color.black : "rgba(0, 0, 0, 0)"};
+  background-color: ${(props) => (props.lineOpacity === 1 ? color.black : "rgba(0, 0, 0, 0)")};
   display: flex;
   align-items: center;
   position: fixed;
   padding-top: ${(props) => props.pd}px;
   transition: padding 0.25s ease-out, background-color 0.25s ease-out;
   z-index: 3;
-
+  min-width: 1000px;
   &:after {
     z-index: 2;
     content: "";
@@ -102,8 +101,12 @@ export const SearchInputContainer = styled.div`
   width: 630px;
   box-sizing: border-box;
   margin-right: 16px;
+  transition: width 1s cubic-bezier(0.075, 0.82, 0.165, 1);
   img {
     margin-right: 8px;
+  }
+  @media only screen and (max-width: 1600px) {
+    width: 300px;
   }
 `;
 

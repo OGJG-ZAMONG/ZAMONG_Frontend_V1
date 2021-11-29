@@ -23,7 +23,7 @@ const MainRouter: FC = (): JSX.Element => {
         <Route exact path="/login" component={LoginContainer} />
         <Route exact path="/diary" component={DiaryContainer} />
         <Route exact path="/diary/write" component={DiaryWriteContainer} />
-        <Route exact path="/diary/detail" component={DiaryDetailContainer} />
+        <Route path="/diary/detail/:uuid" component={DiaryDetailContainer} />
         <Route exact path="/signup" component={SignUpContainer} />
         <Route exact path="/sell" component={SellDreamContainer} />
         <Route exact path="/sell/write" component={SellWriteContainer} />

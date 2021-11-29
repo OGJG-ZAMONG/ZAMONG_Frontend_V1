@@ -3,15 +3,12 @@ import { font } from "../../../style/font";
 import { color } from "../../../style/color";
 
 export const Container = styled.div`
-  width: 630px;
-  height: 711px;
-  margin-right: 20px;
+  height: 100%;
 `;
 
 export const Date = styled.div`
   line-height: 25px;
   font: ${font.body1};
-  font-weight: 500;
 `;
 
 export const CalendarHeader = styled.div`
@@ -25,8 +22,8 @@ export const CalendarHeader = styled.div`
 export const Controller = styled.div`
   display: flex;
   justify-content: space-between;
-  width: 133px;
-  height: 32px;
+  width: 21%;
+  height: 100%;
   font: ${font.body1};
   font-weight: 500;
 `;
@@ -36,19 +33,20 @@ export const Prev = styled.div`
   height: 32px;
   background-color: ${color.darkerGray};
   border-radius: 5px;
-  text-align: center;
-  line-height: 32px;
   cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 `;
 
 export const DateStatus = styled.div`
-  width: 53px;
-  height: 32px;
+  width: 55px;
   background-color: ${color.darkerGray};
   border-radius: 5px;
-  text-align: center;
-  line-height: 32px;
   cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `;
 
 export const Next = styled.div`
@@ -56,44 +54,75 @@ export const Next = styled.div`
   height: 32px;
   background-color: ${color.darkerGray};
   border-radius: 5px;
-  text-align: center;
-  line-height: 32px;
   cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `;
 
 export const CalendarContainer = styled.div`
-  height: 674px;
-  width: 630px;
-  display: grid;
-  grid-template-columns: repeat(7, 90px);
   border-radius: 10px;
   background-color: ${color.darkerGray};
   font: ${font.body2};
 `;
 
-export const DayContainer = styled.div`
-  display: inherit;
-  grid-template-columns: repeat(7, 90px);
-  text-align: center;
+export const WeekContainer = styled.div`
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+`;
 
+export const DayContainer = styled.div`
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  grid-template-rows: repeat(6, 1fr);
+  text-align: center;
 `;
 
 export const WeekDays = styled.div`
-  width: 90px;
-  height: 36px;
+  padding: 8px 0;
   text-align: center;
-  line-height: 36px;
   &:first-child {
     color: ${color.red};
   }
 `;
 
 export const Days = styled.div`
-  width: 90px;
-  height: 95px;
   border-top: 1px solid ${color.gray};
-  padding-top: 10px;
+  position: relative;
+  display: grid;
+  grid-template-rows: repeat(4, 1fr);
   &:nth-child(7n + 1) {
     color: ${color.red};
+  }
+  span {
+    display: flex;
+    font-size: 14px;
+    justify-content: center;
+    align-items: center;
+    padding: 2px;
+    margin: 2px auto;
+  }
+  div {
+    width: 80%;
+    min-width: 80%;
+    height: 20px;
+    color: ${color.white};
+    background-color: ${color.darkGray};
+    border-radius: 3px;
+    cursor: pointer;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    word-break: keep-all;
+    overflow: hidden;
+    padding: 0 4px;
+    margin: auto;
+    margin-left: 10%;
+    font-size: 15px;
+    &:hover {
+      width: auto;
+      z-index: 2;
+      overflow: unset;
+      box-shadow: 0px 0px 8px ${color.black}80;
+    }
   }
 `;

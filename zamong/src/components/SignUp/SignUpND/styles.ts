@@ -54,7 +54,7 @@ export const Input = styled.input`
 
 export const Check = styled(Input)`
   margin-bottom: 16px;
-`
+`;
 
 export const EventBox = styled.div`
   display: flex;
@@ -75,6 +75,7 @@ export const PrevButton = styled.div`
   text-align: center;
   line-height: 2;
   box-shadow: 0 0 1px 0 ${color.white} inset, 0 0 1px 0 ${color.white};
+  cursor: pointer;
 `;
 
 export const NextButton = styled.div`
@@ -86,4 +87,5 @@ export const NextButton = styled.div`
   border-radius: 100px;
   text-align: center;
   line-height: 2;
+  cursor: pointer;
 `;

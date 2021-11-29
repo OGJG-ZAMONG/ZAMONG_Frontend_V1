@@ -23,7 +23,6 @@ export const TopContent = styled.div`
 export const ProfileBox = styled.div<{ img: string }>`
   width: 200px;
   height: 197px;
-  border: 1px solid blue;
   background-size: cover;
   border-radius: 120px;
   box-sizing: border-box;
@@ -66,7 +65,7 @@ export const NameBox = styled.p`
 export const SelectionBox = styled.div`
   width: 100%;
   height: 58px;
-  border-top: 1px solid white;
+  border-top: 1px solid #636366;
 `;
 
 export const SelectionContent = styled.div`
