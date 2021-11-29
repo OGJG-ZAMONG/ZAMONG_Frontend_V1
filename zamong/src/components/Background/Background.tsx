@@ -25,8 +25,8 @@ const Background = ({ startY }: PropsType): JSX.Element => {
   const offset = window.screen.height * 0.8;
 
   const onScrollHandler = () => {
-    const scrollY = window.scrollY * 0.2;
-    const screenBottom = scrollY + window.screen.height;
+    const scrollY = window.scrollY * 0.4;
+    const screenBottom = scrollY + window.screen.height * 0.8;
 
     if (containerRef.current) {
       containerRef.current.style.top = `${-scrollY}px`;
