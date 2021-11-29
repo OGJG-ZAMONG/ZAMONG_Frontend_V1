@@ -1,9 +1,12 @@
+import { useLayoutEffect, useRef, useState } from "react";
+import DelusionalImage from "./DelusionalImage/DelusionalImage";
 import * as S from "./styles";
 
 interface PropsType {
   startY: number;
-      
-  </S.Container>;
+}
+
+const Background = ({ startY }: PropsType): JSX.Element => {
   const getRandomInt = (min: number, max: number) => {
     min = Math.ceil(min);
     max = Math.floor(max);
@@ -44,6 +47,26 @@ interface PropsType {
       containerRef.current.style.top = `${-window.scrollY}px`;
     }
   };
+
+  useLayoutEffect(() => {
+    console.log(imageList);
+    window.addEventListener("scroll", onScrollHandler);
+
+    return () => {
+      window.removeEventListener("scroll", onScrollHandler);
+    };
+  }, [imageList]);
+
+  return (
+    <S.Container>
+      <S.Inner ref={containerRef}>
+        {imageList.map((value, index) => {
+          const { top, left, url } = value;
+          return <DelusionalImage top={top} left={left} url={url} key={index} />;
+        })}
+      </S.Inner>
+    </S.Container>
+  );
 };
 
 export default Background;
