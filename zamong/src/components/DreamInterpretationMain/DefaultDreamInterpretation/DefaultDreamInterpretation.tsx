@@ -1,5 +1,7 @@
 import { useState } from "react";
+import { DefaultDreamInterpretations } from "../../../constance/defaultDreamInterpretations";
 import { color } from "../../../style/color";
+import DefaultDreamInterpretationCard from "../../CardDream/DefaultDreamInterpretationCard/DefaultDreamInterpretationCard";
 import Slider from "../../MainPage/Slider/Slider";
 import * as S from "./styles";
 
@@ -11,18 +13,15 @@ const DefaultDreamInterpretation = (): JSX.Element => {
     <S.ContentInner>
       <S.Subtitle>기본 꿈 풀이</S.Subtitle>
       <Slider
-        size={6}
+        size={DefaultDreamInterpretations.length}
         columnCount={4}
         gap={20}
         pageState={[page, setPage]}
         indexState={[index, setIndex]}
       >
-        {[1, 2, 3, 4, 5, 6].map((_, index) => {
-          return (
-            <div style={{ width: "100%", backgroundColor: color.gray }} key={index}>
-              qwejk
-            </div>
-          );
+        {DefaultDreamInterpretations.map((value) => {
+          const { image, title, content } = value;
+          return <DefaultDreamInterpretationCard image={image} title={title} content={content} />;
         })}
       </Slider>
     </S.ContentInner>
