@@ -7,6 +7,7 @@ export const DreamCardContainer = styled(Link)`
   width: 100%;
   outline: none;
   text-decoration: none;
+  contain: paint;
 `;
 
 export const DreamImageContainer = styled.div<{ img: any }>`
