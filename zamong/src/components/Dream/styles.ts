@@ -6,6 +6,7 @@ export const DreamContainer = styled.div`
   display: grid;
   grid-template-columns: repeat(12, 1fr);
   column-gap: 20px;
+  contain: paint;
 `;
 
 export const DreamImage = styled.div<{ img: any }>`
@@ -24,6 +25,7 @@ export const DreamImage = styled.div<{ img: any }>`
   align-items: flex-end;
   justify-content: space-between;
   flex-direction: column-reverse;
+  contain: paint;
 `;
 
 export const DreamUserImage = styled.img`

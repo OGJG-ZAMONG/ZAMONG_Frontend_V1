@@ -96,9 +96,13 @@ const MainPage = (): JSX.Element => {
   const renderLinks = () => {
     const links = isLogin ? loginLinks : nonloginLinks;
 
-    const list = links.map((value) => {
+    const list = links.map((value, index) => {
       const { text, onClick } = value;
-      return <div onClick={onClick}>{text}</div>;
+      return (
+        <div onClick={onClick} key={index}>
+          {text}
+        </div>
+      );
     });
 
     const returnValue: JSX.Element[] = [];
