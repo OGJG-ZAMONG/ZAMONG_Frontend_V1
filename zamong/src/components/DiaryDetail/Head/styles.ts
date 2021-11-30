@@ -56,3 +56,12 @@ export const Profile = styled.div`
   color: ${color.white};
   font: ${font.body3};
 `;
+
+export const More = styled.img`
+  margin: auto 0;
+  cursor: pointer;
+`;
+
+export const MoreBox = styled.div`
+  position: relative;
+`

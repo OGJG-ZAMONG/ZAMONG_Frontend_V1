@@ -50,7 +50,7 @@ const DiaryDetail = (): JSX.Element => {
     <S.Container>
       <Head postData={postData} />
       <Posting postData={postData} />
-      <Comment postData={postData} />
+      {!postData.is_shared ? <Comment postData={postData} /> : <></>}
     </S.Container>
   );
 };

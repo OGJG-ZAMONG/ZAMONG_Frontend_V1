@@ -6,7 +6,7 @@ interface PropsType {
 }
 
 const DiaryDetailPosting = ({ postData }: PropsType): JSX.Element => {
-  const { content, lucy_count, attachment_image, user } = postData;
+  const { content, lucy_count, attachment_image, user, is_shared } = postData;
 
   return (
     <S.PostingContainer>
@@ -14,10 +14,14 @@ const DiaryDetailPosting = ({ postData }: PropsType): JSX.Element => {
         <S.Photo src={attachment_image} />
       </S.PhotoGrid>
       <S.Text>{content}</S.Text>
-      <S.Lucy>
-        <S.LucyImg src={user.profile}/>
-        <div>{lucy_count} LUCY</div>
-      </S.Lucy>
+      {is_shared ? (
+        <S.Lucy>
+          <S.LucyImg src={user.profile} />
+          <div>{lucy_count} LUCY</div>
+        </S.Lucy>
+      ) : (
+        <></>
+      )}
     </S.PostingContainer>
   );
 };
