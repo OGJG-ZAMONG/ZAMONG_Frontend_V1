@@ -7,6 +7,7 @@ export const Container = styled.div`
   margin: 0px auto;
   box-sizing: border-box;
   color: ${color.white};
+  padding-top: 120px;
 `;
 
 export const Title = styled.div`
