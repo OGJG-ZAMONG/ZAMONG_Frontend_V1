@@ -23,6 +23,7 @@ export const PhotoGrid = styled.div`
 export const Photo = styled.img`
   grid-column: 1/8;
   width: 100%;
+  aspect-ratio: 4 / 3;
 `;
 
 export const LucyImg = styled.img`
