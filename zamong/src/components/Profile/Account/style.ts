@@ -102,8 +102,6 @@ export const ChangePwBtn = styled(Link)`
   padding-top: 2px;
 `;
 
-export const IdBox = styled.div``;
-
 export const AccountBox = styled.div`
   width: 1279px;
   height: 240px;
