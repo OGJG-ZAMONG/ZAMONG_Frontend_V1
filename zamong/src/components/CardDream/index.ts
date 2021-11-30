@@ -7,6 +7,11 @@ export const DreamCardContainer = styled(Link)`
   width: 100%;
   outline: none;
   text-decoration: none;
+  &:hover {
+    div:first-of-type {
+      background-size: auto 110%;
+    }
+  }
 `;
 
 export const DreamImageContainer = styled.div<{ img: any }>`
@@ -16,7 +21,11 @@ export const DreamImageContainer = styled.div<{ img: any }>`
   justify-content: space-between;
   box-sizing: border-box;
   aspect-ratio: 3 / 2;
-  background-size: cover;
+  background-size: auto 100%;
+  background-repeat: no-repeat;
+  background-position: center;
+  transition: background-size 0.5s cubic-bezier(0.075, 0.82, 0.165, 1);
+  will-change: background-size;
   border-radius: 20px;
   padding: 24px;
   background-image: url(${(props) => props.img});
