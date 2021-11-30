@@ -14,8 +14,6 @@ const FileInput = ({ file, setFile, id, initPath }: PropsType): JSX.Element => {
       setFile(undefined);
       setPath("");
     } else {
-      console.log(e.currentTarget.files);
-
       setFile(e.currentTarget.files![0]);
     }
   };
