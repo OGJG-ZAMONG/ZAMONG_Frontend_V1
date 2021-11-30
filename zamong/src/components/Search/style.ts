@@ -66,15 +66,14 @@ export const Profile = styled.div`
   height: 36px;
   border-radius: 120px;
   background-size: cover;
-  border: 1px solid white;
+  border: 1px solid ${color.white};
   margin-top: 10px;
   box-sizing: border-box;
 `;
 
 export const UserNickName = styled.span`
-  font-family: Spoqa Han Sans Neo;
-  font-size: 16px;
-  color: #ffffff;
+  font: ${font.body2};
+  color: ${color.white};
   box-sizing: border-box;
   margin: 15px 0px 0px 16px;
 `;
@@ -86,19 +85,18 @@ export const RightBox = styled.div`
 `;
 
 export const FollowDate = styled.span`
-  font-family: Spoqa Han Sans Neo;
-  font-size: 16px;
-  color: #ffffff;
+  color: ${color.white};
   box-sizing: border-box;
   margin-top: 18px;
+  font: ${font.body3};
 `;
 
 export const FollowBtn = styled.button`
   width: 91px;
   height: 32px;
-  border: 1px solid white;
+  border: 1px solid ${color.white};
   border-radius: 120px;
-  background-color: black;
-  color: #ffffff;
+  background-color: ${color.black};
+  color: ${color.white};
   margin: 14px 0px 0px 15px;
 `;
