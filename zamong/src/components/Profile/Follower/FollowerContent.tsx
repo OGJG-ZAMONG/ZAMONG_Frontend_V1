@@ -1,5 +1,5 @@
 import React, { FC, useEffect, useState } from "react";
-import { getFollower } from "../../../utils/api/Profile";
+import { follow, getFollower, unfollow } from "../../../utils/api/Profile";
 import * as S from "./style";
 import { useHistory } from "react-router-dom";
 interface Follower {
@@ -17,8 +17,9 @@ interface IdType {
   myid: string;
 }
 
-const FollowerContent: FC<IdType> = (props) => {
+const FollowerContent: React.FC<IdType> = (props) => {
   const { push } = useHistory();
+  const [isFollowing, setFollowing] = useState(false);
   const [followerState, setFollower] = useState<FollowerType>({
     followers: [],
     total_size: 0,
@@ -39,6 +40,26 @@ const FollowerContent: FC<IdType> = (props) => {
     }
   };
 
+  const followClick = async (id: string) => {
+    try {
+      const response = await follow(id);
+      follower();
+      return response;
+    } catch (error) {
+      throw error;
+    }
+  };
+
+  const unFollowClick = async (id: string) => {
+    try {
+      const response = await unfollow(id);
+      follower();
+      return response;
+    } catch (error) {
+      throw error;
+    }
+  };
+
   return (
     <>
       <S.Content>
@@ -48,20 +69,32 @@ const FollowerContent: FC<IdType> = (props) => {
         <S.FollowerList>
           {followerState.followers &&
             followerState.followers.map((data, v) => {
-              const userProfile = () => {
+              const date =
+                data.follow_datetime.substring(5, 7) +
+                "월" +
+                " " +
+                (data.follow_datetime.substring(8, 10) + "일");
+              const userProfile = (id: string) => {
+                console.log(id);
                 //   return <UserProfilePage id={data.id} />;
               };
               return (
                 <S.UserBox>
-                  <S.LeftBox onClick={userProfile}>
+                  <S.LeftBox onClick={() => userProfile(data.uuid)}>
                     <S.Profile img={data.profile} />
                     <S.UserNickName>{data.id}</S.UserNickName>
                   </S.LeftBox>
                   <S.RightBox>
-                    <S.FollowDate>
-                      팔로우를 시작한 날짜 : {data.follow_datetime.substring(0, 10)}
-                    </S.FollowDate>
-                    <S.FollowBtn>팔로우중</S.FollowBtn>
+                    <S.FollowDate>팔로우를 시작한 날짜 : {date}</S.FollowDate>
+                    {data.is_following ? (
+                      <S.FollowingBtn onClick={() => unFollowClick(data.uuid)}>
+                        팔로우중
+                      </S.FollowingBtn>
+                    ) : (
+                      <S.FollowBtn onClick={() => followClick(data.uuid)}>
+                        팔로우
+                      </S.FollowBtn>
+                    )}
                   </S.RightBox>
                 </S.UserBox>
               );
