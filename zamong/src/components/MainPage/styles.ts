@@ -5,7 +5,6 @@ import { color } from "../../style/color";
 
 export const ContentContainer = styled.div`
   width: 1280px;
-  background-color: ${color.black};
   margin: 0px auto;
   box-sizing: border-box;
 `;
