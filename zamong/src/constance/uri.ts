@@ -20,6 +20,10 @@ enum uri {
   recommend = "/dream/comment/DREAM_UUID/recommend",
   dreamSell = "/dream/sell",
   shareDreamInfo = "/dream/share/DREAM_UUID",
+  delPost = "/dream/DREAM_UUID",
+  modifyComment = "/dream/comment/DREAM_UUID/content",
+  deleteComment = "/dream/comment/DREAM_UUID",
+  shareDream = "/dream/share/DREAM_UUID",
   follow = "/user/follow",
 }
 

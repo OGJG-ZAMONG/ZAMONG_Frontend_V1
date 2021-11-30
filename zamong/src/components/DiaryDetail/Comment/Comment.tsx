@@ -17,19 +17,20 @@ const DiaryDetail = ({ postData }: PropsType): JSX.Element => {
   const { uuid } = postData;
   const [comment, setComment] = useState("");
   const [comments, setComments] = useState<Comment[]>([]);
-  const [commentCount,setCommentCount] = useState(0);
+  const [commentCount, setCommentCount] = useState(0);
 
   useEffect(() => {
-    if(uuid!==""){
+    if (uuid !== "") {
       settingComment();
-      
     }
   }, [uuid]);
 
   const settingComment = async () => {
     const count = await getCommentCount(uuid);
     setCommentCount(count.data.content.response.number);
-    setComments((await responseComment(uuid)).data.content.response.comments);
+    const list = (await responseComment(uuid)).data.content.response.comments;
+    setComments([]);
+    setComments(list);
   };
 
   const comentChange = (e: React.FormEvent<HTMLInputElement>) => {
@@ -76,7 +77,7 @@ const DiaryDetail = ({ postData }: PropsType): JSX.Element => {
       </S.InputContainer>
       <S.CommentList>
         {comments.map((value, i) => {
-          return <CommentBox postUuid={uuid} comment={value} key={i} />;
+          return <CommentBox postUuid={uuid} comment={value} settingComment={settingComment} key={i} />;
         })}
       </S.CommentList>
     </S.CommentContainer>
