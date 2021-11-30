@@ -8,4 +8,5 @@ export { default as DiaryDetailContainer } from "./DiaryDetail";
 export { default as SellWrite } from "./SellWrite";
 export { default as ProfileContainter } from "./Profile";
 export { default as SellManagementContainer } from "./Sell/SellManagement";
+export { default as SearcgContainter } from "./Search/index";
 export { default as FindPasswordContainer } from "./FIndPassword";
