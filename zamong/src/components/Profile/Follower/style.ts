@@ -1,3 +1,5 @@
+import { color } from "../../../style/color";
+import { font } from "../../../style/font";
 import styled from "@emotion/styled";
 
 export const Content = styled.div`
@@ -54,7 +56,7 @@ export const UserNickName = styled.span`
 `;
 
 export const RightBox = styled.div`
-  width: 348px;
+  width: 328px;
   height: 60px;
   display: flex;
 `;
@@ -67,7 +69,7 @@ export const FollowDate = styled.span`
   margin-top: 18px;
 `;
 
-export const FollowBtn = styled.button`
+export const FollowingBtn = styled.button`
   width: 91px;
   height: 32px;
   border: 1px solid white;
@@ -75,4 +77,19 @@ export const FollowBtn = styled.button`
   background-color: black;
   color: #ffffff;
   margin: 14px 0px 0px 15px;
+  font: ${font.body2};
+  cursor: pointer;
+`;
+
+export const FollowBtn = styled.div`
+  width: 91px;
+  height: 32px;
+  border-radius: 120px;
+  background-color: #0a84ff;
+  color: #ffffff;
+  margin: 14px 0px 0px 15px;
+  text-align: center;
+  font: ${font.body2};
+  padding-top: 3px;
+  cursor: pointer;
 `;
