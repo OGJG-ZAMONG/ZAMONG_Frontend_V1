@@ -56,3 +56,20 @@ export const Profile = styled.div`
   color: ${color.white};
   font: ${font.body3};
 `;
+
+export const ShareButton = styled.div`
+  padding: 6px 16px;
+  color: white;
+  background-color: ${color.blue};
+  border-radius: 100px;
+  cursor: pointer;
+`
+
+export const More = styled.img`
+  margin: auto 0;
+  cursor: pointer;
+`;
+
+export const MoreBox = styled.div`
+  position: relative;
+`

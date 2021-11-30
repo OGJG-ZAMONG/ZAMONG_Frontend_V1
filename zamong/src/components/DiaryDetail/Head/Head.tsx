@@ -1,16 +1,21 @@
 import * as S from "./styles";
 import Tag from "../../Tag/Tag";
+import dreamType from "../../../constance/dreamType";
+import PopupMenu from "../../PopupMenu/PopupMenu";
+import { useState } from "react";
 import { more } from "../../../assets";
 import { dreamDetail } from "../../../models/dto/response/dreamDetailResponse";
-import dreamType from "../../../constance/dreamType";
 import { qualitys } from "../../../constance/dreamQualitys";
-import DreamQuality from "../../DiaryWrite/component/Properties/Selecter/DreamQuality/DreamQuality";
+import PopupContent from "../../../interface/PopupContent";
+import { useHistory } from "react-router";
+import { delPosting, shareDream } from "../../../utils/api/DreamDetail";
 
 interface PropsType {
   postData: dreamDetail;
 }
 
 const DiaryDetailHeader = ({ postData }: PropsType): JSX.Element => {
+  const { push } = useHistory();
   const {
     title,
     dream_types,
@@ -20,12 +25,14 @@ const DiaryDetailHeader = ({ postData }: PropsType): JSX.Element => {
     sleep_end_date_time,
     quality,
     user,
+    uuid,
   } = postData;
+  const [isActiveMore, setIsActiveMore] = useState(false);
 
   const timeToString = (date: string) => {
     const a = new Date(date);
-    const hours = a.getHours();
-    const minutes = a.getMinutes();
+    const hours = a.getHours().toString().padStart(2, "0");
+    const minutes = a.getMinutes().toString().padStart(2, "0");
 
     return hours + ":" + minutes;
   };
@@ -33,10 +40,50 @@ const DiaryDetailHeader = ({ postData }: PropsType): JSX.Element => {
   const dayToString = (date: string | null) => {
     if (date !== null) {
       const a = new Date(date);
-      const month = a.getMonth();
-      const day = a.getDate();
+      const month = a.getMonth().toString().padStart(2,"0");
+      const day = a.getDate().toString().padStart(2,"0");
+      const year =
+        a.getFullYear() === new Date().getFullYear() ? "" : `${a.getFullYear()}년 `;
 
-      return month + "월 " + day + "일";
+      return `${year}${month}월 ${day}일`;
+    }
+  };
+
+  const deletePost = async () => {
+    if (window.confirm("정말 삭제하시겠습니까?")) {
+      try {
+        await delPosting(uuid);
+        alert("삭제되었습니다.");
+        push("/");
+      } catch (error) {
+        console.log(error);
+      }
+    }
+  };
+
+  const popupContents: PopupContent[] = [
+    {
+      name: "수정",
+      callback: () => {
+        push(`/diary/write?dreamUUID=${uuid}`);
+      },
+    },
+    {
+      name: "삭제",
+      callback: () => {
+        deletePost();
+      },
+    },
+  ];
+
+  const onShareDream = async () => {
+    if (window.confirm("공유하시겠습니까?")) {
+      try {
+        await shareDream(uuid);
+        window.location.reload();
+      } catch (error) {
+        console.log(error);
+      }
     }
   };
 
@@ -45,7 +92,6 @@ const DiaryDetailHeader = ({ postData }: PropsType): JSX.Element => {
   });
 
   const dreamQualitys = qualitys.find((value) => {
-  
     return value.code === quality;
   })?.name;
 
@@ -78,9 +124,31 @@ const DiaryDetailHeader = ({ postData }: PropsType): JSX.Element => {
           </div>
         </S.LeftInfo>
         <S.UserInfo>
-          <S.PrifilePhoto alt="profile" src={user.profile} />
-          <S.Profile>{user.id}</S.Profile>
-          <img alt="more" src={more} />
+          {is_shared ? (
+            <>
+              <S.PrifilePhoto alt="profile" src={user.profile} />
+              <S.Profile>{user.id}</S.Profile>
+            </>
+          ) : (
+            <></>
+          )}
+          {is_shared ? (
+            <></>
+          ) : (
+            <S.ShareButton onClick={onShareDream}>공유</S.ShareButton>
+          )}
+          <S.MoreBox>
+            <S.More
+              alt="more"
+              src={more}
+              onClick={() => setIsActiveMore(!isActiveMore)}
+            />
+            <PopupMenu
+              contents={popupContents}
+              isActiveMore={isActiveMore}
+              setIsActiveMore={setIsActiveMore}
+            />
+          </S.MoreBox>
         </S.UserInfo>
       </S.DreamInfo>
     </S.HeadContainer>
