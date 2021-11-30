@@ -31,8 +31,8 @@ const DiaryDetailHeader = ({ postData }: PropsType): JSX.Element => {
 
   const timeToString = (date: string) => {
     const a = new Date(date);
-    const hours = a.getHours();
-    const minutes = a.getMinutes();
+    const hours = a.getHours().toString().padStart(2, "0");
+    const minutes = a.getMinutes().toString().padStart(2, "0");
 
     return hours + ":" + minutes;
   };
@@ -40,10 +40,12 @@ const DiaryDetailHeader = ({ postData }: PropsType): JSX.Element => {
   const dayToString = (date: string | null) => {
     if (date !== null) {
       const a = new Date(date);
-      const month = a.getMonth();
-      const day = a.getDate();
+      const month = a.getMonth().toString().padStart(2,"0");
+      const day = a.getDate().toString().padStart(2,"0");
+      const year =
+        a.getFullYear() === new Date().getFullYear() ? "" : `${a.getFullYear()}년 `;
 
-      return month + "월 " + day + "일";
+      return `${year}${month}월 ${day}일`;
     }
   };
 
