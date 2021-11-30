@@ -8,7 +8,7 @@ import { dreamDetail } from "../../../models/dto/response/dreamDetailResponse";
 import { qualitys } from "../../../constance/dreamQualitys";
 import PopupContent from "../../../interface/PopupContent";
 import { useHistory } from "react-router";
-import { delPosting } from "../../../utils/api/DreamDetail";
+import { delPosting, shareDream } from "../../../utils/api/DreamDetail";
 
 interface PropsType {
   postData: dreamDetail;
@@ -25,7 +25,7 @@ const DiaryDetailHeader = ({ postData }: PropsType): JSX.Element => {
     sleep_end_date_time,
     quality,
     user,
-    uuid
+    uuid,
   } = postData;
   const [isActiveMore, setIsActiveMore] = useState(false);
 
@@ -48,16 +48,16 @@ const DiaryDetailHeader = ({ postData }: PropsType): JSX.Element => {
   };
 
   const deletePost = async () => {
-    if(window.confirm("정말 삭제하시겠습니까?")){
+    if (window.confirm("정말 삭제하시겠습니까?")) {
       try {
         await delPosting(uuid);
         alert("삭제되었습니다.");
-        push('/');
+        push("/");
       } catch (error) {
         console.log(error);
       }
     }
-  }
+  };
 
   const popupContents: PopupContent[] = [
     {
@@ -73,6 +73,17 @@ const DiaryDetailHeader = ({ postData }: PropsType): JSX.Element => {
       },
     },
   ];
+
+  const onShareDream = async () => {
+    if (window.confirm("공유하시겠습니까?")) {
+      try {
+        await shareDream(uuid);
+        window.location.reload();
+      } catch (error) {
+        console.log(error);
+      }
+    }
+  };
 
   const dreamTypes = dreamType.filter((value) => {
     return dream_types.some((item) => item === value.code);
@@ -118,6 +129,11 @@ const DiaryDetailHeader = ({ postData }: PropsType): JSX.Element => {
             </>
           ) : (
             <></>
+          )}
+          {is_shared ? (
+            <></>
+          ) : (
+            <S.ShareButton onClick={onShareDream}>공유</S.ShareButton>
           )}
           <S.MoreBox>
             <S.More

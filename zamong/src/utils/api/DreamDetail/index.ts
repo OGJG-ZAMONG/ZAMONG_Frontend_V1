@@ -2,6 +2,14 @@ import uri from "../../../constance/uri";
 import instance from "../axios";
 import { dreamDetailResponse } from "../../../models/dto/response/dreamDetailResponse";
 
+export const shareDream = async (uuid: string) => {
+  try {
+    await instance.post(uri.shareDream.replace("DREAM_UUID", uuid));
+  } catch (error) {
+    return Promise.reject(error);
+  }
+}
+
 export const getShareDream = async (uuid: string) => {
   try {
     const response = await instance.get<dreamDetailResponse>(
