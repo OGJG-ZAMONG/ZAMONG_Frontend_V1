@@ -36,3 +36,43 @@ export const getFollower = async (uuid: string) => {
     throw error;
   }
 };
+
+export const changeProfile = async (profile: File) => {
+  try {
+    const formData = new FormData();
+    formData.append("file", profile);
+    const response = await instance.patch(`/user/profile`, formData);
+    return response;
+  } catch (error) {
+    throw error;
+  }
+};
+
+export const modfiyId = async (id: string) => {
+  try {
+    const response = await instance.patch(`/user/user-id`, { id: id });
+    return response;
+  } catch (error) {
+    throw error;
+  }
+};
+
+export const follow = async (id: string) => {
+  try {
+    const response = await instance.post(uri.follow, { user_uuid: id });
+    return response;
+  } catch (error) {
+    throw error;
+  }
+};
+
+export const unfollow = async (id: string) => {
+  try {
+    const response = await instance.delete(uri.follow, {
+      data: { user_uuid: id },
+    });
+    return response;
+  } catch (error) {
+    throw error;
+  }
+};
