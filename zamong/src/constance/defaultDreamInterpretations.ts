@@ -18,12 +18,6 @@ export const DefaultDreamInterpretations: DefaultDreamInterpretationType[] = [
   {
     image:
       "https://www.tenforums.com/attachments/tutorials/193500d1529952410-enable-disable-smooth-scrolling-google-chrome-chrome_smooth_scrolling-1.jpg",
-    title: "",
-    content: "",
-  },
-  {
-    image:
-      "https://www.tenforums.com/attachments/tutorials/193500d1529952410-enable-disable-smooth-scrolling-google-chrome-chrome_smooth_scrolling-1.jpg",
     title: "용이 승천한 꿈",
     content:
       "용이 나오는 꿈은 행운, 금전운, 큰성공, 최고의 권력, 명예 부를 나타내는 대표적 길몽입니다.\n꿈에서 용을 보았다면 내가 열심히 노력해온 것에 대한 만족할 만한 성과를 거두게 되고 사람들로부터 나의 능력을 인정받게 될 것을 말해줍니다. 조금만 더 노력하면 본인의 분야에서 최고가 될 수 있을테니 더 열심히 하도록 하세요.",
