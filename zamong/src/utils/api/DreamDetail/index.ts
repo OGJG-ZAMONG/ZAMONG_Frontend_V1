@@ -21,7 +21,9 @@ interface DataType {
 
 export const getDreamDetail = async (dreamUUID: string) => {
   try {
-    const response = await instance.get<dreamDetailResponse>(`${uri.dreamShare}/${dreamUUID}`);
+    const response = await instance.get<dreamDetailResponse>(
+      `${uri.dreamShare}/${dreamUUID}`
+    );
     return response;
   } catch (error) {
     return Promise.reject(error);
@@ -51,6 +53,14 @@ interface CommentType {
     };
   };
 }
+
+export const delPosting = async (uuid: string) => {
+  try {
+    await instance.delete(uri.delPost.replace("DREAM_UUID", uuid));
+  } catch (error) {
+    return Promise.reject(error);
+  }
+};
 
 export const postComment = async (uuid: string, data: DataType) => {
   try {
@@ -112,6 +122,18 @@ interface ThumbType {
 export const recommend = async (uuid: string, isThumb: ThumbType) => {
   try {
     await instance.post(uri.recommend.replace("DREAM_UUID", uuid), isThumb);
+  } catch (error) {
+    return Promise.reject(error);
+  }
+};
+
+interface ModifyType {
+  content: string,
+}
+
+export const modifyComment = async (uuid: string, content: ModifyType) => {
+  try {
+    await instance.patch(uri.modifyComment.replace("DREAM_UUID", uuid), content);
   } catch (error) {
     return Promise.reject(error);
   }
