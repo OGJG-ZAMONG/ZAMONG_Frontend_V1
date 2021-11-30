@@ -48,7 +48,8 @@ const SellingDream: FC<Props> = ({
           <S.UserName>{user.id}</S.UserName>
         </S.UserInfoContainer>
         <S.TagsContainer>
-          {dreamTypes.map((value) => {
+          {dreamTypes.map((value, index) => {
+            if(index >= 2) return
             return <Tag key={value.code}>{value.name}</Tag>;
           })}
         </S.TagsContainer>

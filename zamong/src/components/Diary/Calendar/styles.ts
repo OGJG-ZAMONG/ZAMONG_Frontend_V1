@@ -99,25 +99,25 @@ export const Days = styled.div`
     font-size: 14px;
     justify-content: center;
     align-items: center;
-    height: 23px;
-    width: 23px;
-    margin: 3px auto;
+    padding: 2px;
+    margin: 2px auto;
   }
   div {
     width: 80%;
     min-width: 80%;
-    height: 80%;
+    height: 20px;
     color: ${color.white};
     background-color: ${color.darkGray};
-    border-radius: 5px;
+    border-radius: 3px;
     cursor: pointer;
     text-overflow: ellipsis;
     white-space: nowrap;
     word-break: keep-all;
     overflow: hidden;
-    padding: 1px 5px;
-    margin: 0px auto;
+    padding: 0 4px;
+    margin: auto;
     margin-left: 10%;
+    font-size: 15px;
     &:hover {
       width: auto;
       z-index: 2;
