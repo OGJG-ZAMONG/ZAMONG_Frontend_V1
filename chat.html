@@ -1,147 +1,167 @@
 <html>
-<head>
+  <head>
     <title>Chat WebSocket</title>
     <script src="https://cdn.jsdelivr.net/npm/sockjs-client@1/dist/sockjs.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 
     <script type="text/javascript">
-        var stompClient = null;
+      var stompClient = null;
 
-        var SERVER_URL = "http://52.78.219.131:8080/v1/api";
-        var ACCESS_TOEN = window.location.href.split("=")[1];
+      var SERVER_URL = "http://52.78.219.131:8080/v1/api";
+      var ACCESS_TOEN = window.location.href.split("=")[1];
 
-        var USER_ID = null;
-        axios.get(`${SERVER_URL}/user/me`, {
-            headers: {
-                Authorization: `Bearer ${ACCESS_TOEN}`
-            }
+      var USER_ID = null;
+      axios
+        .get(`${SERVER_URL}/user/me`, {
+          headers: {
+            Authorization: `Bearer ${ACCESS_TOEN}`,
+          },
         })
-        .then(res => USER_ID = res.data.content.response.uuid)
+        .then((res) => (USER_ID = res.data.content.response.uuid))
         .catch(console.error);
 
-        axios.get(`${SERVER_URL}/dream/sell/room`, {
-            headers: {
-                Authorization: `Bearer ${ACCESS_TOEN}`
-            }
+      axios
+        .get(`${SERVER_URL}/dream/sell/room`, {
+          headers: {
+            Authorization: `Bearer ${ACCESS_TOEN}`,
+          },
         })
-        .then(res => res.data.content.response.rooms.map(showRoom))
+        .then((res) => res.data.content.response.rooms.map(showRoom))
         .catch(console.error);
 
+      function setConnected(connected) {
+        document.getElementById("connect").disabled = connected;
+        document.getElementById("disconnect").disabled = !connected;
+        document.getElementById("conversationDiv").style.visibility = connected
+          ? "visible"
+          : "hidden";
+        document.getElementById("response").innerHTML = "";
+      }
 
-        function setConnected(connected) {
-            document.getElementById('connect').disabled = connected;
-            document.getElementById('disconnect').disabled = !connected;
-            document.getElementById('conversationDiv').style.visibility
-                = connected ? 'visible' : 'hidden';
-            document.getElementById('response').innerHTML = '';
+      function connect(room) {
+        disconnect();
+
+        const socket = new SockJS(`${SERVER_URL}/ws`);
+        stompClient = Stomp.over(socket);
+
+        stompClient.connect({}, function (frame) {
+          setConnected(true);
+          console.log("Connected: " + frame);
+
+          stompClient.subscribe("/topic/" + room, function (messageOutput) {
+            console.log(
+              room + "에서 온 메세지 (요놈은 채팅방에서만 subscribe)"
+            );
+            showMessageOutput(JSON.parse(messageOutput.body), room);
+          });
+
+          stompClient.subscribe("/topic/" + USER_ID, function (messageOutput) {
+            console.log(
+              USER_ID + "에서 온 메세지 (요놈은 채팅 페이지 들어가면 subscribe)"
+            );
+            console.log(JSON.parse(messageOutput.body));
+          });
+        });
+
+        axios
+          .get(`${SERVER_URL}/dream/sell/chat/${room}?page=0&size=16`, {
+            headers: {
+              Authorization: `Bearer ${ACCESS_TOEN}`,
+            },
+          })
+          .then((res) => {
+            res.data.content.response.chats
+              .reverse()
+              .map((chat) => showMessageOutput(chat, room));
+          })
+          .catch(console.error);
+      }
+
+      function disconnect() {
+        if (stompClient != null) {
+          stompClient.disconnect();
         }
+        setConnected(false);
+        console.log("Disconnected");
+      }
 
-        function connect(room) {
-            disconnect(); 
+      function sendMessage(room) {
+        var room = document.getElementById("from").value;
+        var text = document.getElementById("text").value;
 
-            const socket = new SockJS(`${SERVER_URL}/ws`);
-            stompClient = Stomp.over(socket);
+        stompClient.send(
+          "/app/chat.send",
+          {},
+          JSON.stringify({
+            chat: text,
+            room: room,
+            from: USER_ID,
+          })
+        );
+      }
 
-            stompClient.connect({}, function(frame) {
-                setConnected(true);
-                console.log('Connected: ' + frame);
+      function showMessageOutput(messageOutput, title) {
+        var response = document.getElementById("response");
+        var p = document.createElement("p");
+        p.style.wordWrap = "break-word";
+        p.appendChild(
+          document.createTextNode(
+            title +
+              " 에서 " +
+              messageOutput.user.uuid +
+              "가 보낸 메시지: " +
+              messageOutput.chat +
+              ": " +
+              " (" +
+              messageOutput.created_at +
+              ")"
+          )
+        );
+        p.style.color = "#" + messageOutput.user.uuid.slice(0, 6);
+        response.appendChild(p);
+      }
 
+      function showRoom(room) {
+        var li = document.createElement("li");
+        li.innerText = room.title + "  " + room.uuid;
+        li.onclick = roomOnclick(room.uuid);
+        document.body.appendChild(li);
+      }
 
+      function roomOnclick(room_id) {
+        return function () {
+          var room = document.getElementById("from");
+          room.value = room_id;
 
-                stompClient.subscribe('/topic/' + room, function(messageOutput) {
-                    console.log(room + "에서 온 메세지 (요놈은 채팅방에서만 subscribe)");
-                    showMessageOutput(JSON.parse(messageOutput.body), room);
-                });
-
-
-            
-                stompClient.subscribe('/topic/' + USER_ID, function(messageOutput) {
-                    console.log(USER_ID + "에서 온 메세지 (요놈은 채팅 페이지 들어가면 subscribe)");
-                    console.log(JSON.parse(messageOutput.body));
-                });
-            });
-
-            
-            axios.get(`${SERVER_URL}/dream/sell/chat/${room}?page=0&size=16`, {
-                headers: {
-                    Authorization: `Bearer ${ACCESS_TOEN}`
-                }
-            })
-            .then(res => {
-                res.data.content.response.chats.reverse().map(chat => showMessageOutput(chat, room));
-            })
-            .catch(console.error);
-        }
-
-        function disconnect() {
-            if(stompClient != null) {
-                stompClient.disconnect();
-            }
-            setConnected(false);
-            console.log("Disconnected");
-        }
-
-        function sendMessage(room) {
-
-            var room = document.getElementById('from').value;
-            var text = document.getElementById('text').value;
-
-            stompClient.send("/app/chat.send", {},
-                JSON.stringify({
-                    'chat':text, 
-                    'room':room, 
-                    'from': USER_ID
-                }));
-        }
-
-        function showMessageOutput(messageOutput, title) {
-            var response = document.getElementById('response');
-            var p = document.createElement('p');
-            p.style.wordWrap = 'break-word';
-            p.appendChild(document.createTextNode(title + " 에서 " + messageOutput.user.uuid + "가 보낸 메시지: " + messageOutput.chat + ": "
-                + " (" + messageOutput.created_at + ")"));
-            p.style.color = "#" + messageOutput.user.uuid.slice(0, 6);
-            response.appendChild(p);
-        }
-
-        function showRoom(room) {
-            var li = document.createElement('li');
-            li.innerText = room.title + "  " +room.uuid;
-            li.onclick = roomOnclick(room.uuid);
-            document.body.appendChild(li);
-        }
-
-        function roomOnclick(room_id) {
-            return function() {
-                var room = document.getElementById('from');
-                room.value = room_id;
-
-                connect(room_id)
-            }
-        }
-
+          connect(room_id);
+        };
+      }
     </script>
-</head>
-<body onload="disconnect()">
-<div>
+  </head>
+  <body onload="disconnect()">
     <div>
-        <input type="text" id="from" placeholder="Choose a nickname"/>
-    </div>
-    <br />
-    <div>
-        <button id="connect" onclick="connect(document.getElementById('from').value);">Connect</button>
-        <button id="disconnect" disabled="disabled" onclick="disconnect();">
-            Disconnect
+      <div>
+        <input type="text" id="from" placeholder="Choose a nickname" />
+      </div>
+      <br />
+      <div>
+        <button
+          id="connect"
+          onclick="connect(document.getElementById('from').value);"
+        >
+          Connect
         </button>
-    </div>
-    <br />
-    <div id="conversationDiv">
-        <input type="text" id="text" placeholder="Write a message..."/>
+        <button id="disconnect" disabled="disabled" onclick="disconnect();">
+          Disconnect
+        </button>
+      </div>
+      <br />
+      <div id="conversationDiv">
+        <input type="text" id="text" placeholder="Write a message..." />
         <button id="sendMessage" onclick="sendMessage();">Send</button>
         <p id="response"></p>
+      </div>
     </div>
-</div>
-
-</body>
+  </body>
 </html>

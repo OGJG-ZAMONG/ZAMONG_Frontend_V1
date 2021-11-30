@@ -8,7 +8,6 @@ import MyText from "./ChatBalloon/My/MyText";
 import OpponentText from "./ChatBalloon/Opponent/OpponentText";
 import SockJs from "sockjs-client";
 
-
 const testArray: number[] = [];
 for (let i = 0; i < 10; i++) {
   testArray.push(i);
@@ -16,7 +15,9 @@ for (let i = 0; i < 10; i++) {
 
 const Chat: FC = (): JSX.Element => {
   const baseURL = "http://52.78.219.131:8080/v1/api";
-  const [rooms, setRooms] = useState<Array<any>>([]);
+  const [rooms, setRooms] = useState<
+    Array<{ uuid: string; title: string; last_child: any }>
+  >([]);
   const [selectedRoom, setSelectedRoom] = useState<number>(0);
   const [chats, setChats] = useState([]);
   const inputValue = useRef<any>(null);
@@ -32,15 +33,17 @@ const Chat: FC = (): JSX.Element => {
           console.log("Connected" + frame);
 
           StompClient.subscribe(
-            "/topic/" + res.data.content.response.rooms[0].uuid,
+            "/topic/" + res.data.content.response.rooms[selectedRoom].uuid,
             (messageOutput) => {
               console.log(rooms[0] + "에서 온 메시지");
             }
           );
-
-          getChat(res.data.content.response.rooms[0].uuid).then((res) => {
-            setChats(res.data.content.response.chats);
-          });
+          getChat(res.data.content.response.rooms[selectedRoom].uuid)
+            .then((res) => {
+              console.log(res.data.content.response.chats)
+              setChats(res.data.content.response.chats);
+            })
+            .catch((error) => console.log(error));
         });
       })
       .catch((err) => console.log(err));
@@ -52,12 +55,24 @@ const Chat: FC = (): JSX.Element => {
     }
   };
 
+  const sendMessage = () => {
+    StompClient.send(
+      "/app/chat.send",
+      {},
+      JSON.stringify({
+        chat: inputValue.current?.value,
+        room: rooms[selectedRoom]?.uuid,
+        from: "hi"
+      })
+    )
+  };
+
   return (
     <S.Container>
       <S.ChatListContainer>
         <S.ChatInfoText>
           <span>채팅&nbsp;</span>
-          <S.ChatCount>5개</S.ChatCount>
+          <S.ChatCount>{rooms.length}개</S.ChatCount>
         </S.ChatInfoText>
         <S.SearchChatContainer>
           <S.SearchChatContent
@@ -86,10 +101,10 @@ const Chat: FC = (): JSX.Element => {
       <S.ChatLine />
       <S.ChatViewerContainer>
         <S.ChatViewHeader>
-          <S.ChatTitle>이 꿈을 안산다면 당신은 호구</S.ChatTitle>
+          <S.ChatTitle>{rooms[selectedRoom]?.title}</S.ChatTitle>
           <S.HeaderNav>
             <S.UserReportBox>
-              <S.ViewUserName>dsmhskr</S.ViewUserName>
+              <S.ViewUserName>{rooms[selectedRoom]?.uuid}</S.ViewUserName>
               <span>ᆞ</span>
               <S.Report>신고하기</S.Report>
             </S.UserReportBox>
@@ -100,22 +115,12 @@ const Chat: FC = (): JSX.Element => {
           </S.HeaderNav>
         </S.ChatViewHeader>
         <S.ChatBox>
-          {/* <MyText message={"안녕하세요 꿈 구매하고 싶은데요..."} />
-          <OpponentText message={"아하 그러시구나"} />
-          <OpponentText message={"1000원에 팔께요 ^^"} />
-          <MyText
-            message={"너무 비싼 것 같아요 조금만 할인해주시면 안될까요?"}
-          />
-          <OpponentText message={"좋은 하루 보내세요"} />
-          <MyText message={"ㅎㅎㅎㅎㅎ 넵"} />
-          <MyText message={"ㅎㅎㅎㅎㅎ 넵"} />
-          <OpponentText message={"좋은 하루 보내세요"} /> */}
-          {chats.map((value: any, index) => {
+          {chats.map((value: any, index: number) => {
             console.log(value);
             return value.its_me === true ? (
-              <MyText message={value.chat} />
+              <MyText message={value.chat} key={index} />
             ) : (
-              <OpponentText message={value.chat} />
+              <OpponentText message={value.chat} key={index} />
             );
           })}
         </S.ChatBox>
@@ -126,7 +131,7 @@ const Chat: FC = (): JSX.Element => {
             ref={inputValue}
             onChange={() => console.log(inputValue.current.value)}
           />
-          <S.ChatSubmitIMG src={send} />
+          <S.ChatSubmitIMG src={send} onClick={sendMessage} />
         </S.ChatInputBox>
       </S.ChatViewerContainer>
     </S.Container>
