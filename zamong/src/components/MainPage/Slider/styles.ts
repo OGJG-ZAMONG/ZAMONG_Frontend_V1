@@ -9,6 +9,10 @@ export const Container = styled.div`
   border-radius: 20px 20px 0px 0px;
 `;
 
+export const Outer = styled.div`
+  position: relative;
+`;
+
 export const List = styled.div<{ x: number; gap: number }>`
   display: flex;
   column-gap: ${(props) => props.gap}px;

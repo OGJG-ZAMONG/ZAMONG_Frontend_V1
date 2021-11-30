@@ -54,7 +54,7 @@ const Slider = ({ children, size, gap, columnCount, indexState, pageState }: Pro
   }, [index]);
 
   return (
-    <div>
+    <S.Outer>
       <S.Container ref={container}>
         <S.List ref={list} x={-x} gap={gap}>
           {children}
@@ -70,7 +70,7 @@ const Slider = ({ children, size, gap, columnCount, indexState, pageState }: Pro
           
         </S.Button>
       )}
-    </div>
+    </S.Outer>
   );
 };
 
