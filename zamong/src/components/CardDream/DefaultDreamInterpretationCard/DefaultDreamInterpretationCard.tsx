@@ -1,21 +1,19 @@
+import { useState } from "react";
 import DefaultDreamInterpretationType from "../../../interface/DefaultDreamInterpretationType";
 import * as I from "../index";
-import * as S from "./styles";
 
-export const DefaultDreamInterpretationCard = ({
-  image,
-  title,
-  content,
-}: DefaultDreamInterpretationType) => {
-  const onClickHandler = (e: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => {
-    e.preventDefault();
-  };
+interface PropsType extends DefaultDreamInterpretationType {
+  onClickHandler: (e: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => void;
+}
 
+export const DefaultDreamInterpretationCard = ({ image, title, onClickHandler }: PropsType) => {
   return (
-    <I.DreamCardContainer to="" onClick={onClickHandler}>
-      <I.DreamImageContainer img={image}></I.DreamImageContainer>
-      <I.DreamTitle>{title}</I.DreamTitle>
-    </I.DreamCardContainer>
+    <>
+      <I.DreamCardContainer to="" onClick={onClickHandler!}>
+        <I.DreamImageContainer img={image}></I.DreamImageContainer>
+        <I.DreamTitle>{title}</I.DreamTitle>
+      </I.DreamCardContainer>
+    </>
   );
 };
 

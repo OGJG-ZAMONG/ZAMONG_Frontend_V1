@@ -1,13 +1,21 @@
 import { useState } from "react";
 import { DefaultDreamInterpretations } from "../../../constance/defaultDreamInterpretations";
+import DefaultDreamInterpretationType from "../../../interface/DefaultDreamInterpretationType";
 import { color } from "../../../style/color";
 import DefaultDreamInterpretationCard from "../../CardDream/DefaultDreamInterpretationCard/DefaultDreamInterpretationCard";
+import Modal from "../../DiaryWrite/component/Picker/Modal/Modal";
 import Slider from "../../MainPage/Slider/Slider";
 import * as S from "./styles";
 
 const DefaultDreamInterpretation = (): JSX.Element => {
   const [index, setIndex] = useState<number>(0);
   const [page, setPage] = useState<number>(0);
+  const [modal, setModal] = useState<boolean>(false);
+  const [selected, setSelected] = useState<DefaultDreamInterpretationType>({
+    image: "",
+    content: "",
+    title: "",
+  });
 
   return (
     <S.ContentInner>
@@ -20,10 +28,29 @@ const DefaultDreamInterpretation = (): JSX.Element => {
         indexState={[index, setIndex]}
       >
         {DefaultDreamInterpretations.map((value) => {
+          const onClickHandler = (e: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => {
+            e.preventDefault();
+            setSelected(value);
+            setModal(true);
+          };
+
           const { image, title, content } = value;
-          return <DefaultDreamInterpretationCard image={image} title={title} content={content} />;
+          return (
+            <DefaultDreamInterpretationCard
+              image={image}
+              title={title}
+              content={content}
+              onClickHandler={onClickHandler}
+            />
+          );
         })}
       </Slider>
+      {modal && (
+        <Modal setModal={setModal} closeEvent={() => {}}>
+          <div>{selected.title}</div>
+          <div>{selected.content}</div>
+        </Modal>
+      )}
     </S.ContentInner>
   );
 };
