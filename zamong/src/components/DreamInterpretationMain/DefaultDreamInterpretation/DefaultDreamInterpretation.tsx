@@ -47,8 +47,20 @@ const DefaultDreamInterpretation = (): JSX.Element => {
       </Slider>
       {modal && (
         <Modal setModal={setModal} closeEvent={() => {}}>
-          <div>{selected.title}</div>
-          <div>{selected.content}</div>
+          <S.ModalContainer>
+            <S.Image alt="image" src={selected.image} />
+            <S.Title>{selected.title}</S.Title>
+            <S.Content>
+              {selected.content.split("\n").map((line) => {
+                return (
+                  <span>
+                    {line}
+                    <br />
+                  </span>
+                );
+              })}
+            </S.Content>
+          </S.ModalContainer>
         </Modal>
       )}
     </S.ContentInner>
