@@ -1,12 +1,11 @@
+import DefaultDreamInterpretationType from "../../../interface/DefaultDreamInterpretationType";
 import * as I from "../index";
 
-interface PropsType {
-  image: string;
-  title: string;
-  content: string;
-}
-
-export const DefaultDreamInterpretationCard = ({ image, title, content }: PropsType) => {
+export const DefaultDreamInterpretationCard = ({
+  image,
+  title,
+  content,
+}: DefaultDreamInterpretationType) => {
   return (
     <I.DreamCardContainer to="/">
       <I.DreamImageContainer img={image}>{content}</I.DreamImageContainer>
