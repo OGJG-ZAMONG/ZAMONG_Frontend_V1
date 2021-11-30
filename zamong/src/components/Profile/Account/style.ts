@@ -1,6 +1,7 @@
 import styled from "@emotion/styled";
 import { Link } from "react-router-dom";
 import { font } from "../../../style/font";
+import { color } from "../../../style/color";
 
 export const Content = styled.div`
   width: 100%;
@@ -17,18 +18,14 @@ export const ProfileBox = styled.div`
 `;
 
 export const TitleText = styled.p`
-  font-family: Spoqa Han Sans Neo;
-  font-style: normal;
-  font-weight: 500;
-  font-size: 24px;
-  color: #ffffff;
+  font: ${font.headline3};
+  color: ${color.white};
   margin-bottom: 44px;
 `;
 
 export const SubTitle = styled.label`
-  font-family: Spoqa Han Sans Neo;
-  font-size: 16px;
-  color: #ffffff;
+  font: ${font.body2};
+  color: ${color.white};
 `;
 
 export const FileBox = styled.div`
@@ -41,12 +38,12 @@ export const FileBox = styled.div`
 export const FileText = styled.label`
   width: 62px;
   height: 31px;
-  color: #fff;
+  color: ${color.white};
   cursor: pointer;
   border-radius: 120px;
   text-align: center;
-  border: 1px solid white;
-  background-color: black;
+  border: 1px solid ${color.white};
+  background-color: ${color.black};
   font: ${font.body2};
   padding-top: 2px;
 `;
@@ -60,10 +57,10 @@ export const FileBtn = styled.input`
 export const ChangeBtn = styled.div`
   width: 62px;
   height: 31px;
-  border: 1px solid white;
-  background-color: black;
+  border: 1px solid ${color.white};
+  background-color: ${color.black};
   border-radius: 120px;
-  color: #ffffff;
+  color: ${color.white};
   cursor: pointer;
   display: inline-block;
   text-align: center;
@@ -76,10 +73,10 @@ export const ChangeBtn = styled.div`
 export const CancelBtn = styled.div`
   width: 62px;
   height: 31px;
-  border: 1px solid #ff453a;
+  border: 1px solid ${color.red};
   background-color: black;
   border-radius: 120px;
-  color: #ff453a;
+  color: ${color.red};
   cursor: pointer;
   display: inline-block;
   text-align: center;
@@ -92,10 +89,10 @@ export const CancelBtn = styled.div`
 export const ChangePwBtn = styled(Link)`
   width: 62px;
   height: 31px;
-  border: 1px solid white;
-  background-color: black;
+  border: 1px solid ${color.white};
+  background-color: ${color.black};
   border-radius: 120px;
-  color: #ffffff;
+  color: ${color.white};
   text-decoration: none;
   cursor: pointer;
   display: inline-block;
@@ -118,21 +115,21 @@ export const Box = styled.div`
   justify-content: space-between;
   margin-bottom: 18px;
   padding-bottom: 10px;
-  border-bottom: 1px solid #636366;
+  border-bottom: 1px solid ${color.darkGray};
 `;
 
 export const IdText = styled.span`
-  color: #ffffff;
+  color: ${color.white};
   margin-right: 18px;
 `;
 
 export const inputId = styled.input`
   width: 247px;
   height: 30px;
-  background: #636366;
+  background: ${color.black};
   border-radius: 10px;
   border: none;
-  color: #ffffff;
+  color: ${color.white};
   outline: none;
   text-align: right;
   padding: 0px 16px;
@@ -143,18 +140,17 @@ export const inputId = styled.input`
 `;
 
 export const DeleteText = styled.span`
-  color: #ff453a;
-  font-family: Spoqa Han Sans Neo;
-  font-size: 16px;
+  color: ${color.red};
+  font: ${font.body2};
 `;
 
 export const DeleteBtn = styled.button`
   width: 62px;
   height: 31px;
-  border: 1px solid #ff453a;
-  background-color: black;
+  border: 1px solid ${color.red};
+  background-color: ${color.black};
   border-radius: 120px;
-  color: #ff453a;
+  color: ${color.red};
   cursor: pointer;
   font-size: 16px;
   padding-top: 1px;

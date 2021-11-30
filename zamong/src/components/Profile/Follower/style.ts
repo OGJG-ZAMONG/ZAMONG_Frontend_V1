@@ -8,13 +8,11 @@ export const Content = styled.div`
 `;
 
 export const Follower = styled.p`
-  font-family: Spoqa Han Sans Neo;
-  font-weight: 500;
-  font-size: 24px;
-  color: #ffffff;
+  color: ${color.white};
+  font: ${font.headline3};
   margin-bottom: 28px;
   span {
-    color: blue;
+    color: ${color.blue};
   }
 `;
 
@@ -28,7 +26,7 @@ export const UserBox = styled.div`
   margin-bottom: 12px;
   display: flex;
   justify-content: space-between;
-  border-bottom: 1px solid #636366;
+  border-bottom: 1px solid ${color.darkGray};
 `;
 
 export const LeftBox = styled.div`
@@ -48,23 +46,21 @@ export const Profile = styled.div<{ img: string }>`
 `;
 
 export const UserNickName = styled.span`
-  font-family: Spoqa Han Sans Neo;
-  font-size: 16px;
-  color: #ffffff;
+  font: ${font.body2};
+  color: ${color.white};
   box-sizing: border-box;
   margin: 15px 0px 0px 16px;
 `;
 
 export const RightBox = styled.div`
-  width: 328px;
+  width: 330px;
   height: 60px;
   display: flex;
 `;
 
 export const FollowDate = styled.span`
-  font-family: Spoqa Han Sans Neo;
-  font-size: 16px;
-  color: #ffffff;
+  font: ${font.body2};
+  color: ${color.white};
   box-sizing: border-box;
   margin-top: 18px;
 `;
@@ -72,10 +68,10 @@ export const FollowDate = styled.span`
 export const FollowingBtn = styled.button`
   width: 91px;
   height: 32px;
-  border: 1px solid white;
+  border: 1px solid ${color.white};
   border-radius: 120px;
-  background-color: black;
-  color: #ffffff;
+  background-color: ${color.black};
+  color: ${color.white};
   margin: 14px 0px 0px 15px;
   font: ${font.body2};
   cursor: pointer;
@@ -85,8 +81,8 @@ export const FollowBtn = styled.div`
   width: 91px;
   height: 32px;
   border-radius: 120px;
-  background-color: #0a84ff;
-  color: #ffffff;
+  background-color: ${color.blue};
+  color: ${color.white};
   margin: 14px 0px 0px 15px;
   text-align: center;
   font: ${font.body2};
