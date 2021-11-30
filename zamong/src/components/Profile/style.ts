@@ -1,6 +1,7 @@
 import { color } from "../../style/color";
 import { font } from "../../style/font";
 import styled from "@emotion/styled";
+import { Link } from "react-router-dom";
 
 export const ProfileContent = styled.div`
   width: 1280px;
@@ -55,6 +56,17 @@ export const OneLineBox = styled.div`
     font: ${font.body2};
     color: ${color.white};
   }
+`;
+
+export const Text = styled.span`
+  cursor: pointer;
+`;
+
+export const LinkText = styled(Link)`
+  cursor: pointer;
+  text-decoration: none;
+  font: ${font.body2};
+  color: ${color.white};
 `;
 
 export const NameBox = styled.p`
