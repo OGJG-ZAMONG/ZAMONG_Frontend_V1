@@ -138,3 +138,11 @@ export const modifyComment = async (uuid: string, content: ModifyType) => {
     return Promise.reject(error);
   }
 };
+
+export const delComment = async (uuid: string) => {
+  try {
+    await instance.delete(uri.deleteComment.replace("DREAM_UUID", uuid));
+  }  catch (error) {
+    return Promise.reject(error);
+  }
+}

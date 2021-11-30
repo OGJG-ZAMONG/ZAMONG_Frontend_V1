@@ -22,6 +22,7 @@ enum uri {
   shareDreamInfo = "/dream/share/DREAM_UUID",
   delPost = "/dream/DREAM_UUID",
   modifyComment = "/dream/comment/DREAM_UUID/content",
+  deleteComment = "/dream/comment/DREAM_UUID",
 }
 
 export default uri;

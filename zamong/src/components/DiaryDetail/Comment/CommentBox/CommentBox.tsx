@@ -5,6 +5,7 @@ import { more, profile } from "../../../../assets/index";
 import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import {
   Comment,
+  delComment,
   modifyComment,
   postComment,
   responseReComment,
@@ -15,9 +16,14 @@ import PopupContent from "../../../../interface/PopupContent";
 interface PropsType {
   comment: Comment;
   postUuid: string;
+  settingComment: () => Promise<void>;
 }
 
-const CommentBox = ({ comment, postUuid }: PropsType): JSX.Element => {
+const CommentBox = ({
+  comment,
+  postUuid,
+  settingComment,
+}: PropsType): JSX.Element => {
   const [onOffToggle, setOnOffToggle] = useState(false);
   const [onOffAdd, setOnOffAdd] = useState(false);
   const [input, setInput] = useState("");
@@ -39,10 +45,10 @@ const CommentBox = ({ comment, postUuid }: PropsType): JSX.Element => {
   const reCommentCount = reComments.length;
 
   useEffect(() => {
-    settingComment();
+    settingReComment();
   }, []);
 
-  const settingComment = async () => {
+  const settingReComment = async () => {
     setReComments(
       (await responseReComment(uuid)).data.content.response.comments
     );
@@ -77,7 +83,7 @@ const CommentBox = ({ comment, postUuid }: PropsType): JSX.Element => {
       await postComment(postUuid, data);
       setInput("");
       setAdd(false);
-      settingComment();
+      settingReComment();
       alert("댓글이 입력되었습니다.");
       setIsActivePlus(false);
     }
@@ -90,7 +96,9 @@ const CommentBox = ({ comment, postUuid }: PropsType): JSX.Element => {
   };
 
   useLayoutEffect(() => {
-    if (text.current !== null) text.current.focus();
+    if (isModify) {
+      if (text.current !== null) text.current.focus();
+    }
   }, [isModify]);
 
   const modify = async () => {
@@ -117,6 +125,18 @@ const CommentBox = ({ comment, postUuid }: PropsType): JSX.Element => {
     setModifyContent(value);
   };
 
+  const deleteComment = async () => {
+    if (window.confirm("정말 삭제하시겠습니까?")) {
+      try {
+        await delComment(uuid);
+        alert("삭제되었습니다.");
+        settingComment();
+      } catch (error) {
+        console.log(error);
+      }
+    }
+  };
+
   const popupContents: PopupContent[] = [
     {
       name: "수정",
@@ -127,7 +147,7 @@ const CommentBox = ({ comment, postUuid }: PropsType): JSX.Element => {
     {
       name: "삭제",
       callback: () => {
-        //
+        deleteComment();
       },
     },
   ];
@@ -213,7 +233,12 @@ const CommentBox = ({ comment, postUuid }: PropsType): JSX.Element => {
             <S.CommentToComment>
               {reComments.map((value, i) => {
                 return (
-                  <CommentBox postUuid={postUuid} comment={value} key={i} />
+                  <CommentBox
+                    postUuid={postUuid}
+                    comment={value}
+                    settingComment={settingComment}
+                    key={i}
+                  />
                 );
               })}
             </S.CommentToComment>
