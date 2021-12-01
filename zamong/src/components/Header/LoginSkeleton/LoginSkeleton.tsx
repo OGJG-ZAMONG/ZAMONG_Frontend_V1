@@ -8,6 +8,7 @@ const LoginSkeleton = (): JSX.Element => {
           <S.Nav>꿈 해몽</S.Nav>
           <S.Nav>꿈 해몽</S.Nav>
           <S.Nav>꿈 해몽</S.Nav>
+          <S.Nav>꿈 해몽</S.Nav>
         </S.NavContainer>
         <S.NavContainer>
           <S.Circle />
