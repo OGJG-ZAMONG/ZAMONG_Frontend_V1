@@ -72,11 +72,11 @@ const LoginComponent = (): JSX.Element => {
     setHeaderData();
   }, []);
 
-  const navRender = navs.map((value) => {
+  const navRender = navs.map((value, index) => {
     const { img, text, to } = value;
 
     return (
-      <S.LinkComponentContainer to={to}>
+      <S.LinkComponentContainer to={to} key={index}>
         <S.LinkIcon alt={`nav ${text}`} src={img} />
         <S.NavText>{text}</S.NavText>
       </S.LinkComponentContainer>
