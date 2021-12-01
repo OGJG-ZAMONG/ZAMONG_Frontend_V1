@@ -1,15 +1,13 @@
 import React, { useEffect, useState } from "react";
-import * as S from "./style";
-import { Follower, Follow, AccountInfo } from "../../assets";
-import FollowerContent from "./Follower/FollowerContent";
-import FollowContent from "./Follow/FollowContent";
-import AccountContent from "./Account/AccountContent";
-import { useHistory } from "react-router";
+import * as S from "./styles";
+import { Follower, Follow, AccountInfo } from "../../../assets";
+import FollowerContent from "../Follower/FollowerContent";
+import FollowContent from "../Follow/FollowContent";
 import {
+  getAntherUsersProfile,
   getFollower,
   getFollowing,
-  getMyProfile,
-} from "../../utils/api/Profile";
+} from "../../../utils/api/Profile";
 
 interface ProfileType {
   uuid: string;
@@ -20,18 +18,20 @@ interface ProfileType {
   share_dream_count: number;
   lucy_count: number;
 }
+
 interface IdType {
   id: string;
 }
+
 interface FollowerType {
   total_size: number;
 }
+
 interface FollowType {
   total_size: number;
 }
 
-const ProfilePage = (): JSX.Element => {
-  const [comp, setComp] = useState();
+const AnotherProfilePage: React.FC<IdType | null> = (props): JSX.Element => {
   const [followerState, setFollower] = useState<FollowerType>({
     total_size: 0,
   });
@@ -51,7 +51,6 @@ const ProfilePage = (): JSX.Element => {
     profileState;
   const FOLLORWER = 1;
   const FOLLORWING = 2;
-  const ACCOUNTINFO = 3;
   const [contentState, setContentState] = useState(FOLLORWER);
 
   const onFollowerClick = () => {
@@ -62,22 +61,19 @@ const ProfilePage = (): JSX.Element => {
     setContentState(FOLLORWING);
   };
 
-  const onAccountInfoClick = () => {
-    setContentState(ACCOUNTINFO);
-  };
-
   useEffect(() => {
-    myProfile();
-  }, []);
+    usersProfile();
+  }, [props.id]);
 
   useEffect(() => {
     follower();
     follow();
   }, [uuid]);
 
-  const myProfile = async () => {
+  const usersProfile = async () => {
+    console.log(props.id);
     try {
-      const response = await getMyProfile();
+      const response = await getAntherUsersProfile(props.id);
       setProfile(response.data.content.response);
     } catch (error) {
       throw error;
@@ -105,19 +101,18 @@ const ProfilePage = (): JSX.Element => {
   const renderContent = (): JSX.Element => {
     const contentMap = new Map<number, React.FC<IdType>>()
       .set(FOLLORWER, FollowerContent)
-      .set(FOLLORWING, FollowContent)
-      .set(ACCOUNTINFO, AccountContent);
+      .set(FOLLORWING, FollowContent);
     const content = React.createElement(contentMap.get(contentState)!, {
       id: uuid,
     });
     return <>{content}</>;
   };
+  const is_following = true;
 
   return (
     <>
       {FollowerContent}
       {FollowContent}
-      {AccountContent}
       <S.ProfileContent>
         <S.TopBox>
           <S.TopContent>
@@ -137,7 +132,14 @@ const ProfilePage = (): JSX.Element => {
                 </S.LinkText>
                 <span>{lucy_count}LUCY</span>
               </S.OneLineBox>
-              <S.NameBox>이름: {name}</S.NameBox>
+              <div>
+                <S.NameBox>이름: {name}</S.NameBox>
+                {is_following === true ? (
+                  <S.FollowingBtn>팔로우중</S.FollowingBtn>
+                ) : (
+                  <S.FollowBtn>팔로우</S.FollowBtn>
+                )}
+              </div>
             </S.InfoBox>
           </S.TopContent>
         </S.TopBox>
@@ -155,12 +157,6 @@ const ProfilePage = (): JSX.Element => {
                 <span>팔로우</span>
               </div>
             </S.ChooseBox>
-            <S.ChooseBox onClick={onAccountInfoClick}>
-              <div>
-                <img src={AccountInfo} />
-                <span>계정 정보</span>
-              </div>
-            </S.ChooseBox>
           </S.SelectionContent>
         </S.SelectionBox>
         <div>{renderContent()}</div>
@@ -169,4 +165,4 @@ const ProfilePage = (): JSX.Element => {
   );
 };
 
-export default ProfilePage;
+export default AnotherProfilePage;
