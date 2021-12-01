@@ -16,7 +16,6 @@ const FilterContent = ({ selectedState, isActiveState }: PropsType) => {
   const [searchText, setSearchText] = useState<string>("");
 
   const onChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
-    e.preventDefault();
     setSearchText(e.target.value);
   };
 
@@ -78,8 +77,6 @@ const FilterContent = ({ selectedState, isActiveState }: PropsType) => {
   });
 
   const checkESC = (e: KeyboardEvent) => {
-    e.preventDefault();
-
     if (e.keyCode === 27) {
       setIsActive(false);
     }
