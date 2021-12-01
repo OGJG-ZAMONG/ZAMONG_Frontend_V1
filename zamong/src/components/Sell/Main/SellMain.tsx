@@ -1,6 +1,6 @@
 import * as S from "./styles";
 import React, { FC, useState, useEffect } from "react";
-import SellingDream from "../SellingDream/SellingDream";
+import SellingDream from "../../CardDream/SellingDream/SellingDream";
 import { getCurrentSellingDreams } from "../../../utils/api/Sell/Main";
 
 const SellMain: FC = (): JSX.Element => {
@@ -101,10 +101,7 @@ const SellMain: FC = (): JSX.Element => {
           {renderList[pageDepth].map((value: number, index: number) => {
             if (pageIndex >= Math.max(...renderList[pageDepth])) {
               setPageDepth(pageDepth + 1);
-            } else if (
-              pageIndex + 1 < Math.min(...renderList[pageDepth]) &&
-              pageDepth != 0
-            ) {
+            } else if (pageIndex + 1 < Math.min(...renderList[pageDepth]) && pageDepth != 0) {
               setPageDepth(pageDepth - 1);
             }
 
@@ -112,9 +109,7 @@ const SellMain: FC = (): JSX.Element => {
               <S.Page
                 key={index}
                 style={
-                  index + pageDepth * 10 === pageIndex
-                    ? { color: "#0A84FF" }
-                    : { color: "#8E8E93" }
+                  index + pageDepth * 10 === pageIndex ? { color: "#0A84FF" } : { color: "#8E8E93" }
                 }
               >
                 {value}
