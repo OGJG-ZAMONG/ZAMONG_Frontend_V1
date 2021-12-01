@@ -35,7 +35,7 @@ const LoginComponent = (): JSX.Element => {
     {
       img: Discovery,
       text: "꿈 해몽",
-      to: "/",
+      to: "/interpretation",
     },
     {
       img: ShoppingCart,
