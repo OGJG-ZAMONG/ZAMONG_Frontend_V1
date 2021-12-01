@@ -237,8 +237,16 @@ const DiaryWrite = ({ dreamUUID }: PropsType): JSX.Element => {
 
   const onSave = () => {
     const objectString = JSON.stringify(properties);
-    localStorage.setItem("saved_diary", objectString);
 
+    if (dreamUUID) {
+      localStorage.setItem(dreamUUID, objectString);
+      localStorage.setItem(`${dreamUUID}_last_save_time`, new Date().toString());
+    } else {
+      localStorage.setItem("saved_diary", objectString);
+      localStorage.setItem("last_save_time", new Date().toString());
+    }
+
+    setLastUpdateDate(new Date());
     alert("임시 저장되었습니다.");
   };
 
