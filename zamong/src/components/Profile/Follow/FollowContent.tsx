@@ -1,6 +1,7 @@
 import React, { FC, useEffect, useState } from "react";
 import { getFollowing, unfollow, follow } from "../../../utils/api/Profile";
 import * as S from "./style";
+import { useHistory } from "react-router-dom";
 
 interface Following {
   uuid: string;
@@ -16,7 +17,7 @@ interface FollowType {
 }
 
 interface IdType {
-  myid: string;
+  id: string;
 }
 
 interface ConfirmType {
@@ -24,6 +25,7 @@ interface ConfirmType {
 }
 
 const FollowContent: FC<IdType> = (props) => {
+  const history = useHistory();
   const [followState, setFollow] = useState<FollowType>({
     followings: [],
     total_size: 0,
@@ -31,7 +33,6 @@ const FollowContent: FC<IdType> = (props) => {
   const [followConfirm, setConfirm] = useState<ConfirmType>({
     user_uuid: "",
   });
-  const [followCurrentStatus, setCurrentStatus] = useState(true);
 
   useEffect(() => {
     following();
@@ -39,7 +40,7 @@ const FollowContent: FC<IdType> = (props) => {
 
   const following = async () => {
     try {
-      const response = await getFollowing(props.myid);
+      const response = await getFollowing(props.id);
       setFollow(response.data.content.response);
     } catch (error) {
       throw error;
@@ -80,10 +81,14 @@ const FollowContent: FC<IdType> = (props) => {
                 "월" +
                 " " +
                 (data.follow_datetime.substring(8, 10) + "일");
+              const userProfile = (uuid: string) => {
+                alert("QNd");
+                history.push(`/user/${uuid}`);
+              };
               return (
                 <>
                   <S.UserBox>
-                    <S.LeftBox>
+                    <S.LeftBox onClick={() => userProfile(data.uuid)}>
                       <S.Profile img={data.profile} />
                       <S.UserNickName>{data.id}</S.UserNickName>
                     </S.LeftBox>
