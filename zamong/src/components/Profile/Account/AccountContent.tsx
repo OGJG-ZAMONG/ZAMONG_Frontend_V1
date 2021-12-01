@@ -68,6 +68,11 @@ const AccountContent = (): JSX.Element => {
     setNewId(e.target.value);
   };
 
+  const clickDelete = () => {
+    alert("정말 탈퇴하겠습니까?!");
+    alert("아니요, 탈퇴 안 돼요!");
+  };
+
   useEffect(() => {
     myId();
   }, []);
@@ -125,7 +130,7 @@ const AccountContent = (): JSX.Element => {
           </S.Box>
           <S.Box>
             <S.DeleteText>계정 탈퇴</S.DeleteText>
-            <S.DeleteBtn>탈퇴</S.DeleteBtn>
+            <S.DeleteBtn onClick={clickDelete}>탈퇴</S.DeleteBtn>
           </S.Box>
         </S.AccountBox>
       </S.Content>

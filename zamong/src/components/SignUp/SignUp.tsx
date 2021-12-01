@@ -49,7 +49,7 @@ const SignUp = () => {
     };
     try {
       await signUp(data);
-      alert("회원가입을 축하드립니다!.");
+      alert("회원가입을 축하드립니다!");
       push("/login");
     } catch {
       alert("회원가입에 실패하셨습니다.");
