@@ -125,10 +125,10 @@ const DiaryDetailHeader = ({ postData }: PropsType): JSX.Element => {
         </S.LeftInfo>
         <S.UserInfo>
           {is_shared ? (
-            <>
+            <S.ProfileLink>
               <S.PrifilePhoto alt="profile" src={user.profile} />
               <S.Profile>{user.id}</S.Profile>
-            </>
+            </S.ProfileLink>
           ) : (
             <></>
           )}
