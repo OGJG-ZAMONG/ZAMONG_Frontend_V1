@@ -60,6 +60,7 @@ export const MoreBox = styled.div`
 export const More = styled.img`
   margin: auto 0;
   cursor: pointer;
+  padding: 15px 0px;
 `;
 
 export const CommentBoxBottom = styled.div`
