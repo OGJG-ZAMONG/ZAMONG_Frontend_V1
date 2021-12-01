@@ -59,7 +59,7 @@ export const DreamTitle = styled.div`
   text-overflow: ellipsis;
   width: 100%;
   line-height: 1.5em;
-  height: 3em;
+  max-height: 3em;
   display: -webkit-box;
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
