@@ -1,3 +1,5 @@
+import defaultResponse from "./defaultResponse";
+
 export interface DreamList {
   uuid: string;
   default_posting_image: string;
@@ -12,15 +14,8 @@ export interface DreamList {
   share_datetime: string;
 }
 
-export interface dreamListResponse {
-  status: 200;
-  timestamp: "2021-11-03T14:14:42.773061";
-  content: {
-    collection_value: true;
-    response: {
-      share_dreams: DreamList[];
-      total_page: 1;
-      total_size: 2;
-    };
-  };
-}
+export type dreamListResponse = defaultResponse<{
+  share_dreams: DreamList[];
+  total_page: number;
+  total_size: number;
+}>;
