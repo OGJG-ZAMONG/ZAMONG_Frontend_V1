@@ -39,7 +39,7 @@ export const DreamImageContainer = styled.div<{ img: any }>`
     content: "";
     border-radius: 20px;
     position: absolute;
-    z-index: -1;
+    z-index: 0;
     top: 0;
     right: 0;
     bottom: 0;
@@ -66,4 +66,5 @@ export const DiaryDate = styled.div`
   background: rgb(0, 0, 0, 0.4);
   padding: 3px 5px;
   border-radius: 5px;
+  z-index: 1;
 `;
