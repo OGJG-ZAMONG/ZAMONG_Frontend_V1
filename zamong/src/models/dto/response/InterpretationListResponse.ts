@@ -15,8 +15,8 @@ export interface InterpretationDream {
 
 export interface InterpretationList {
   interpretation_dreams: InterpretationDream[];
-  total_page: 1;
-  total_size: 2;
+  total_page: number;
+  total_size: number;
 }
 
 type interpretationListResponse = defaultResponse<InterpretationList>;
