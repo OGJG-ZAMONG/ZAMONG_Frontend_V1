@@ -17,7 +17,7 @@ const Header = ({ selected, deleteItem }: PropsType): JSX.Element => {
   const tagRender = selected.map((value, index) => {
     //선택 된것만 출력
     return (
-      <S.TagStyle onClick={(e) => onClickHandler(e, index)}>
+      <S.TagStyle onClick={(e) => onClickHandler(e, index)} key={index}>
         <Tag>{value.name}</Tag>
       </S.TagStyle>
     );

@@ -86,7 +86,7 @@ const DiaryWrite = ({ dreamUUID }: PropsType): JSX.Element => {
   const [file, setFile] = useState<File | undefined>();
   const { title, content, date, startTime, endTime, quality, types } = properties;
   const [lastUpdateDate, setLastUpdateDate] = useState<Date | null>(null);
-  const isPropertyValid = (): boolean => title.length > 0 || content.length > 0 || types.length > 0;
+  const isPropertyValid = (): boolean => title.length > 0 && content.length > 0 && types.length > 0;
 
   const init = async (): Promise<PropertysType> => {
     let returnValue = { ...initValue };
@@ -306,7 +306,7 @@ const DiaryWrite = ({ dreamUUID }: PropsType): JSX.Element => {
                 <ElapsedTime from={lastUpdateDate} interval={1000}></ElapsedTime> 전
               </S.LastChange>
             )}
-            <S.BorderButton onClick={onSave}>저장</S.BorderButton>
+            <S.BorderButton onClick={onSave}>임시 저장</S.BorderButton>
             <S.BlueButton onClick={onPost}>작성</S.BlueButton>
           </S.ButtonContainer>
         </S.WriteSection>
