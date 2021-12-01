@@ -7,7 +7,7 @@ export const HeaderContainer = styled.div<{ pd: number; lineOpacity: number }>`
   font: ${font.body3};
   width: 100%;
   height: 64px;
-  background-color: ${(props) => (props.lineOpacity === 1 ? color.black : "rgba(0, 0, 0, 0)")};
+  background-color: ${color.black}${(props) => props.lineOpacity === 0 && "00"};
   display: flex;
   align-items: center;
   position: fixed;
@@ -15,7 +15,10 @@ export const HeaderContainer = styled.div<{ pd: number; lineOpacity: number }>`
   transition: padding 0.25s ease-out, background-color 0.25s ease-out;
   z-index: 3;
   min-width: 1000px;
+  will-change: padding-top background-color;
+
   &:after {
+    will-change: opacity;
     z-index: 2;
     content: "";
     transition: opacity 0.25s ease-out;
@@ -66,8 +69,7 @@ const ButtonDefaultStyle = css`
   padding: 6px 16px;
   outline: none;
   cursor: pointer;
-  font-size: 16px;
-  font-family: "Spoqa Han Sans Neo", "sans-serif";
+  will-change: background-color;
   transition: all 0.15s ease-in-out;
 `;
 
@@ -102,6 +104,7 @@ export const SearchInputContainer = styled.div`
   box-sizing: border-box;
   margin-right: 16px;
   transition: width 1s cubic-bezier(0.075, 0.82, 0.165, 1);
+  will-change: width;
   img {
     margin-right: 8px;
   }

@@ -61,7 +61,9 @@ const loading = keyframes`
 export const PreviewImagecontainer = styled.div<{ isHover: boolean }>`
   position: absolute;
   top: 0px;
-  transform: translateY(calc(-100% - 16px + ${(props) => (props.isHover ? 0 : 20)}%))
+  transform: translateY(
+      calc(-100% - 16px + ${(props) => (props.isHover ? 0 : 20)}%)
+    )
     translateX(-50%);
   left: 50%;
   opacity: ${(props) => (props.isHover ? 1 : 0)};

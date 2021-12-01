@@ -1,6 +1,7 @@
 import { color } from "../../style/color";
 import { font } from "../../style/font";
 import styled from "@emotion/styled";
+import { Link } from "react-router-dom";
 
 export const ProfileContent = styled.div`
   width: 1280px;
@@ -57,6 +58,17 @@ export const OneLineBox = styled.div`
   }
 `;
 
+export const Text = styled.span`
+  cursor: pointer;
+`;
+
+export const LinkText = styled(Link)`
+  cursor: pointer;
+  text-decoration: none;
+  font: ${font.body2};
+  color: ${color.white};
+`;
+
 export const NameBox = styled.p`
   font: ${font.body2};
   color: ${color.white};
@@ -65,7 +77,7 @@ export const NameBox = styled.p`
 export const SelectionBox = styled.div`
   width: 100%;
   height: 58px;
-  border-top: 1px solid #636366;
+  border-top: 1px solid ${color.darkGray};
 `;
 
 export const SelectionContent = styled.div`

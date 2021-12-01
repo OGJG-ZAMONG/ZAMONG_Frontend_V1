@@ -43,6 +43,7 @@ const PickerColumn = ({ type, array, initValue, setValue }: DateColumnType): JSX
       return Math.abs(Math.round(y / HEIGHT));
     }
   };
+
   const onTimeout = (): void => {
     setIsWheel(false);
   };
@@ -52,6 +53,8 @@ const PickerColumn = ({ type, array, initValue, setValue }: DateColumnType): JSX
   }, [isWheel]);
 
   useEffect(() => {
+    console.log("ASD");
+    console.log(array[selectedIndex]);
     setValue(array[selectedIndex]);
   }, [selectedIndex]);
 
@@ -82,15 +85,18 @@ const PickerColumn = ({ type, array, initValue, setValue }: DateColumnType): JSX
       value = 18 * Math.sign(value);
     }
 
-    setY(CalculateY(y, value));
-    setSelectedIndex(CalculateIndex(y));
+    const calcY = CalculateY(y, value);
+    setY(calcY);
+
+    const index = CalculateIndex(calcY);
+    setSelectedIndex(index);
+
     setTimer(setTimeout(onTimeout, 100));
   };
 
-  const onClickHandler = (index: number, value: string | number) => {
+  const onClickHandler = (index: number) => {
     setY(-(index * HEIGHT));
     setSelectedIndex(index);
-    setValue(value);
   };
 
   return (
@@ -102,7 +108,7 @@ const PickerColumn = ({ type, array, initValue, setValue }: DateColumnType): JSX
               isWheel={isWheel}
               key={index}
               color={selectedIndex === index ? color.white : color.gray}
-              onClick={() => onClickHandler(index, value)}
+              onClick={() => onClickHandler(index)}
               height={HEIGHT}
               angle={CalculateAndgle(index)}
               opacity={1}
