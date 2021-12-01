@@ -58,15 +58,15 @@ export const OneLineBox = styled.div`
   }
 `;
 
-export const Text = styled.span`
-  cursor: pointer;
+export const LineBox = styled.div`
+  width: 1055px;
+  height: 28px;
+  display: flex;
+  justify-content: space-between;
 `;
 
-export const LinkText = styled(Link)`
+export const Text = styled.span`
   cursor: pointer;
-  text-decoration: none;
-  font: ${font.body2};
-  color: ${color.white};
 `;
 
 export const NameBox = styled.p`
