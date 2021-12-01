@@ -11,6 +11,7 @@ const Modal = ({ children, setModal, closeEvent }: PropsType): JSX.Element => {
   const checkESC = (e: KeyboardEvent) => {
     if (e.keyCode === 27) {
       setModal(false);
+      closeEvent();
     }
   };
 
