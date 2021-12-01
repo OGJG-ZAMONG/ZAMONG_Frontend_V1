@@ -27,8 +27,6 @@ export const DreamImageContainer = styled.div<{ img: any }>`
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
-  /* transition: background-size 0.5s cubic-bezier(0.075, 0.82, 0.165, 1); */
-  /* will-change: background-size; */
   border-radius: 20px;
   padding: 24px;
   display: flex;
