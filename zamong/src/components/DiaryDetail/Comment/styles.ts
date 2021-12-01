@@ -11,6 +11,7 @@ export const CommentContainer = styled.div`
 
 export const CommentTitle = styled.div`
   color: ${color.white};
+  font: ${font.headline2};
   display: flex;
   margin-bottom: 28px;
 `;
