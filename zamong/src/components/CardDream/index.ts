@@ -55,6 +55,15 @@ export const DreamTitle = styled.div`
   margin-top: 16px;
   font: ${font.body3};
   color: ${color.white};
+  overflow: hidden;
+  text-overflow: ellipsis;
+  width: 100%;
+  line-height: 1.5em;
+  height: 3em;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  word-break: break-all;
 `;
 
 export const DiaryDate = styled.div`
