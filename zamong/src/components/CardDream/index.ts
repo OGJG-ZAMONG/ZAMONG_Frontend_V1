@@ -39,7 +39,7 @@ export const DreamImageContainer = styled.div<{ img: any }>`
     content: "";
     border-radius: 20px;
     position: absolute;
-    z-index: -1;
+    z-index: 0;
     top: 0;
     right: 0;
     bottom: 0;
@@ -55,6 +55,15 @@ export const DreamTitle = styled.div`
   margin-top: 16px;
   font: ${font.body3};
   color: ${color.white};
+  overflow: hidden;
+  text-overflow: ellipsis;
+  width: 100%;
+  line-height: 1.5em;
+  height: 3em;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  word-break: break-all;
 `;
 
 export const DiaryDate = styled.div`
@@ -66,4 +75,5 @@ export const DiaryDate = styled.div`
   background: rgb(0, 0, 0, 0.4);
   padding: 3px 5px;
   border-radius: 5px;
+  z-index: 1;
 `;
