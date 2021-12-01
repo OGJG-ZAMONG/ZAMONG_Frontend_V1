@@ -8,6 +8,13 @@ export const DreamCardContainer = styled(Link)`
   outline: none;
   text-decoration: none;
   contain: paint;
+  &:hover {
+    div:first-of-type {
+      &::after {
+        transform: scale(1.1);
+      }
+    }
+  }
 `;
 
 export const DreamImageContainer = styled.div<{ img: any }>`
@@ -20,14 +27,30 @@ export const DreamImageContainer = styled.div<{ img: any }>`
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
-  transition: background-size 0.5s cubic-bezier(0.075, 0.82, 0.165, 1);
-  will-change: background-size;
+  /* transition: background-size 0.5s cubic-bezier(0.075, 0.82, 0.165, 1); */
+  /* will-change: background-size; */
   border-radius: 20px;
   padding: 24px;
-  background-image: url(${(props) => props.img});
   display: flex;
   align-items: flex-end;
   justify-content: space-between;
+  position: relative;
+  overflow: hidden;
+  &::after {
+    will-change: transform;
+    content: "";
+    border-radius: 20px;
+    position: absolute;
+    z-index: -1;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background-image: url(${(props) => props.img});
+    background-size: cover;
+    transform-origin: center;
+    transition: transform 1s cubic-bezier(0.075, 0.82, 0.165, 1);
+  }
 `;
 
 export const DreamTitle = styled.div`
