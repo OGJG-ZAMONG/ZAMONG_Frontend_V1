@@ -13,7 +13,10 @@ interface PropsType {
 const Filter = ({ selectedState }: PropsType): JSX.Element => {
   const [isActive, setIsActive] = useState<boolean>(false);
 
-  const onSpreadClick = () => setIsActive(!isActive);
+  const onSpreadClick = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+    e.preventDefault();
+    setIsActive(!isActive);
+  };
   return (
     <S.FilterContainer>
       <S.FilterButton onClick={onSpreadClick}>

@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from "react";
+import ReactDOM from "react-dom";
 import dreamType from "../../../../constance/dreamType";
 import Code from "../../../../interface/Code";
 import State from "../../../../interface/State";
@@ -30,18 +31,11 @@ const FilterContent = ({ selectedState, isActiveState }: PropsType) => {
   };
 
   const checkCollision = (e: MouseEvent) => {
-    if (!isActive) {
-      return;
-    }
+    if (!isActive) return;
+    if (!containerRef.current) return;
 
-    if (!containerRef.current) {
-      return;
-    }
-
-    const { top, left, right, bottom } = containerRef.current.getBoundingClientRect();
-    const { x, y } = e;
-
-    if (top < y || bottom > y || left > x || right < x) {
+    if (!containerRef.current.contains(e.target as Node)) {
+      e.preventDefault();
       setIsActive(false);
     }
   };
