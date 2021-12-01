@@ -51,7 +51,8 @@ export const UserName = styled.div`
   color: ${color.white};
   border-radius: 10px;
   position: absolute;
-  transform: translateX(-60%);
+  transform-origin: right;
+  transform: translateY(12.5%) translateX(-40px);
 `;
 
 export const DreamInfoContainer = styled.div`
