@@ -163,7 +163,7 @@ export const ChatSubmitIMG = styled.img`
 
 export const ChatBox = styled.div`
   display: flex;
-  flex-direction: column;
+  flex-direction: column-reverse;
   position: relative;
   height: 100%;
   width: 100%;
