@@ -7,7 +7,7 @@ import { useEffect, useState } from "react";
 import LoginComponent from "./LoginComponent";
 import Code from "../../interface/Code";
 
-const Header = ({history} : RouteComponentProps): JSX.Element => {
+const Header = ({ history }: RouteComponentProps): JSX.Element => {
   const paddingValue = 10;
   const [headerPadding, setHeaderPadding] = useState<number>(paddingValue);
   const [isTop, setIsTop] = useState<boolean>(true);
@@ -16,7 +16,11 @@ const Header = ({history} : RouteComponentProps): JSX.Element => {
   const [searchText, setSearchText] = useState<string>("");
 
   const scrollEvent = () => {
-    setIsTop(window.pageYOffset === 0);
+    if (window.pageYOffset === 0) {
+      setIsTop(true);
+    } else if (isTop) {
+      setIsTop(false);
+    }
   };
 
   useEffect(() => {
@@ -36,10 +40,10 @@ const Header = ({history} : RouteComponentProps): JSX.Element => {
     history.listen(() => {
       window.scrollTo({
         top: 0,
-        behavior: 'smooth'
+        behavior: "smooth",
       });
     });
-  })
+  });
 
   const onChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => setSearchText(e.target.value);
 
