@@ -16,7 +16,7 @@ const DreamInterpretation = (): JSX.Element => {
 
   return (
     <>
-      <I.DreamContainer>
+      <I.DreamContainer to="">
         <I.DreamImage img={Default}>
           <I.DreamUserImage
             alt="user image"
