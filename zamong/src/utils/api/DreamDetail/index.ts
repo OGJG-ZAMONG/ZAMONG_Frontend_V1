@@ -2,6 +2,26 @@ import uri from "../../../constance/uri";
 import instance from "../axios";
 import { dreamDetailResponse } from "../../../models/dto/response/dreamDetailResponse";
 
+export const shareDream = async (uuid: string) => {
+  try {
+    await instance.post(uri.shareDream.replace("DREAM_UUID", uuid));
+  } catch (error) {
+    return Promise.reject(error);
+  }
+}
+
+export const getShareDream = async (uuid: string) => {
+  try {
+    const response = await instance.get<dreamDetailResponse>(
+      uri.shareDreamInfo.replace("DREAM_UUID", uuid)
+    );
+
+    return response;
+  } catch (error) {
+    return Promise.reject(error);
+  }
+};
+
 interface DataType {
   content: string;
   p_comment: string | null;
@@ -9,7 +29,9 @@ interface DataType {
 
 export const getDreamDetail = async (dreamUUID: string) => {
   try {
-    const response = await instance.get<dreamDetailResponse>(`${uri.dreamShare}/${dreamUUID}`);
+    const response = await instance.get<dreamDetailResponse>(
+      `${uri.dreamShare}/${dreamUUID}`
+    );
     return response;
   } catch (error) {
     return Promise.reject(error);
@@ -29,7 +51,7 @@ export interface Comment {
   is_dis_like: boolean;
 }
 
-interface commentType {
+interface CommentType {
   status: number;
   timestamp: string;
   content: {
@@ -39,6 +61,14 @@ interface commentType {
     };
   };
 }
+
+export const delPosting = async (uuid: string) => {
+  try {
+    await instance.delete(uri.delPost.replace("DREAM_UUID", uuid));
+  } catch (error) {
+    return Promise.reject(error);
+  }
+};
 
 export const postComment = async (uuid: string, data: DataType) => {
   try {
@@ -51,7 +81,9 @@ export const postComment = async (uuid: string, data: DataType) => {
 
 export const responseComment = async (uuid: string) => {
   try {
-    const response = await instance.get<commentType>(uri.getComment.replace("DREAM_UUID", uuid));
+    const response = await instance.get<CommentType>(
+      uri.getComment.replace("DREAM_UUID", uuid)
+    );
     return response;
   } catch (error) {
     return Promise.reject(error);
@@ -60,7 +92,31 @@ export const responseComment = async (uuid: string) => {
 
 export const responseReComment = async (uuid: string) => {
   try {
-    const response = await instance.get<commentType>(uri.getReComment.replace("DREAM_UUID", uuid));
+    const response = await instance.get<CommentType>(
+      uri.getReComment.replace("DREAM_UUID", uuid)
+    );
+    return response;
+  } catch (error) {
+    return Promise.reject(error);
+  }
+};
+
+interface CommentCount {
+  status: number;
+  timestamp: string;
+  content: {
+    collection_value: boolean;
+    response: {
+      number: number;
+    };
+  };
+}
+
+export const getCommentCount = async (uuid: string) => {
+  try {
+    const response = await instance.get<CommentCount>(
+      uri.getCommentCount.replace("DREAM_UUID", uuid)
+    );
     return response;
   } catch (error) {
     return Promise.reject(error);
@@ -78,3 +134,23 @@ export const recommend = async (uuid: string, isThumb: ThumbType) => {
     return Promise.reject(error);
   }
 };
+
+interface ModifyType {
+  content: string,
+}
+
+export const modifyComment = async (uuid: string, content: ModifyType) => {
+  try {
+    await instance.patch(uri.modifyComment.replace("DREAM_UUID", uuid), content);
+  } catch (error) {
+    return Promise.reject(error);
+  }
+};
+
+export const delComment = async (uuid: string) => {
+  try {
+    await instance.delete(uri.deleteComment.replace("DREAM_UUID", uuid));
+  }  catch (error) {
+    return Promise.reject(error);
+  }
+}

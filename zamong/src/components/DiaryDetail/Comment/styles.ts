@@ -3,6 +3,7 @@ import { color } from "../../../style/color";
 import { font } from "../../../style/font";
 
 export const CommentContainer = styled.div`
+  margin-top: 131px;
   margin-bottom: 192px;
   padding-top: 48px;
   border-top: 1px solid ${color.darkGray};

@@ -4,18 +4,13 @@ import SellingDream from "../SellingDream/SellingDream";
 import { getCurrentSellingDreams } from "../../../utils/api/Sell/Main";
 
 const SellMain: FC = (): JSX.Element => {
-  const [maxPage, setMaxPage] = useState<number>(0);
-  const [maxSize, setMaxSize] = useState<number>(0);
+  const [totalPage, setMaxPage] = useState<number>(0);
   const [pageIndex, setPageIndex] = useState<number>(0);
   const [pageDepth, setPageDepth] = useState<number>(0);
   const [dreamData, setDreamData] = useState<Array<object>>([]);
   const [renderList, setRenderList] = useState<number[][]>([[]]);
 
   useEffect(() => {
-    window.scrollTo({
-      top: 0,
-      behavior: 'smooth'
-    });
     getCurrentSellingDreams(pageIndex)
       .then((res) => {
         setDreamData(res.data.content.response.sell_dreams);
@@ -23,18 +18,21 @@ const SellMain: FC = (): JSX.Element => {
       .catch((error) => {
         console.log(error);
       });
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
   }, [pageIndex]);
 
   useEffect(() => {
     getCurrentSellingDreams(pageIndex).then((res) => {
       setMaxPage(res.data.content.response.total_page);
-      setMaxSize(res.data.content.response.total_size);
       getPageList(res.data.content.response.total_page, 10);
     });
   }, []);
 
   const nextPage = () => {
-    if (pageIndex >= maxPage - 1) {
+    if (pageIndex >= totalPage - 1) {
       return;
     } else {
       setPageIndex(pageIndex + 1);
@@ -55,22 +53,22 @@ const SellMain: FC = (): JSX.Element => {
     }
   };
 
-  const getPageList = (pageCount: number, pageColumn: number) => {
-    const list: number[][] = [];
+  const getPageList = (totalPage: number, pageColumn: number) => {
+    const ArrayTwo: number[][] = [];
 
-    for (let i = 0; i < Math.ceil(pageCount / pageColumn); i++) {
-      const l: number[] = [];
+    for (let i = 0; i < Math.ceil(totalPage / pageColumn); i++) {
+      const ArrayOne: number[] = [];
 
       for (let j = 1; j < pageColumn; j++) {
-        if (i * pageColumn + j > pageCount) {
+        if (i * pageColumn + j > totalPage) {
           continue;
         }
-        l.push(i * pageColumn + j);
+        ArrayOne.push(i * pageColumn + j);
       }
-      list.push(l);
+      ArrayTwo.push(ArrayOne);
     }
 
-    setRenderList(list);
+    setRenderList(ArrayTwo);
   };
 
   return (

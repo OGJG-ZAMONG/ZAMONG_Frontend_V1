@@ -14,7 +14,7 @@ export const TodayContainer = styled.div`
   color: ${color.white};
   flex-direction: column;
   margin: 0 auto;
-  padding-top: 7%;
+  padding-top: 120px;
 `;
 
 export const Title = styled.div`

@@ -14,7 +14,9 @@ type PropsType = {
 
 const ItemContent = ({ array, initValue, setValue, gap, isHover }: PropsType): JSX.Element => {
   const container = useRef<HTMLDivElement>(null);
-  const [selected, setSelected] = useState<number>(array.indexOf(initValue));
+  const [selected, setSelected] = useState<number>(
+    initValue ? array.findIndex((value) => value.code === initValue.code) : 0
+  );
   const [lefts, setLefts] = useState<number[]>(Array<number>(array.length).fill(0));
 
   useEffect(() => {
@@ -43,7 +45,7 @@ const ItemContent = ({ array, initValue, setValue, gap, isHover }: PropsType): J
   }, [isHover]);
 
   useLayoutEffect(() => {
-    setSelected(array.indexOf(initValue));
+    setSelected(initValue ? array.findIndex((value) => value.code === initValue.code) : 0);
   }, [initValue]);
 
   const onItemClickHandler = (index: number) => setSelected(index);
