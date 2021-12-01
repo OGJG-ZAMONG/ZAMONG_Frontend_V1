@@ -109,7 +109,7 @@ export const CommentInput = styled.input`
   }
 `;
 
-export const EnterButton = styled.div`
+export const EnterButton = styled.button`
   padding: 16px 12px;
   color: ${color.white};
   background-color: ${color.blue};
@@ -117,6 +117,12 @@ export const EnterButton = styled.div`
   border-radius: 10px;
   white-space: nowrap;
   cursor: pointer;
+  border: 0;
+  outline: none;
+  font: ${font.body3};
+  &:disabled{
+    filter: brightness(0.8);
+  }
 `;
 
 export const CommentToComment = styled.div`

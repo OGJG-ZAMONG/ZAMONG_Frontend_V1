@@ -42,7 +42,7 @@ export const CommentInput = styled.input`
   }
 `;
 
-export const EnterButton = styled.div`
+export const EnterButton = styled.button`
   color: ${color.white};
   background-color: ${color.blue};
   border-radius: 10px;
@@ -51,6 +51,13 @@ export const EnterButton = styled.div`
   justify-content: center;
   align-items: center;
   cursor: pointer;
+  outline: none;
+  border: 0;
+  font: ${font.body3};
+
+  &:disabled {
+    filter: brightness(0.8);
+  }
 `;
 
 export const CommentList = styled.div`

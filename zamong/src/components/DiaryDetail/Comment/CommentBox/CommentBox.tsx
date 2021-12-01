@@ -43,6 +43,7 @@ const CommentBox = ({
   const [modifyContent, setModifyContent] = useState(content);
   const [reComments, setReComments] = useState<Comment[]>([]);
   const reCommentCount = reComments.length;
+  const [canWrite, setCanWrite] = useState<boolean>(true);
 
   useEffect(() => {
     settingReComment();
@@ -72,6 +73,16 @@ const CommentBox = ({
   };
 
   const writeReComment = async () => {
+    if (!canWrite) {
+      return;
+    }
+
+    setCanWrite(false);
+
+    setTimeout(() => {
+      setCanWrite(true);
+    }, 3000);
+
     if (input.replace(/(\s*)/g, "") === "") {
       alert("공백은 입력하실 수 없습니다.");
       setInput("");
@@ -80,12 +91,17 @@ const CommentBox = ({
         content: input,
         p_comment: uuid,
       };
-      await postComment(postUuid, data);
-      setInput("");
-      setAdd(false);
-      settingReComment();
-      alert("댓글이 입력되었습니다.");
-      setIsActivePlus(false);
+      try {
+        await postComment(postUuid, data);
+        setInput("");
+        setAdd(false);
+        settingReComment();
+        alert("댓글이 입력되었습니다.");
+        setIsActivePlus(false);
+        setOnOffToggle(true);
+      } catch (error) {
+        console.log(error);
+      }
     }
   };
 
@@ -225,7 +241,9 @@ const CommentBox = ({
               onChange={commentChange}
               onKeyUp={keyUp}
             />
-            <S.EnterButton onClick={writeReComment}>덧글 쓰기</S.EnterButton>
+            <S.EnterButton onClick={writeReComment} disabled={!canWrite}>
+              덧글 쓰기
+            </S.EnterButton>
           </S.InputContainer>
         )}
         {onOffToggle && (
