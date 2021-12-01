@@ -13,7 +13,7 @@ const stompClient = Stomp.over(Socket);
 
 const Chat: FC = (): JSX.Element => {
   const [rooms, setRooms] = useState<
-    Array<{ uuid: string; title: string; last_child: any }>
+    Array<{ uuid: string; title: string; last_chat: any }>
   >([]);
   const [roomId, setRoomId] = useState();
   const [userId, setUserId] = useState();
@@ -29,14 +29,11 @@ const Chat: FC = (): JSX.Element => {
         setUserId(
           res.data.content.response.rooms[selectedRoom].last_chat.user.uuid
         );
-
-        // disconnect();
         stompClient.connect({}, (frame: any) => {
-          console.log("Connected" + frame);
           stompClient.subscribe(
             "/topic/" + res.data.content.response.rooms[selectedRoom].uuid,
             (messageOutput) => {
-              console.log(JSON.parse(messageOutput.body));
+              console.log(chats, JSON.parse(messageOutput.body));
             }
           );
         });
@@ -54,12 +51,6 @@ const Chat: FC = (): JSX.Element => {
         .catch((error) => console.log(error));
     });
   }, [selectedRoom]);
-
-  // const disconnect = () => {
-  //   if (stompClient != null) {
-  //     stompClient.disconnect();
-  //   }
-  // };
 
   const sendMessage = async () => {
     console.log(roomId, userId);
@@ -111,7 +102,10 @@ const Chat: FC = (): JSX.Element => {
           <S.ChatTitle>{rooms[selectedRoom]?.title}</S.ChatTitle>
           <S.HeaderNav>
             <S.UserReportBox>
-              <S.ViewUserName>{rooms[selectedRoom]?.uuid}</S.ViewUserName>
+              <S.ViewUserName>
+                {rooms[selectedRoom]?.last_chat.user.id}
+              </S.ViewUserName>
+              <span>ᆞ</span>
               <S.Report>신고하기</S.Report>
             </S.UserReportBox>
             <S.MannerTemperatureBox>
@@ -134,7 +128,6 @@ const Chat: FC = (): JSX.Element => {
             type="text"
             placeholder="내용을 입력하십시오."
             ref={inputValue}
-            onChange={() => console.log(inputValue.current.value)}
           />
           <S.ChatSubmitIMG src={send} onClick={sendMessage} />
         </S.ChatInputBox>
