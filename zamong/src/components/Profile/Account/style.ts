@@ -65,7 +65,7 @@ export const ChangeBtn = styled.div`
   text-align: center;
   align-items: center;
   padding-top: 2px;
-  font-size: 16px;
+  font: ${font.body2};
   margin-left: 6px;
 `;
 
@@ -80,7 +80,7 @@ export const CancelBtn = styled.div`
   display: inline-block;
   text-align: center;
   align-items: center;
-  font-size: 16px;
+  font: ${font.body2};
   padding-top: 2px;
   margin-left: 9px;
 `;
@@ -97,7 +97,7 @@ export const ChangePwBtn = styled(Link)`
   display: inline-block;
   text-align: center;
   align-items: center;
-  font-size: 16px;
+  font: ${font.body2};
   padding-top: 2px;
 `;
 
