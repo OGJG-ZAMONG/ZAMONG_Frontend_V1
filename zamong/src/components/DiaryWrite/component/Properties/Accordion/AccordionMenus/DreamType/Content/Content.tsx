@@ -15,16 +15,17 @@ const Content = ({ selected, insertItem }: PropsType): JSX.Element => {
     insertItem(item);
   };
 
-  const tagRender = dreamType.map((value) => {
+  const tagRender = dreamType.map((value, index) => {
     if (!selected.some((item) => item.code === value.code)) {
       //선택 되지 않은 것들만 출력한다
       return (
-        <S.TagStyle onClick={(e) => onClickHandler(e, value)}>
+        <S.TagStyle onClick={(e) => onClickHandler(e, value)} key={index}>
           <Tag>{value.name}</Tag>
         </S.TagStyle>
       );
     }
   });
+
   return (
     <>
       <S.TitleContainer>
