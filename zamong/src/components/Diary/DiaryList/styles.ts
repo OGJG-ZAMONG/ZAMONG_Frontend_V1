@@ -56,7 +56,7 @@ export const DiarySignContainer = styled.div`
   overflow: auto;
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  grid-template-rows: 40%;
+  grid-template-rows: 33%;
   &::-webkit-scrollbar {
     display: none;
   }
@@ -85,11 +85,9 @@ export const DiaryListHeader = styled.div`
 
 export const DiaryList = styled.div`
   display: grid;
-  min-height: 100vh;
   grid-template-columns: repeat(4, 1fr);
   grid-template-rows: 1fr;
   grid-gap: 15px;
-  margin-bottom: 300px;
 `;
 
 export const WriteDiary = styled(Link)`
@@ -98,8 +96,7 @@ export const WriteDiary = styled(Link)`
   aspect-ratio: 3/2;
   border-radius: 20px;
   cursor: pointer;
-  border: 1px solid ${color.darkerGray};
-  background-color: ${color.gray};
+  border: 1px dashed ${color.lightGray};
   background: 0 0 0 0.5;
   text-decoration: none;
   display: flex;
