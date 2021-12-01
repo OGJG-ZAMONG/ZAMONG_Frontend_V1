@@ -13,6 +13,7 @@ const Calendar: FC = (): JSX.Element => {
   const [month, setMonth] = useState<number>(date.getMonth());
   const [data, setData] = useState<Array<object>>([]);
   const router = useHistory();
+  const newDate: number = new Date(year, month).getDay();
 
   useEffect(() => {
     //달력이 바뀌면 전 요소들 삭제
@@ -41,7 +42,9 @@ const Calendar: FC = (): JSX.Element => {
         div.innerHTML = value.title;
         const Date = value.date.split("-")[2];
         const DateIndex =
-          Number(Date.split("")[0]) * 10 + Number(Date.split("")[1]);
+          Number(Date.split("")[0]) * 10 +
+          Number(Date.split("")[1]) +
+          (newDate - 1);
         if (DayContainer.current.childNodes[DateIndex].children.length < 4) {
           DayContainer.current.childNodes[DateIndex].insertBefore(div, null);
         }
@@ -55,7 +58,6 @@ const Calendar: FC = (): JSX.Element => {
   //달력을 그리는 함수
   const makeCalendar = (year: number, month: number) => {
     const dateLength: number = new Date(year, month + 1, 0).getDate();
-    const newDate: number = new Date(year, month).getDay();
 
     for (let i = newDate; i < dateLength + newDate; i++) {
       const span = document.createElement("span");
