@@ -23,7 +23,10 @@ const DreamInterpretationList = (): JSX.Element => {
 
   return (
     <S.ContentInner>
-      <S.Subtitle>해몽 요청</S.Subtitle>
+      <S.TitleContainer>
+        <S.Subtitle>해몽 요청</S.Subtitle>
+        <S.Write to="/interpretation/write">해몽 요청 글 쓰기 </S.Write>
+      </S.TitleContainer>
       <div>
         {interpretations.map((value, index) => {
           return <DreamInterpretation data={value} key={index} />;
