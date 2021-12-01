@@ -306,7 +306,7 @@ const DiaryWrite = ({ dreamUUID }: PropsType): JSX.Element => {
                 <ElapsedTime from={lastUpdateDate} interval={1000}></ElapsedTime> 전
               </S.LastChange>
             )}
-            <S.BorderButton onClick={onSave}>저장</S.BorderButton>
+            <S.BorderButton onClick={onSave}>임시 저장</S.BorderButton>
             <S.BlueButton onClick={onPost}>작성</S.BlueButton>
           </S.ButtonContainer>
         </S.WriteSection>
