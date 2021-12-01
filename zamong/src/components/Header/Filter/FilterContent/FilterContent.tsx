@@ -50,8 +50,8 @@ const FilterContent = ({ selectedState, isActiveState }: PropsType) => {
     array.filter((value) => selected.every((item) => value.code !== item.code));
 
   const RenderleftType = (array: Code[]) =>
-    FilterleftType(array).map((value) => (
-      <S.TagConatiner onClick={() => onLeftClick(value)}>
+    FilterleftType(array).map((value, index) => (
+      <S.TagConatiner onClick={() => onLeftClick(value)} key={index}>
         <Tag>{value.name}</Tag>
       </S.TagConatiner>
     ));
@@ -70,7 +70,7 @@ const FilterContent = ({ selectedState, isActiveState }: PropsType) => {
 
   const selectedTypeRender = selected.map((value, index) => {
     return (
-      <S.TagConatiner onClick={() => onSelectedClick(index)}>
+      <S.TagConatiner onClick={() => onSelectedClick(index)} key={index}>
         <Tag>{value.name}</Tag>
       </S.TagConatiner>
     );
