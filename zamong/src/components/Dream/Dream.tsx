@@ -10,14 +10,8 @@ interface PropsType {
 
 const Dream = ({ dream }: PropsType): JSX.Element => {
   const [isUserImageHover, setIsUserImageHover] = useState<boolean>(false);
-  const {
-    share_datetime,
-    default_posting_image,
-    user,
-    title,
-    lucy_count,
-    dream_types,
-  } = dream;
+  const { share_datetime, default_posting_image, user, title, lucy_count, dream_types, uuid } =
+    dream;
   const { profile, id } = user;
   const dateToString = (date: Date) => {
     if (date.getFullYear() !== new Date().getFullYear())
@@ -34,7 +28,7 @@ const Dream = ({ dream }: PropsType): JSX.Element => {
 
   return (
     <>
-      <S.DreamContainer>
+      <S.DreamContainer to={`/diary/detail/${uuid}`}>
         <S.DreamImage img={default_posting_image}>
           <S.DreamUserImage
             alt="user image"
