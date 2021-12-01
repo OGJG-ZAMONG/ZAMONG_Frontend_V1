@@ -94,7 +94,9 @@ const DiaryWrite = ({ dreamUUID }: PropsType): JSX.Element => {
     const savedDiaryString = localStorage.getItem("saved_diary");
     if (!dreamUUID && savedDiaryString) {
       const savedDiary: PropertysType = JSON.parse(savedDiaryString);
+      const saveTime = localStorage.getItem("last_save_time") || new Date().toString();
       savedDiary.date = new Date(savedDiary.date);
+      setLastUpdateDate(new Date(saveTime));
 
       returnValue = { ...savedDiary };
     }
@@ -103,7 +105,19 @@ const DiaryWrite = ({ dreamUUID }: PropsType): JSX.Element => {
       //만약 꿈 식별자가 쿼리스트링에 있으면
       isPostRef.current = true; //post를 이미 했다고 한다
 
-      //async를 쓰기 위해 즉시 실행 함수를 사용한다
+      const uuidSavedDiaryString = localStorage.getItem(dreamUUID);
+      if (uuidSavedDiaryString) {
+        const savedDiary: PropertysType = JSON.parse(uuidSavedDiaryString);
+        const saveTime =
+          localStorage.getItem(`${dreamUUID}_last_save_time`) || new Date().toString();
+        savedDiary.date = new Date(savedDiary.date);
+        setLastUpdateDate(new Date(saveTime));
+
+        returnValue = { ...savedDiary };
+
+        return returnValue;
+      }
+
       try {
         const response = await getDreamDetail(dreamUUID);
         const {
