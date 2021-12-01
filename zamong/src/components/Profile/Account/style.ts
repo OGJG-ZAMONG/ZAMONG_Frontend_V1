@@ -30,7 +30,6 @@ export const SubTitle = styled.label`
 
 export const FileBox = styled.div`
   display: inline-block;
-  margin-right: 10px;
   align-items: center;
   border-radius: 120px;
 `;
@@ -42,10 +41,10 @@ export const FileText = styled.label`
   cursor: pointer;
   border-radius: 120px;
   text-align: center;
+  padding-top: 2px;
   border: 1px solid ${color.white};
   background-color: ${color.black};
   font: ${font.body2};
-  padding-top: 2px;
 `;
 
 export const FileBtn = styled.input`
@@ -65,9 +64,9 @@ export const ChangeBtn = styled.div`
   display: inline-block;
   text-align: center;
   align-items: center;
-  font-size: 16px;
   padding-top: 2px;
-  margin-left: 16px;
+  font-size: 16px;
+  margin-left: 6px;
 `;
 
 export const CancelBtn = styled.div`
@@ -113,6 +112,8 @@ export const Box = styled.div`
   justify-content: space-between;
   margin-bottom: 18px;
   padding-bottom: 10px;
+  text-align: center;
+  align-items: center;
   border-bottom: 1px solid ${color.darkGray};
 `;
 
@@ -123,14 +124,33 @@ export const IdText = styled.span`
 
 export const inputId = styled.input`
   width: 247px;
-  height: 30px;
-  background: ${color.black};
+  height: 28px;
+  background: ${color.darkGray};
   border-radius: 10px;
   border: none;
   color: ${color.white};
   outline: none;
   text-align: right;
   padding: 0px 16px;
+  animation: 0.9s ease-in-out loadEffect1;
+  @keyframes loadEffect1 {
+    0% {
+      opacity: 0;
+    }
+    30% {
+      left: 120px;
+    }
+    50% {
+      left: 150px;
+    }
+    80% {
+      left: 180px;
+    }
+    100% {
+      opacity: 1;
+      left: 200px;
+    }
+  }
   :hover {
     outline: none;
     border: none;
@@ -150,6 +170,6 @@ export const DeleteBtn = styled.button`
   border-radius: 120px;
   color: ${color.red};
   cursor: pointer;
-  font-size: 16px;
+  font: ${font.body2};
   padding-top: 1px;
 `;
