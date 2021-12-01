@@ -170,6 +170,6 @@ export const DeleteBtn = styled.button`
   border-radius: 120px;
   color: ${color.red};
   cursor: pointer;
-  font-size: 16px;
+  font: ${font.body2};
   padding-top: 1px;
 `;
