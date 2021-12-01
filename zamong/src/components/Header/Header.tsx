@@ -1,5 +1,5 @@
 import * as S from "./styles";
-import Logo from "../../assets/logo/testLogo.png";
+import Logo from "../../assets/logo/logo.svg";
 import SearchIcon from "../../assets/icons/searchIcon.svg";
 import { Link, RouteComponentProps, withRouter } from "react-router-dom";
 import Filter from "./Filter/Filter";
@@ -7,7 +7,7 @@ import { useEffect, useState } from "react";
 import LoginComponent from "./LoginComponent";
 import Code from "../../interface/Code";
 
-const Header = ({history} : RouteComponentProps): JSX.Element => {
+const Header = ({ history }: RouteComponentProps): JSX.Element => {
   const paddingValue = 10;
   const [headerPadding, setHeaderPadding] = useState<number>(paddingValue);
   const [isTop, setIsTop] = useState<boolean>(true);
@@ -36,10 +36,10 @@ const Header = ({history} : RouteComponentProps): JSX.Element => {
     history.listen(() => {
       window.scrollTo({
         top: 0,
-        behavior: 'smooth'
+        behavior: "smooth",
       });
     });
-  })
+  });
 
   const onChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => setSearchText(e.target.value);
 
