@@ -1,17 +1,12 @@
 import { FC, useEffect, useState, useRef } from "react";
 import { search, editGrey, send } from "../../assets";
-import { Stomp } from "@stomp/stompjs";
+import * as Stomp from "@stomp/stompjs";
 import { getChatRooms, getChat } from "../../utils/api/Chat";
 import * as S from "./styles";
 import ChatRoom from "./ChatRoom/ChatRoom";
 import MyText from "./ChatBalloon/My/MyText";
 import OpponentText from "./ChatBalloon/Opponent/OpponentText";
 import SockJs from "sockjs-client";
-
-const testArray: number[] = [];
-for (let i = 0; i < 10; i++) {
-  testArray.push(i);
-}
 
 const Chat: FC = (): JSX.Element => {
   const baseURL = "http://52.78.219.131:8080/v1/api";
@@ -21,8 +16,9 @@ const Chat: FC = (): JSX.Element => {
   const [selectedRoom, setSelectedRoom] = useState<number>(0);
   const [chats, setChats] = useState([]);
   const inputValue = useRef<any>(null);
-  const Socket = new SockJs(`${baseURL}/ws`);
-  const StompClient = Stomp.over(Socket);
+  const sockJs: WebSocket = new SockJs(`${baseURL}/ws`);
+  const StompClient = Stomp.Stomp.over(sockJs);
+  StompClient.debug = () => {};
 
   useEffect(() => {
     getChatRooms()
@@ -30,17 +26,14 @@ const Chat: FC = (): JSX.Element => {
         setRooms(res.data.content.response.rooms);
         StompClient.connect({}, (frame: any) => {
           // disconnect();
-          console.log("Connected" + frame);
-
           StompClient.subscribe(
             "/topic/" + res.data.content.response.rooms[selectedRoom].uuid,
             (messageOutput) => {
-              console.log(rooms[0] + "에서 온 메시지");
+              console.log(messageOutput);
             }
           );
           getChat(res.data.content.response.rooms[selectedRoom].uuid)
             .then((res) => {
-              console.log(res.data.content.response.chats)
               setChats(res.data.content.response.chats);
             })
             .catch((error) => console.log(error));
@@ -56,15 +49,26 @@ const Chat: FC = (): JSX.Element => {
   };
 
   const sendMessage = () => {
-    StompClient.send(
-      "/app/chat.send",
-      {},
-      JSON.stringify({
-        chat: inputValue.current?.value,
-        room: rooms[selectedRoom]?.uuid,
-        from: "hi"
-      })
-    )
+    try {
+      StompClient.send(
+        "/app/chat.send",
+        {},
+        JSON.stringify({
+          chat: inputValue.current.value,
+          room: rooms[selectedRoom]?.uuid,
+          from: rooms[selectedRoom]?.uuid
+        })
+      )
+      // StompClient.publish({
+      //    destination: "/app/chat.send",
+      //    body: inputValue.current.value,
+      //   headers: {},
+      // });
+      console.log("yes");
+    } catch (error) {
+      console.log(error);
+    }
+    
   };
 
   return (
@@ -83,6 +87,7 @@ const Chat: FC = (): JSX.Element => {
         </S.SearchChatContainer>
         <S.ChatList>
           {rooms.map((value: any, index: number) => {
+            console.log(value);
             return (
               <ChatRoom
                 ChatRoomName={value.title}
