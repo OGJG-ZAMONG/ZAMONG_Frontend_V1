@@ -64,7 +64,6 @@ const Chat: FC = (): JSX.Element => {
       //    body: inputValue.current.value,
       //   headers: {},
       // });
-      console.log("yes");
     } catch (error) {
       console.log(error);
     }
