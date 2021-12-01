@@ -1,3 +1,5 @@
+import defaultResponse from "./defaultResponse";
+
 export interface dreamDetail {
   uuid: string;
   title: string;
@@ -18,11 +20,4 @@ export interface dreamDetail {
   };
 }
 
-export interface dreamDetailResponse {
-  status: number;
-  timestamp: string;
-  content: {
-    collection_value: boolean;
-    response: dreamDetail;
-  };
-}
+export type dreamDetailResponse = defaultResponse<dreamDetail>;
