@@ -1,4 +1,4 @@
-export interface myProfileResponse {
+export interface profileResponse {
   status: number;
   timestamp: string;
   content: {
@@ -14,7 +14,7 @@ export interface myProfileResponse {
     };
   };
 }
-export interface FollowingListResponse {
+export interface followingListResponse {
   status: number;
   timestamp: string;
   content: {
@@ -35,7 +35,7 @@ export interface FollowingListResponse {
   };
 }
 
-export interface FollowerListResponse {
+export interface followerListResponse {
   status: number;
   timestamp: string;
   content: {
