@@ -3,6 +3,7 @@ import * as S from "./styles";
 import Chat from "../../../assets/icons/Chat.svg";
 import Discovery from "../../../assets/icons/Discovery.svg";
 import ShoppingCart from "../../../assets/icons/ShoppingCart.svg";
+import Book from "../../../assets/icons/book.svg";
 import { useHistory } from "react-router-dom";
 import { useLayoutEffect, useState } from "react";
 import { getMyProfile } from "../../../utils/api/Profile";
@@ -40,6 +41,11 @@ const LoginComponent = (): JSX.Element => {
       img: ShoppingCart,
       text: "꿈 판매",
       to: "/sell",
+    },
+    {
+      img: Book,
+      text: "꿈 일기",
+      to: "/diary",
     },
   ];
 
