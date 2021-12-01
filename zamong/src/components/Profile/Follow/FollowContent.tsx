@@ -20,18 +20,11 @@ interface IdType {
   id: string;
 }
 
-interface ConfirmType {
-  user_uuid: string;
-}
-
 const FollowContent: FC<IdType> = (props) => {
   const history = useHistory();
   const [followState, setFollow] = useState<FollowType>({
     followings: [],
     total_size: 0,
-  });
-  const [followConfirm, setConfirm] = useState<ConfirmType>({
-    user_uuid: "",
   });
 
   useEffect(() => {
