@@ -15,6 +15,7 @@ const FilterContent = ({ selectedState, isActiveState }: PropsType) => {
   const [selected, setSelected] = selectedState;
   const [isActive, setIsActive] = isActiveState;
   const [searchText, setSearchText] = useState<string>("");
+  const isTagClick = useRef<boolean>();
 
   const onChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearchText(e.target.value);
@@ -22,20 +23,28 @@ const FilterContent = ({ selectedState, isActiveState }: PropsType) => {
 
   const containerRef = useRef<HTMLDivElement>(null);
 
-  const onSelectedClick = (index: number) => {
+  const onSelectedClick = (index: number, e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+    e.preventDefault();
     setSelected(selected.filter((value, i) => i !== index));
+    isTagClick.current = true;
   };
 
-  const onLeftClick = (value: Code) => {
+  const onLeftClick = (value: Code, e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+    e.preventDefault();
     setSelected(selected.concat(value));
+    isTagClick.current = true;
   };
 
   const checkCollision = (e: MouseEvent) => {
     if (!isActive) return;
     if (!containerRef.current) return;
 
+    if (isTagClick.current) {
+      isTagClick.current = false;
+      return;
+    }
+
     if (!containerRef.current.contains(e.target as Node)) {
-      e.preventDefault();
       setIsActive(false);
     }
   };
@@ -45,7 +54,7 @@ const FilterContent = ({ selectedState, isActiveState }: PropsType) => {
 
   const RenderleftType = (array: Code[]) =>
     FilterleftType(array).map((value, index) => (
-      <S.TagConatiner onClick={() => onLeftClick(value)} key={index}>
+      <S.TagConatiner onClick={(e) => onLeftClick(value, e)} key={index}>
         <Tag>{value.name}</Tag>
       </S.TagConatiner>
     ));
@@ -64,7 +73,7 @@ const FilterContent = ({ selectedState, isActiveState }: PropsType) => {
 
   const selectedTypeRender = selected.map((value, index) => {
     return (
-      <S.TagConatiner onClick={() => onSelectedClick(index)} key={index}>
+      <S.TagConatiner onClick={(e) => onSelectedClick(index, e)} key={index}>
         <Tag>{value.name}</Tag>
       </S.TagConatiner>
     );
