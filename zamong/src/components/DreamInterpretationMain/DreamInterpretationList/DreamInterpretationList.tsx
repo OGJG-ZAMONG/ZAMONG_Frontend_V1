@@ -1,7 +1,7 @@
 import DreamInterpretation from "../../Dream/DreamInterpretation/DreamInterpretation";
 import * as S from "./styles";
 import DownChevron from "../../../assets/icons/downChevron.svg";
-import { useState } from "react";
+import { useLayoutEffect, useState } from "react";
 import { InterpretationDream } from "../../../models/dto/response/InterpretationListResponse";
 import { getDreamInterpretationList } from "../../../utils/api/DreamInterpretationMain";
 
@@ -17,12 +17,16 @@ const DreamInterpretationList = (): JSX.Element => {
     }
   };
 
+  useLayoutEffect(() => {
+    settingInterpretations();
+  }, []);
+
   return (
     <S.ContentInner>
       <S.Subtitle>해몽 요청</S.Subtitle>
       <div>
-        {[1, 2, 3, 4, 5].map((_, index) => {
-          return <DreamInterpretation key={index} />;
+        {interpretations.map((value, index) => {
+          return <DreamInterpretation data={value} key={index} />;
         })}
         <S.MoreContaier>
           <div>더보기</div>

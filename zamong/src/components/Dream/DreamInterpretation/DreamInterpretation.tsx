@@ -3,8 +3,13 @@ import dreamType from "../../../constance/dreamType";
 import * as I from "../styles";
 import Default from "../../../assets/DefaultPostingImages/1.jpg";
 import Tag from "../../Tag/Tag";
+import { InterpretationDream } from "../../../models/dto/response/InterpretationListResponse";
 
-const DreamInterpretation = (): JSX.Element => {
+interface PropsType {
+  data: InterpretationDream;
+}
+
+const DreamInterpretation = ({ data }: PropsType): JSX.Element => {
   const [isUserImageHover, setIsUserImageHover] = useState<boolean>(false);
 
   const dateToString = (date: Date) => {
