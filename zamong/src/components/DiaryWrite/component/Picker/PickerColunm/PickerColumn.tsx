@@ -53,8 +53,6 @@ const PickerColumn = ({ type, array, initValue, setValue }: DateColumnType): JSX
   }, [isWheel]);
 
   useEffect(() => {
-    console.log("ASD");
-    console.log(array[selectedIndex]);
     setValue(array[selectedIndex]);
   }, [selectedIndex]);
 

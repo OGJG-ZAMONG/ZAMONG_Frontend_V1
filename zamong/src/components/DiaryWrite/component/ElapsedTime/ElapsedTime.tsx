@@ -17,7 +17,7 @@ const ElapsedTime = ({ from, interval }: PropsType): JSX.Element => {
     const day = Math.floor(hour / 24);
 
     const dayString = day > 0 ? `${day}일 ` : "";
-    const hourString = hour > 0 ? `${hour}시간 ` : "";
+    const hourString = hour > 0 ? `${hour % 24}시간 ` : "";
 
     setPastTime(`${dayString}${hourString}${minute}분`);
   };
