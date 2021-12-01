@@ -11,7 +11,8 @@ import {
   SellManagementContainer,
   ProfileContainter,
   SearcgContainter,
-  FindPasswordContainer
+  FindPasswordContainer,
+  SellDetailContainer,
 } from "../container";
 import ChatContainer from "../container/Chat/ChatContainer";
 import SellWriteContainer from "../container/SellWrite";
@@ -37,6 +38,7 @@ const MainRouter: FC = (): JSX.Element => {
           component={SellManagementContainer}
         />
         <Route exact path="/search" component={SearcgContainter} />
+        <Route path="/sell/detail/:uuid" component={SellDetailContainer} />
       </Switch>
     </Suspense>
   );
