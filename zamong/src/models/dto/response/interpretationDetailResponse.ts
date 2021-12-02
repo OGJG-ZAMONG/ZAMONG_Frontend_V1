@@ -12,6 +12,7 @@ export interface interpretationDetail {
     id: string;
     profile: string;
   };
+  lucy_count: number;
 }
 
 export type interpretationDetailResponse = defaultResponse<interpretationDetail>;
