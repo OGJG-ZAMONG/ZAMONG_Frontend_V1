@@ -2,6 +2,7 @@ import { FC, useEffect, useState, useRef, KeyboardEventHandler } from "react";
 import { search, editGrey, send } from "../../assets";
 import { Stomp } from "@stomp/stompjs";
 import { getChatRooms, getChat } from "../../utils/api/Chat";
+import { getMyProfile } from "../../utils/api/Profile"
 import { Rooms, Chats } from "../../interface/Chat";
 import * as S from "./styles";
 import ChatRoom from "./ChatRoom/ChatRoom";
@@ -26,13 +27,14 @@ const Chat: FC = (): JSX.Element => {
   });
 
   useEffect(() => {
+    getMyProfile()
+      .then(res => {
+        setUserId(res.data.content.response.uuid);
+      });
     getChatRooms()
       .then((res) => {
         setRooms(res.data.content.response.rooms);
         setRoomId(res.data.content.response.rooms[selectedRoom].uuid);
-        setUserId(
-          res.data.content.response.rooms[selectedRoom].last_chat.user.uuid
-        );
         getChat(res.data.content.response.rooms[selectedRoom].uuid).then(
           (res) => {
             setChats(res.data.content.response.chats);
