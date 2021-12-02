@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useHistory } from "react-router";
 import { more } from "../../../assets";
 import dreamType from "../../../constance/dreamType";

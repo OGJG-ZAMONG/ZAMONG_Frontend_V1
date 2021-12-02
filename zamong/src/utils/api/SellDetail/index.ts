@@ -3,7 +3,6 @@ import instance from "../axios";
 import {
   chat,
   chatList,
-  sellDreamDetailResponse,
 } from "../../../models/dto/response/sellDreamDetailResponse";
 
 export const getSellDream = async (uuid: string) => {
@@ -34,6 +33,14 @@ export const delSellPost = async (uuid: string) => {
       uri.deleteSell.replace("DREAM_UUID", uuid)
     );
     return response;
+  } catch (error) {
+    return Promise.reject(error);
+  }
+}
+
+export const postAcceptChat = async (uuid: string) => {
+  try {
+    await instance.post(uri.acceptChat.replace("DREAM_UUID", uuid));
   } catch (error) {
     return Promise.reject(error);
   }
