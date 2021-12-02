@@ -15,6 +15,7 @@ import {
   postInterpretation,
   putInterpretation,
 } from "../../utils/api/InterpretationWrite";
+import dreamType from "../../constance/dreamType";
 
 interface PropertiesType {
   title: string;
@@ -83,7 +84,6 @@ const InterpretationWrite = ({ uuid }: PropsType): JSX.Element => {
       content: content,
       dream_types: dreamTypes,
       lucy_count: lucy,
-      quality: quality.code,
       title: title,
     };
 
@@ -104,6 +104,36 @@ const InterpretationWrite = ({ uuid }: PropsType): JSX.Element => {
       console.log(error);
     }
   };
+
+  const settingData = async () => {
+    if (!uuid) {
+      return;
+    }
+
+    try {
+      const response = await getInterpretationDetail(uuid);
+      const { attachment_image, dream_types, content, title, lucy_count } =
+        response.data.content.response;
+      const type = dreamType.filter((value) => dream_types.some((elem) => elem === value.code));
+
+      const data: PropertiesType = {
+        content: content,
+        title: title,
+        lucy: lucy_count,
+        types: type,
+      };
+
+      setProperties(data);
+      setInitImage(attachment_image);
+    } catch (error) {
+      alert("이전 데이터를 불러오는데 실패했습니다.");
+      console.log(error);
+    }
+  };
+
+  useLayoutEffect(() => {
+    settingData();
+  }, []);
 
   return (
     <S.Container>
