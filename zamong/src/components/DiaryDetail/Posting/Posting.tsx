@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Recommend } from "../../../assets";
+import { OnRecommend, Recommend } from "../../../assets";
 import { dreamDetail } from "../../../models/dto/response/dreamDetailResponse";
 import * as S from "./styles";
 
@@ -8,7 +8,7 @@ interface PropsType {
 }
 
 const DiaryDetailPosting = ({ postData }: PropsType): JSX.Element => {
-  const { content, lucy_count, attachment_image, user, is_shared } = postData;
+  const { uuid, content, lucy_count, attachment_image, is_shared } = postData;
   const [isImg, setIsImg] = useState(false);
 
   useEffect(() => {
@@ -18,6 +18,8 @@ const DiaryDetailPosting = ({ postData }: PropsType): JSX.Element => {
       setIsImg(false);
     }
   }, [postData]);
+
+
 
   return (
     <S.PostingContainer>
@@ -29,6 +31,7 @@ const DiaryDetailPosting = ({ postData }: PropsType): JSX.Element => {
       {is_shared ? (
         <S.Lucy>
           <S.LucyImg src={Recommend} />
+          <S.LucyImg src={OnRecommend} />
           <div>{lucy_count} LUCY</div>
         </S.Lucy>
       ) : (

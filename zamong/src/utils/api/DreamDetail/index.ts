@@ -23,6 +23,12 @@ export const getShareDream = async (uuid: string) => {
   }
 };
 
+export const requestPost = async (uuid: string) => {
+  try {
+    await instance.post(uri.recommendPost.replace("DREAM_UUID", uuid));
+  } catch (error) {}
+};
+
 interface DataType {
   content: string;
   p_comment: string | null;

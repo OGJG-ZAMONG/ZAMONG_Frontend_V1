@@ -31,7 +31,7 @@ enum uri {
   deleteSell = "/dream/sell/DREAM_UUID",
   acceptChat = "/dream/sell/DREAM_UUID/accept",
   chatRequest = "/dream/sell/DREAM_UUID/request",
-
+  recommendPost = "/dream/share/DREAM_UUID/lucy",
 }
 
 export default uri;
