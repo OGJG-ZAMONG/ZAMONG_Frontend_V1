@@ -20,6 +20,12 @@ export const FollowerList = styled.div`
   width: 100%;
 `;
 
+export const Text = styled.p`
+  text-align: center;
+  font: ${font.body3};
+  color: ${color.white};
+`;
+
 export const UserBox = styled.div`
   width: 1280px;
   height: 60px;
