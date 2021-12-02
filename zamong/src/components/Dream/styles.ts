@@ -1,11 +1,21 @@
 import styled from "@emotion/styled";
 import { font } from "../../style/font";
 import { color } from "../../style/color";
+import { Link } from "react-router-dom";
 
-export const DreamContainer = styled.div`
+export const DreamContainer = styled(Link)`
   display: grid;
   grid-template-columns: repeat(12, 1fr);
   column-gap: 20px;
+  contain: paint;
+  text-decoration: none;
+  color: ${color.white};
+  border-radius: 10px;
+  transition: background-color 1s cubic-bezier(0.075, 0.82, 0.165, 1);
+  will-change: background-color;
+  &:hover {
+    background-color: ${color.hoverBlack};
+  }
 `;
 
 export const DreamImage = styled.div<{ img: any }>`
@@ -24,6 +34,7 @@ export const DreamImage = styled.div<{ img: any }>`
   align-items: flex-end;
   justify-content: space-between;
   flex-direction: column-reverse;
+  contain: paint;
 `;
 
 export const DreamUserImage = styled.img`
@@ -40,7 +51,8 @@ export const UserName = styled.div`
   color: ${color.white};
   border-radius: 10px;
   position: absolute;
-  transform: translateX(-60%);
+  transform-origin: right;
+  transform: translateY(12.5%) translateX(-40px);
 `;
 
 export const DreamInfoContainer = styled.div`

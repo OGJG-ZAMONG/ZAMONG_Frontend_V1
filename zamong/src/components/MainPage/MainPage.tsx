@@ -5,6 +5,7 @@ import { DreamList, FollowList, MyDreamDiaryList, FollowDreamDiaryList } from ".
 import { useLayoutEffect, useRef, useState } from "react";
 import { getMyProfile } from "../../utils/api/Profile";
 import { useHistory } from "react-router-dom";
+import Background from "../Background/Background";
 
 const MainPage = (): JSX.Element => {
   interface LinkType {
@@ -95,9 +96,13 @@ const MainPage = (): JSX.Element => {
   const renderLinks = () => {
     const links = isLogin ? loginLinks : nonloginLinks;
 
-    const list = links.map((value) => {
+    const list = links.map((value, index) => {
       const { text, onClick } = value;
-      return <div onClick={onClick}>{text}</div>;
+      return (
+        <div onClick={onClick} key={index}>
+          {text}
+        </div>
+      );
     });
 
     const returnValue: JSX.Element[] = [];

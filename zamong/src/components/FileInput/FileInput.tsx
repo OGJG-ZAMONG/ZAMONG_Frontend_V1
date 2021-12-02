@@ -14,8 +14,6 @@ const FileInput = ({ file, setFile, id, initPath }: PropsType): JSX.Element => {
       setFile(undefined);
       setPath("");
     } else {
-      console.log(e.currentTarget.files);
-
       setFile(e.currentTarget.files![0]);
     }
   };
@@ -27,7 +25,9 @@ const FileInput = ({ file, setFile, id, initPath }: PropsType): JSX.Element => {
 
     if (file !== undefined) {
       file.arrayBuffer().then((arrayBuffer) => {
-        const blob = new Blob([new Uint8Array(arrayBuffer)], { type: file.type });
+        const blob = new Blob([new Uint8Array(arrayBuffer)], {
+          type: file.type,
+        });
         reader.readAsDataURL(blob);
 
         reader.onload = (e) => {
@@ -52,7 +52,12 @@ const FileInput = ({ file, setFile, id, initPath }: PropsType): JSX.Element => {
       <S.Container>
         <S.InputContainer>
           <S.Label htmlFor={id}>사진 선택</S.Label>
-          <S.Input id={id} type="file" accept=".jpg,.png" onChange={onChangeHandler} />
+          <S.Input
+            id={id}
+            type="file"
+            accept=".jpg,.png"
+            onChange={onChangeHandler}
+          />
           <S.PreviewContainer>
             <S.FileName
               onMouseEnter={() => setisHover(true)}

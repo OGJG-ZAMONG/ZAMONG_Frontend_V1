@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 
 export const Container = styled.div`
   width: 1280px;
-  padding: 7% 0 10% 0;
+  padding: 120px 0 12% 0;
   margin: 0 auto;
 `;
 
@@ -42,10 +42,9 @@ export const SellingDreamListContainer = styled.div`
   width: 100%;
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  grid-template-rows: repeat(4, 1fr);
   column-gap: 20px;
   row-gap: 40px;
-  margin-bottom: 10%;
+  margin-bottom: 56px;
 `;
 
 export const PageNationContainer = styled.div`

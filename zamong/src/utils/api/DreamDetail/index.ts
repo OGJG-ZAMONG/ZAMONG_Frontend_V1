@@ -1,6 +1,15 @@
 import uri from "../../../constance/uri";
 import instance from "../axios";
 import { dreamDetailResponse } from "../../../models/dto/response/dreamDetailResponse";
+import defaultResponse from "../../../models/dto/response/defaultResponse";
+
+export const shareDream = async (uuid: string) => {
+  try {
+    await instance.post(uri.shareDream.replace("DREAM_UUID", uuid));
+  } catch (error) {
+    return Promise.reject(error);
+  }
+};
 
 export const getShareDream = async (uuid: string) => {
   try {
@@ -14,6 +23,12 @@ export const getShareDream = async (uuid: string) => {
   }
 };
 
+export const requestPost = async (uuid: string) => {
+  try {
+    await instance.post(uri.recommendPost.replace("DREAM_UUID", uuid));
+  } catch (error) {}
+};
+
 interface DataType {
   content: string;
   p_comment: string | null;
@@ -21,7 +36,9 @@ interface DataType {
 
 export const getDreamDetail = async (dreamUUID: string) => {
   try {
-    const response = await instance.get<dreamDetailResponse>(`${uri.dreamShare}/${dreamUUID}`);
+    const response = await instance.get<dreamDetailResponse>(
+      `${uri.dreamShare}/${dreamUUID}`
+    );
     return response;
   } catch (error) {
     return Promise.reject(error);
@@ -39,6 +56,7 @@ export interface Comment {
   dislike_count: number;
   is_like: boolean;
   is_dis_like: boolean;
+  user_id: string;
 }
 
 interface CommentType {
@@ -51,6 +69,14 @@ interface CommentType {
     };
   };
 }
+
+export const delPosting = async (uuid: string) => {
+  try {
+    await instance.delete(uri.delPost.replace("DREAM_UUID", uuid));
+  } catch (error) {
+    return Promise.reject(error);
+  }
+};
 
 export const postComment = async (uuid: string, data: DataType) => {
   try {
@@ -112,6 +138,29 @@ interface ThumbType {
 export const recommend = async (uuid: string, isThumb: ThumbType) => {
   try {
     await instance.post(uri.recommend.replace("DREAM_UUID", uuid), isThumb);
+  } catch (error) {
+    return Promise.reject(error);
+  }
+};
+
+interface ModifyType {
+  content: string;
+}
+
+export const modifyComment = async (uuid: string, content: ModifyType) => {
+  try {
+    return await instance.patch<defaultResponse<{ message: string }>>(
+      uri.modifyComment.replace("DREAM_UUID", uuid),
+      content
+    );
+  } catch (error) {
+    return Promise.reject(error);
+  }
+};
+
+export const delComment = async (uuid: string) => {
+  try {
+    await instance.delete(uri.deleteComment.replace("DREAM_UUID", uuid));
   } catch (error) {
     return Promise.reject(error);
   }

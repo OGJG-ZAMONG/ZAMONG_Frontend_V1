@@ -1,38 +1,11 @@
 import styled from "@emotion/styled";
-import { font } from "../../../style/font";
-import { color } from "../../../style/color";
 import { Link } from "react-router-dom";
+import { color } from "../../../style/color";
+import { font } from "../../../style/font";
 
 export const Container = styled(Link)`
   outline: none;
   text-decoration: none;
-`;
-
-export const SellingDreamContainer = styled.div<{ img: string }>`
-  display: flex;
-  align-items: baseline;
-  justify-content: space-between;
-  box-sizing: border-box;
-  aspect-ratio: 3 / 2;
-  background-size: cover;
-  border-radius: 20px;
-  padding: 24px;
-  background-image: url(${(props) => props.img});
-  display: flex;
-  align-items: flex-end;
-  justify-content: space-between;
-`;
-
-export const DreamTitle = styled.div`
-  font: ${font.body3};
-  color: ${color.white};
-`;
-
-export const UserImage = styled.img`
-  width: 36px;
-  height: 36px;
-  object-fit: cover;
-  border-radius: 50%;
 `;
 
 export const Price = styled.div`
@@ -41,20 +14,11 @@ export const Price = styled.div`
   border-radius: 100px;
   color: ${color.white};
   padding: 5px 8px;
-  font: ${font.body2};
+  font: ${font.description};
   display: flex;
   justify-content: center;
   align-items: center;
-`;
-
-export const DiaryDate = styled.div`
-  font: ${font.body2};
-  background-color: ${color.black};
-  backdrop-filter: blur(10px);
-  color: ${color.white};
-  background: rgb(0, 0, 0, 0.4);
-  padding: 3px 5px;
-  border-radius: 5px;
+  z-index: 1;
 `;
 
 export const PostInfoContainer = styled.div`
@@ -82,8 +46,10 @@ export const TagsContainer = styled.div`
 `;
 
 export const ProfilePicture = styled.img`
-  width: 36px;
-  height: 36px;
+  max-width: 36px;
+  min-width: 36px;
+  min-height: 36px;
+  max-height: 36px;
   border-radius: 100%;
   margin-right: 6%;
 `;

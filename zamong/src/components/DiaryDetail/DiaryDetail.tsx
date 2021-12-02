@@ -31,6 +31,7 @@ const DiaryDetail = (): JSX.Element => {
     content: "",
     lucy_count: 0,
     uuid: "",
+    is_liked: false,
   });
 
   const getPostData = async () => {
@@ -42,6 +43,14 @@ const DiaryDetail = (): JSX.Element => {
     }
   };
 
+  const onLikeSet = () => {
+    setPostData({
+      ...postData,
+      is_liked: true,
+      lucy_count: postData.lucy_count + 1,
+    });
+  };
+
   useEffect(() => {
     getPostData();
   }, []);
@@ -49,8 +58,8 @@ const DiaryDetail = (): JSX.Element => {
   return (
     <S.Container>
       <Head postData={postData} />
-      <Posting postData={postData} />
-      <Comment postData={postData} />
+      <Posting postData={postData} onLikeSet={onLikeSet}/>
+      {postData.is_shared ? <Comment postData={postData} /> : <></>}
     </S.Container>
   );
 };

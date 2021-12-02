@@ -66,6 +66,7 @@ const ItemContent = ({ array, initValue, setValue, gap, isHover }: PropsType): J
               color={index === selected ? color.lightGray : color.gray}
               onClick={() => onItemClickHandler(index)}
               opacity={getOpacity(index)}
+              key={index}
             >
               {value.name}
             </I.Item>

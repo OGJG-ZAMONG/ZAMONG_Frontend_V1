@@ -1,6 +1,7 @@
 import React, { FC, useEffect, useState } from "react";
-import { getFollowing } from "../../../utils/api/Profile";
+import { getFollowing, unfollow, follow } from "../../../utils/api/Profile";
 import * as S from "./style";
+import { useHistory } from "react-router-dom";
 
 interface Following {
   uuid: string;
@@ -16,27 +17,49 @@ interface FollowType {
 }
 
 interface IdType {
-  myid: string;
+  id: string;
 }
 
 const FollowContent: FC<IdType> = (props) => {
+  const history = useHistory();
   const [followState, setFollow] = useState<FollowType>({
     followings: [],
     total_size: 0,
   });
 
   useEffect(() => {
-    follow();
+    following();
   }, []);
 
-  const follow = async () => {
+  const following = async () => {
     try {
-      const response = await getFollowing(props.myid);
+      const response = await getFollowing(props.id);
       setFollow(response.data.content.response);
     } catch (error) {
       throw error;
     }
   };
+
+  const followClick = async (id: string) => {
+    try {
+      const response = await follow(id);
+      following();
+      return response;
+    } catch (error) {
+      throw error;
+    }
+  };
+
+  const unFollowClick = async (id: string) => {
+    try {
+      const response = await unfollow(id);
+      following();
+      return response;
+    } catch (error) {
+      throw error;
+    }
+  };
+
   return (
     <>
       <S.Content>
@@ -44,25 +67,46 @@ const FollowContent: FC<IdType> = (props) => {
           팔로우 <span>{followState.total_size}명</span>
         </S.Followe>
         <S.FolloweList>
-          {followState.followings &&
+          {followState.total_size === 0 ? (
+            <S.Text>팔로우가 없습니다.</S.Text>
+          ) : (
+            followState.followings &&
             followState.followings.map((data, v) => {
+              const date =
+                data.follow_datetime.substring(5, 7) +
+                "월" +
+                " " +
+                (data.follow_datetime.substring(8, 10) + "일");
+              const userProfile = (uuid: string) => {
+                alert("QNd");
+                history.push(`/user/${uuid}`);
+              };
               return (
                 <>
                   <S.UserBox>
-                    <S.LeftBox>
+                    <S.LeftBox onClick={() => userProfile(data.uuid)}>
                       <S.Profile img={data.profile} />
                       <S.UserNickName>{data.id}</S.UserNickName>
                     </S.LeftBox>
                     <S.RightBox>
-                      <S.FollowDate>
-                        팔로우를 시작한 날짜 : {data.follow_datetime.substring(0, 10)}
-                      </S.FollowDate>
-                      <S.FollowBtn>팔로우중</S.FollowBtn>
+                      <S.FollowDate>팔로우를 시작한 날짜 : {date}</S.FollowDate>
+                      {data.is_following ? (
+                        <S.FollowingBtn
+                          onClick={() => unFollowClick(data.uuid)}
+                        >
+                          팔로우중
+                        </S.FollowingBtn>
+                      ) : (
+                        <S.FollowBtn onClick={() => followClick(data.uuid)}>
+                          팔로우
+                        </S.FollowBtn>
+                      )}
                     </S.RightBox>
                   </S.UserBox>
                 </>
               );
-            })}
+            })
+          )}
         </S.FolloweList>
       </S.Content>
     </>

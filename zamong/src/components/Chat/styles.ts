@@ -4,26 +4,26 @@ import { color } from "../../style/color";
 
 //chat list
 export const Container = styled.div`
-  height: 800px;
-  color: white;
+  height: 100vh;
+  color: ${color.white};
   margin: 0 32px;
-  padding-top: 110px;
+  padding-top: 120px;
   display: grid;
   grid-template-columns: 29% 5% 66%;
+  grid-template-columns: minmax(350px ,29%) minmax(100px ,5%) minmax(500px ,66%);
 `;
 
 export const ChatListContainer = styled.div`
-  width: 520px;
-  height: 680px;
   display: flex;
   flex-direction: column;
+  /* height: 560px; */
+  height: 90%;
 `;
 
 export const ChatList = styled.div`
   display: grid;
   grid-template-rows: repeat(5, 1fr);
   height: 100%;
-  width: 29vw;
   overflow: auto;
   row-gap: 12px;
 `;
@@ -37,10 +37,10 @@ export const ChatInfoText = styled.div`
 
 export const ChatCount = styled.div`
   color: #0a84ff;
+  color: ${color.blue};
 `;
 
 export const SearchChatContainer = styled.div`
-  width: 29vw;
   height: 44px;
   display: flex;
   margin-bottom: 12px;
@@ -50,12 +50,11 @@ export const SearchChatContent = styled.input<{ imgSrc: string }>`
   width: 100%;
   height: 100%;
   outline: none;
-  background-color: #2c2c2e;
   border: none;
-  color: white;
+  background-color: ${color.darkerGray};
+  color: ${color.white};
   border-radius: 10px;
   padding: 0 4%;
-
   &::-webkit-input-placeholder {
     background-image: url(${(props) => props.imgSrc});
     background-repeat: no-repeat;
@@ -67,26 +66,28 @@ export const SearchChatContent = styled.input<{ imgSrc: string }>`
 
 //Line
 export const ChatLine = styled.div`
-  height: 100%;
-  background-color: #636366;
+  height: 90%;
+  background-color: ${color.darkGray};
   border-radius: 15px;
-  width: 2px;
+  width: 3px;
+  display: flex;
   margin: 0 auto;
 `;
 
 //chat view
 export const ChatViewerContainer = styled.div`
-  background-color: #2c2c2e;
+  height: 90%;
+  background-color: ${color.darkerGray};
   border-radius: 10px;
   padding: 16px;
   position: relative;
   display: grid;
-  grid-template-rows: 11% 82% 7%;
+  grid-template-rows: 10% 84% 6%;
 `;
 
 export const ChatViewHeader = styled.div`
   display: grid;
-  border-bottom: 1px solid #636366;
+  border-bottom: 1px solid ${color.darkerGray};
   height: 80px;
   grid-template-rows: repeat(2, 1fr);
 `;
@@ -99,7 +100,7 @@ export const HeaderNav = styled.div`
   display: flex;
   justify-content: space-between;
   font: ${font.body2};
-  color: #8e8e93;
+  color: ${color.gray};
 `;
 
 export const UserReportBox = styled.div`
@@ -127,18 +128,16 @@ export const MannerTemperatureIMG = styled.img`
 
 export const MannerTemperatureText = styled.div``;
 
-export const SentTime = styled.div``;
 
 export const ChatInputBox = styled.div`
   background-color: #636366;
   border-radius: 100px;
-  position: absolute;
-  bottom: 0;
-  padding: 8px 8px 8px 16px;
-  width: calc(100% - 52px);
+  width: calc(100%);
+  padding: 8px 16px;
   display: flex;
   justify-content: space-between;
-  margin: 0 auto 1% auto;
+  margin: 0 auto;
+  align-items: center;
 `;
 
 export const ChatInput = styled.input`
@@ -147,14 +146,14 @@ export const ChatInput = styled.input`
   text-decoration: none;
   background-color: inherit;
   border-radius: inherit;
-  width: 95%;
-  color: #ffffff;
+  width: 90%;
+  color: ${color.white};
+  font-size: 16px;
   &::placeholder {
-    color: white;
+    color: ${color.white};
   }
 `;
 
-export const ChatSubmit = styled.div``;
 
 export const ChatSubmitIMG = styled.img`
   width: 28px;
@@ -166,26 +165,11 @@ export const ChatBox = styled.div`
   display: flex;
   flex-direction: column;
   position: relative;
-  overflow: scroll;
-  max-height: 700px;
-`;
-
-export const OpponentText = styled.div`
-  background-color: ${color.darkGray};
-  border-radius: 18px;
-  padding: 8px 16px;
-  max-width: 500px;
-  display: inline-block;
-  margin: 4px 0;
-`;
-
-export const MyText = styled.div`
-  background-color: ${color.blue};
-  max-width: 500px;
-  border-radius: 18px;
-  padding: 8px 16px;
-  display: inline-block;
-  margin: 4px 0;
+  height: 100%;
+  width: 100%;
+  overflow: auto;
+  padding: 16px 8px;
+  min-height: 650px;
 `;
 
 export const OpponentTextContainer = styled.div`

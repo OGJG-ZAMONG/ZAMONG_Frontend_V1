@@ -2,6 +2,8 @@ import * as S from "./styles";
 import { FC, MutableRefObject, useEffect, useRef, useState } from "react";
 import { getCalendarData } from "../../../utils/api/Diary/Calendar";
 import { color } from "../../../style/color";
+import { useHistory } from "react-router";
+
 const Calendar: FC = (): JSX.Element => {
   const date: Date = new Date();
   const DayContainer: MutableRefObject<any> = useRef<HTMLDivElement>(null);
@@ -9,7 +11,9 @@ const Calendar: FC = (): JSX.Element => {
   const Today: string = `${date.getFullYear()} ${date.getMonth()} ${date.getDate()}`;
   const [year, setYear] = useState<number>(date.getFullYear());
   const [month, setMonth] = useState<number>(date.getMonth());
-  const [data, setData] = useState<any>([]);
+  const [data, setData] = useState<Array<object>>([]);
+  const router = useHistory();
+  const newDate: number = new Date(year, month).getDay();
 
   useEffect(() => {
     //달력이 바뀌면 전 요소들 삭제
@@ -23,10 +27,7 @@ const Calendar: FC = (): JSX.Element => {
       }
     }
     makeCalendar(year, month);
-    getCalendarData(
-      year,
-      month + 1
-    )
+    getCalendarData(year, month + 1)
       .then((res) => setData(res.data.content.response.timetables))
       .catch((err) => console.log(err));
   }, [month]);
@@ -36,15 +37,20 @@ const Calendar: FC = (): JSX.Element => {
     if (data.length === 0) {
       return;
     } else {
-      data.map((i: any) => {
+      data.map((value: any) => {
         const div = document.createElement("div");
-        div.innerHTML = i.title;
-        const Date = i.date.split("-")[2];
+        div.innerHTML = value.title;
+        const Date = value.date.split("-")[2];
         const DateIndex =
-          Number(Date.split("")[0]) * 10 + Number(Date.split("")[1]);
+          Number(Date.split("")[0]) * 10 +
+          Number(Date.split("")[1]) +
+          (newDate - 1);
         if (DayContainer.current.childNodes[DateIndex].children.length < 4) {
           DayContainer.current.childNodes[DateIndex].insertBefore(div, null);
         }
+        div.onclick = () => {
+          handleCalendarClick(value.uuid);
+        };
       });
     }
   }, [data]);
@@ -52,7 +58,6 @@ const Calendar: FC = (): JSX.Element => {
   //달력을 그리는 함수
   const makeCalendar = (year: number, month: number) => {
     const dateLength: number = new Date(year, month + 1, 0).getDate();
-    const newDate: number = new Date(year, month).getDay();
 
     for (let i = newDate; i < dateLength + newDate; i++) {
       const span = document.createElement("span");
@@ -64,6 +69,10 @@ const Calendar: FC = (): JSX.Element => {
       }
       DayContainer.current.childNodes[i].insertBefore(span, null);
     }
+  };
+
+  const handleCalendarClick = (uuid: string) => {
+    router.push(`diary/detail/${uuid}`);
   };
 
   const renderDay = () => {
