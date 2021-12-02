@@ -19,6 +19,7 @@ import {
 import dreamType from "../../constance/dreamType";
 import { dreamPostingImagePost } from "../../utils/api/DreamPosting";
 import { AxiosResponse } from "axios";
+import defaultResponse from "../../models/dto/response/defaultResponse";
 
 interface PropertiesType {
   title: string;
@@ -104,7 +105,10 @@ const InterpretationWrite = ({ uuid }: PropsType): JSX.Element => {
     const UUID = uuid || "";
     const funcMap = new Map<
       boolean,
-      (data: postInterpretationRequest, uuid: string) => Promise<AxiosResponse<Response>>
+      (
+        data: postInterpretationRequest,
+        uuid: string
+      ) => Promise<AxiosResponse<defaultResponse<Response>>>
     >()
       .set(false, postInterpretation)
       .set(true, putInterpretation);
@@ -114,7 +118,7 @@ const InterpretationWrite = ({ uuid }: PropsType): JSX.Element => {
 
     try {
       const response = await func(data, UUID);
-      saveFile(response.data.uuid);
+      await saveFile(response.data.content.response.uuid);
       alert(`${str}되었습니다.`);
       push("/interpretation");
     } catch (error) {
