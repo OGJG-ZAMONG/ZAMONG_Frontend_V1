@@ -50,6 +50,7 @@ const CommentBox = ({
   }, []);
 
   const settingReComment = async () => {
+    setReComments([]);
     setReComments(
       (await responseReComment(uuid)).data.content.response.comments
     );
@@ -118,17 +119,18 @@ const CommentBox = ({
   }, [isModify]);
 
   const modify = async () => {
-    const test = /^\s|\s$/;
-    if (test.test(modifyContent)) {
+    if (modifyContent.replaceAll(" ", "").length <= 0) {
       alert("최소 1글자를 입력하셔야 합니다.");
       return;
     }
+
     const data = {
       content: modifyContent,
     };
-    console.log(data);
+    
     try {
-      await modifyComment(uuid, data);
+      const response = await modifyComment(uuid, data);
+      setModifyContent(response.data.content.response.message);
       alert("수정하셨습니다.");
       setIsModify(!isModify);
     } catch (error) {
