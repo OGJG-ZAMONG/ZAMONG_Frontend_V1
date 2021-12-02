@@ -8,6 +8,14 @@ interface Props {
   title: string;
   lucy_count: number;
   date: string;
+  dream_types: string[];
+  user: User;
+}
+
+interface User {
+  uuid: string;
+  id: string;
+  profile: string;
 }
 
 const Dream = ({
@@ -15,12 +23,14 @@ const Dream = ({
   title,
   lucy_count,
   date,
+  dream_types,
+  user,
 }: Props): JSX.Element => {
   return (
     <>
       <S.DreamContent>
         <S.DreamImage img={DefaultImage}>
-          <S.UserImage alt="user image" src={defaultProfile} />
+          <S.UserImage alt="user image" src={user.profile} />
         </S.DreamImage>
         <S.DreamInfo>
           <S.DreamTitle>{title}</S.DreamTitle>
@@ -29,7 +39,7 @@ const Dream = ({
         </S.DreamInfo>
         <S.DreamTagContent>
           <S.DreamTagInner>
-            <Tag>{["악몽"]}</Tag>
+            <Tag>{dream_types}</Tag>
           </S.DreamTagInner>
         </S.DreamTagContent>
       </S.DreamContent>
