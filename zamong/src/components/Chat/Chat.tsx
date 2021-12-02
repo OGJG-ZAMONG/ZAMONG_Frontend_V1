@@ -22,9 +22,13 @@ const Chat: FC = (): JSX.Element => {
   const [chats, setChats] = useState<Chats[]>([]);
   const inputValue = useRef<HTMLInputElement | any>(null);
 
-  stompClient.connect({}, (frame: any) => {
-    console.log(`status: ${frame}`);
-  });
+
+  useEffect(() => {
+    stompClient.connect({}, (frame: any) => {
+      console.log(`status: ${frame}`);
+      
+    });
+  }, [])
 
   useEffect(() => {
     getMyProfile()
@@ -40,6 +44,7 @@ const Chat: FC = (): JSX.Element => {
             setChats(res.data.content.response.chats);
           }
         );
+      
         stompClient.subscribe(
           "/topic/" + res.data.content.response.rooms[selectedRoom].uuid,
           (message) => {
@@ -136,7 +141,7 @@ const Chat: FC = (): JSX.Element => {
         </S.ChatBox>
         <S.ChatInputBox>
           <S.ChatInput
-            type="text"
+            type="textarea"
             placeholder="내용을 입력하십시오."
             ref={inputValue}
             onKeyUp={(e) => enterKey(e)}

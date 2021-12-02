@@ -77,9 +77,9 @@ export const ChatLine = styled.div`
 //chat view
 export const ChatViewerContainer = styled.div`
   height: 90%;
-  background-color: ${color.darkerGray};
   border-radius: 10px;
   padding: 16px;
+  background-color: ${color.darkerGray};
   position: relative;
   display: grid;
   grid-template-rows: 10% 84% 6%;
@@ -130,7 +130,7 @@ export const MannerTemperatureText = styled.div``;
 
 
 export const ChatInputBox = styled.div`
-  background-color: #636366;
+  background-color: ${color.darkGray};
   border-radius: 100px;
   width: calc(100%);
   padding: 8px 16px;
@@ -165,11 +165,9 @@ export const ChatBox = styled.div`
   display: flex;
   flex-direction: column-reverse;
   position: relative;
-  height: 100%;
   width: 100%;
   overflow: auto;
   padding: 16px 8px;
-  min-height: 650px;
   max-height: 650px;
 `;
 
