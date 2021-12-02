@@ -5,7 +5,7 @@ export { default as SignUpContainer } from "./SignUp";
 export { default as SellDreamContainer } from "./Sell";
 export { default as DiaryWriteContainer } from "./DiaryWrite";
 export { default as DiaryDetailContainer } from "./DiaryDetail";
-export { default as SellWrite } from "./SellWrite";
+export { default as SellWriteContainer } from "./SellWrite";
 export { default as ProfileContainter } from "./Profile";
 export { default as SellManagementContainer } from "./Sell/SellManagement";
 export { default as SearcgContainter } from "./Search/index";
@@ -14,3 +14,4 @@ export { default as DreamInterpretationMainContainer } from "./DreamInterpretati
 export { default as AnoTherProfileContainter } from "./Profile/AnotherUser";
 export { default as SellDetailContainer } from "./SellDetail";
 export { default as InterpretationWriteContainer } from "./InterpretationWrite";
+export { default as ChatContainer } from "./Chat";
