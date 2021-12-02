@@ -31,6 +31,7 @@ const CommentBox = ({
   const [isActiveMore, setIsActiveMore] = useState(false);
   const [isModify, setIsModify] = useState(false);
   const text = useRef<HTMLTextAreaElement>(null);
+  const [hover, setHover] = useState(false);
   const {
     uuid,
     content,
@@ -40,6 +41,7 @@ const CommentBox = ({
     is_like,
     is_dis_like,
     user_profile,
+    user_id,
   } = comment;
   const [modifyContent, setModifyContent] = useState(content);
   const [reComments, setReComments] = useState<Comment[]>([]);
@@ -128,7 +130,7 @@ const CommentBox = ({
     const data = {
       content: modifyContent,
     };
-    
+
     try {
       const response = await modifyComment(uuid, data);
       setModifyContent(response.data.content.response.message);
@@ -184,7 +186,13 @@ const CommentBox = ({
   return (
     <S.CommentBox>
       <S.CommentProfile>
-        <S.Profile alt="profile" src={user_profile} />
+          <S.Profile
+            alt="profile"
+            src={user_profile}
+            onMouseEnter={() => setHover(true)}
+            onMouseLeave={() => setHover(false)}
+          />
+        {hover && <S.UserName>{user_id}이재성</S.UserName>}
       </S.CommentProfile>
       <S.CommnetRight>
         <S.ModifyBox>
