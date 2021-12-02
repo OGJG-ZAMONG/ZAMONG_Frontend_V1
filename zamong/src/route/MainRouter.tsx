@@ -35,7 +35,7 @@ const MainRouter: FC = (): JSX.Element => {
         <Route exact path="/chat" component={ChatContainer} />
         <Route exact path="/findpassword" component={FindPasswordContainer} />
         <Route exact path="/interpretation" component={DreamInterpretationMainContainer} />
-        <Route exact path="/interpretation/write" component={DreamInterpretationMainContainer} />
+        <Route exact path="/interpretation/write" component={InterpretationWriteContainer} />
         <Route exact path="/profile" component={ProfileContainter} />
         <Route exact path="/sell/management" component={SellManagementContainer} />
         <Route exact path="/search" component={SearcgContainter} />
