@@ -2,6 +2,7 @@ import { useState } from "react";
 import Code from "../../interface/Code";
 import { color } from "../../style/color";
 import DreamType from "../DiaryWrite/component/Properties/Accordion/AccordionMenus/DreamType/DreamType";
+import LucyInput from "./components/LucyInput/LucyInput";
 import * as S from "./styles";
 
 interface PropertiesType {
@@ -60,6 +61,7 @@ const InterpretationWrite = (): JSX.Element => {
           <S.Subtitle>꿈 상세</S.Subtitle>
           <S.PropContainer>
             <DreamType typesState={[types, setTypes]} />
+            <LucyInput lucy={lucy} setLucy={setLucy} />
           </S.PropContainer>
         </div>
       </S.ContentContainer>
