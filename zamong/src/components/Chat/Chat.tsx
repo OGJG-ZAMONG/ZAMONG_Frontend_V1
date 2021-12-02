@@ -1,4 +1,4 @@
-import { FC, useEffect, useState, useRef } from "react";
+import { FC, useEffect, useState, useRef, KeyboardEventHandler } from "react";
 import { search, editGrey, send } from "../../assets";
 import { Stomp } from "@stomp/stompjs";
 import { getChatRooms, getChat } from "../../utils/api/Chat";
@@ -53,16 +53,25 @@ const Chat: FC = (): JSX.Element => {
   }, [selectedRoom]);
 
   const sendMessage = async () => {
-    stompClient.send(
-      "/app/chat.send",
-      {},
-      JSON.stringify({
-        chat: inputValue.current?.value,
-        room: roomId,
-        from: userId,
-      })
-    );
-    inputValue.current.value = "";
+    if (inputValue.current.value === "") return;
+    else {
+      stompClient.send(
+        "/app/chat.send",
+        {},
+        JSON.stringify({
+          chat: inputValue.current?.value,
+          room: roomId,
+          from: userId,
+        })
+      );
+      inputValue.current.value = "";
+    }
+  };
+
+  const enterKey = (e: any) => {
+    if (e.keyCode === 13) {
+      sendMessage();
+    }
   };
 
   return (
@@ -128,6 +137,7 @@ const Chat: FC = (): JSX.Element => {
             type="text"
             placeholder="내용을 입력하십시오."
             ref={inputValue}
+            onKeyUp={(e) => enterKey(e)}
           />
           <S.ChatSubmitIMG src={send} onClick={sendMessage} />
         </S.ChatInputBox>
