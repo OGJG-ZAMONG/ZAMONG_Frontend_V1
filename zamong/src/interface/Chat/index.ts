@@ -1,7 +1,6 @@
 export interface Chats {
   roomId: string;
   userId: string;
-  
 }
 
 export interface Rooms {

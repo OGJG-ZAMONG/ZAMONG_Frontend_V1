@@ -1,6 +1,6 @@
-import { FC, useEffect, useState, useRef, KeyboardEventHandler } from "react";
+import { FC, useEffect, useState, useRef } from "react";
 import { search, editGrey, send } from "../../assets";
-import { Stomp } from "@stomp/stompjs";
+import * as StompJs from "@stomp/stompjs";
 import { getChatRooms, getChat } from "../../utils/api/Chat";
 import { getMyProfile } from "../../utils/api/Profile";
 import { Rooms, Chats } from "../../interface/Chat";
@@ -12,14 +12,14 @@ import SockJs from "sockjs-client";
 
 const baseURL = "https://api.zamong.org/v1/api";
 const Socket = new SockJs(`${baseURL}/ws`);
-const stompClient = Stomp.over(Socket);
+const stompClient = StompJs.Stomp.over(Socket);
 
 const Chat: FC = (): JSX.Element => {
   const [rooms, setRooms] = useState<Rooms[]>([]);
-  const [roomId, setRoomId] = useState<Chats>();
-  const [userId, setUserId] = useState<string>();
+  const [roomId, setRoomId] = useState<string>("");
+  const [userId, setUserId] = useState<string>("");
   const [selectedRoom, setSelectedRoom] = useState<number>(0);
-  const [chats, setChats] = useState<Chats[]>([]);
+  const [chats, setChats] = useState<any>([]);
   const inputValue = useRef<HTMLInputElement | any>(null);
 
   useEffect(() => {
@@ -30,58 +30,64 @@ const Chat: FC = (): JSX.Element => {
       })
       .catch((err) => console.log(err));
 
-      return () => setChats([]);
-
+    getChatRooms()
+      .then((res) => {
+        setRooms(res.data.content.response.rooms);
+      })
+      .catch((err) => console.log(err));
+    return () => disconnect();
   }, []);
 
   useEffect(() => {
     getChatRooms()
       .then((res) => {
-        setRooms(res.data.content.response.rooms);
         setRoomId(res.data.content.response.rooms[selectedRoom].uuid);
-        getChat(res.data.content.response.rooms[selectedRoom].uuid).then(
-          (res) => {
-            setChats(res.data.content.response.chats);
-          }
-        );
-        //소켓과 연결
-        stompClient.onConnect = (frame) => {
-          //소켓 구독
-          stompClient.subscribe(
-            "/topic/" + res.data.content.response.rooms[selectedRoom].uuid,
-            (message) => {
-              console.log(message);
-              getChat(res.data.content.response.rooms[selectedRoom].uuid)
-                .then((res) => {
-                  setChats(res.data.content.response.chats);
-                })
-                .catch((err) => console.log(err));
-            }
-          );
-        };
+        connectSocket(res.data.content.response.rooms[selectedRoom].uuid);
       })
       .catch((err) => console.log(err));
   }, [selectedRoom]);
 
+  useEffect(() => {
+    getChat(roomId)
+      .then((res) => {
+        setChats(res.data.content.response.chats);
+      })
+      .catch((err) => console.log(err));
+  }, [roomId]);
+
+  const connectSocket = (uuid: string) => {
+    stompClient.unsubscribe("1");
+    stompClient.subscribe("/topic/" + uuid, (message) => {
+      setChats((chats: any) => [JSON.parse(message.body), ...chats]);
+      console.log(JSON.parse(message.body))
+    }, { "id" : "1" });
+  };
+
   const sendMessage = async () => {
     if (inputValue.current.value === "") return;
-    else {
-      stompClient.send(
-        "/app/chat.send",
-        {},
-        JSON.stringify({
-          chat: inputValue.current?.value,
-          room: roomId,
-          from: userId,
-        })
-      );
-      inputValue.current.value = "";
-    }
+    setSelectedRoom(0);
+    stompClient.send(
+      "/app/chat.send",
+      {},
+      JSON.stringify({
+        chat: inputValue.current?.value,
+        room: roomId,
+        from: userId,
+      })
+    );
+    inputValue.current.value = "";
   };
+  
 
   const enterKey = (e: any) => {
     if (e.keyCode === 13) {
       sendMessage();
+    }
+  };
+
+  const disconnect = () => {
+    if (stompClient != null) {
+      stompClient.disconnect();
     }
   };
 

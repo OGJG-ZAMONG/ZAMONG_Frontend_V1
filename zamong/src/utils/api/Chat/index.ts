@@ -9,7 +9,7 @@ export const getChatRooms = async () => {
 
 export const getChat = async (room : string | undefined) => {
   try {
-    return await instance.get(`/dream/sell/chat/${room}?page=0&size=50`);
+    return await instance.get(`/dream/sell/chat/${room}?page=0&size=16`);
   } catch (error) {
     throw error;
   }
