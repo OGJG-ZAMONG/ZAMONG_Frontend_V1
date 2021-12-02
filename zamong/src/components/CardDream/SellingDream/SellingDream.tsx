@@ -5,6 +5,7 @@ import Tag from "../../Tag/Tag";
 import dreamType from "../../../constance/dreamType";
 
 interface Props {
+  uuid: string;
   price: number;
   date: Date;
   title: string;
@@ -17,7 +18,7 @@ interface Props {
   };
 }
 
-const SellingDream: FC<Props> = ({ price, date, title, tag, img, user }): JSX.Element => {
+const SellingDream: FC<Props> = ({ price, date, title, tag, img, user, uuid }): JSX.Element => {
   const dateToString = (date: Date) => {
     if (date.getFullYear() !== new Date().getFullYear()) {
       return `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}`;
@@ -29,7 +30,7 @@ const SellingDream: FC<Props> = ({ price, date, title, tag, img, user }): JSX.El
   const dreamTypes = tag.map((value) => dreamType.find((item) => item.code === value)!);
 
   return (
-    <S.DreamCardContainer to={`sell/detail/${user.uuid}`}>
+    <S.DreamCardContainer to={`sell/detail/${uuid}`}>
       <S.DreamImageContainer img={img}>
         <I.Price>{`${price.toLocaleString()}원`}</I.Price>
         <S.DiaryDate>{dateToString(new Date(date))}</S.DiaryDate>
