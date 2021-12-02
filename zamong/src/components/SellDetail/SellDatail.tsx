@@ -47,7 +47,7 @@ const SellDatail = () => {
   return (
     <S.Container>
       {postData && <Head postData={postData} userUuid={userUuid} />}
-      {postData && <Posting postData={postData} userUuid={userUuid} />}
+      {postData && <Posting postData={postData} userUuid={userUuid} settingData={settingData}/>}
       {postData && userUuid === postData.user.uuid && <Chat postData={postData} settingData={settingData}/>}
     </S.Container>
   );

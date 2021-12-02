@@ -39,3 +39,15 @@ export const RequestChat = styled.div`
   border-radius: 10px;
   padding: 12px 16px;
 `;
+
+export const RequestingChat = styled.div`
+  cursor: pointer;
+  margin: 0 auto;
+  margin-top: 48px;
+  margin-bottom: 39px;
+  font: ${font.subtitle};
+  color: ${color.white};
+  border: solid 1px ${color.white};
+  border-radius: 10px;
+  padding: 12px 16px;
+`
