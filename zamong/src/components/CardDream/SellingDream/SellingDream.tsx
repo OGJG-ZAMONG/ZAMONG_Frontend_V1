@@ -27,7 +27,7 @@ const SellingDream: FC<Props> = ({ price, date, title, tag, img, user, uuid }): 
     return `${date.getMonth() + 1}월 ${date.getDate()}일`;
   };
 
-  const dreamTypes = tag.map((value) => dreamType.find((item) => item.code === value)!);
+  const dreamTypes = dreamType.filter((value) => tag.some((elem) => value.code === elem));
 
   return (
     <S.DreamCardContainer to={`sell/detail/${uuid}`}>
