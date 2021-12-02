@@ -28,7 +28,7 @@ export const putInterpretation = async (data: postInterpretationRequest, uuid: s
 
 export const getInterpretationDetail = async (uuid: string) => {
   try {
-    return await instance.get<interpretationDetailResponse>(uri.interpretation);
+    return await instance.get<interpretationDetailResponse>(`${uri.interpretation}/${uuid}`);
   } catch (error) {
     return Promise.reject(error);
   }
