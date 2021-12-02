@@ -1,14 +1,16 @@
 import { useEffect, useState } from "react";
-import { sellDetail } from "../../../models/dto/response/sellDreamDetailResponse";
+import { chatResponse } from "../../../models/dto/response/sellDreamDetailResponse";
+import { requestChat } from "../../../utils/api/SellDetail";
 import * as S from "./styles";
 
 interface PropsType {
-  postData: sellDetail;
+  postData: chatResponse;
   userUuid: string;
+  settingData: () => Promise<void>;
 }
 
-const Posting = ({ postData, userUuid }: PropsType) => {
-  const { content, attachment_image, user } = postData;
+const Posting = ({ postData, userUuid, settingData }: PropsType) => {
+  const { content, attachment_image, user, uuid, request_status } = postData;
   const [isImg, setIsImg] = useState(false);
 
   useEffect(() => {
@@ -22,6 +24,15 @@ const Posting = ({ postData, userUuid }: PropsType) => {
     }
   }, [postData]);
 
+  const sendRequest = async () => {
+    try {
+      await requestChat(uuid);
+      settingData();
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <S.PostingContainer>
       <S.PhotoGrid>
@@ -29,7 +40,13 @@ const Posting = ({ postData, userUuid }: PropsType) => {
       </S.PhotoGrid>
       <S.Text>{content}</S.Text>
       {userUuid !== user.uuid ? (
-        <S.RequestChat>채팅 신청</S.RequestChat>
+        <>
+          {request_status.is_requesting ? (
+            <S.RequestingChat>신청됨</S.RequestingChat>
+          ) : (
+            <S.RequestChat onClick={sendRequest}>채팅 신청</S.RequestChat>
+          )}
+        </>
       ) : (
         <></>
       )}

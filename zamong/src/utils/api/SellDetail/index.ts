@@ -19,7 +19,7 @@ export const getSellDream = async (uuid: string) => {
 export const getChatRequest = async (uuid: string) => {
   try {
     const response = await instance.get<chatList>(
-      uri.chatRequest.replace("DREAM_UUID", uuid)
+      uri.chatRequestList.replace("DREAM_UUID", uuid)
     );
     return response;
   } catch (error) {
@@ -41,6 +41,14 @@ export const delSellPost = async (uuid: string) => {
 export const postAcceptChat = async (uuid: string) => {
   try {
     await instance.post(uri.acceptChat.replace("DREAM_UUID", uuid));
+  } catch (error) {
+    return Promise.reject(error);
+  }
+}
+
+export const requestChat = async (uuid: string) => {
+  try {
+    await instance.post(uri.chatRequest.replace("DREAM_UUID", uuid));
   } catch (error) {
     return Promise.reject(error);
   }
