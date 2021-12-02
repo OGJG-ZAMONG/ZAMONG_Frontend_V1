@@ -28,7 +28,7 @@ const PageNation = ({ indexState, max, columnCount }: PropsType): JSX.Element =>
             {realIndex + 1}
           </S.Div>
         );
-      else return <div key={i}></div>;
+      else return <S.Div key={i}>·</S.Div>;
     });
 
   return (
