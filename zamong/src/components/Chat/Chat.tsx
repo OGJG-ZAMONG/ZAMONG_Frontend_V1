@@ -2,7 +2,7 @@ import { FC, useEffect, useState, useRef, KeyboardEventHandler } from "react";
 import { search, editGrey, send } from "../../assets";
 import { Stomp } from "@stomp/stompjs";
 import { getChatRooms, getChat } from "../../utils/api/Chat";
-import { getMyProfile } from "../../utils/api/Profile"
+import { getMyProfile } from "../../utils/api/Profile";
 import { Rooms, Chats } from "../../interface/Chat";
 import * as S from "./styles";
 import ChatRoom from "./ChatRoom/ChatRoom";
@@ -22,19 +22,19 @@ const Chat: FC = (): JSX.Element => {
   const [chats, setChats] = useState<Chats[]>([]);
   const inputValue = useRef<HTMLInputElement | any>(null);
 
-
   useEffect(() => {
-    stompClient.connect({}, (frame: any) => {
-      console.log(`status: ${frame}`);
-      
-    });
-  }, [])
-
-  useEffect(() => {
+    stompClient.activate();
     getMyProfile()
-      .then(res => {
+      .then((res) => {
         setUserId(res.data.content.response.uuid);
-      });
+      })
+      .catch((err) => console.log(err));
+
+      return () => setChats([]);
+
+  }, []);
+
+  useEffect(() => {
     getChatRooms()
       .then((res) => {
         setRooms(res.data.content.response.rooms);
@@ -44,17 +44,21 @@ const Chat: FC = (): JSX.Element => {
             setChats(res.data.content.response.chats);
           }
         );
-      
-        stompClient.subscribe(
-          "/topic/" + res.data.content.response.rooms[selectedRoom].uuid,
-          (message) => {
-            getChat(res.data.content.response.rooms[selectedRoom].uuid).then(
-              (res) => {
-                setChats(res.data.content.response.chats);
-              }
-            );
-          }
-        );
+        //소켓과 연결
+        stompClient.onConnect = (frame) => {
+          //소켓 구독
+          stompClient.subscribe(
+            "/topic/" + res.data.content.response.rooms[selectedRoom].uuid,
+            (message) => {
+              console.log(message);
+              getChat(res.data.content.response.rooms[selectedRoom].uuid)
+                .then((res) => {
+                  setChats(res.data.content.response.chats);
+                })
+                .catch((err) => console.log(err));
+            }
+          );
+        };
       })
       .catch((err) => console.log(err));
   }, [selectedRoom]);
