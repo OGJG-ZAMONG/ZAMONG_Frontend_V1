@@ -23,7 +23,7 @@ const Chat: FC = (): JSX.Element => {
   const inputValue = useRef<HTMLInputElement | any>(null);
 
   useEffect(() => {
-    if(stompClient.connected === false) {
+    if (stompClient.connected === false) {
       connect();
     }
     getMyProfile()
@@ -40,7 +40,6 @@ const Chat: FC = (): JSX.Element => {
         })
         .catch((err) => console.log(err));
     }, 350);
-
   }, []);
 
   useEffect(() => {
@@ -53,17 +52,18 @@ const Chat: FC = (): JSX.Element => {
   }, [selectedRoom]);
 
   useEffect(() => {
-    getChat(roomId)
-      .then((res) => {
-        setChats(res.data.content.response.chats);
-      })
-      .catch((err) => console.log(err));
+    setTimeout(() => {
+      getChat(roomId)
+        .then((res) => {
+          setChats(res.data.content.response.chats);
+        })
+        .catch((err) => console.log(err));
+    }, 400);
   }, [roomId]);
 
   const connectSocket = (uuid: string) => {
     stompClient.unsubscribe("socket");
     if (stompClient.connected === undefined) {
-      // window.location.reload();
       connect();
     }
 
@@ -105,7 +105,7 @@ const Chat: FC = (): JSX.Element => {
 
   const connect = async () => {
     await stompClient.activate();
-  }
+  };
 
   return (
     <S.Container>
