@@ -18,6 +18,7 @@ export interface dreamDetail {
     id: string;
     profile: string;
   };
+  is_liked: boolean;
 }
 
 export type dreamDetailResponse = defaultResponse<dreamDetail>;
