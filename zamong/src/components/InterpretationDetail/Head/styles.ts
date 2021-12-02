@@ -10,7 +10,6 @@ export const Title = styled.div`
   width: 1280px;
   color: ${color.white};
   font: ${font.headline1};
-  margin-top: 56px;
 `;
 
 export const TagContainer = styled.div`
@@ -28,6 +27,16 @@ export const DreamInfo = styled.div`
   font-size: ${font.body3};
   margin-bottom: 16px;
 `;
+
+export const LeftInfo = styled.div`
+  display: flex;
+  column-gap: 16px;
+`
+
+export const Lucy = styled.div`
+  font: ${font.body1};
+  color: ${color.white};
+`
 
 export const ShareDay = styled.div`
   color: ${color.lightGray};
@@ -64,4 +73,6 @@ export const More = styled.img`
 
 export const MoreBox = styled.div`
   position: relative;
+  display: flex;
+  align-items: center;
 `;

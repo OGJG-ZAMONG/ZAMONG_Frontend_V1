@@ -72,7 +72,10 @@ const InterpretationDetailHead = ({ postData, userUUID }: PropsTypes) => {
         })}
       </S.TagContainer>
       <S.DreamInfo>
-        <S.ShareDay>공유한 날짜: {dayToString(updated_at)}</S.ShareDay>
+        <S.LeftInfo>
+        <S.Lucy>{lucy_count} LUCY 지급</S.Lucy>
+        <S.ShareDay>공유한 날짜 : {dayToString(updated_at)}</S.ShareDay>
+        </S.LeftInfo>
         {userUUID !== user.uuid ? (
           <S.UserInfo>
             <S.ProfileLink>
