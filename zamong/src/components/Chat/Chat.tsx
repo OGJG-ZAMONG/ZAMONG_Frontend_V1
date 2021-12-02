@@ -2,24 +2,28 @@ import { FC, useEffect, useState, useRef } from "react";
 import { search, editGrey, send } from "../../assets";
 import { Stomp } from "@stomp/stompjs";
 import { getChatRooms, getChat } from "../../utils/api/Chat";
+import { Rooms, Chats } from "../../interface/Chat";
 import * as S from "./styles";
 import ChatRoom from "./ChatRoom/ChatRoom";
 import MyText from "./ChatBalloon/My/MyText";
 import OpponentText from "./ChatBalloon/Opponent/OpponentText";
 import SockJs from "sockjs-client";
+
 const baseURL = "https://api.zamong.org/v1/api";
 const Socket = new SockJs(`${baseURL}/ws`);
 const stompClient = Stomp.over(Socket);
 
 const Chat: FC = (): JSX.Element => {
-  const [rooms, setRooms] = useState<
-    Array<{ uuid: string; title: string; last_chat: any }>
-  >([]);
-  const [roomId, setRoomId] = useState();
-  const [userId, setUserId] = useState();
+  const [rooms, setRooms] = useState<Rooms[]>([]);
+  const [roomId, setRoomId] = useState<Chats>();
+  const [userId, setUserId] = useState<string>();
   const [selectedRoom, setSelectedRoom] = useState<number>(0);
-  const [chats, setChats] = useState<any>([]);
-  const inputValue = useRef<any>(null);
+  const [chats, setChats] = useState<Chats[]>([]);
+  const inputValue = useRef<HTMLInputElement | any>(null);
+
+  stompClient.connect({}, (frame: any) => {
+    console.log(`status: ${frame}`);
+  });
 
   useEffect(() => {
     getChatRooms()
@@ -29,31 +33,26 @@ const Chat: FC = (): JSX.Element => {
         setUserId(
           res.data.content.response.rooms[selectedRoom].last_chat.user.uuid
         );
-        stompClient.connect({}, (frame: any) => {
-          stompClient.subscribe(
-            "/topic/" + res.data.content.response.rooms[selectedRoom].uuid,
-            (messageOutput) => {
-              console.log(chats, JSON.parse(messageOutput.body));
-            }
-          );
-        });
+        getChat(res.data.content.response.rooms[selectedRoom].uuid).then(
+          (res) => {
+            setChats(res.data.content.response.chats);
+          }
+        );
+        stompClient.subscribe(
+          "/topic/" + res.data.content.response.rooms[selectedRoom].uuid,
+          (message) => {
+            getChat(res.data.content.response.rooms[selectedRoom].uuid).then(
+              (res) => {
+                setChats(res.data.content.response.chats);
+              }
+            );
+          }
+        );
       })
       .catch((err) => console.log(err));
-  }, []);
-
-  useEffect(() => {
-    getChatRooms().then((res) => {
-      setRoomId(res.data.content.response.rooms[selectedRoom].uuid);
-      getChat(res.data.content.response.rooms[selectedRoom].uuid)
-        .then((res) => {
-          setChats(res.data.content.response.chats);
-        })
-        .catch((error) => console.log(error));
-    });
   }, [selectedRoom]);
 
   const sendMessage = async () => {
-    console.log(roomId, userId);
     stompClient.send(
       "/app/chat.send",
       {},
@@ -63,6 +62,7 @@ const Chat: FC = (): JSX.Element => {
         from: userId,
       })
     );
+    inputValue.current.value = "";
   };
 
   return (

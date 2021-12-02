@@ -170,6 +170,7 @@ export const ChatBox = styled.div`
   overflow: auto;
   padding: 16px 8px;
   min-height: 650px;
+  max-height: 650px;
 `;
 
 export const OpponentTextContainer = styled.div`
