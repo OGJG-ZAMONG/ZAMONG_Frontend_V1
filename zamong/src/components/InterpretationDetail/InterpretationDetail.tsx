@@ -5,6 +5,7 @@ import { InterpretationDetail } from "../../models/dto/response/InterpretationDe
 import { getInterpretationDetail } from "../../utils/api/InterpretationDetail";
 import Head from "./Head/Head";
 import Posting from "./Posting/Posting";
+import Comment from "./Comment/Comment";
 import { getMyProfile } from "../../utils/api/Profile";
 
 interface paramType {
@@ -56,6 +57,7 @@ const IntepretationDetail = () => {
     <S.Container>
       <Head postData={postData} userUUID={userUUID}/>
       <Posting postData={postData} />
+      <Comment postData={postData} />
     </S.Container>
   );
 };
