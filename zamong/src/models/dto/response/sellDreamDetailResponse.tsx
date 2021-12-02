@@ -84,4 +84,5 @@ export interface chatListResponse {
   id: string;
   profile: string;
   request_datetime: string;
+  is_accept: boolean;
 }

@@ -4,8 +4,15 @@ import { font } from "../../../style/font";
 
 export const ChatListContainer = styled.div`
   margin-top: 56px;
-  margin-bottom: 192px;
   border-top: 1px solid ${color.darkGray};
+`
+
+export const NoneList = styled.div`
+  color: ${color.white};
+  font: ${font.body3};
+  display: flex;
+  justify-content: center;
+  margin-top: 50px;
 `
 
 export const SubTitle = styled.div`
@@ -78,15 +85,6 @@ export const Cancel = styled.div`
   color: ${color.white};
   font: ${font.subtitle};
   border: solid 1px ${color.white};
-  cursor: pointer;
-  border-radius: 10px;
-  padding: 12px 16px;
-`
-
-export const ShowList = styled.div`
-  color: ${color.white};
-  font: ${font.subtitle};
-  background: ${color.blue};
   cursor: pointer;
   border-radius: 10px;
   padding: 12px 16px;
