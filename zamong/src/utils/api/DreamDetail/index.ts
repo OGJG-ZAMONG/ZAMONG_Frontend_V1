@@ -1,6 +1,7 @@
 import uri from "../../../constance/uri";
 import instance from "../axios";
 import { dreamDetailResponse } from "../../../models/dto/response/dreamDetailResponse";
+import defaultResponse from "../../../models/dto/response/defaultResponse";
 
 export const shareDream = async (uuid: string) => {
   try {
@@ -8,7 +9,7 @@ export const shareDream = async (uuid: string) => {
   } catch (error) {
     return Promise.reject(error);
   }
-}
+};
 
 export const getShareDream = async (uuid: string) => {
   try {
@@ -136,12 +137,15 @@ export const recommend = async (uuid: string, isThumb: ThumbType) => {
 };
 
 interface ModifyType {
-  content: string,
+  content: string;
 }
 
 export const modifyComment = async (uuid: string, content: ModifyType) => {
   try {
-    await instance.patch(uri.modifyComment.replace("DREAM_UUID", uuid), content);
+    return await instance.patch<defaultResponse<{ message: string }>>(
+      uri.modifyComment.replace("DREAM_UUID", uuid),
+      content
+    );
   } catch (error) {
     return Promise.reject(error);
   }
@@ -150,7 +154,7 @@ export const modifyComment = async (uuid: string, content: ModifyType) => {
 export const delComment = async (uuid: string) => {
   try {
     await instance.delete(uri.deleteComment.replace("DREAM_UUID", uuid));
-  }  catch (error) {
+  } catch (error) {
     return Promise.reject(error);
   }
-}
+};

@@ -39,16 +39,19 @@ const CommentBox = ({
     like_count,
     is_like,
     is_dis_like,
+    user_profile,
   } = comment;
   const [modifyContent, setModifyContent] = useState(content);
   const [reComments, setReComments] = useState<Comment[]>([]);
   const reCommentCount = reComments.length;
+  const [canWrite, setCanWrite] = useState<boolean>(true);
 
   useEffect(() => {
     settingReComment();
   }, []);
 
   const settingReComment = async () => {
+    setReComments([]);
     setReComments(
       (await responseReComment(uuid)).data.content.response.comments
     );
@@ -72,6 +75,16 @@ const CommentBox = ({
   };
 
   const writeReComment = async () => {
+    if (!canWrite) {
+      return;
+    }
+
+    setCanWrite(false);
+
+    setTimeout(() => {
+      setCanWrite(true);
+    }, 3000);
+
     if (input.replace(/(\s*)/g, "") === "") {
       alert("공백은 입력하실 수 없습니다.");
       setInput("");
@@ -80,12 +93,17 @@ const CommentBox = ({
         content: input,
         p_comment: uuid,
       };
-      await postComment(postUuid, data);
-      setInput("");
-      setAdd(false);
-      settingReComment();
-      alert("댓글이 입력되었습니다.");
-      setIsActivePlus(false);
+      try {
+        await postComment(postUuid, data);
+        setInput("");
+        setAdd(false);
+        settingReComment();
+        alert("댓글이 입력되었습니다.");
+        setIsActivePlus(false);
+        setOnOffToggle(true);
+      } catch (error) {
+        console.log(error);
+      }
     }
   };
 
@@ -102,17 +120,18 @@ const CommentBox = ({
   }, [isModify]);
 
   const modify = async () => {
-    const test = /^\s|\s$/;
-    if (test.test(modifyContent)) {
+    if (modifyContent.replaceAll(" ", "").length <= 0) {
       alert("최소 1글자를 입력하셔야 합니다.");
       return;
     }
+
     const data = {
       content: modifyContent,
     };
-    console.log(data);
+    
     try {
-      await modifyComment(uuid, data);
+      const response = await modifyComment(uuid, data);
+      setModifyContent(response.data.content.response.message);
       alert("수정하셨습니다.");
       setIsModify(!isModify);
     } catch (error) {
@@ -165,7 +184,7 @@ const CommentBox = ({
   return (
     <S.CommentBox>
       <S.CommentProfile>
-        <img alt="profile" src={profile} />
+        <S.Profile alt="profile" src={user_profile} />
       </S.CommentProfile>
       <S.CommnetRight>
         <S.ModifyBox>
@@ -225,7 +244,9 @@ const CommentBox = ({
               onChange={commentChange}
               onKeyUp={keyUp}
             />
-            <S.EnterButton onClick={writeReComment}>덧글 쓰기</S.EnterButton>
+            <S.EnterButton onClick={writeReComment} disabled={!canWrite}>
+              덧글 쓰기
+            </S.EnterButton>
           </S.InputContainer>
         )}
         {onOffToggle && (

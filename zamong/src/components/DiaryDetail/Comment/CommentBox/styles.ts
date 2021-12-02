@@ -14,6 +14,13 @@ export const CommentProfile = styled.div`
   height: 52px;
 `;
 
+export const Profile = styled.img`
+  width: 100%;
+  height: 100%;
+  border-radius: 100%;
+  cursor: pointer;
+`
+
 export const CommnetRight = styled.div`
   width: 100%;
   display: grid;
@@ -60,6 +67,7 @@ export const MoreBox = styled.div`
 export const More = styled.img`
   margin: auto 0;
   cursor: pointer;
+  padding: 15px 0px;
 `;
 
 export const CommentBoxBottom = styled.div`
@@ -108,7 +116,7 @@ export const CommentInput = styled.input`
   }
 `;
 
-export const EnterButton = styled.div`
+export const EnterButton = styled.button`
   padding: 16px 12px;
   color: ${color.white};
   background-color: ${color.blue};
@@ -116,6 +124,12 @@ export const EnterButton = styled.div`
   border-radius: 10px;
   white-space: nowrap;
   cursor: pointer;
+  border: 0;
+  outline: none;
+  font: ${font.body3};
+  &:disabled{
+    filter: brightness(0.8);
+  }
 `;
 
 export const CommentToComment = styled.div`
