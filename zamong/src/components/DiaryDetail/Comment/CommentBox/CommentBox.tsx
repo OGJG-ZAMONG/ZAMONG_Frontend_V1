@@ -192,7 +192,7 @@ const CommentBox = ({
             onMouseEnter={() => setHover(true)}
             onMouseLeave={() => setHover(false)}
           />
-        {hover && <S.UserName>{user_id}이재성</S.UserName>}
+        {hover && <S.UserName>{user_id}</S.UserName>}
       </S.CommentProfile>
       <S.CommnetRight>
         <S.ModifyBox>
