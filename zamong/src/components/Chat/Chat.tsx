@@ -39,7 +39,7 @@ const Chat: FC = (): JSX.Element => {
           connectSocket(res.data.content.response.rooms[selectedRoom].uuid);
         })
         .catch((err) => console.log(err));
-    }, 350);
+    }, 500);
   }, []);
 
   useEffect(() => {
@@ -123,12 +123,13 @@ const Chat: FC = (): JSX.Element => {
         </S.SearchChatContainer>
         <S.ChatList>
           {rooms.map((value: any, index: number) => {
+            console.log(value)
             return (
               <ChatRoom
                 ChatRoomName={value.title}
-                UserName={"dsmhskr"}
+                UserName={value.last_chat.user.id}
                 LastConnection={"8시간 전"}
-                LastChat={"나: 아니 이 꿈이 1000원? 레전드로 가시는구나"}
+                LastChat={value.last_chat.chat}
                 key={value.uuid}
                 Index={index}
                 selectedRoom={selectedRoom}
@@ -151,8 +152,6 @@ const Chat: FC = (): JSX.Element => {
               <S.Report>신고하기</S.Report>
             </S.UserReportBox>
             <S.MannerTemperatureBox>
-              <S.MannerTemperatureIMG src={editGrey} />
-              <S.MannerTemperatureText>매너온도 매기기</S.MannerTemperatureText>
             </S.MannerTemperatureBox>
           </S.HeaderNav>
         </S.ChatViewHeader>

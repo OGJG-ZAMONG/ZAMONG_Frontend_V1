@@ -87,7 +87,7 @@ export const ChatViewerContainer = styled.div`
 
 export const ChatViewHeader = styled.div`
   display: grid;
-  border-bottom: 1px solid ${color.darkerGray};
+  border-bottom: 1px solid ${color.gray};
   height: 80px;
   grid-template-rows: repeat(2, 1fr);
 `;
@@ -167,6 +167,7 @@ export const ChatBox = styled.div`
   position: relative;
   width: 100%;
   overflow: auto;
+  margin-top: 10px; 
   padding: 16px 8px;
   max-height: 650px;
 `;
