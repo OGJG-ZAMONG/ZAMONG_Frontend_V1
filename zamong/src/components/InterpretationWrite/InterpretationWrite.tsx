@@ -92,7 +92,7 @@ const InterpretationWrite = ({ uuid }: PropsType): JSX.Element => {
       .set(true, putInterpretation);
     const func = funcMap.get(uuid ? true : false)!;
 
-    const str = uuid ? "요청" : "수정";
+    const str = uuid ? "수정" : "요청";
 
     try {
       await func(data, UUID);
@@ -107,7 +107,7 @@ const InterpretationWrite = ({ uuid }: PropsType): JSX.Element => {
   return (
     <S.Container>
       <S.ContentContainer>
-        <S.Title>꿈 해몽 요청하기</S.Title>
+        <S.Title>꿈 해몽 {uuid ? "수정" : "요청"}하기</S.Title>
         <div>
           <S.Subtitle>꿈 제목</S.Subtitle>
           <S.TextArea
@@ -142,7 +142,7 @@ const InterpretationWrite = ({ uuid }: PropsType): JSX.Element => {
 
       <I.ButtonContainer>
         <I.BorderButton onClick={onCancel}>취소</I.BorderButton>
-        <I.BlueButton onClick={onPost}>{"작성"}</I.BlueButton>
+        <I.BlueButton onClick={onPost}>{uuid ? "수정" : "요청"}</I.BlueButton>
       </I.ButtonContainer>
     </S.Container>
   );
