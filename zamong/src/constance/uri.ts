@@ -36,6 +36,7 @@ enum uri {
   shareSearch = "/dream/share/search?",
   interpretationSearch = "/dream/interpretation/search?",
   sellSearch = "/dream/sell/search?",
+  getInterpretation = "/dream/interpretation/DREAM_UUID",
 }
 
 export default uri;

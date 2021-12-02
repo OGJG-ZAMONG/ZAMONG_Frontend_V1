@@ -18,6 +18,7 @@ import {
   SellWriteContainer,
   InterpretationWriteContainer,
   ChatContainer,
+  InterpretationDetailContainer,
 } from "../container";
 
 const MainRouter: FC = (): JSX.Element => {
@@ -28,7 +29,7 @@ const MainRouter: FC = (): JSX.Element => {
         <Route exact path="/login" component={LoginContainer} />
         <Route exact path="/diary" component={DiaryContainer} />
         <Route exact path="/diary/write" component={DiaryWriteContainer} />
-        <Route path="/diary/detail/:uuid" component={DiaryDetailContainer} />
+        <Route exact path="/diary/detail/:uuid" component={DiaryDetailContainer} />
         <Route exact path="/signup" component={SignUpContainer} />
         <Route exact path="/sell" component={SellDreamContainer} />
         <Route exact path="/sell/write" component={SellWriteContainer} />
@@ -40,7 +41,8 @@ const MainRouter: FC = (): JSX.Element => {
         <Route exact path="/sell/management" component={SellManagementContainer} />
         <Route exact path="/search" component={SearcgContainter} />
         <Route exact path="/user/:uuid" component={AnoTherProfileContainter} />
-        <Route path="/sell/detail/:uuid" component={SellDetailContainer} />
+        <Route exact path="/sell/detail/:uuid" component={SellDetailContainer} />
+        <Route exact path="/interpretation/:uuid" component={InterpretationDetailContainer} /> 
       </Switch>
     </Suspense>
   );
