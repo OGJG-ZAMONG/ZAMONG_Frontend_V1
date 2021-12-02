@@ -4,6 +4,9 @@ import { color } from "../../style/color";
 import DreamType from "../DiaryWrite/component/Properties/Accordion/AccordionMenus/DreamType/DreamType";
 import LucyInput from "./components/LucyInput/LucyInput";
 import * as S from "./styles";
+import * as I from "../DiaryWrite/styles";
+import FileInput from "../FileInput/FileInput";
+import { useHistory } from "react-router";
 
 interface PropertiesType {
   title: string;
@@ -19,6 +22,11 @@ const InterpretationWrite = (): JSX.Element => {
     lucy: 0,
     content: "",
   });
+
+  const { push } = useHistory();
+
+  const [file, setFile] = useState<File | undefined>();
+  const [initImage, setInitImage] = useState<string>("");
 
   const { title, content, lucy, types } = properties;
   const MAXTITLE = 100;
@@ -39,6 +47,12 @@ const InterpretationWrite = (): JSX.Element => {
     const v = vMap.get(name)!;
 
     setProperties({ ...properties, [name]: v });
+  };
+
+  const onCancel = () => {
+    if (window.confirm("작성한 정보를 모두 잃게 됩니다. 취소하시겠습니까?")) {
+      push("/interpretation");
+    }
   };
 
   return (
