@@ -11,9 +11,10 @@ import * as S from "./styles";
 
 interface PropsType {
   postData: sellDetail;
+  userUuid: string;
 }
 
-const Head = ({ postData }: PropsType) => {
+const Head = ({ postData, userUuid }: PropsType) => {
   const { push } = useHistory();
   const { title, uuid, dream_types, cost, updated_at, user } = postData;
   const dreamTypes = dreamType.filter((value) => {
@@ -73,25 +74,29 @@ const Head = ({ postData }: PropsType) => {
       <S.DreamInfo>
         <S.ShareDay>공유한 날짜: {dayToString(updated_at)}</S.ShareDay>
         <S.BottomInfo>
-          <S.Cost>{cost}₩</S.Cost>
-          <S.UserInfo>
-            <>
-              <S.PrifilePhoto alt="profile" src={user.profile} />
-              <S.Profile>{user.id}</S.Profile>
-            </>
-            <S.MoreBox>
-              <S.More
-                alt="more"
-                src={more}
-                onClick={() => setIsActiveMore(!isActiveMore)}
-              />
-              <PopupMenu
-                contents={popupContents}
-                isActiveMore={isActiveMore}
-                setIsActiveMore={setIsActiveMore}
-              />
-            </S.MoreBox>
-          </S.UserInfo>
+          <S.Cost>{cost}원</S.Cost>
+          {userUuid !== user.uuid ? (
+            <S.UserInfo>
+              <>
+                <S.PrifilePhoto alt="profile" src={user.profile} />
+                <S.Profile>{user.id}</S.Profile>
+              </>
+              <S.MoreBox>
+                <S.More
+                  alt="more"
+                  src={more}
+                  onClick={() => setIsActiveMore(!isActiveMore)}
+                />
+                <PopupMenu
+                  contents={popupContents}
+                  isActiveMore={isActiveMore}
+                  setIsActiveMore={setIsActiveMore}
+                />
+              </S.MoreBox>
+            </S.UserInfo>
+          ) : (
+            <></>
+          )}
         </S.BottomInfo>
       </S.DreamInfo>
     </S.HeadContainer>
