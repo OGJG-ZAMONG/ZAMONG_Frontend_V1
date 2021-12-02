@@ -3,8 +3,10 @@ import { useEffect, useState } from "react";
 import Head from "./Head/Head";
 import Posting from "./Posting/Posting";
 import * as S from "./styles";
-import { sellDetail } from "../../models/dto/response/sellDreamDetailResponse";
+import { chatResponse } from "../../models/dto/response/sellDreamDetailResponse";
 import { getSellDream } from "../../utils/api/SellDetail";
+import { getMyProfile } from "../../utils/api/Profile";
+import Chat from "./Chat/Chat";
 
 interface paramType {
   uuid: string;
@@ -12,45 +14,43 @@ interface paramType {
 
 const SellDatail = () => {
   const { uuid } = useParams<paramType>();
-  const [postData, setPostData] = useState<sellDetail>({
-    title: "",
-    dream_types: [],
-    user: {
-      id: "",
-      profile: "",
-      uuid: "",
-    },
-    updated_at: "",
-    attachment_image: "",
-    content: "",
-    uuid: "",
-    cost: 0,
-    status: "",
-  });
+  const [postData, setPostData] = useState<chatResponse | null>(null);
+  const [userUuid, setUserUuid] = useState("");
 
   const getPostData = async () => {
     try {
       const data = await getSellDream(uuid);
-      setPostData({ ...data.data.content.response });
+      setPostData(data.data.content.response);
     } catch (error) {
       console.log(error);
     }
   };
 
-  useEffect(() => {
-    getPostData();
-  }, []);
+  const getUserProfile = async () => {
+    try {
+      const profile = await getMyProfile();
+      setUserUuid(profile.data.content.response.uuid);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const settingData = async () => {
+    await getUserProfile();
+    await getPostData();
+  };
 
   useEffect(() => {
-    console.log(postData);
-  }, [postData]);
+    settingData();
+  }, []);
 
   return (
     <S.Container>
-      <Head postData={postData}/>
-      <Posting postData={postData}/>
+      {postData && <Head postData={postData} userUuid={userUuid} />}
+      {postData && <Posting postData={postData} userUuid={userUuid} />}
+      {postData && userUuid === postData.user.uuid && <Chat postData={postData} settingData={settingData}/>}
     </S.Container>
-  )
+  );
 };
 
 export default SellDatail;
