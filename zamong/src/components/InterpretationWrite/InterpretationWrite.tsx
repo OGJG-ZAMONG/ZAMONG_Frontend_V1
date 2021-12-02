@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useLayoutEffect, useState } from "react";
 import Code from "../../interface/Code";
 import { color } from "../../style/color";
 import DreamType from "../DiaryWrite/component/Properties/Accordion/AccordionMenus/DreamType/DreamType";
@@ -10,13 +10,16 @@ import { useHistory } from "react-router";
 import DreamQuality from "../DiaryWrite/component/Properties/Selecter/DreamQuality/DreamQuality";
 import { qualitys } from "../../constance/dreamQualitys";
 import { postInterpretationRequest } from "../../models/dto/request/postInterpretationRequest";
-import { postInterpretation, putInterpretation } from "../../utils/api/InterpretationWrite";
+import {
+  getInterpretationDetail,
+  postInterpretation,
+  putInterpretation,
+} from "../../utils/api/InterpretationWrite";
 
 interface PropertiesType {
   title: string;
   types: Code[];
   lucy: number;
-  quality: Code;
   content: string;
 }
 
@@ -29,7 +32,6 @@ const InterpretationWrite = ({ uuid }: PropsType): JSX.Element => {
     title: "",
     types: [],
     lucy: 0,
-    quality: qualitys[2],
     content: "",
   });
 
@@ -38,7 +40,7 @@ const InterpretationWrite = ({ uuid }: PropsType): JSX.Element => {
   const [file, setFile] = useState<File | undefined>();
   const [initImage, setInitImage] = useState<string>("");
 
-  const { title, content, lucy, types, quality } = properties;
+  const { title, content, lucy, types } = properties;
   const MAXTITLE = 100;
 
   const setPropertiesWithName =
@@ -49,7 +51,6 @@ const InterpretationWrite = ({ uuid }: PropsType): JSX.Element => {
 
   const setTypes = setPropertiesWithName<Code[]>("types");
   const setLucy = setPropertiesWithName<number>("lucy");
-  const setQuality = setPropertiesWithName<Code>("quality");
 
   const onChangeHandler = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     const { name, value } = e.target;
@@ -124,7 +125,6 @@ const InterpretationWrite = ({ uuid }: PropsType): JSX.Element => {
           <S.Subtitle>꿈 상세</S.Subtitle>
           <S.PropContainer>
             <DreamType typesState={[types, setTypes]} />
-            <DreamQuality qualityState={[quality, setQuality]} />
             <LucyInput lucy={lucy} setLucy={setLucy} />
           </S.PropContainer>
         </div>
