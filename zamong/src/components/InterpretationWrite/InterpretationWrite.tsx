@@ -14,8 +14,11 @@ import {
   getInterpretationDetail,
   postInterpretation,
   putInterpretation,
+  Response,
 } from "../../utils/api/InterpretationWrite";
 import dreamType from "../../constance/dreamType";
+import { dreamPostingImagePost } from "../../utils/api/DreamPosting";
+import { AxiosResponse } from "axios";
 
 interface PropertiesType {
   title: string;
@@ -87,8 +90,22 @@ const InterpretationWrite = ({ uuid }: PropsType): JSX.Element => {
       title: title,
     };
 
+    const saveFile = async (uuid: string) => {
+      if (file) {
+        try {
+          await dreamPostingImagePost(file, uuid);
+        } catch (error) {
+          console.log(error);
+          alert("파일 업로드에 실패했습니다.");
+        }
+      }
+    };
+
     const UUID = uuid || "";
-    const funcMap = new Map<boolean, (data: postInterpretationRequest, uuid: string) => void>()
+    const funcMap = new Map<
+      boolean,
+      (data: postInterpretationRequest, uuid: string) => Promise<AxiosResponse<Response>>
+    >()
       .set(false, postInterpretation)
       .set(true, putInterpretation);
     const func = funcMap.get(uuid ? true : false)!;
@@ -96,7 +113,8 @@ const InterpretationWrite = ({ uuid }: PropsType): JSX.Element => {
     const str = uuid ? "수정" : "요청";
 
     try {
-      await func(data, UUID);
+      const response = await func(data, UUID);
+      saveFile(response.data.uuid);
       alert(`${str}되었습니다.`);
       push("/interpretation");
     } catch (error) {
