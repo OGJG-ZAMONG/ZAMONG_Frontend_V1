@@ -85,3 +85,12 @@ export const getAntherUsersProfile = async (user_uuid: string) => {
     throw error;
   }
 };
+
+export const accountSecession = async (pw: string) => {
+  try {
+    const response = await instance.delete(`/user`, { data: { password: pw } });
+    return response;
+  } catch (error) {
+    throw error;
+  }
+};
