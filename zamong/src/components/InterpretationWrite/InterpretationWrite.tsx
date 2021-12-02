@@ -7,11 +7,14 @@ import * as S from "./styles";
 import * as I from "../DiaryWrite/styles";
 import FileInput from "../FileInput/FileInput";
 import { useHistory } from "react-router";
+import DreamQuality from "../DiaryWrite/component/Properties/Selecter/DreamQuality/DreamQuality";
+import { qualitys } from "../../constance/dreamQualitys";
 
 interface PropertiesType {
   title: string;
   types: Code[];
   lucy: number;
+  quality: Code;
   content: string;
 }
 
@@ -20,6 +23,7 @@ const InterpretationWrite = (): JSX.Element => {
     title: "",
     types: [],
     lucy: 0,
+    quality: qualitys[2],
     content: "",
   });
 
@@ -28,7 +32,7 @@ const InterpretationWrite = (): JSX.Element => {
   const [file, setFile] = useState<File | undefined>();
   const [initImage, setInitImage] = useState<string>("");
 
-  const { title, content, lucy, types } = properties;
+  const { title, content, lucy, types, quality } = properties;
   const MAXTITLE = 100;
 
   const setPropertiesWithName =
@@ -39,6 +43,7 @@ const InterpretationWrite = (): JSX.Element => {
 
   const setTypes = setPropertiesWithName<Code[]>("types");
   const setLucy = setPropertiesWithName<number>("lucy");
+  const setQuality = setPropertiesWithName<Code>("quality");
 
   const onChangeHandler = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     const { name, value } = e.target;
@@ -75,6 +80,7 @@ const InterpretationWrite = (): JSX.Element => {
           <S.Subtitle>꿈 상세</S.Subtitle>
           <S.PropContainer>
             <DreamType typesState={[types, setTypes]} />
+            <DreamQuality qualityState={[quality, setQuality]} />
             <LucyInput lucy={lucy} setLucy={setLucy} />
           </S.PropContainer>
         </div>
