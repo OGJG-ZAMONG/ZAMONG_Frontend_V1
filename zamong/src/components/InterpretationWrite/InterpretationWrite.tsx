@@ -9,6 +9,8 @@ import FileInput from "../FileInput/FileInput";
 import { useHistory } from "react-router";
 import DreamQuality from "../DiaryWrite/component/Properties/Selecter/DreamQuality/DreamQuality";
 import { qualitys } from "../../constance/dreamQualitys";
+import { postInterpretationRequest } from "../../models/dto/request/postInterpretationRequest";
+import { postInterpretation, putInterpretation } from "../../utils/api/InterpretationWrite";
 
 interface PropertiesType {
   title: string;
@@ -64,6 +66,44 @@ const InterpretationWrite = ({ uuid }: PropsType): JSX.Element => {
     }
   };
 
+  const isValid = () => title.length > 0 && content.length > 0 && types.length > 0;
+
+  const onPost = async () => {
+    if (!isValid()) {
+      alert("빈칸 또는 유형을 선택해주세요.");
+      return;
+    }
+
+    const dreamTypes = types.map((value) => {
+      return value.code;
+    });
+
+    const data: postInterpretationRequest = {
+      content: content,
+      dream_types: dreamTypes,
+      lucy_count: lucy,
+      quality: quality.code,
+      title: title,
+    };
+
+    const UUID = uuid || "";
+    const funcMap = new Map<boolean, (data: postInterpretationRequest, uuid: string) => void>()
+      .set(false, postInterpretation)
+      .set(true, putInterpretation);
+    const func = funcMap.get(uuid ? true : false)!;
+
+    const str = uuid ? "요청" : "수정";
+
+    try {
+      await func(data, UUID);
+      alert(`${str}되었습니다.`);
+      push("/interpretation");
+    } catch (error) {
+      alert("오류 발생.");
+      console.log(error);
+    }
+  };
+
   return (
     <S.Container>
       <S.ContentContainer>
@@ -102,7 +142,7 @@ const InterpretationWrite = ({ uuid }: PropsType): JSX.Element => {
 
       <I.ButtonContainer>
         <I.BorderButton onClick={onCancel}>취소</I.BorderButton>
-        <I.BlueButton>{"작성"}</I.BlueButton>
+        <I.BlueButton onClick={onPost}>{"작성"}</I.BlueButton>
       </I.ButtonContainer>
     </S.Container>
   );
