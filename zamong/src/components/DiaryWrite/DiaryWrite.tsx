@@ -8,7 +8,11 @@ import DreamQuality from "./component/Properties/Selecter/DreamQuality/DreamQual
 import DreamTime from "./component/Properties/Selecter/DreamTime/DreamTime";
 import * as S from "./styles";
 import { diaryWriteRequest } from "../../models/dto/request/diaryWriteRequest";
-import { diaryWriteApiType, diaryWritePost, diaryWritePut } from "../../utils/api/DiaryWrite";
+import {
+  diaryWriteApiType,
+  diaryWritePost,
+  diaryWritePut,
+} from "../../utils/api/DiaryWrite";
 import { useHistory } from "react-router";
 import ElapsedTime from "./component/ElapsedTime/ElapsedTime";
 import Code from "../../interface/Code";
@@ -33,10 +37,9 @@ interface PropsType {
 }
 
 const dateToString = (date: Date): string =>
-  `${date.getFullYear()}-${(date.getMonth() + 1).toString().padStart(2, "0")}-${date
-    .getDate()
+  `${date.getFullYear()}-${(date.getMonth() + 1)
     .toString()
-    .padStart(2, "0")}`;
+    .padStart(2, "0")}-${date.getDate().toString().padStart(2, "0")}`;
 
 const getMinutes = (time: Time): number =>
   (time.hour + (time.type === AM ? 0 : 12)) * 60 + time.minute;
@@ -51,9 +54,9 @@ const compareTime = (a: Time, b: Time): number => {
 };
 
 const timeToString = (time: Time): string => {
-  return `${(time.hour + (time.type === AM ? 0 : 12)).toString().padStart(2, "0")}:${time.minute
+  return `${(time.hour + (time.type === AM ? 0 : 12))
     .toString()
-    .padStart(2, "0")}:00`;
+    .padStart(2, "0")}:${time.minute.toString().padStart(2, "0")}:00`;
 };
 
 const getTimeFromDate = (date: Date): Time => {
@@ -84,9 +87,11 @@ const DiaryWrite = ({ dreamUUID }: PropsType): JSX.Element => {
   const [initImage, setInitImage] = useState<string>("");
   const [properties, setProperties] = useState<PropertysType>(initValue);
   const [file, setFile] = useState<File | undefined>();
-  const { title, content, date, startTime, endTime, quality, types } = properties;
+  const { title, content, date, startTime, endTime, quality, types } =
+    properties;
   const [lastUpdateDate, setLastUpdateDate] = useState<Date | null>(null);
-  const isPropertyValid = (): boolean => title.length > 0 && content.length > 0 && types.length > 0;
+  const isPropertyValid = (): boolean =>
+    title.length > 0 && content.length > 0 && types.length > 0;
 
   const init = async (): Promise<PropertysType> => {
     let returnValue = { ...initValue };
@@ -94,7 +99,8 @@ const DiaryWrite = ({ dreamUUID }: PropsType): JSX.Element => {
     const savedDiaryString = localStorage.getItem("saved_diary");
     if (!dreamUUID && savedDiaryString) {
       const savedDiary: PropertysType = JSON.parse(savedDiaryString);
-      const saveTime = localStorage.getItem("last_save_time") || new Date().toString();
+      const saveTime =
+        localStorage.getItem("last_save_time") || new Date().toString();
       savedDiary.date = new Date(savedDiary.date);
       setLastUpdateDate(new Date(saveTime));
 
@@ -109,7 +115,8 @@ const DiaryWrite = ({ dreamUUID }: PropsType): JSX.Element => {
       if (uuidSavedDiaryString) {
         const savedDiary: PropertysType = JSON.parse(uuidSavedDiaryString);
         const saveTime =
-          localStorage.getItem(`${dreamUUID}_last_save_time`) || new Date().toString();
+          localStorage.getItem(`${dreamUUID}_last_save_time`) ||
+          new Date().toString();
         savedDiary.date = new Date(savedDiary.date);
         setLastUpdateDate(new Date(saveTime));
 
@@ -137,7 +144,7 @@ const DiaryWrite = ({ dreamUUID }: PropsType): JSX.Element => {
         const startTime = getTimeFromDate(new Date(sleep_begin_date_time));
         const endTime = getTimeFromDate(new Date(sleep_end_date_time));
         const dreamTypes = dream_types.map(
-          (value) => dreamType.find((item) => item.code === value)!
+          (value: string) => dreamType.find((item) => item.code === value)!
         );
 
         returnValue.title = title;
@@ -254,7 +261,10 @@ const DiaryWrite = ({ dreamUUID }: PropsType): JSX.Element => {
 
     if (dreamUUID) {
       localStorage.setItem(dreamUUID, objectString);
-      localStorage.setItem(`${dreamUUID}_last_save_time`, new Date().toString());
+      localStorage.setItem(
+        `${dreamUUID}_last_save_time`,
+        new Date().toString()
+      );
     } else {
       localStorage.setItem("saved_diary", objectString);
       localStorage.setItem("last_save_time", new Date().toString());
@@ -294,7 +304,9 @@ const DiaryWrite = ({ dreamUUID }: PropsType): JSX.Element => {
                 value={title}
                 placeholder="제목 입력..."
               />
-              <S.TitleCount color={title.length >= MAXTITLE ? color.red : color.gray}>
+              <S.TitleCount
+                color={title.length >= MAXTITLE ? color.red : color.gray}
+              >
                 {title.length} / {MAXTITLE}
               </S.TitleCount>
             </div>
@@ -318,14 +330,23 @@ const DiaryWrite = ({ dreamUUID }: PropsType): JSX.Element => {
                 value={content}
                 placeholder="내용 입력..."
               />
-              <FileInput file={file} setFile={setFile} id="diary" initPath={initImage} />
+              <FileInput
+                file={file}
+                setFile={setFile}
+                id="diary"
+                initPath={initImage}
+              />
             </div>
           </S.MarginConatiner>
           <S.ButtonContainer>
             {lastUpdateDate && (
               <S.LastChange>
                 마지막 저장&nbsp;
-                <ElapsedTime from={lastUpdateDate} interval={1000}></ElapsedTime> 전
+                <ElapsedTime
+                  from={lastUpdateDate}
+                  interval={1000}
+                ></ElapsedTime>{" "}
+                전
               </S.LastChange>
             )}
             <S.BorderButton onClick={onSave}>임시 저장</S.BorderButton>
