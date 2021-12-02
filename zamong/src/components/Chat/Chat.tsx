@@ -23,19 +23,24 @@ const Chat: FC = (): JSX.Element => {
   const inputValue = useRef<HTMLInputElement | any>(null);
 
   useEffect(() => {
-    stompClient.activate();
+    if(stompClient.connected === false) {
+      connect();
+    }
     getMyProfile()
       .then((res) => {
         setUserId(res.data.content.response.uuid);
       })
       .catch((err) => console.log(err));
 
-    getChatRooms()
-      .then((res) => {
-        setRooms(res.data.content.response.rooms);
-      })
-      .catch((err) => console.log(err));
-    return () => disconnect();
+    setTimeout(() => {
+      getChatRooms()
+        .then((res) => {
+          setRooms(res.data.content.response.rooms);
+          connectSocket(res.data.content.response.rooms[selectedRoom].uuid);
+        })
+        .catch((err) => console.log(err));
+    }, 350);
+
   }, []);
 
   useEffect(() => {
@@ -56,11 +61,19 @@ const Chat: FC = (): JSX.Element => {
   }, [roomId]);
 
   const connectSocket = (uuid: string) => {
-    stompClient.unsubscribe("1");
-    stompClient.subscribe("/topic/" + uuid, (message) => {
-      setChats((chats: any) => [JSON.parse(message.body), ...chats]);
-      console.log(JSON.parse(message.body))
-    }, { "id" : "1" });
+    stompClient.unsubscribe("socket");
+    if (stompClient.connected === undefined) {
+      // window.location.reload();
+      connect();
+    }
+
+    stompClient.subscribe(
+      "/topic/" + uuid,
+      (message) => {
+        setChats((chats: any) => [JSON.parse(message.body), ...chats]);
+      },
+      { id: "socket" }
+    );
   };
 
   const sendMessage = async () => {
@@ -77,7 +90,6 @@ const Chat: FC = (): JSX.Element => {
     );
     inputValue.current.value = "";
   };
-  
 
   const enterKey = (e: any) => {
     if (e.keyCode === 13) {
@@ -90,6 +102,10 @@ const Chat: FC = (): JSX.Element => {
       stompClient.disconnect();
     }
   };
+
+  const connect = async () => {
+    await stompClient.activate();
+  }
 
   return (
     <S.Container>
