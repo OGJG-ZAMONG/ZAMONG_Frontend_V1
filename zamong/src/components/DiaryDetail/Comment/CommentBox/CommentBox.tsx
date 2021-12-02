@@ -39,6 +39,7 @@ const CommentBox = ({
     like_count,
     is_like,
     is_dis_like,
+    user_profile,
   } = comment;
   const [modifyContent, setModifyContent] = useState(content);
   const [reComments, setReComments] = useState<Comment[]>([]);
@@ -183,7 +184,7 @@ const CommentBox = ({
   return (
     <S.CommentBox>
       <S.CommentProfile>
-        <img alt="profile" src={profile} />
+        <S.Profile alt="profile" src={user_profile} />
       </S.CommentProfile>
       <S.CommnetRight>
         <S.ModifyBox>

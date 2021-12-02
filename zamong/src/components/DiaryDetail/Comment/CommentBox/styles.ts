@@ -14,6 +14,13 @@ export const CommentProfile = styled.div`
   height: 52px;
 `;
 
+export const Profile = styled.img`
+  width: 100%;
+  height: 100%;
+  border-radius: 100%;
+  cursor: pointer;
+`
+
 export const CommnetRight = styled.div`
   width: 100%;
   display: grid;

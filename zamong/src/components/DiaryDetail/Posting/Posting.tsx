@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { Recommend } from "../../../assets";
 import { dreamDetail } from "../../../models/dto/response/dreamDetailResponse";
 import * as S from "./styles";
 
@@ -27,7 +28,7 @@ const DiaryDetailPosting = ({ postData }: PropsType): JSX.Element => {
       <S.Text>{content}</S.Text>
       {is_shared ? (
         <S.Lucy>
-          <S.LucyImg src={user.profile} />
+          <S.LucyImg src={Recommend} />
           <div>{lucy_count} LUCY</div>
         </S.Lucy>
       ) : (
