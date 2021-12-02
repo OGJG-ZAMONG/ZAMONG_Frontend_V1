@@ -18,7 +18,11 @@ interface PropertiesType {
   content: string;
 }
 
-const InterpretationWrite = (): JSX.Element => {
+interface PropsType {
+  uuid: string | null;
+}
+
+const InterpretationWrite = ({ uuid }: PropsType): JSX.Element => {
   const [properties, setProperties] = useState<PropertiesType>({
     title: "",
     types: [],
