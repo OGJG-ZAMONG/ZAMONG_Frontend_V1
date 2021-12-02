@@ -23,7 +23,7 @@ export const Input = styled.input`
 
 export const Won = styled.div`
   font: ${font.body3};
-  color: ${color.white};
+  color: ${color.gray};
   margin-left: 4px;
 `;
 

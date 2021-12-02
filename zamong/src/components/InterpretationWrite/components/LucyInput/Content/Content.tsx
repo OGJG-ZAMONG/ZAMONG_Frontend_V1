@@ -26,7 +26,7 @@ const Content = ({ lucy, setLucy }: PropsType): JSX.Element => {
     <>
       <S.Container>
         <S.Input placeholder="지급 LUCY 입력..." value={lucy} onChange={onChangeHandler} />
-        <S.Won>₩</S.Won>
+        <S.Won>· 123 LUCY 보유</S.Won>
       </S.Container>
     </>
   );
