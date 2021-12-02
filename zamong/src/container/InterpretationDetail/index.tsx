@@ -4,11 +4,11 @@ import Footer from "../../components/Footer/Footer";
 
 const InterpretationDetailContainer = () => {
   return (
-    <div>
+    <>
       <Header />
       <InterpretationDetail />
       <Footer />
-    </div>
+    </>
   );
 };
 

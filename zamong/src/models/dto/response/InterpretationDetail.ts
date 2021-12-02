@@ -12,4 +12,20 @@ export type InterpretationDetailResponse = defaultResponse<{
     id: string;
     profile: string;
   };
+  lucy_count: number;
 }>;
+
+export interface InterpretationDetail {
+  uuid: string;
+  title: string;
+  content: string;
+  updated_at: string;
+  dream_types: string[];
+  attachment_image: string;
+  user: {
+    uuid: string;
+    id: string;
+    profile: string;
+  };
+  lucy_count: number;
+}

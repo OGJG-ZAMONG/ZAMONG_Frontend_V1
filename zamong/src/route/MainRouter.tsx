@@ -42,7 +42,7 @@ const MainRouter: FC = (): JSX.Element => {
         <Route exact path="/search" component={SearcgContainter} />
         <Route exact path="/user/:uuid" component={AnoTherProfileContainter} />
         <Route exact path="/sell/detail/:uuid" component={SellDetailContainer} />
-        <Route exact path="/interpretation/:uuid" component={InterpretationDetailContainer} /> 
+        <Route exact path="/interpretation/detail/:uuid" component={InterpretationDetailContainer} /> 
       </Switch>
     </Suspense>
   );
