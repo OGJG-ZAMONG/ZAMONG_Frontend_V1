@@ -64,7 +64,22 @@ const InterpretationWrite = (): JSX.Element => {
             <LucyInput lucy={lucy} setLucy={setLucy} />
           </S.PropContainer>
         </div>
+        <div>
+          <S.Subtitle>꿈 내용</S.Subtitle>
+          <I.TextAreaContent
+            onChange={onChangeHandler}
+            name="content"
+            value={content}
+            placeholder="내용 입력..."
+          />
+          <FileInput file={file} setFile={setFile} id="sell" initPath={initImage} />
+        </div>
       </S.ContentContainer>
+
+      <I.ButtonContainer>
+        <I.BorderButton onClick={onCancel}>취소</I.BorderButton>
+        <I.BlueButton>{"작성"}</I.BlueButton>
+      </I.ButtonContainer>
     </S.Container>
   );
 };
