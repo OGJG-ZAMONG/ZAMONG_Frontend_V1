@@ -1,6 +1,7 @@
 import { useState } from "react";
 import Code from "../../interface/Code";
 import { color } from "../../style/color";
+import DreamType from "../DiaryWrite/component/Properties/Accordion/AccordionMenus/DreamType/DreamType";
 import * as S from "./styles";
 
 interface PropertiesType {
@@ -54,6 +55,12 @@ const InterpretationWrite = (): JSX.Element => {
           <S.TitleCount color={title.length >= MAXTITLE ? color.red : color.gray}>
             {title.length} / {MAXTITLE}
           </S.TitleCount>
+        </div>
+        <div>
+          <S.Subtitle>꿈 상세</S.Subtitle>
+          <S.PropContainer>
+            <DreamType typesState={[types, setTypes]} />
+          </S.PropContainer>
         </div>
       </S.ContentContainer>
     </S.Container>

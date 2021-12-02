@@ -57,3 +57,9 @@ export const TitleCount = styled.div`
   box-sizing: border-box;
   text-align: right;
 `;
+
+export const PropContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  row-gap: 12px;
+`;
