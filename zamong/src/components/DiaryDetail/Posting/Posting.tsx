@@ -38,10 +38,6 @@ const DiaryDetailPosting = ({ postData, onLikeSet }: PropsType): JSX.Element => 
     alert("이미 추천된 게시글입니다.");
   };
 
-  useEffect(() => {
-    console.log(postData);
-  }, [postData]);
-
   return (
     <S.PostingContainer>
       <S.PhotoGrid>
