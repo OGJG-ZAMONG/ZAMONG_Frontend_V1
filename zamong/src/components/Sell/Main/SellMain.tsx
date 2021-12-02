@@ -43,7 +43,7 @@ const SellMain: FC = (): JSX.Element => {
           const { uuid, user, cost, updated_at, title, dream_types, default_posting_image } = value;
           return (
             <SellingDream
-              key={uuid}
+              uuid={uuid}
               user={user}
               price={cost}
               date={updated_at}
