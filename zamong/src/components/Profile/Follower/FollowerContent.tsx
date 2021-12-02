@@ -1,7 +1,8 @@
 import React, { FC, useEffect, useState } from "react";
 import { follow, getFollower, unfollow } from "../../../utils/api/Profile";
 import * as S from "./style";
-import { useHistory } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
+
 interface Follower {
   uuid: string;
   profile: string;
@@ -14,12 +15,11 @@ interface FollowerType {
   total_size: number;
 }
 interface IdType {
-  myid: string;
+  id: string;
 }
 
 const FollowerContent: React.FC<IdType> = (props) => {
-  const { push } = useHistory();
-  const [isFollowing, setFollowing] = useState(false);
+  const history = useHistory();
   const [followerState, setFollower] = useState<FollowerType>({
     followers: [],
     total_size: 0,
@@ -33,7 +33,7 @@ const FollowerContent: React.FC<IdType> = (props) => {
 
   const follower = async () => {
     try {
-      const response = await getFollower(props.myid);
+      const response = await getFollower(props.id);
       setFollower(response.data.content.response);
     } catch (error) {
       throw error;
@@ -67,16 +67,19 @@ const FollowerContent: React.FC<IdType> = (props) => {
           팔로워 <span>{followerState.total_size}명</span>
         </S.Follower>
         <S.FollowerList>
-          {followerState.followers &&
+          {followerState.total_size === 0 ? (
+            <S.Text>팔로워가 없습니다.</S.Text>
+          ) : (
+            followerState.followers &&
             followerState.followers.map((data, v) => {
               const date =
                 data.follow_datetime.substring(5, 7) +
                 "월" +
                 " " +
                 (data.follow_datetime.substring(8, 10) + "일");
-              const userProfile = (id: string) => {
-                console.log(id);
-                //   return <UserProfilePage id={data.id} />;
+              const userProfile = (uuid: string) => {
+                alert("QNd");
+                history.push(`/user/${uuid}`);
               };
               return (
                 <S.UserBox>
@@ -98,7 +101,8 @@ const FollowerContent: React.FC<IdType> = (props) => {
                   </S.RightBox>
                 </S.UserBox>
               );
-            })}
+            })
+          )}
         </S.FollowerList>
       </S.Content>
     </>

@@ -9,9 +9,12 @@ import {
   DiaryWriteContainer,
   DiaryDetailContainer,
   SellManagementContainer,
+  DreamInterpretationMainContainer,
   ProfileContainter,
   SearcgContainter,
-  FindPasswordContainer
+  FindPasswordContainer,
+  AnoTherProfileContainter,
+  SellDetailContainer,
 } from "../container";
 import ChatContainer from "../container/Chat/ChatContainer";
 import SellWriteContainer from "../container/SellWrite";
@@ -30,6 +33,11 @@ const MainRouter: FC = (): JSX.Element => {
         <Route exact path="/sell/write" component={SellWriteContainer} />
         <Route exact path="/chat" component={ChatContainer} />
         <Route exact path="/findpassword" component={FindPasswordContainer} />
+        <Route
+          exact
+          path="/interpretation"
+          component={DreamInterpretationMainContainer}
+        />
         <Route exact path="/profile" component={ProfileContainter} />
         <Route
           exact
@@ -37,6 +45,8 @@ const MainRouter: FC = (): JSX.Element => {
           component={SellManagementContainer}
         />
         <Route exact path="/search" component={SearcgContainter} />
+        <Route exact path="/user/:uuid" component={AnoTherProfileContainter} />
+        <Route path="/sell/detail/:uuid" component={SellDetailContainer} />
       </Switch>
     </Suspense>
   );

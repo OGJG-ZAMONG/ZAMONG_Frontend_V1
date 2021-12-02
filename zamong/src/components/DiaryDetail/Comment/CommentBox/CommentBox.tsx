@@ -2,23 +2,35 @@ import * as S from "./styles";
 import Recommend from "./Recommend/Recommend";
 import ReplyComment from "./ReplyComment/ReplyComment";
 import { more, profile } from "../../../../assets/index";
-import { useEffect, useState } from "react";
+import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import {
   Comment,
+  delComment,
+  modifyComment,
   postComment,
   responseReComment,
 } from "../../../../utils/api/DreamDetail";
+import PopupMenu from "../../../PopupMenu/PopupMenu";
+import PopupContent from "../../../../interface/PopupContent";
 
 interface PropsType {
   comment: Comment;
   postUuid: string;
+  settingComment: () => Promise<void>;
 }
 
-const CommentBox = ({ comment, postUuid }: PropsType): JSX.Element => {
+const CommentBox = ({
+  comment,
+  postUuid,
+  settingComment,
+}: PropsType): JSX.Element => {
   const [onOffToggle, setOnOffToggle] = useState(false);
   const [onOffAdd, setOnOffAdd] = useState(false);
   const [input, setInput] = useState("");
   const [isActivePlus, setIsActivePlus] = useState(false);
+  const [isActiveMore, setIsActiveMore] = useState(false);
+  const [isModify, setIsModify] = useState(false);
+  const text = useRef<HTMLTextAreaElement>(null);
   const {
     uuid,
     content,
@@ -29,14 +41,17 @@ const CommentBox = ({ comment, postUuid }: PropsType): JSX.Element => {
     is_dis_like,
     user_profile,
   } = comment;
+  const [modifyContent, setModifyContent] = useState(content);
   const [reComments, setReComments] = useState<Comment[]>([]);
   const reCommentCount = reComments.length;
+  const [canWrite, setCanWrite] = useState<boolean>(true);
 
   useEffect(() => {
-    settingComment();
+    settingReComment();
   }, []);
 
-  const settingComment = async () => {
+  const settingReComment = async () => {
+    setReComments([]);
     setReComments(
       (await responseReComment(uuid)).data.content.response.comments
     );
@@ -60,6 +75,16 @@ const CommentBox = ({ comment, postUuid }: PropsType): JSX.Element => {
   };
 
   const writeReComment = async () => {
+    if (!canWrite) {
+      return;
+    }
+
+    setCanWrite(false);
+
+    setTimeout(() => {
+      setCanWrite(true);
+    }, 3000);
+
     if (input.replace(/(\s*)/g, "") === "") {
       alert("공백은 입력하실 수 없습니다.");
       setInput("");
@@ -68,12 +93,17 @@ const CommentBox = ({ comment, postUuid }: PropsType): JSX.Element => {
         content: input,
         p_comment: uuid,
       };
-      await postComment(postUuid, data);
-      setInput("");
-      setAdd(false);
-      settingComment();
-      alert("댓글이 입력되었습니다.");
-      setIsActivePlus(false);
+      try {
+        await postComment(postUuid, data);
+        setInput("");
+        setAdd(false);
+        settingReComment();
+        alert("댓글이 입력되었습니다.");
+        setIsActivePlus(false);
+        setOnOffToggle(true);
+      } catch (error) {
+        console.log(error);
+      }
     }
   };
 
@@ -83,14 +113,106 @@ const CommentBox = ({ comment, postUuid }: PropsType): JSX.Element => {
     }
   };
 
+  useLayoutEffect(() => {
+    if (isModify) {
+      if (text.current !== null) text.current.focus();
+    }
+  }, [isModify]);
+
+  const modify = async () => {
+    if (modifyContent.replaceAll(" ", "").length <= 0) {
+      alert("최소 1글자를 입력하셔야 합니다.");
+      return;
+    }
+
+    const data = {
+      content: modifyContent,
+    };
+    
+    try {
+      const response = await modifyComment(uuid, data);
+      setModifyContent(response.data.content.response.message);
+      alert("수정하셨습니다.");
+      setIsModify(!isModify);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const change = (e: React.FormEvent<HTMLTextAreaElement>) => {
+    const { value } = e.currentTarget;
+    setModifyContent(value);
+  };
+
+  const deleteComment = async () => {
+    if (window.confirm("정말 삭제하시겠습니까?")) {
+      try {
+        await delComment(uuid);
+        alert("삭제되었습니다.");
+        settingComment();
+      } catch (error) {
+        console.log(error);
+      }
+    }
+  };
+
+  const popupContents: PopupContent[] = [
+    {
+      name: "수정",
+      callback: () => {
+        setIsModify(!isModify);
+      },
+    },
+    {
+      name: "삭제",
+      callback: () => {
+        deleteComment();
+      },
+    },
+  ];
+
+  const popupClose: PopupContent[] = [
+    {
+      name: "수정 취소",
+      callback: () => {
+        setModifyContent(content);
+        setIsModify(!isModify);
+      },
+    },
+  ];
+
   return (
     <S.CommentBox>
       <S.CommentProfile>
-        <img alt="profile" src={profile} />
+        <S.Profile alt="profile" src={user_profile} />
       </S.CommentProfile>
       <S.CommnetRight>
-        <S.CommentText>{content}</S.CommentText>
-        <S.More alt="more" src={more} />
+        <S.ModifyBox>
+          <S.CommentText
+            name="modifyContent"
+            value={modifyContent}
+            ref={text}
+            readOnly={!isModify}
+            onChange={change}
+          />
+          {isModify ? (
+            <S.ModifyButton onClick={modify}>수정</S.ModifyButton>
+          ) : (
+            <></>
+          )}
+        </S.ModifyBox>
+        <S.MoreBox>
+          <S.More
+            alt="more"
+            src={more}
+            onClick={() => setIsActiveMore(!isActiveMore)}
+          />
+          <PopupMenu
+            contents={isModify ? popupClose : popupContents}
+            isActiveMore={isActiveMore}
+            setIsActiveMore={setIsActiveMore}
+          />
+        </S.MoreBox>
         <S.CommentBoxBottom>
           <S.DetailLeft>
             <ReplyComment
@@ -102,7 +224,13 @@ const CommentBox = ({ comment, postUuid }: PropsType): JSX.Element => {
             />
           </S.DetailLeft>
           <S.DetailRight>
-            <Recommend isLike={is_like} likeCount={like_count} isDisLike={is_dis_like} disLikeCount={dislike_count} uuid={uuid}/>
+            <Recommend
+              isLike={is_like}
+              likeCount={like_count}
+              isDisLike={is_dis_like}
+              disLikeCount={dislike_count}
+              uuid={uuid}
+            />
             <S.CommentDate>{date}</S.CommentDate>
           </S.DetailRight>
         </S.CommentBoxBottom>
@@ -116,7 +244,9 @@ const CommentBox = ({ comment, postUuid }: PropsType): JSX.Element => {
               onChange={commentChange}
               onKeyUp={keyUp}
             />
-            <S.EnterButton onClick={writeReComment}>덧글 쓰기</S.EnterButton>
+            <S.EnterButton onClick={writeReComment} disabled={!canWrite}>
+              덧글 쓰기
+            </S.EnterButton>
           </S.InputContainer>
         )}
         {onOffToggle && (
@@ -124,7 +254,12 @@ const CommentBox = ({ comment, postUuid }: PropsType): JSX.Element => {
             <S.CommentToComment>
               {reComments.map((value, i) => {
                 return (
-                  <CommentBox postUuid={postUuid} comment={value} key={i} />
+                  <CommentBox
+                    postUuid={postUuid}
+                    comment={value}
+                    settingComment={settingComment}
+                    key={i}
+                  />
                 );
               })}
             </S.CommentToComment>

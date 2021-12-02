@@ -1,6 +1,7 @@
 import styled from "@emotion/styled";
 import { color } from "../../../../style/color";
 import { font } from "../../../../style/font";
+import TextareaAutosize from "react-textarea-autosize";
 
 export const CommentBox = styled.div`
   width: 100%;
@@ -13,6 +14,13 @@ export const CommentProfile = styled.div`
   height: 52px;
 `;
 
+export const Profile = styled.img`
+  width: 100%;
+  height: 100%;
+  border-radius: 100%;
+  cursor: pointer;
+`
+
 export const CommnetRight = styled.div`
   width: 100%;
   display: grid;
@@ -21,17 +29,45 @@ export const CommnetRight = styled.div`
   grid-template-columns: 1fr 24px;
 `;
 
-export const CommentText = styled.div`
+export const ModifyBox = styled.div`
+  display: flex;
+  column-gap: 20px;
+`;
+
+export const CommentText = styled(TextareaAutosize)`
+  width: 100%;
   color: ${color.white};
   font: ${font.body3};
   background-color: ${color.darkerGray};
   border-radius: 10px;
   padding: 16px;
+  outline: none;
+  border: none;
+  resize: none;
+`;
+
+export const ModifyButton = styled.div`
+  padding: 0px 29px;
+  color: ${color.white};
+  background-color: ${color.blue};
+  text-align: center;
+  border-radius: 10px;
+  white-space: nowrap;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+`;
+
+export const MoreBox = styled.div`
+  position: relative;
+  display: flex;
+  align-items: center;
 `;
 
 export const More = styled.img`
   margin: auto 0;
   cursor: pointer;
+  padding: 15px 0px;
 `;
 
 export const CommentBoxBottom = styled.div`
@@ -74,13 +110,13 @@ export const CommentInput = styled.input`
   border: none;
   border-radius: 10px;
   padding: 16px;
-  ::placeholder {
+  :placeholder {
     color: ${color.lightGray};
     font: ${font.body3};
   }
-  `;
+`;
 
-export const EnterButton = styled.div`
+export const EnterButton = styled.button`
   padding: 16px 12px;
   color: ${color.white};
   background-color: ${color.blue};
@@ -88,6 +124,12 @@ export const EnterButton = styled.div`
   border-radius: 10px;
   white-space: nowrap;
   cursor: pointer;
+  border: 0;
+  outline: none;
+  font: ${font.body3};
+  &:disabled{
+    filter: brightness(0.8);
+  }
 `;
 
 export const CommentToComment = styled.div`

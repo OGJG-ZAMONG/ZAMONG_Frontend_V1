@@ -12,12 +12,18 @@ export const Followe = styled.p`
   color: ${color.white};
   margin-bottom: 28px;
   span {
-    color: blue;
+    color: ${color.blue};
   }
 `;
 
 export const FolloweList = styled.div`
   width: 100%;
+`;
+
+export const Text = styled.p`
+  text-align: center;
+  font: ${font.body3};
+  color: ${color.white};
 `;
 
 export const UserBox = styled.div`

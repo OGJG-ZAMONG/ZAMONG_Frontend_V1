@@ -4,6 +4,7 @@ import { Follower, Follow, AccountInfo } from "../../assets";
 import FollowerContent from "./Follower/FollowerContent";
 import FollowContent from "./Follow/FollowContent";
 import AccountContent from "./Account/AccountContent";
+import { useHistory } from "react-router";
 import {
   getFollower,
   getFollowing,
@@ -20,7 +21,7 @@ interface ProfileType {
   lucy_count: number;
 }
 interface IdType {
-  myid: string;
+  id: string;
 }
 interface FollowerType {
   total_size: number;
@@ -107,7 +108,7 @@ const ProfilePage = (): JSX.Element => {
       .set(FOLLORWING, FollowContent)
       .set(ACCOUNTINFO, AccountContent);
     const content = React.createElement(contentMap.get(contentState)!, {
-      myid: uuid,
+      id: uuid,
     });
     return <>{content}</>;
   };

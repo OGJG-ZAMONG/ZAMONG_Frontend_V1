@@ -1,6 +1,7 @@
 import React, { FC, useEffect, useState } from "react";
 import { getFollowing, unfollow, follow } from "../../../utils/api/Profile";
 import * as S from "./style";
+import { useHistory } from "react-router-dom";
 
 interface Following {
   uuid: string;
@@ -16,22 +17,15 @@ interface FollowType {
 }
 
 interface IdType {
-  myid: string;
-}
-
-interface ConfirmType {
-  user_uuid: string;
+  id: string;
 }
 
 const FollowContent: FC<IdType> = (props) => {
+  const history = useHistory();
   const [followState, setFollow] = useState<FollowType>({
     followings: [],
     total_size: 0,
   });
-  const [followConfirm, setConfirm] = useState<ConfirmType>({
-    user_uuid: "",
-  });
-  const [followCurrentStatus, setCurrentStatus] = useState(true);
 
   useEffect(() => {
     following();
@@ -39,7 +33,7 @@ const FollowContent: FC<IdType> = (props) => {
 
   const following = async () => {
     try {
-      const response = await getFollowing(props.myid);
+      const response = await getFollowing(props.id);
       setFollow(response.data.content.response);
     } catch (error) {
       throw error;
@@ -73,17 +67,24 @@ const FollowContent: FC<IdType> = (props) => {
           팔로우 <span>{followState.total_size}명</span>
         </S.Followe>
         <S.FolloweList>
-          {followState.followings &&
+          {followState.total_size === 0 ? (
+            <S.Text>팔로우가 없습니다.</S.Text>
+          ) : (
+            followState.followings &&
             followState.followings.map((data, v) => {
               const date =
                 data.follow_datetime.substring(5, 7) +
                 "월" +
                 " " +
                 (data.follow_datetime.substring(8, 10) + "일");
+              const userProfile = (uuid: string) => {
+                alert("QNd");
+                history.push(`/user/${uuid}`);
+              };
               return (
                 <>
                   <S.UserBox>
-                    <S.LeftBox>
+                    <S.LeftBox onClick={() => userProfile(data.uuid)}>
                       <S.Profile img={data.profile} />
                       <S.UserNickName>{data.id}</S.UserNickName>
                     </S.LeftBox>
@@ -104,7 +105,8 @@ const FollowContent: FC<IdType> = (props) => {
                   </S.UserBox>
                 </>
               );
-            })}
+            })
+          )}
         </S.FolloweList>
       </S.Content>
     </>

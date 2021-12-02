@@ -1,3 +1,5 @@
+import defaultResponse from "./defaultResponse";
+
 export interface following {
   uuid: string;
   profile: string;
@@ -6,15 +8,8 @@ export interface following {
   is_following: boolean;
 }
 
-export interface followingResponse {
-  status: number;
-  timestamp: string;
-  content: {
-    collection_value: boolean;
-    response: {
-      followings: following[];
-      total_size: number;
-      total_page: number;
-    };
-  };
-}
+export type followingResponse = defaultResponse<{
+  followings: following[];
+  total_size: number;
+  total_page: number;
+}>;

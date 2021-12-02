@@ -5,4 +5,5 @@ export const UserImage = styled.img`
   height: 36px;
   object-fit: cover;
   border-radius: 50%;
+  z-index: 1;
 `;

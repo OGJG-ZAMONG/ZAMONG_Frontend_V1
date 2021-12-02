@@ -3,6 +3,7 @@ import * as S from "./styles";
 import Chat from "../../../assets/icons/Chat.svg";
 import Discovery from "../../../assets/icons/Discovery.svg";
 import ShoppingCart from "../../../assets/icons/ShoppingCart.svg";
+import Book from "../../../assets/icons/book.svg";
 import { useHistory } from "react-router-dom";
 import { useLayoutEffect, useState } from "react";
 import { getMyProfile } from "../../../utils/api/Profile";
@@ -34,12 +35,17 @@ const LoginComponent = (): JSX.Element => {
     {
       img: Discovery,
       text: "꿈 해몽",
-      to: "/",
+      to: "/interpretation",
     },
     {
       img: ShoppingCart,
       text: "꿈 판매",
       to: "/sell",
+    },
+    {
+      img: Book,
+      text: "꿈 일기",
+      to: "/diary",
     },
   ];
 
@@ -66,11 +72,11 @@ const LoginComponent = (): JSX.Element => {
     setHeaderData();
   }, []);
 
-  const navRender = navs.map((value) => {
+  const navRender = navs.map((value, index) => {
     const { img, text, to } = value;
 
     return (
-      <S.LinkComponentContainer to={to}>
+      <S.LinkComponentContainer to={to} key={index}>
         <S.LinkIcon alt={`nav ${text}`} src={img} />
         <S.NavText>{text}</S.NavText>
       </S.LinkComponentContainer>
