@@ -13,7 +13,7 @@ export const Line = styled.div`
   width: 100%;
   height: 1px;
   background-color: ${color.darkGray};
-  margin-top: 56px;
+  margin-top: 320px;
   margin-bottom: 28px;
   box-sizing: border-box;
 `;

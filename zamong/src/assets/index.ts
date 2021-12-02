@@ -32,3 +32,5 @@ export { default as AccountInfo } from "./profile/accountInfo.svg";
 export { default as Checked } from "./icons/Checked.png";
 export { default as Locked } from "./icons/locked.svg";
 export { default as Unlocked } from "./icons/lockOpen.svg";
+export { default as Recommend } from "./icons/Recommend.svg";
+export { default as OnRecommend } from "./icons/OnRecommend.svg";
