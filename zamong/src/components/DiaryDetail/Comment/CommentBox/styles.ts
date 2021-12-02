@@ -10,16 +10,26 @@ export const CommentBox = styled.div`
 `;
 
 export const CommentProfile = styled.div`
-  width: 52px;
-  height: 52px;
+  position: relative;
 `;
 
 export const Profile = styled.img`
-  width: 100%;
-  height: 100%;
-  border-radius: 100%;
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
   cursor: pointer;
-`
+`;
+
+export const UserName = styled.div`
+  position: absolute;
+  padding: 12px 8px;
+  font: ${font.description};
+  background-color: ${color.darkerGray};
+  color: ${color.white};
+  border-radius: 10px;
+  white-space: nowrap;
+  transform: translateX(calc(-100% - 8px)) translateY(-122.5%);
+`;
 
 export const CommnetRight = styled.div`
   width: 100%;
@@ -127,7 +137,7 @@ export const EnterButton = styled.button`
   border: 0;
   outline: none;
   font: ${font.body3};
-  &:disabled{
+  &:disabled {
     filter: brightness(0.8);
   }
 `;
