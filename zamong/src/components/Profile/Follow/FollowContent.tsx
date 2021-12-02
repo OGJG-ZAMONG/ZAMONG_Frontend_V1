@@ -67,7 +67,10 @@ const FollowContent: FC<IdType> = (props) => {
           팔로우 <span>{followState.total_size}명</span>
         </S.Followe>
         <S.FolloweList>
-          {followState.followings &&
+          {followState.total_size === 0 ? (
+            <S.Text>팔로우가 없습니다.</S.Text>
+          ) : (
+            followState.followings &&
             followState.followings.map((data, v) => {
               const date =
                 data.follow_datetime.substring(5, 7) +
@@ -102,7 +105,8 @@ const FollowContent: FC<IdType> = (props) => {
                   </S.UserBox>
                 </>
               );
-            })}
+            })
+          )}
         </S.FolloweList>
       </S.Content>
     </>
