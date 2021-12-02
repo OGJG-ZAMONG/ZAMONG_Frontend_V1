@@ -68,3 +68,18 @@ export const Flex = styled.div`
   }
   display: flex;
 `;
+
+export const Headline = styled.div`
+  color: ${color.white};
+  font: ${font.headline2};
+  margin-bottom: 16px;
+`;
+
+export const Body = styled.div`
+  color: ${color.white};
+  font: ${font.body3};
+  a {
+    color: ${color.white};
+    font: ${font.body3};
+  }
+`;
