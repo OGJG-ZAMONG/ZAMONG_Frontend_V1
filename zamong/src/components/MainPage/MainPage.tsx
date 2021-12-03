@@ -5,7 +5,6 @@ import { DreamList, FollowList, MyDreamDiaryList, FollowDreamDiaryList } from ".
 import { useLayoutEffect, useRef, useState } from "react";
 import { getMyProfile } from "../../utils/api/Profile";
 import { useHistory } from "react-router-dom";
-import Background from "../Background/Background";
 
 const MainPage = (): JSX.Element => {
   interface LinkType {
@@ -18,21 +17,18 @@ const MainPage = (): JSX.Element => {
   const followRef = useRef<HTMLDivElement>(null);
   const shareDreamRef = useRef<HTMLDivElement>(null);
 
-  const { current: follow } = followRef;
-  const { current: shareDream } = shareDreamRef;
-
   const { push } = useHistory();
 
   const toFollow = () => {
-    if (follow) {
-      const top = follow.offsetTop - 64;
+    if (followRef.current) {
+      const top = followRef.current.offsetTop - 64;
       window.scrollTo({ top: top, behavior: "smooth" });
     }
   };
 
   const toShareDream = () => {
-    if (shareDream) {
-      const top = shareDream.offsetTop - 64;
+    if (shareDreamRef.current) {
+      const top = shareDreamRef.current.offsetTop - 64;
       window.scrollTo({ top: top, behavior: "smooth" });
     }
   };
