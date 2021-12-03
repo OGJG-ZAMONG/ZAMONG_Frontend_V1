@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import * as S from "./styles";
-import { Follower, Follow, AccountInfo } from "../../../assets";
+import { Follower, Follow } from "../../../assets";
 import FollowerContent from "../Follower/FollowerContent";
 import FollowContent from "../Follow/FollowContent";
 import {
@@ -107,6 +107,7 @@ const AnotherProfilePage: React.FC<IdType | null> = (props): JSX.Element => {
     });
     return <>{content}</>;
   };
+
   const is_following = true;
 
   return (
@@ -127,19 +128,17 @@ const AnotherProfilePage: React.FC<IdType | null> = (props): JSX.Element => {
                 <S.Text onClick={onFollowClick}>
                   팔로우 {followState.total_size}명
                 </S.Text>
-                <S.LinkText to="/diary">
-                  내가 쓴 꿈 일기 {share_dream_count}개
-                </S.LinkText>
+                <span>내가 쓴 꿈 일기 {share_dream_count}개</span>
                 <span>{lucy_count}LUCY</span>
               </S.OneLineBox>
-              <div>
+              <S.LineBox>
                 <S.NameBox>이름: {name}</S.NameBox>
-                {is_following === true ? (
+                {is_following ? (
                   <S.FollowingBtn>팔로우중</S.FollowingBtn>
                 ) : (
                   <S.FollowBtn>팔로우</S.FollowBtn>
                 )}
-              </div>
+              </S.LineBox>
             </S.InfoBox>
           </S.TopContent>
         </S.TopBox>

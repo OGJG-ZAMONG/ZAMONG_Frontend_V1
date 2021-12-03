@@ -26,6 +26,19 @@ enum uri {
   shareDream = "/dream/share/DREAM_UUID",
   interpretation = "/dream/interpretation",
   follow = "/user/follow",
+  sellDreamInfo = "/dream/sell/DREAM_UUID",
+  chatRequestList = "/dream/sell/DREAM_UUID/request",
+  deleteSell = "/dream/sell/DREAM_UUID",
+  acceptChat = "/dream/sell/DREAM_UUID/accept",
+  chatRequest = "/dream/sell/DREAM_UUID/request",
+  recommendPost = "/dream/share/DREAM_UUID/lucy",
+  userSearch = "/user/search?",
+  shareSearch = "/dream/share/search?",
+  interpretationSearch = "/dream/interpretation/search?",
+  sellSearch = "/dream/sell/search?",
+  getInterpretation = "/dream/interpretation/DREAM_UUID",
+  checkComment = "/dream/comment/DREAM_UUID/check",
+  selectComment = "/dream/interpretation/select",
 }
 
 export default uri;

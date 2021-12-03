@@ -1,4 +1,5 @@
 import styled from "@emotion/styled";
+import { Link } from "react-router-dom";
 import { color } from "../../../style/color";
 import { font } from "../../../style/font";
 
@@ -11,6 +12,27 @@ export const ContentInner = styled.div`
 
 export const Subtitle = styled.div`
   font: ${font.headline3};
+`;
+
+export const TitleContainer = styled.div`
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+`;
+
+export const Write = styled(Link)`
+  font: ${font.body3};
+  text-decoration: none;
+  color: ${color.gray};
+  background-color: transparent;
+  text-align: right;
+  border: 0;
+  cursor: pointer;
+  display: flex;
+  align-items: flex-end;
+  &:hover {
+    color: ${color.white};
+  }
 `;
 
 export const ListContainer = styled.div`

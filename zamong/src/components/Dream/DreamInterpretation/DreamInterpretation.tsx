@@ -3,9 +3,16 @@ import dreamType from "../../../constance/dreamType";
 import * as I from "../styles";
 import Default from "../../../assets/DefaultPostingImages/1.jpg";
 import Tag from "../../Tag/Tag";
+import { InterpretationDream } from "../../../models/dto/response/InterpretationListResponse";
 
-const DreamInterpretation = (): JSX.Element => {
+interface PropsType {
+  data: InterpretationDream;
+}
+
+const DreamInterpretation = ({ data }: PropsType): JSX.Element => {
   const [isUserImageHover, setIsUserImageHover] = useState<boolean>(false);
+  const { default_posting_image, dream_types, title, updated_at, user, uuid, lucy_count } = data;
+  const { id, profile } = user;
 
   const dateToString = (date: Date) => {
     if (date.getFullYear() !== new Date().getFullYear())
@@ -14,13 +21,17 @@ const DreamInterpretation = (): JSX.Element => {
     return `${date.getMonth() + 1}월 ${date.getDate()}일`;
   };
 
+  const renderType = dream_types.map((value) => {
+    return <Tag>{dreamType.find((elem) => elem.code === value)?.name}</Tag>;
+  });
+
   return (
     <>
-      <I.DreamContainer to="">
-        <I.DreamImage img={Default}>
+      <I.DreamContainer to={`/interpretation/detail/${uuid}`}>
+        <I.DreamImage img={default_posting_image}>
           <I.DreamUserImage
             alt="user image"
-            src={Default}
+            src={profile}
             onMouseEnter={() => {
               setIsUserImageHover(true);
             }}
@@ -28,23 +39,18 @@ const DreamInterpretation = (): JSX.Element => {
               setIsUserImageHover(false);
             }}
           />
-          {isUserImageHover && <I.UserName>kjg2004</I.UserName>}
+          {isUserImageHover && <I.UserName>{id}</I.UserName>}
         </I.DreamImage>
         <I.DreamInfoContainer>
-          <I.DreamTitle>안녕하세요 이거 해몽해주세요.</I.DreamTitle>
-          <I.DreamLucy>21 LUCY 지급</I.DreamLucy>
-          <I.DreamDate>8월 1일</I.DreamDate>
+          <I.DreamTitle>{title}</I.DreamTitle>
+          <I.DreamLucy>{lucy_count} LUCY 지급</I.DreamLucy>
+          <I.DreamDate>{dateToString(new Date(updated_at))}</I.DreamDate>
         </I.DreamInfoContainer>
         <I.DreamTagContainer>
-          <I.DreamTagInner>
-            <Tag>악몽</Tag>
-            <Tag>첫 게시물</Tag>
-            <Tag>루시드 드림</Tag>
-            <Tag>거짓 깨어남</Tag>
-          </I.DreamTagInner>
+          <I.DreamTagInner>{renderType}</I.DreamTagInner>
         </I.DreamTagContainer>
       </I.DreamContainer>
-      <I.Line></I.Line>
+      <I.Line />
     </>
   );
 };

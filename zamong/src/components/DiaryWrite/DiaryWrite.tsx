@@ -86,7 +86,7 @@ const DiaryWrite = ({ dreamUUID }: PropsType): JSX.Element => {
   const [file, setFile] = useState<File | undefined>();
   const { title, content, date, startTime, endTime, quality, types } = properties;
   const [lastUpdateDate, setLastUpdateDate] = useState<Date | null>(null);
-  const isPropertyValid = (): boolean => title.length > 0 || content.length > 0 || types.length > 0;
+  const isPropertyValid = (): boolean => title.length > 0 && content.length > 0 && types.length > 0;
 
   const init = async (): Promise<PropertysType> => {
     let returnValue = { ...initValue };
@@ -94,7 +94,9 @@ const DiaryWrite = ({ dreamUUID }: PropsType): JSX.Element => {
     const savedDiaryString = localStorage.getItem("saved_diary");
     if (!dreamUUID && savedDiaryString) {
       const savedDiary: PropertysType = JSON.parse(savedDiaryString);
+      const saveTime = localStorage.getItem("last_save_time") || new Date().toString();
       savedDiary.date = new Date(savedDiary.date);
+      setLastUpdateDate(new Date(saveTime));
 
       returnValue = { ...savedDiary };
     }
@@ -103,7 +105,19 @@ const DiaryWrite = ({ dreamUUID }: PropsType): JSX.Element => {
       //만약 꿈 식별자가 쿼리스트링에 있으면
       isPostRef.current = true; //post를 이미 했다고 한다
 
-      //async를 쓰기 위해 즉시 실행 함수를 사용한다
+      const uuidSavedDiaryString = localStorage.getItem(dreamUUID);
+      if (uuidSavedDiaryString) {
+        const savedDiary: PropertysType = JSON.parse(uuidSavedDiaryString);
+        const saveTime =
+          localStorage.getItem(`${dreamUUID}_last_save_time`) || new Date().toString();
+        savedDiary.date = new Date(savedDiary.date);
+        setLastUpdateDate(new Date(saveTime));
+
+        returnValue = { ...savedDiary };
+
+        return returnValue;
+      }
+
       try {
         const response = await getDreamDetail(dreamUUID);
         const {
@@ -123,7 +137,7 @@ const DiaryWrite = ({ dreamUUID }: PropsType): JSX.Element => {
         const startTime = getTimeFromDate(new Date(sleep_begin_date_time));
         const endTime = getTimeFromDate(new Date(sleep_end_date_time));
         const dreamTypes = dream_types.map(
-          (value) => dreamType.find((item) => item.code === value)!
+          (value: string) => dreamType.find((item) => item.code === value)!
         );
 
         returnValue.title = title;
@@ -224,11 +238,18 @@ const DiaryWrite = ({ dreamUUID }: PropsType): JSX.Element => {
       push(`/diary/write?dreamUUID=${uuid}`);
       isPostRef.current = true;
 
-      alert("저장 완료");
+      alert("작성 완료");
 
       await saveFile(uuid);
       push(`/diary`);
-      localStorage.removeItem("saved_diary");
+
+      if (dreamUUID) {
+        localStorage.removeItem(`${dreamUUID}`);
+        localStorage.removeItem(`${dreamUUID}_last_save_time`);
+      } else {
+        localStorage.removeItem("saved_diary");
+        localStorage.removeItem("last_save_time");
+      }
     } catch (error) {
       console.log(error);
       alert("오류가 발생했습니다.");
@@ -237,8 +258,16 @@ const DiaryWrite = ({ dreamUUID }: PropsType): JSX.Element => {
 
   const onSave = () => {
     const objectString = JSON.stringify(properties);
-    localStorage.setItem("saved_diary", objectString);
 
+    if (dreamUUID) {
+      localStorage.setItem(dreamUUID, objectString);
+      localStorage.setItem(`${dreamUUID}_last_save_time`, new Date().toString());
+    } else {
+      localStorage.setItem("saved_diary", objectString);
+      localStorage.setItem("last_save_time", new Date().toString());
+    }
+
+    setLastUpdateDate(new Date());
     alert("임시 저장되었습니다.");
   };
 
@@ -306,7 +335,7 @@ const DiaryWrite = ({ dreamUUID }: PropsType): JSX.Element => {
                 <ElapsedTime from={lastUpdateDate} interval={1000}></ElapsedTime> 전
               </S.LastChange>
             )}
-            <S.BorderButton onClick={onSave}>저장</S.BorderButton>
+            <S.BorderButton onClick={onSave}>임시 저장</S.BorderButton>
             <S.BlueButton onClick={onPost}>작성</S.BlueButton>
           </S.ButtonContainer>
         </S.WriteSection>

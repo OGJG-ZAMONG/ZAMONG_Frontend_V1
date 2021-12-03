@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import {
+  accountSecession,
   changeProfile,
   getMyProfile,
   modfiyId,
@@ -68,6 +69,24 @@ const AccountContent = (): JSX.Element => {
     setNewId(e.target.value);
   };
 
+  const clickDelete = () => {
+    // eslint-disable-next-line no-restricted-globals
+    const input = confirm("탈퇴하시겠습니까?");
+    if (input === true) {
+      const inputString = prompt("현재 비밀번호를 입력하세요", "비밀번호");
+      alert(inputString);
+      doDelete(inputString!);
+    } else return;
+  };
+
+  const doDelete = async (pw: string) => {
+    try {
+      await accountSecession(pw);
+    } catch (error) {
+      alert("비밀번호가 틀렸습니다.");
+    }
+  };
+
   useEffect(() => {
     myId();
   }, []);
@@ -125,7 +144,7 @@ const AccountContent = (): JSX.Element => {
           </S.Box>
           <S.Box>
             <S.DeleteText>계정 탈퇴</S.DeleteText>
-            <S.DeleteBtn>탈퇴</S.DeleteBtn>
+            <S.DeleteBtn onClick={clickDelete}>탈퇴</S.DeleteBtn>
           </S.Box>
         </S.AccountBox>
       </S.Content>

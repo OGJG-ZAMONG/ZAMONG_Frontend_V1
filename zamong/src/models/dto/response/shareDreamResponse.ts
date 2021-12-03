@@ -1,3 +1,5 @@
+import defaultResponse from "./defaultResponse";
+
 export interface Dream {
   uuid: string;
   default_posting_image: string;
@@ -7,15 +9,8 @@ export interface Dream {
   is_shared: boolean;
 }
 
-export interface shareDreamResponse {
-  status: number;
-  timestamp: string;
-  content: {
-    collection_value: boolean;
-    response: {
-      share_dreams: Dream[];
-      total_page: number;
-      total_size: number;
-    };
-  };
-}
+export type shareDreamResponse = defaultResponse<{
+  share_dreams: Dream[];
+  total_page: number;
+  total_size: number;
+}>;

@@ -8,12 +8,27 @@ type PropsType = {
 };
 
 const Modal = ({ children, setModal, closeEvent }: PropsType): JSX.Element => {
+  const checkESC = (e: KeyboardEvent) => {
+    if (e.keyCode === 27) {
+      closeEvent();
+      setModal(false);
+    }
+  };
+
   useEffect(() => {
     document.body.style.overflow = "hidden";
     return () => {
       document.body.style.overflow = "unset";
     };
   }, []);
+
+  useEffect(() => {
+    window.addEventListener("keydown", checkESC);
+
+    return () => {
+      window.removeEventListener("keydown", checkESC);
+    };
+  }, [closeEvent]);
 
   return (
     <>

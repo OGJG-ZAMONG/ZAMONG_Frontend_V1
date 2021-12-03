@@ -18,7 +18,7 @@ const FollowDreamDiary = ({ dream }: PropsType): JSX.Element => {
   };
 
   return (
-    <I.DreamCardContainer to={`/diary/detail?${uuid}`}>
+    <I.DreamCardContainer to={`/diary/detail/${uuid}`}>
       <I.DreamImageContainer img={default_posting_image}>
         <S.UserImage src={profile} />
         <I.DiaryDate>{dateToString(new Date(created_at))}</I.DiaryDate>

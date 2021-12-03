@@ -43,7 +43,13 @@ export const PostingDate = styled.div`
 export const UserInfo = styled.div`
   display: flex;
   align-items: center;
-  gap: 18px;
+  gap: 16px;
+`
+
+export const ProfileLink = styled.div`
+  display: flex;
+  align-items: center;
+  column-gap: 6px;
 `
 
 export const PrifilePhoto = styled.img`

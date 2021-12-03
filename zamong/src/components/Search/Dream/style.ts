@@ -63,6 +63,11 @@ export const DreamDate = styled.div`
 export const DreamTagInner = styled.div`
   align-items: flex-start;
   width: 305px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  position: relative;
+  gap: 12px;
 `;
 
 export const DreamTagContent = styled.div`

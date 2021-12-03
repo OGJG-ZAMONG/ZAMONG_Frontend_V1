@@ -1,7 +1,7 @@
 import * as S from "./styles";
-import Logo from "../../assets/logo/testLogo.png";
+import Logo from "../../assets/logo/logo.svg";
 import SearchIcon from "../../assets/icons/searchIcon.svg";
-import { Link, RouteComponentProps, withRouter } from "react-router-dom";
+import { Link, RouteComponentProps, withRouter, useHistory } from "react-router-dom";
 import Filter from "./Filter/Filter";
 import { useEffect, useState } from "react";
 import LoginComponent from "./LoginComponent";
@@ -14,6 +14,8 @@ const Header = ({ history }: RouteComponentProps): JSX.Element => {
   const [headerLineOpacity, setHeaderLineOpacity] = useState<number>(0);
   const [selectedType, setSelectedType] = useState<Code[]>([]);
   const [searchText, setSearchText] = useState<string>("");
+
+  const { push } = useHistory();
 
   const scrollEvent = () => {
     if (window.pageYOffset === 0) {
@@ -44,8 +46,21 @@ const Header = ({ history }: RouteComponentProps): JSX.Element => {
       });
     });
   });
+  const onChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchText(e.target.value);
+  };
+  const onKeyDownHandler = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === "Enter") {
+      if (searchText.length <= 0) {
+        alert("검색어를 입력해주세요.");
+        return;
+      }
 
-  const onChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => setSearchText(e.target.value);
+      push(
+        `/search?content=${searchText}&types=${selectedType.map((value) => value.code).join(",")}`
+      );
+    }
+  };
 
   return (
     <S.HeaderContainer pd={headerPadding} lineOpacity={headerLineOpacity}>
@@ -66,6 +81,7 @@ const Header = ({ history }: RouteComponentProps): JSX.Element => {
                   value={searchText}
                   onChange={onChangeHandler}
                   placeholder="검색할 내용을 입력하세요."
+                  onKeyDown={onKeyDownHandler}
                 />
               </S.SearchInputContainer>
               <Filter selectedState={[selectedType, setSelectedType]} />
