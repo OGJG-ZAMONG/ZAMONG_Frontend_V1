@@ -18,7 +18,11 @@ const Header = ({ history }: RouteComponentProps): JSX.Element => {
   const { push } = useHistory();
 
   const scrollEvent = () => {
-    setIsTop(window.pageYOffset === 0);
+    if (window.pageYOffset === 0) {
+      setIsTop(true);
+    } else if (isTop) {
+      setIsTop(false);
+    }
   };
 
   useEffect(() => {
@@ -42,11 +46,9 @@ const Header = ({ history }: RouteComponentProps): JSX.Element => {
       });
     });
   });
-
   const onChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearchText(e.target.value);
   };
-
   const onKeyDownHandler = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter") {
       if (searchText.length <= 0) {
