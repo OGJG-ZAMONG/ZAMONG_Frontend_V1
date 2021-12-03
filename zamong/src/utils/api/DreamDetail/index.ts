@@ -57,6 +57,7 @@ export interface Comment {
   is_like: boolean;
   is_dis_like: boolean;
   user_id: string;
+  is_selected: boolean;
 }
 
 interface CommentType {

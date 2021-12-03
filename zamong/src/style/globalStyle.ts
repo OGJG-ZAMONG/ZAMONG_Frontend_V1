@@ -146,4 +146,12 @@ export const reset = css`
   &::-webkit-scrollbar-track {
     background-color: rgba(0, 0, 0, 0);
   }
+  input:-webkit-autofill,
+  input:-webkit-autofill:hover,
+  input:-webkit-autofill:focus,
+  input:-webkit-autofill:active {
+    transition: background-color 5000s ease-in-out 0s;
+    color: ${color.white} !important;
+    -webkit-text-fill-color: ${color.white} !important;
+  }
 `;

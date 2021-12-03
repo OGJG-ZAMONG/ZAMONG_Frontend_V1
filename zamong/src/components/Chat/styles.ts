@@ -77,9 +77,9 @@ export const ChatLine = styled.div`
 //chat view
 export const ChatViewerContainer = styled.div`
   height: 90%;
-  background-color: ${color.darkerGray};
   border-radius: 10px;
   padding: 16px;
+  background-color: ${color.darkerGray};
   position: relative;
   display: grid;
   grid-template-rows: 10% 84% 6%;
@@ -87,7 +87,7 @@ export const ChatViewerContainer = styled.div`
 
 export const ChatViewHeader = styled.div`
   display: grid;
-  border-bottom: 1px solid ${color.darkerGray};
+  border-bottom: 1px solid ${color.gray};
   height: 80px;
   grid-template-rows: repeat(2, 1fr);
 `;
@@ -130,7 +130,7 @@ export const MannerTemperatureText = styled.div``;
 
 
 export const ChatInputBox = styled.div`
-  background-color: #636366;
+  background-color: ${color.darkGray};
   border-radius: 100px;
   width: calc(100%);
   padding: 8px 16px;
@@ -163,13 +163,13 @@ export const ChatSubmitIMG = styled.img`
 
 export const ChatBox = styled.div`
   display: flex;
-  flex-direction: column;
+  flex-direction: column-reverse;
   position: relative;
-  height: 100%;
   width: 100%;
   overflow: auto;
+  margin-top: 10px; 
   padding: 16px 8px;
-  min-height: 650px;
+  max-height: 650px;
 `;
 
 export const OpponentTextContainer = styled.div`
