@@ -57,7 +57,7 @@ const IntepretationDetail = () => {
     <S.Container>
       <Head postData={postData} userUUID={userUUID}/>
       <Posting postData={postData} />
-      <Comment postData={postData} />
+      <Comment postData={postData} userUUID={userUUID}/>
     </S.Container>
   );
 };

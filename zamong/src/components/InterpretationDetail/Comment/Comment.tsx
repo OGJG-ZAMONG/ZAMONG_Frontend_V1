@@ -6,15 +6,17 @@ import {
   Comment,
   getCommentCount,
 } from "../../../utils/api/DreamDetail";
+import { getMyProfile } from "../../../utils/api/Profile";
 import CommentBox from "./CommentBox/CommentBox";
 import * as S from "./styles";
 
 interface PropsType {
   postData: InterpretationDetail;
+  userUUID: string;
 }
 
-const InterpretationDetailComment = ({ postData }: PropsType) => {
-  const { uuid } = postData;
+const InterpretationDetailComment = ({ postData, userUUID }: PropsType) => {
+  const { uuid, user } = postData;
   const [comment, setComment] = useState("");
   const [comments, setComments] = useState<Comment[]>([]);
   const [commentCount, setCommentCount] = useState(0);
@@ -91,8 +93,10 @@ const InterpretationDetailComment = ({ postData }: PropsType) => {
         {comments.map((value, i) => {
           return (
             <CommentBox
-              postUuid={uuid}
+              writerUUID={user.uuid}
+              postUUID={uuid}
               comment={value}
+              userUUID={userUUID}
               settingComment={settingComment}
               key={i}
             />

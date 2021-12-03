@@ -21,6 +21,17 @@ export const Profile = styled.img`
   cursor: pointer;
 `
 
+export const UserName = styled.div`
+  position: absolute;
+  padding: 12px 8px;
+  font: ${font.description};
+  background-color: ${color.darkerGray};
+  color: ${color.white};
+  border-radius: 10px;
+  white-space: nowrap;
+  transform: translateX(calc(-100% - 8px)) translateY(-122.5%);
+`;
+
 export const CommnetRight = styled.div`
   width: 100%;
   display: grid;
@@ -83,6 +94,12 @@ export const DetailLeft = styled.div`
 export const DetailRight = styled.div`
   display: flex;
 `;
+
+export const Check = styled.div`
+  font: ${font.body3};
+  color: ${color.gray};
+  margin-right: 28.02px;
+`
 
 export const CommentDate = styled.div`
   color: ${color.gray};

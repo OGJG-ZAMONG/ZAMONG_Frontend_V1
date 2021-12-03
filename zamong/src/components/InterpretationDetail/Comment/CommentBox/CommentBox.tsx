@@ -12,16 +12,21 @@ import {
 import PopupMenu from "../../../PopupMenu/PopupMenu";
 import PopupContent from "../../../../interface/PopupContent";
 import AdoptComment from "./AdoptComment/AdoptComment";
+import { getCheckComment } from "../../../../utils/api/InterpretationDetail";
 
 interface PropsType {
   comment: Comment;
-  postUuid: string;
+  postUUID: string;
+  writerUUID: string;
+  userUUID: string;
   settingComment: () => Promise<void>;
 }
 
 const CommentBox = ({
   comment,
-  postUuid,
+  writerUUID,
+  postUUID,
+  userUUID,
   settingComment,
 }: PropsType): JSX.Element => {
   const [onOffToggle, setOnOffToggle] = useState(false);
@@ -30,17 +35,10 @@ const CommentBox = ({
   const [isActivePlus, setIsActivePlus] = useState(false);
   const [isActiveMore, setIsActiveMore] = useState(false);
   const [isModify, setIsModify] = useState(false);
+  const [hover, setHover] = useState(false);
   const text = useRef<HTMLTextAreaElement>(null);
-  const {
-    uuid,
-    content,
-    date_time,
-    dislike_count,
-    like_count,
-    is_like,
-    is_dis_like,
-    user_profile,
-  } = comment;
+  const { uuid, content, date_time, user_profile, user_id, is_checked } =
+    comment;
   const [modifyContent, setModifyContent] = useState(content);
   const [reComments, setReComments] = useState<Comment[]>([]);
   const reCommentCount = reComments.length;
@@ -49,6 +47,10 @@ const CommentBox = ({
   useEffect(() => {
     settingReComment();
   }, []);
+
+  useEffect(() => {
+    checkComment();
+  }, [is_checked]);
 
   const settingReComment = async () => {
     setReComments([]);
@@ -94,7 +96,7 @@ const CommentBox = ({
         p_comment: uuid,
       };
       try {
-        await postComment(postUuid, data);
+        await postComment(postUUID, data);
         setInput("");
         setAdd(false);
         settingReComment();
@@ -128,7 +130,7 @@ const CommentBox = ({
     const data = {
       content: modifyContent,
     };
-    
+
     try {
       const response = await modifyComment(uuid, data);
       setModifyContent(response.data.content.response.message);
@@ -181,10 +183,26 @@ const CommentBox = ({
     },
   ];
 
+  const checkComment = async () => {
+    if (userUUID === writerUUID) {
+      try {
+        await getCheckComment(uuid);
+      } catch (error) {
+        console.log(error);
+      }
+    }
+  };
+
   return (
     <S.CommentBox>
       <S.CommentProfile>
-        <S.Profile alt="profile" src={user_profile} />
+        <S.Profile
+          alt="profile"
+          src={user_profile}
+          onMouseEnter={() => setHover(true)}
+          onMouseLeave={() => setHover(false)}
+        />
+        {hover && <S.UserName>{user_id}</S.UserName>}
       </S.CommentProfile>
       <S.CommnetRight>
         <S.ModifyBox>
@@ -224,7 +242,8 @@ const CommentBox = ({
             />
           </S.DetailLeft>
           <S.DetailRight>
-            <AdoptComment />
+            {is_checked && <S.Check>확인됨</S.Check>}
+            {userUUID === writerUUID ? <AdoptComment postUUID={postUUID} uuid={uuid}/> : <></>}
             <S.CommentDate>{date}</S.CommentDate>
           </S.DetailRight>
         </S.CommentBoxBottom>
@@ -249,9 +268,11 @@ const CommentBox = ({
               {reComments.map((value, i) => {
                 return (
                   <CommentBox
-                    postUuid={postUuid}
+                    writerUUID={writerUUID}
+                    postUUID={postUUID}
                     comment={value}
                     settingComment={settingComment}
+                    userUUID={userUUID}
                     key={i}
                   />
                 );
