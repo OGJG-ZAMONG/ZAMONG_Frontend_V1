@@ -10,9 +10,10 @@ interface PropsTypes {
   uuid: string;
   is_interpretation: boolean;
   comment: Comment;
+  settingComment: () => Promise<void>
 }
 
-const AdoptComment = ({ postUUID, uuid, comment, is_interpretation } : PropsTypes) => {
+const AdoptComment = ({ postUUID, uuid, comment, is_interpretation, settingComment } : PropsTypes) => {
   const { is_selected } = comment;
   const data = {
     dream_uuid: postUUID,
@@ -26,6 +27,7 @@ const AdoptComment = ({ postUUID, uuid, comment, is_interpretation } : PropsType
     }
     try {
       await selectComment(data);
+      settingComment();
     } catch (error) {
       console.log(error);
     }
