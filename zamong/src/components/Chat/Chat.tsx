@@ -183,10 +183,10 @@ const Chat: FC = (): JSX.Element => {
         ) : (
           <>
             <S.ChatViewHeader>
-              <S.ChatTitle>{rooms[selectedRoom]?.title}</S.ChatTitle>
+              <S.ChatTitle>{rooms[selectedRoom] && rooms[selectedRoom].title}</S.ChatTitle>
               <S.HeaderNav>
                 <S.UserReportBox>
-                  <div>{rooms[selectedRoom]?.last_chat.user.id}님과의 거래</div>
+                  <div>{rooms[selectedRoom] && rooms[selectedRoom].last_chat.user.id}님과의 거래</div>
                 </S.UserReportBox>
               </S.HeaderNav>
             </S.ChatViewHeader>
