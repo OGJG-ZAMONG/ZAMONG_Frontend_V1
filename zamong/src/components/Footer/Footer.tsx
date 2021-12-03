@@ -35,9 +35,15 @@ const Footer = (): JSX.Element => {
             </S.FooterContent>
           </S.Flex>
           <S.Flex>
-            <S.FooterContent to="/" onClick={termClickHandler}>
-              이용 약관 
-            </S.FooterContent>
+            <S.FooterContentDiv>
+              <a
+                href="https://ogjg-zamong.github.io/ZAMONG_TOS/?fbclid=IwAR1tDa4jfllxLDvZDjPyMkt7E2lSY2g1bxksgT7CoFxuK-W_KudZkAE6HhQ"
+                target="_blank"
+                rel="noreferrer"
+              >
+                이용 약관 
+              </a>
+            </S.FooterContentDiv>
           </S.Flex>
         </S.Inner>
         <S.CopyRight>2021 Team 옹기종기 | Copyright ⓒ 자몽 Corp. All Rights Reserved.</S.CopyRight>
