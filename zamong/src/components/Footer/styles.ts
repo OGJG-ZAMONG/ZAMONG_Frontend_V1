@@ -54,6 +54,9 @@ export const FooterContent = styled(Link)`
 
 export const FooterContentDiv = styled.div`
   color: ${color.white};
+  a {
+    color: ${color.white};
+  }
   align-items: center;
   font: ${font.body3};
   display: flex;
@@ -67,4 +70,19 @@ export const Flex = styled.div`
     text-decoration: none !important;
   }
   display: flex;
+`;
+
+export const Headline = styled.div`
+  color: ${color.white};
+  font: ${font.headline2};
+  margin-bottom: 16px;
+`;
+
+export const Body = styled.div`
+  color: ${color.white};
+  font: ${font.body3};
+  a {
+    color: ${color.white};
+    font: ${font.body3};
+  }
 `;
