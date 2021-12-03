@@ -258,14 +258,17 @@ const CommentBox = ({
                 uuid={uuid}
                 comment={comment}
                 is_interpretation={is_interpretation}
+                settingComment={settingComment}
               />
             ) : (
-              is_interpretation && is_selected && (
+              is_interpretation &&
+              is_selected && (
                 <AdoptComment
                   postUUID={postUUID}
                   uuid={uuid}
                   comment={comment}
                   is_interpretation={is_interpretation}
+                  settingComment={settingComment}
                 />
               )
             )}
