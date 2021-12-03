@@ -1,4 +1,4 @@
-import { useLayoutEffect, useState } from "react";
+import { useLayoutEffect, useRef, useState } from "react";
 import Code from "../../interface/Code";
 import { color } from "../../style/color";
 import DreamType from "../DiaryWrite/component/Properties/Accordion/AccordionMenus/DreamType/DreamType";
@@ -20,6 +20,7 @@ import dreamType from "../../constance/dreamType";
 import { dreamPostingImagePost } from "../../utils/api/DreamPosting";
 import { AxiosResponse } from "axios";
 import defaultResponse from "../../models/dto/response/defaultResponse";
+import { getMyProfile } from "../../utils/api/Profile";
 
 interface PropertiesType {
   title: string;
@@ -73,6 +74,17 @@ const InterpretationWrite = ({ uuid }: PropsType): JSX.Element => {
   };
 
   const isValid = () => title.length > 0 && content.length > 0 && types.length > 0;
+
+  const lucyCount = useRef<number | null>(null);
+
+  const getLucyCount = async () => {
+    try {
+      const response = await getMyProfile();
+      lucyCount.current = response.data.content.response.lucy_count;
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   const onPost = async () => {
     if (!isValid()) {
@@ -155,6 +167,7 @@ const InterpretationWrite = ({ uuid }: PropsType): JSX.Element => {
 
   useLayoutEffect(() => {
     settingData();
+    getLucyCount();
   }, []);
 
   return (
