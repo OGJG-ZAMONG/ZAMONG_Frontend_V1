@@ -57,9 +57,9 @@ const CommentBox = ({
     settingReComment();
   }, []);
 
-  // useEffect(() => {
-  //   checkComment();
-  // }, [is_checked]);
+  useEffect(() => {
+    checkComment();
+  }, [is_checked]);
 
   const settingReComment = async () => {
     setReComments([]);
@@ -192,15 +192,15 @@ const CommentBox = ({
     },
   ];
 
-  // const checkComment = async () => {
-  //   if (userUUID === writerUUID) {
-  //     try {
-  //       await getCheckComment(uuid);
-  //     } catch (error) {
-  //       console.log(error);
-  //     }
-  //   }
-  // };
+  const checkComment = async () => {
+    if (userUUID === writerUUID) {
+      try {
+        await getCheckComment(uuid);
+      } catch (error) {
+        console.log(error);
+      }
+    }
+  };
 
   return (
     <S.CommentBox>
@@ -251,11 +251,15 @@ const CommentBox = ({
             />
           </S.DetailLeft>
           <S.DetailRight>
-            {/* {is_checked && <S.Check>확인됨</S.Check>} */}
             {userUUID === writerUUID ? (
-              <AdoptComment postUUID={postUUID} uuid={uuid} comment={comment} is_interpretation={is_interpretation} />
+              <AdoptComment
+                postUUID={postUUID}
+                uuid={uuid}
+                comment={comment}
+                is_interpretation={is_interpretation}
+              />
             ) : (
-              <></>
+              <>{is_checked && <S.Check>확인됨</S.Check>}</>
             )}
             <S.CommentDate>{date}</S.CommentDate>
           </S.DetailRight>
