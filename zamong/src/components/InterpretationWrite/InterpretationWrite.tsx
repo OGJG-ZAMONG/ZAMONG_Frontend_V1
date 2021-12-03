@@ -92,6 +92,11 @@ const InterpretationWrite = ({ uuid }: PropsType): JSX.Element => {
       return;
     }
 
+    if (lucyCount.current && lucyCount.current < lucy) {
+      alert("지급 LUCY는 현재 보유 LUCY보다 많을 수 없습니다.");
+      return;
+    }
+
     const dreamTypes = types.map((value) => {
       return value.code;
     });
