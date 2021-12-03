@@ -27,7 +27,7 @@ const DreamInterpretation = ({ data }: PropsType): JSX.Element => {
 
   return (
     <>
-      <I.DreamContainer to={`/interpretation/${uuid}`}>
+      <I.DreamContainer to={`/interpretation/detail/${uuid}`}>
         <I.DreamImage img={default_posting_image}>
           <I.DreamUserImage
             alt="user image"
