@@ -42,7 +42,7 @@ const Chat: FC = (): JSX.Element => {
               connectSocket(res.data.content.response.rooms[selectedRoom].uuid);
             })
             .catch((err) => console.log(err));
-        }, 400)
+        }, 1000)
       : getChatRooms()
           .then((res) => {
             setRooms(res.data.content.response.rooms);
@@ -60,18 +60,24 @@ const Chat: FC = (): JSX.Element => {
       .catch((err) => console.log(err));
   }, [roomId]);
 
-  const connectSocket = (uuid: string) => {
+  const connectSocket = async (uuid: string) => {
+    const { data: { content : { response : { uuid: userId } } } } = await getMyProfile();
+
     if (stompClient.connected === true) {
       stompClient.unsubscribe("socket");
       stompClient.subscribe(
         "/topic/" + uuid,
         (message) => {
-          setChats((chats: any) => [JSON.parse(message.body), ...chats]);
+          const chat = JSON.parse(message.body);
+          if(chat.user.uuid != userId) {
+            chat.its_me = false;
+          }
+
+          setChats((chats: any) => [chat, ...chats]);
         },
-        { id: "socket" }
+        { "id": "socket" }
       );
     } else if (stompClient.connected === undefined) {
-      console.log("끝");
       setTimeout(() => {
         stompClient.subscribe(
           "/topic/" + uuid,
@@ -80,7 +86,7 @@ const Chat: FC = (): JSX.Element => {
           },
           { id: "socket" }
         );
-      }, 1000);
+      }, 2000);
       stompClient.unsubscribe("socket");
     }
   };
@@ -147,7 +153,9 @@ const Chat: FC = (): JSX.Element => {
           })}
         </S.ChatList>
       </S.ChatListContainer>
+
       <S.ChatLine />
+
       <S.ChatViewerContainer>
         <S.ChatViewHeader>
           <S.ChatTitle>{rooms[selectedRoom]?.title}</S.ChatTitle>
