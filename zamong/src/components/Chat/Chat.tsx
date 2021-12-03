@@ -21,6 +21,7 @@ const Chat: FC = (): JSX.Element => {
   const [selectedRoom, setSelectedRoom] = useState<number>(0);
   const [chats, setChats] = useState<any>([]);
   const inputValue = useRef<HTMLInputElement | any>(null);
+  const date = new Date();
 
   useEffect(() => {
     connect();
@@ -32,13 +33,23 @@ const Chat: FC = (): JSX.Element => {
   }, []);
 
   useEffect(() => {
-    getChatRooms()
-      .then((res) => {
-        setRooms(res.data.content.response.rooms);
-        setRoomId(res.data.content.response.rooms[selectedRoom].uuid);
-        connectSocket(res.data.content.response.rooms[selectedRoom].uuid);
-      })
-      .catch((err) => console.log(err));
+    selectedRoom === 0
+      ? setTimeout(() => {
+          getChatRooms()
+            .then((res) => {
+              setRooms(res.data.content.response.rooms);
+              setRoomId(res.data.content.response.rooms[selectedRoom].uuid);
+              connectSocket(res.data.content.response.rooms[selectedRoom].uuid);
+            })
+            .catch((err) => console.log(err));
+        }, 400)
+      : getChatRooms()
+          .then((res) => {
+            setRooms(res.data.content.response.rooms);
+            setRoomId(res.data.content.response.rooms[selectedRoom].uuid);
+            connectSocket(res.data.content.response.rooms[selectedRoom].uuid);
+          })
+          .catch((err) => console.log(err));
   }, [selectedRoom]);
 
   useEffect(() => {
@@ -115,11 +126,17 @@ const Chat: FC = (): JSX.Element => {
         </S.SearchChatContainer>
         <S.ChatList>
           {rooms.map((value: any, index: number) => {
+            const lastTime = Math.ceil(
+              (date.getTime() -
+                new Date(value.last_chat.created_at).getTime()) /
+                1000 /
+                60
+            );
             return (
               <ChatRoom
                 ChatRoomName={value.title}
                 UserName={value.last_chat.user.id}
-                LastConnection={"8시간 전"}
+                LastConnection={`${lastTime}분`}
                 LastChat={value.last_chat.chat}
                 key={value.uuid}
                 Index={index}
