@@ -1,11 +1,7 @@
 import { useEffect, useState } from "react";
 import { useHistory } from "react-router";
 import { chatResponse } from "../../../models/dto/response/sellDreamDetailResponse";
-import {
-  delSellPost,
-  getChatRequest,
-  postAcceptChat,
-} from "../../../utils/api/SellDetail";
+import { delSellPost, getChatRequest, postAcceptChat } from "../../../utils/api/SellDetail";
 import * as S from "./styles";
 
 interface PropsType {
@@ -29,9 +25,7 @@ const Chat = ({ postData, settingData }: PropsType) => {
 
   const getChatList = async () => {
     try {
-      setChatList(
-        (await getChatRequest(postUUID)).data.content.response.requests
-      );
+      setChatList((await getChatRequest(postUUID)).data.content.response.requests);
     } catch (error) {
       console.log(error);
     }
@@ -73,19 +67,20 @@ const Chat = ({ postData, settingData }: PropsType) => {
           <S.ChatList>
             {chatList.map((value, i) => {
               return (
-                <S.ChatBox key={i}>
-                  <S.UserInfo>
-                    <S.Profile src={value.profile} />
-                    <S.UserName>{value.id}</S.UserName>
-                  </S.UserInfo>
-                  {value.is_accept ? (
-                    <S.OnAcceptButton>수락함</S.OnAcceptButton>
-                  ) : (
-                    <S.AcceptButton onClick={() => acceptChat(value.uuid)}>
-                      수락
-                    </S.AcceptButton>
-                  )}
-                </S.ChatBox>
+                <div>
+                  <S.ChatBox key={i}>
+                    <S.UserInfo>
+                      <S.Profile src={value.profile} />
+                      <S.UserName>{value.id}</S.UserName>
+                    </S.UserInfo>
+                    {value.is_accept ? (
+                      <S.OnAcceptButton>수락함</S.OnAcceptButton>
+                    ) : (
+                      <S.AcceptButton onClick={() => acceptChat(value.uuid)}>수락</S.AcceptButton>
+                    )}
+                  </S.ChatBox>
+                  <S.Line />
+                </div>
               );
             })}
           </S.ChatList>

@@ -5,7 +5,7 @@ import { font } from "../../../style/font";
 export const ChatListContainer = styled.div`
   margin-top: 56px;
   border-top: 1px solid ${color.darkGray};
-`
+`;
 
 export const NoneList = styled.div`
   color: ${color.white};
@@ -13,48 +13,51 @@ export const NoneList = styled.div`
   display: flex;
   justify-content: center;
   margin-top: 50px;
-`
+`;
 
 export const SubTitle = styled.div`
   margin-top: 48px;
   color: ${color.white};
   font: ${font.headline2};
-`
+`;
 
 export const ChatList = styled.div`
   margin-top: 48px;
-  padding-bottom: 16px;
-  border-bottom: solid 1px ${color.darkGray};
-`
+  display: flex;
+  flex-direction: column;
+  row-gap: 8px;
+`;
 
 export const ChatBox = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
   color: ${color.white};
-  border-top: solid 1px ${color.darkGray};
-  :first-of-type {
-    border-top: none;
-  }
+  margin-bottom: 16px;
+`;
 
-`
+export const Line = styled.div`
+  width: 100%;
+  height: 1px;
+  background-color: ${color.darkGray};
+`;
 
 export const UserInfo = styled.div`
   display: flex;
   align-items: center;
   column-gap: 16px;
-`
+`;
 
 export const Profile = styled.img`
   width: 36px;
   height: 36px;
   border-radius: 100%;
-`
+`;
 
 export const UserName = styled.div`
   font: ${font.body2};
   color: ${color.white};
-`
+`;
 
 export const AcceptButton = styled.div`
   background: ${color.blue};
@@ -63,7 +66,7 @@ export const AcceptButton = styled.div`
   border-radius: 100px;
   padding: 6px 16px;
   cursor: pointer;
-`
+`;
 
 export const OnAcceptButton = styled.div`
   color: ${color.white};
@@ -72,14 +75,14 @@ export const OnAcceptButton = styled.div`
   border-radius: 100px;
   padding: 6px 16px;
   cursor: pointer;
-`
+`;
 
 export const ChatBottom = styled.div`
   margin-top: 68px;
   display: flex;
   justify-content: center;
   column-gap: 16px;
-`
+`;
 
 export const Cancel = styled.div`
   color: ${color.white};
@@ -88,4 +91,4 @@ export const Cancel = styled.div`
   cursor: pointer;
   border-radius: 10px;
   padding: 12px 16px;
-`
+`;
