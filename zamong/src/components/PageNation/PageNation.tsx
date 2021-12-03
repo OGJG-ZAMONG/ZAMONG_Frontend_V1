@@ -13,12 +13,16 @@ const PageNation = ({ indexState, max, columnCount }: PropsType): JSX.Element =>
   const [index, setIndex] = indexState;
   const onNext = () => {
     if (pageOffset !== Math.floor(max / columnCount)) {
-      setPageOffset(pageOffset + 1);
+      const changeOffset = pageOffset + 1;
+      setPageOffset(changeOffset);
+      setIndex(changeOffset * columnCount);
     }
   };
   const onPrev = () => {
     if (pageOffset !== 0) {
-      setPageOffset(pageOffset - 1);
+      const changeOffset = pageOffset - 1;
+      setPageOffset(changeOffset);
+      setIndex(changeOffset * columnCount);
     }
   };
 
