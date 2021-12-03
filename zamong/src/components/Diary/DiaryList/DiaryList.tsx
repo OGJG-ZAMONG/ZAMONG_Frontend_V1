@@ -127,12 +127,12 @@ const DiaryList: FC = (): JSX.Element => {
               <S.MyDreamDiaryContainer>
                 <S.WriteDiary to="/diary/write">
                   <S.WriteDiaryText>
-                    <S.WriteDiaryImg src={edit} />
+                    <img src={edit} />
                     <div>꿈 일기 쓰기</div>
                   </S.WriteDiaryText>
                 </S.WriteDiary>
               </S.MyDreamDiaryContainer>
-              {/* 여기서 맵 돌림 */} 
+              {/* 여기서 맵 돌림 */}
               {RenderDiaryWrittenToday}
             </S.DiarySignContainer>
           </S.TodayDream>

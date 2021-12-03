@@ -52,11 +52,12 @@ export const TodayDreamText = styled.div`
 
 export const DiarySignContainer = styled.div`
   height: calc(100% - 40px);
+  max-height: 616px;
   width: 100%;
   overflow: auto;
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  grid-template-rows: 33%;
+  grid-template-rows: 40%;
   &::-webkit-scrollbar {
     display: none;
   }
@@ -108,10 +109,10 @@ export const WriteDiaryText = styled.div`
   color: ${color.white};
   display: flex;
   justify-content: space-between;
-`;
 
-export const WriteDiaryImg = styled.img`
-  margin-right: 10px;
+  & img {
+    margin-right: 10px;
+  }
 `;
 
 export const HeaderSelections = styled.div`
