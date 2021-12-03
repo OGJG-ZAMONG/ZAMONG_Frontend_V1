@@ -99,13 +99,14 @@ export const Days = styled.div`
     font-size: 14px;
     justify-content: center;
     align-items: center;
+    width: 20px;
+    height: 20px;
     padding: 2px;
     margin: 2px auto;
   }
   div {
     width: 80%;
     min-width: 80%;
-    height: 20px;
     color: ${color.white};
     background-color: ${color.darkGray};
     border-radius: 3px;
