@@ -93,17 +93,16 @@ export const DetailLeft = styled.div`
 
 export const DetailRight = styled.div`
   display: flex;
+  column-gap: 28px;
 `;
 
 export const Check = styled.div`
   font: ${font.body3};
   color: ${color.gray};
-  margin-right: 28.02px;
 `
 
 export const CommentDate = styled.div`
   color: ${color.gray};
-  margin-left: 28px;
 `;
 
 export const CommentToCommentContainer = styled.div`
