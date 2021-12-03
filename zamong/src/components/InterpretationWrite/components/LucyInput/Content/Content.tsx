@@ -43,7 +43,7 @@ const Content = ({ lucy, setLucy }: PropsType): JSX.Element => {
     <>
       <S.Container>
         <S.Input placeholder="지급 LUCY 입력..." value={lucy} onChange={onChangeHandler} />
-        <S.Won>· {lucyCount} LUCY 보유</S.Won>
+        {lucyCount && <S.Won>· {lucyCount} LUCY 보유</S.Won>}
       </S.Container>
     </>
   );
