@@ -10,8 +10,7 @@ interface PropsType {
 }
 
 const DiaryDetailPosting = ({ postData, onLikeSet }: PropsType): JSX.Element => {
-  const { uuid, content, lucy_count, attachment_image, is_shared, is_liked } =
-    postData;
+  const { uuid, content, lucy_count, attachment_image, is_shared, is_liked } = postData;
   const [isImg, setIsImg] = useState(false);
 
   useEffect(() => {
@@ -40,14 +39,21 @@ const DiaryDetailPosting = ({ postData, onLikeSet }: PropsType): JSX.Element => 
 
   return (
     <S.PostingContainer>
-      <S.PhotoGrid>
-        {isImg ? <S.Photo src={attachment_image} /> : <></>}
-      </S.PhotoGrid>
-      <S.Text>{content}</S.Text>
+      <S.PhotoGrid>{isImg ? <S.Photo src={attachment_image} /> : <></>}</S.PhotoGrid>
+      <S.Text>
+        {content.split("\n").map((line) => {
+          return (
+            <span>
+              {line}
+              <br />
+            </span>
+          );
+        })}
+      </S.Text>
       {is_shared ? (
         <S.Lucy>
           {is_liked ? (
-            <S.LucyImg src={OnRecommend} onClick={already}/>
+            <S.LucyImg src={OnRecommend} onClick={already} />
           ) : (
             <S.LucyImg src={Recommend} onClick={onLike} />
           )}

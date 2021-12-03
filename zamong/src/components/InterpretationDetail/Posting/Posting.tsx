@@ -23,10 +23,17 @@ const InterpretationDetailPosting = ({ postData }: PropsTypes) => {
 
   return (
     <S.PostingContainer>
-      <S.PhotoGrid>
-        {isImg ? <S.Photo src={attachment_image} /> : <></>}
-      </S.PhotoGrid>
-      <S.Text>{content}</S.Text>
+      <S.PhotoGrid>{isImg ? <S.Photo src={attachment_image} /> : <></>}</S.PhotoGrid>
+      <S.Text>
+        {content.split("\n").map((line) => {
+          return (
+            <span>
+              {line}
+              <br />
+            </span>
+          );
+        })}
+      </S.Text>
     </S.PostingContainer>
   );
 };
