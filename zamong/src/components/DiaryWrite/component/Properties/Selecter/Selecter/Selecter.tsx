@@ -1,3 +1,4 @@
+import { useLayoutEffect, useState } from "react";
 import * as G from "../../../styles";
 import * as S from "./styles";
 
@@ -11,6 +12,10 @@ type PropsType = {
 };
 
 const Selecter = ({ title, content, onHover }: PropsType): JSX.Element => {
+  const [lucyCount, setLucyCount] = useState<number | null>(null);
+
+  useLayoutEffect(() => {}, []);
+
   return (
     <>
       <S.Container
