@@ -54,6 +54,9 @@ export const FooterContent = styled(Link)`
 
 export const FooterContentDiv = styled.div`
   color: ${color.white};
+  a {
+    color: ${color.white};
+  }
   align-items: center;
   font: ${font.body3};
   display: flex;
