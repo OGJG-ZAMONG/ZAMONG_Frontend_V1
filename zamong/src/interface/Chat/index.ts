@@ -1,6 +1,15 @@
 export interface Chats {
-  roomId: string;
-  userId: string;
+  chat: string;
+  created_at: string;
+  its_me: boolean;
+  room: any;
+  to: any;
+  user: {
+    id: string;
+    profile: string;
+    uuid: string;
+  };
+  uuid: string;
 }
 
 export interface Rooms {
