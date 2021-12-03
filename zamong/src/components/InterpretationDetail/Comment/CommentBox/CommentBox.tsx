@@ -251,6 +251,7 @@ const CommentBox = ({
             />
           </S.DetailLeft>
           <S.DetailRight>
+            {is_checked && userUUID !== writerUUID && <S.Check>확인됨</S.Check>}
             {userUUID === writerUUID ? (
               <AdoptComment
                 postUUID={postUUID}
@@ -259,7 +260,14 @@ const CommentBox = ({
                 is_interpretation={is_interpretation}
               />
             ) : (
-              <>{is_checked && <S.Check>확인됨</S.Check>}</>
+              is_interpretation && is_selected && (
+                <AdoptComment
+                  postUUID={postUUID}
+                  uuid={uuid}
+                  comment={comment}
+                  is_interpretation={is_interpretation}
+                />
+              )
             )}
             <S.CommentDate>{date}</S.CommentDate>
           </S.DetailRight>

@@ -15,7 +15,6 @@ export const OnAdopt = styled.div`
 `;
 
 export const AdoptImg = styled.img`
-  width: 15.96px;
-  height: 10.78px;
-  margin-right: 8.02px;
+  width: 16px;
+  margin-right: 8px;
 `;
