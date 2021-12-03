@@ -1,5 +1,5 @@
 import { FC, useEffect, useState, useRef } from "react";
-import { search, editGrey, send } from "../../assets";
+import { search, send } from "../../assets";
 import * as StompJs from "@stomp/stompjs";
 import { getChatRooms, getChat } from "../../utils/api/Chat";
 import { getMyProfile } from "../../utils/api/Profile";
@@ -21,64 +21,72 @@ const Chat: FC = (): JSX.Element => {
   const [selectedRoom, setSelectedRoom] = useState<number>(0);
   const [chats, setChats] = useState<any>([]);
   const inputValue = useRef<HTMLInputElement | any>(null);
+  const date = new Date();
 
   useEffect(() => {
-    if (stompClient.connected === false) {
-      connect();
-    }
+    connect();
     getMyProfile()
       .then((res) => {
         setUserId(res.data.content.response.uuid);
       })
       .catch((err) => console.log(err));
-
-    setTimeout(() => {
-      getChatRooms()
-        .then((res) => {
-          setRooms(res.data.content.response.rooms);
-          connectSocket(res.data.content.response.rooms[selectedRoom].uuid);
-        })
-        .catch((err) => console.log(err));
-    }, 500);
   }, []);
 
   useEffect(() => {
-    getChatRooms()
-      .then((res) => {
-        setRoomId(res.data.content.response.rooms[selectedRoom].uuid);
-        connectSocket(res.data.content.response.rooms[selectedRoom].uuid);
-      })
-      .catch((err) => console.log(err));
+    selectedRoom === 0
+      ? setTimeout(() => {
+          getChatRooms()
+            .then((res) => {
+              setRooms(res.data.content.response.rooms);
+              setRoomId(res.data.content.response.rooms[selectedRoom].uuid);
+              connectSocket(res.data.content.response.rooms[selectedRoom].uuid);
+            })
+            .catch((err) => console.log(err));
+        }, 400)
+      : getChatRooms()
+          .then((res) => {
+            setRooms(res.data.content.response.rooms);
+            setRoomId(res.data.content.response.rooms[selectedRoom].uuid);
+            connectSocket(res.data.content.response.rooms[selectedRoom].uuid);
+          })
+          .catch((err) => console.log(err));
   }, [selectedRoom]);
 
   useEffect(() => {
-    setTimeout(() => {
-      getChat(roomId)
-        .then((res) => {
-          setChats(res.data.content.response.chats);
-        })
-        .catch((err) => console.log(err));
-    }, 400);
+    getChat(roomId)
+      .then((res) => {
+        setChats(res.data.content.response.chats);
+      })
+      .catch((err) => console.log(err));
   }, [roomId]);
 
   const connectSocket = (uuid: string) => {
-    stompClient.unsubscribe("socket");
-    if (stompClient.connected === undefined) {
-      connect();
+    if (stompClient.connected === true) {
+      stompClient.unsubscribe("socket");
+      stompClient.subscribe(
+        "/topic/" + uuid,
+        (message) => {
+          setChats((chats: any) => [JSON.parse(message.body), ...chats]);
+        },
+        { id: "socket" }
+      );
+    } else if (stompClient.connected === undefined) {
+      console.log("끝");
+      setTimeout(() => {
+        stompClient.subscribe(
+          "/topic/" + uuid,
+          (message) => {
+            setChats((chats: any) => [JSON.parse(message.body), ...chats]);
+          },
+          { id: "socket" }
+        );
+      }, 1000);
+      stompClient.unsubscribe("socket");
     }
-
-    stompClient.subscribe(
-      "/topic/" + uuid,
-      (message) => {
-        setChats((chats: any) => [JSON.parse(message.body), ...chats]);
-      },
-      { id: "socket" }
-    );
   };
 
   const sendMessage = async () => {
     if (inputValue.current.value === "") return;
-    setSelectedRoom(0);
     stompClient.send(
       "/app/chat.send",
       {},
@@ -89,17 +97,12 @@ const Chat: FC = (): JSX.Element => {
       })
     );
     inputValue.current.value = "";
+    setSelectedRoom(0);
   };
 
   const enterKey = (e: any) => {
     if (e.keyCode === 13) {
       sendMessage();
-    }
-  };
-
-  const disconnect = () => {
-    if (stompClient != null) {
-      stompClient.disconnect();
     }
   };
 
@@ -123,12 +126,17 @@ const Chat: FC = (): JSX.Element => {
         </S.SearchChatContainer>
         <S.ChatList>
           {rooms.map((value: any, index: number) => {
-            console.log(value)
+            const lastTime = Math.ceil(
+              (date.getTime() -
+                new Date(value.last_chat.created_at).getTime()) /
+                1000 /
+                60
+            );
             return (
               <ChatRoom
                 ChatRoomName={value.title}
                 UserName={value.last_chat.user.id}
-                LastConnection={"8시간 전"}
+                LastConnection={`${lastTime}분`}
                 LastChat={value.last_chat.chat}
                 key={value.uuid}
                 Index={index}
@@ -151,8 +159,7 @@ const Chat: FC = (): JSX.Element => {
               <span>ᆞ</span>
               <S.Report>신고하기</S.Report>
             </S.UserReportBox>
-            <S.MannerTemperatureBox>
-            </S.MannerTemperatureBox>
+            <S.MannerTemperatureBox></S.MannerTemperatureBox>
           </S.HeaderNav>
         </S.ChatViewHeader>
         <S.ChatBox>
