@@ -28,6 +28,7 @@ const IntepretationDetail = () => {
       profile: "",
     },
     lucy_count: 0,
+    is_interpretation: false,
   });
 
   const getPostData = async () => {

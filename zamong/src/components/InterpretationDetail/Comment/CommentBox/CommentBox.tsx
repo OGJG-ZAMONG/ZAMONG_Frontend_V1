@@ -19,6 +19,7 @@ interface PropsType {
   postUUID: string;
   writerUUID: string;
   userUUID: string;
+  is_interpretation: boolean;
   settingComment: () => Promise<void>;
 }
 
@@ -28,6 +29,7 @@ const CommentBox = ({
   postUUID,
   userUUID,
   settingComment,
+  is_interpretation,
 }: PropsType): JSX.Element => {
   const [onOffToggle, setOnOffToggle] = useState(false);
   const [onOffAdd, setOnOffAdd] = useState(false);
@@ -37,8 +39,15 @@ const CommentBox = ({
   const [isModify, setIsModify] = useState(false);
   const [hover, setHover] = useState(false);
   const text = useRef<HTMLTextAreaElement>(null);
-  const { uuid, content, date_time, user_profile, user_id, is_checked } =
-    comment;
+  const {
+    uuid,
+    content,
+    date_time,
+    user_profile,
+    user_id,
+    is_checked,
+    is_selected,
+  } = comment;
   const [modifyContent, setModifyContent] = useState(content);
   const [reComments, setReComments] = useState<Comment[]>([]);
   const reCommentCount = reComments.length;
@@ -48,9 +57,9 @@ const CommentBox = ({
     settingReComment();
   }, []);
 
-  useEffect(() => {
-    checkComment();
-  }, [is_checked]);
+  // useEffect(() => {
+  //   checkComment();
+  // }, [is_checked]);
 
   const settingReComment = async () => {
     setReComments([]);
@@ -183,15 +192,15 @@ const CommentBox = ({
     },
   ];
 
-  const checkComment = async () => {
-    if (userUUID === writerUUID) {
-      try {
-        await getCheckComment(uuid);
-      } catch (error) {
-        console.log(error);
-      }
-    }
-  };
+  // const checkComment = async () => {
+  //   if (userUUID === writerUUID) {
+  //     try {
+  //       await getCheckComment(uuid);
+  //     } catch (error) {
+  //       console.log(error);
+  //     }
+  //   }
+  // };
 
   return (
     <S.CommentBox>
@@ -242,8 +251,12 @@ const CommentBox = ({
             />
           </S.DetailLeft>
           <S.DetailRight>
-            {is_checked && <S.Check>확인됨</S.Check>}
-            {userUUID === writerUUID ? <AdoptComment postUUID={postUUID} uuid={uuid}/> : <></>}
+            {/* {is_checked && <S.Check>확인됨</S.Check>} */}
+            {userUUID === writerUUID ? (
+              <AdoptComment postUUID={postUUID} uuid={uuid} comment={comment} is_interpretation={is_interpretation} />
+            ) : (
+              <></>
+            )}
             <S.CommentDate>{date}</S.CommentDate>
           </S.DetailRight>
         </S.CommentBoxBottom>
@@ -273,6 +286,7 @@ const CommentBox = ({
                     comment={value}
                     settingComment={settingComment}
                     userUUID={userUUID}
+                    is_interpretation={is_interpretation}
                     key={i}
                   />
                 );

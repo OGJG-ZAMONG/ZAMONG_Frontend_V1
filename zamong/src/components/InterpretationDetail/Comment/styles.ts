@@ -19,6 +19,11 @@ export const CommentTitle = styled.div`
 export const CommentCount = styled.div`
   color: ${color.blue};
 `;
+
+export const InterpretationDone = styled.div`
+  color: ${color.gray};
+`
+
 export const InputContainer = styled.div`
   display: grid;
   grid-template-columns: repeat(12, 1fr);

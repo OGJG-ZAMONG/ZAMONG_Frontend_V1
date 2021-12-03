@@ -13,6 +13,7 @@ export type InterpretationDetailResponse = defaultResponse<{
     profile: string;
   };
   lucy_count: number;
+  is_interpretation: boolean;
 }>;
 
 export interface InterpretationDetail {
@@ -28,4 +29,5 @@ export interface InterpretationDetail {
     profile: string;
   };
   lucy_count: number;
+  is_interpretation: boolean;
 }

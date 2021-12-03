@@ -16,7 +16,7 @@ interface PropsType {
 }
 
 const InterpretationDetailComment = ({ postData, userUUID }: PropsType) => {
-  const { uuid, user } = postData;
+  const { uuid, user, is_interpretation } = postData;
   const [comment, setComment] = useState("");
   const [comments, setComments] = useState<Comment[]>([]);
   const [commentCount, setCommentCount] = useState(0);
@@ -75,7 +75,10 @@ const InterpretationDetailComment = ({ postData, userUUID }: PropsType) => {
   return (
     <S.CommentContainer>
       <S.CommentTitle>
-        해몽&nbsp;<S.CommentCount>{commentCount}</S.CommentCount>
+        해몽&nbsp;<S.CommentCount>{commentCount}</S.CommentCount>&nbsp;
+        {is_interpretation && (
+          <S.InterpretationDone>· 해몽 완료</S.InterpretationDone>
+        )}
       </S.CommentTitle>
       <S.InputContainer>
         <S.CommentInput
@@ -98,6 +101,7 @@ const InterpretationDetailComment = ({ postData, userUUID }: PropsType) => {
               comment={value}
               userUUID={userUUID}
               settingComment={settingComment}
+              is_interpretation={is_interpretation}
               key={i}
             />
           );
