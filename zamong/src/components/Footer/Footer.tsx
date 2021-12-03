@@ -35,7 +35,9 @@ const Footer = (): JSX.Element => {
             </S.FooterContent>
           </S.Flex>
           <S.Flex>
-            <S.FooterContent to="/">이용 약관 </S.FooterContent>
+            <S.FooterContent to="/" onClick={termClickHandler}>
+              이용 약관 
+            </S.FooterContent>
           </S.Flex>
         </S.Inner>
         <S.CopyRight>2021 Team 옹기종기 | Copyright ⓒ 자몽 Corp. All Rights Reserved.</S.CopyRight>
