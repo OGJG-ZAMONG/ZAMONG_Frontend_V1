@@ -3,7 +3,7 @@ import { search, send } from "../../assets";
 import * as StompJs from "@stomp/stompjs";
 import { getChatRooms, getChat } from "../../utils/api/Chat";
 import { getMyProfile } from "../../utils/api/Profile";
-import { Rooms } from "../../interface/Chat";
+import { Rooms, Chats } from "../../interface/Chat";
 import * as S from "./styles";
 import ChatRoom from "./ChatRoom/ChatRoom";
 import MyText from "./ChatBalloon/My/MyText";
@@ -19,7 +19,7 @@ const Chat: FC = (): JSX.Element => {
   const [roomId, setRoomId] = useState<string>("");
   const [userId, setUserId] = useState<string>("");
   const [selectedRoom, setSelectedRoom] = useState<number>(0);
-  const [chats, setChats] = useState<any>([]);
+  const [chats, setChats] = useState<Chats[]>([]);
   const inputValue = useRef<HTMLInputElement | any>(null);
   const date = new Date();
 
@@ -78,7 +78,6 @@ const Chat: FC = (): JSX.Element => {
           if (chat.user.uuid != userId) {
             chat.its_me = false;
           }
-
           setChats((chats: any) => [chat, ...chats]);
         },
         { id: "socket" }
@@ -183,10 +182,15 @@ const Chat: FC = (): JSX.Element => {
         ) : (
           <>
             <S.ChatViewHeader>
-              <S.ChatTitle>{rooms[selectedRoom] && rooms[selectedRoom].title}</S.ChatTitle>
+              <S.ChatTitle>
+                {rooms.length > 0 && rooms[selectedRoom].title}
+              </S.ChatTitle>
               <S.HeaderNav>
                 <S.UserReportBox>
-                  <div>{rooms[selectedRoom] && rooms[selectedRoom].last_chat.user.id}님과의 거래</div>
+                  <div>
+                    {rooms.length > 0 && rooms[selectedRoom].last_chat.user.id}
+                    님과의 거래
+                  </div>
                 </S.UserReportBox>
               </S.HeaderNav>
             </S.ChatViewHeader>

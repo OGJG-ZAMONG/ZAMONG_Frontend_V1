@@ -106,6 +106,7 @@ export const HeaderNav = styled.div`
 export const UserReportBox = styled.div`
   display: flex;
   justify-content: space-between;
+  margin-left: 5px;
 `;
 
 export const MannerTemperatureBox = styled.div`
@@ -148,7 +149,7 @@ export const ChatInput = styled.input`
   color: ${color.white};
   font-size: 16px;
   &::placeholder {
-    color: ${color.white};
+    color: ${color.gray};
   }
 `;
 
@@ -159,7 +160,7 @@ export const ChatBox = styled.div`
   width: 100%;
   overflow: auto;
   margin-top: 10px;
-  padding: 0 8px 24px 8px;
+  padding: 0 8px 18px 8px;
   max-height: 650px;
 `;
 
