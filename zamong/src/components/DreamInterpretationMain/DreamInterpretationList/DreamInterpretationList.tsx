@@ -1,18 +1,22 @@
 import DreamInterpretation from "../../Dream/DreamInterpretation/DreamInterpretation";
 import * as S from "./styles";
 import DownChevron from "../../../assets/icons/downChevron.svg";
-import { useLayoutEffect, useState } from "react";
+import { useLayoutEffect, useRef, useState } from "react";
 import { InterpretationDream } from "../../../models/dto/response/InterpretationListResponse";
 import { getDreamInterpretationList } from "../../../utils/api/DreamInterpretationMain";
 
 const DreamInterpretationList = (): JSX.Element => {
   const [interpretations, setInterpretations] = useState<InterpretationDream[]>([]);
   const [page, setPage] = useState<number>(0);
+  const totalPageRef = useRef<number>(1);
 
   const settingInterpretations = async () => {
     try {
-      const response = await getDreamInterpretationList(0, 10);
-      setInterpretations(response.data.content.response.interpretation_dreams);
+      const response = await getDreamInterpretationList(page, 10);
+      setInterpretations(
+        interpretations.concat(response.data.content.response.interpretation_dreams)
+      );
+      totalPageRef.current = response.data.content.response.total_page;
     } catch (error) {
       console.log(error);
     }
@@ -20,9 +24,11 @@ const DreamInterpretationList = (): JSX.Element => {
 
   useLayoutEffect(() => {
     settingInterpretations();
-  }, []);
+  }, [page]);
 
-  const onMore = () => {};
+  const onMore = () => {
+    setPage(page + 1);
+  };
 
   return (
     <S.ContentInner>
@@ -34,10 +40,12 @@ const DreamInterpretationList = (): JSX.Element => {
         {interpretations.map((value, index) => {
           return <DreamInterpretation data={value} key={index} />;
         })}
-        <S.MoreContaier onClick={onMore}>
-          <div>더보기</div>
-          <img alt="down" src={DownChevron} />
-        </S.MoreContaier>
+        {totalPageRef && totalPageRef.current !== page + 1 && (
+          <S.MoreContaier onClick={onMore}>
+            <div>더보기</div>
+            <img alt="down" src={DownChevron} />
+          </S.MoreContaier>
+        )}
       </div>
     </S.ContentInner>
   );
