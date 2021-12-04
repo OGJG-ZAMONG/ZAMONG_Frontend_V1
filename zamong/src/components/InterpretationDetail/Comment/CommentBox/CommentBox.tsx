@@ -1,5 +1,6 @@
 import * as S from "./styles";
 import ReplyComment from "./ReplyComment/ReplyComment";
+import { useHistory } from "react-router-dom";
 import { more } from "../../../../assets/index";
 import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import {
@@ -31,6 +32,7 @@ const CommentBox = ({
   settingComment,
   is_interpretation,
 }: PropsType): JSX.Element => {
+  const { push } = useHistory();
   const [onOffToggle, setOnOffToggle] = useState(false);
   const [onOffAdd, setOnOffAdd] = useState(false);
   const [input, setInput] = useState("");
@@ -47,6 +49,7 @@ const CommentBox = ({
     user_id,
     is_checked,
     is_selected,
+    user_uuid,
   } = comment;
   const [modifyContent, setModifyContent] = useState(content);
   const [reComments, setReComments] = useState<Comment[]>([]);
@@ -202,12 +205,17 @@ const CommentBox = ({
     }
   };
 
+  const linkProfile = () => {
+    push(`/user/${user_uuid}`);
+  };
+
   return (
     <S.CommentBox>
       <S.CommentProfile>
         <S.Profile
           alt="profile"
           src={user_profile}
+          onClick={linkProfile}
           onMouseEnter={() => setHover(true)}
           onMouseLeave={() => setHover(false)}
         />

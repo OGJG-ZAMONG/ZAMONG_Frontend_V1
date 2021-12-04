@@ -59,6 +59,10 @@ const Chat = ({ postData, settingData }: PropsType) => {
     }
   };
 
+  const linkProfile = (uuid:string) => {
+    push(`/user/${uuid}`);
+  };
+
   return (
     <S.ChatListContainer>
       <S.SubTitle>채팅 요청</S.SubTitle>
@@ -70,7 +74,7 @@ const Chat = ({ postData, settingData }: PropsType) => {
                 <div>
                   <S.ChatBox key={i}>
                     <S.UserInfo>
-                      <S.Profile src={value.profile} />
+                      <S.Profile src={value.profile} onClick={() => linkProfile(value.user_uuid)}/>
                       <S.UserName>{value.id}</S.UserName>
                     </S.UserInfo>
                     {value.is_accept ? (
