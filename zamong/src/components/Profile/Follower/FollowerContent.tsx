@@ -20,7 +20,6 @@ interface IdType {
 }
 
 const FollowerContent: React.FC<IdType> = (props) => {
-  const history = useHistory();
   const [followerState, setFollower] = useState<FollowerType>({
     followers: [],
     total_size: 0,
