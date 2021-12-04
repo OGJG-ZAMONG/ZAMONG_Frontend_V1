@@ -138,8 +138,6 @@ const AnotherProfilePage: React.FC<IdType | null> = (props): JSX.Element => {
               <S.OneLineBox>
                 <S.Text onClick={onFollowerClick}>팔로워 {followerState.total_size}명</S.Text>
                 <S.Text onClick={onFollowClick}>팔로우 {followState.total_size}명</S.Text>
-                <span>내가 쓴 꿈 일기 {share_dream_count}개</span>
-                <span>{lucy_count}LUCY</span>
               </S.OneLineBox>
               <S.LineBox>
                 <S.NameBox>이름: {name}</S.NameBox>

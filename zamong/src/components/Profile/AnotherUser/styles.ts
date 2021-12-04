@@ -48,10 +48,8 @@ export const EmailText = styled.p`
 `;
 
 export const OneLineBox = styled.div`
-  width: 397px;
-  height: 28px;
   display: flex;
-  justify-content: space-between;
+  column-gap: 16px;
   span {
     font: ${font.body2};
     color: ${color.white};
@@ -86,11 +84,11 @@ export const SelectionBox = styled.div`
 `;
 
 export const SelectionContent = styled.div`
-  width: 484px;
-  height: 58px;
-  margin: 0 auto;
+  width: 100%;
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
+  column-gap: 120px;
+  margin-top: 16px;
 `;
 
 export const ChooseBox = styled.div<{ isActive: boolean }>`
