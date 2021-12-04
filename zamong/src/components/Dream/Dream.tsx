@@ -3,16 +3,18 @@ import { useState } from "react";
 import Tag from "../Tag/Tag";
 import { DreamList } from "../../models/dto/response/dreamListResponse";
 import dreamType from "../../constance/dreamType";
+import { useHistory } from "react-router";
 
 interface PropsType {
   dream: DreamList;
 }
 
 const Dream = ({ dream }: PropsType): JSX.Element => {
+  const { push } = useHistory();
   const [isUserImageHover, setIsUserImageHover] = useState<boolean>(false);
   const { share_datetime, default_posting_image, user, title, lucy_count, dream_types, uuid } =
     dream;
-  const { profile, id } = user;
+  const { profile, id, uuid: userUUID } = user;
   const dateToString = (date: Date) => {
     if (date.getFullYear() !== new Date().getFullYear())
       return `${date.getFullYear()}-${date.getMonth() + 1}=${date.getDate()}`;
@@ -38,6 +40,10 @@ const Dream = ({ dream }: PropsType): JSX.Element => {
             }}
             onMouseLeave={() => {
               setIsUserImageHover(false);
+            }}
+            onClick={(e) => {
+              e.preventDefault();
+              push(`/user/${userUUID}`);
             }}
           />
           {isUserImageHover && <S.UserName>{id}</S.UserName>}
