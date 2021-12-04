@@ -16,14 +16,7 @@ const ChangePassword = () => {
     pwCheckErrorText: "",
     pwCheckTrue: false,
   });
-  const {
-    inputPw,
-    pwErrorText,
-    inputPwCheck,
-    pwCheckErrorText,
-    pwTrue,
-    pwCheckTrue,
-  } = inputs;
+  const { inputPw, pwErrorText, inputPwCheck, pwCheckErrorText, pwTrue, pwCheckTrue } = inputs;
 
   const change = (e: React.FormEvent<HTMLInputElement>) => {
     const { name, value } = e.currentTarget;
@@ -104,18 +97,20 @@ const ChangePassword = () => {
 
   const requestChange = async () => {
     if (pwTrue && pwCheckTrue) {
+      if (!email || !token) {
+        //email이 null이거나 token이 null이면 return;
+        push("/findpassword");
+        return;
+      }
+
       const data = {
         new_password: inputPw,
         change_password_token: token,
         email: email,
-      }
+      };
 
       try {
-        if(data.email !== null && data.change_password_token !== null ){
-          await postChange(data);
-        } else {
-          push('/findpassword');
-        }
+        await postChange(data);
       } catch (error) {
         console.log(error);
       }
@@ -132,22 +127,12 @@ const ChangePassword = () => {
           <S.GuideWord>비밀번호</S.GuideWord>
           <S.ErrorMessage>{pwErrorText}</S.ErrorMessage>
         </S.GuideContaier>
-        <S.Input
-          name="inputPw"
-          value={inputPw}
-          type="password"
-          onChange={change}
-        />
+        <S.Input name="inputPw" value={inputPw} type="password" onChange={change} />
         <S.GuideContaier>
           <S.GuideWord>비밀번호 확인</S.GuideWord>
           <S.ErrorMessage>{pwCheckErrorText}</S.ErrorMessage>
         </S.GuideContaier>
-        <S.Input
-          name="inputPwCheck"
-          value={inputPwCheck}
-          type="password"
-          onChange={change}
-        />
+        <S.Input name="inputPwCheck" value={inputPwCheck} type="password" onChange={change} />
         <S.EventBox>
           <S.NextButton onClick={requestChange}>변경</S.NextButton>
         </S.EventBox>
