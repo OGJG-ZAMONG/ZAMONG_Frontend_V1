@@ -23,7 +23,7 @@ const FollowList = (): JSX.Element => {
   };
 
   const followersRender = followings.slice(0, 8).map((value) => {
-    return <S.Follow img={value.profile} to="/" />;
+    return <S.Follow img={value.profile} to={`/user/${value.uuid}`} />;
   });
 
   useLayoutEffect(() => {
