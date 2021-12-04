@@ -1,7 +1,7 @@
 import * as S from "./styles";
 import { useState } from "react";
 import { useHistory } from "react-router";
-import { sendPwEmail } from "../../utils/api/FIndPassword";
+import { sendPwEmail } from "../../utils/api/FindPassword";
 
 const FindPassword = () => {
   const [email, setEmail] = useState<string>("");
