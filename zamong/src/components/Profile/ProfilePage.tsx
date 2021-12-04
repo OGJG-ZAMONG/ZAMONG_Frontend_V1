@@ -108,6 +108,30 @@ const ProfilePage = (): JSX.Element => {
     return <>{content}</>;
   };
 
+  interface navType {
+    img: string;
+    text: string;
+    onClick: () => void;
+  }
+
+  const navs: navType[] = [
+    {
+      img: Follower,
+      text: "팔로워",
+      onClick: onFollowerClick,
+    },
+    {
+      img: Follow,
+      text: "팔로우",
+      onClick: onFollowClick,
+    },
+    {
+      img: AccountInfo,
+      text: "계정 정보",
+      onClick: onAccountInfoClick,
+    },
+  ];
+
   return (
     <>
       {FollowerContent}
