@@ -5,11 +5,7 @@ import FollowerContent from "./Follower/FollowerContent";
 import FollowContent from "./Follow/FollowContent";
 import AccountContent from "./Account/AccountContent";
 import { useHistory } from "react-router";
-import {
-  getFollower,
-  getFollowing,
-  getMyProfile,
-} from "../../utils/api/Profile";
+import { getFollower, getFollowing, getMyProfile } from "../../utils/api/Profile";
 
 interface ProfileType {
   uuid: string;
@@ -47,8 +43,7 @@ const ProfilePage = (): JSX.Element => {
     share_dream_count: 0,
     lucy_count: 0,
   });
-  const { uuid, name, email, id, profile, share_dream_count, lucy_count } =
-    profileState;
+  const { uuid, name, email, id, profile, share_dream_count, lucy_count } = profileState;
   const FOLLORWER = 1;
   const FOLLORWING = 2;
   const ACCOUNTINFO = 3;
@@ -126,15 +121,9 @@ const ProfilePage = (): JSX.Element => {
               <S.NickNameText>{id}</S.NickNameText>
               <S.EmailText>{email}</S.EmailText>
               <S.OneLineBox>
-                <S.Text onClick={onFollowerClick}>
-                  팔로워 {followerState.total_size}명
-                </S.Text>
-                <S.Text onClick={onFollowClick}>
-                  팔로우 {followState.total_size}명
-                </S.Text>
-                <S.LinkText to="/diary">
-                  내가 쓴 꿈 일기 {share_dream_count}개
-                </S.LinkText>
+                <S.Text onClick={onFollowerClick}>팔로워 {followerState.total_size}명</S.Text>
+                <S.Text onClick={onFollowClick}>팔로우 {followState.total_size}명</S.Text>
+                <S.LinkText to="/diary">내가 쓴 꿈 일기 {share_dream_count}개</S.LinkText>
                 <span>{lucy_count}LUCY</span>
               </S.OneLineBox>
               <S.NameBox>이름: {name}</S.NameBox>
@@ -143,23 +132,17 @@ const ProfilePage = (): JSX.Element => {
         </S.TopBox>
         <S.SelectionBox>
           <S.SelectionContent>
-            <S.ChooseBox onClick={onFollowerClick}>
-              <div>
-                <img src={Follower} />
-                <span>팔로워</span>
-              </div>
+            <S.ChooseBox isActive onClick={onFollowerClick}>
+              <img src={Follower} alt="follower" />
+              <span>팔로워</span>
             </S.ChooseBox>
-            <S.ChooseBox onClick={onFollowClick}>
-              <div>
-                <img src={Follow} />
-                <span>팔로우</span>
-              </div>
+            <S.ChooseBox isActive={false} onClick={onFollowClick}>
+              <img src={Follow} alt="follow" />
+              <span>팔로우</span>
             </S.ChooseBox>
-            <S.ChooseBox onClick={onAccountInfoClick}>
-              <div>
-                <img src={AccountInfo} />
-                <span>계정 정보</span>
-              </div>
+            <S.ChooseBox isActive={false} onClick={onAccountInfoClick}>
+              <img src={AccountInfo} alt="account" />
+              <span>계정 정보</span>
             </S.ChooseBox>
           </S.SelectionContent>
         </S.SelectionBox>
