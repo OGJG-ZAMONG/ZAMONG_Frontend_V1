@@ -3,16 +3,10 @@ import { follow, getFollower, unfollow } from "../../../utils/api/Profile";
 import * as S from "./style";
 import { Link, useHistory } from "react-router-dom";
 import FollowerUser from "../../User/FollowerUser/FollowerUser";
+import { follower } from "../../../models/dto/response/profileResponse";
 
-interface Follower {
-  uuid: string;
-  profile: string;
-  id: string;
-  follow_datetime: string;
-  is_following: boolean;
-}
 interface FollowerType {
-  followers: Follower[];
+  followers: follower[];
   total_size: number;
 }
 interface IdType {
