@@ -159,7 +159,7 @@ const ProfilePage = (): JSX.Element => {
             {navs.map((value, index) => {
               const { img, text, onClick } = value;
               return (
-                <S.ChooseBox isActive onClick={onClick} key={index}>
+                <S.ChooseBox isActive={contentState === index + 1} onClick={onClick} key={index}>
                   <img src={img} alt={text} />
                   <span>{text}</span>
                 </S.ChooseBox>
