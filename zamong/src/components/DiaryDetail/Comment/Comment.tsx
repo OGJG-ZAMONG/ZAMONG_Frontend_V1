@@ -11,9 +11,10 @@ import { dreamDetail } from "../../../models/dto/response/dreamDetailResponse";
 
 interface PropsType {
   postData: dreamDetail;
+  userUUID: string;
 }
 
-const DiaryDetail = ({ postData }: PropsType): JSX.Element => {
+const DiaryDetail = ({ postData, userUUID }: PropsType): JSX.Element => {
   const { uuid } = postData;
   const [comment, setComment] = useState("");
   const [comments, setComments] = useState<Comment[]>([]);
@@ -90,9 +91,12 @@ const DiaryDetail = ({ postData }: PropsType): JSX.Element => {
         {comments.map((value, i) => {
           return (
             <CommentBox
+              userUUID={userUUID}
               postUuid={uuid}
               comment={value}
               settingComment={settingComment}
+              commentCount={commentCount}
+              setCommentCount={setCommentCount}
               key={i}
             />
           );

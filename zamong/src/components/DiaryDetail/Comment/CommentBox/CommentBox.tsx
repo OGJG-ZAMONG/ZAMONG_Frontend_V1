@@ -17,13 +17,19 @@ import PopupContent from "../../../../interface/PopupContent";
 interface PropsType {
   comment: Comment;
   postUuid: string;
+  userUUID: string;
   settingComment: () => Promise<void>;
+  commentCount: number;
+  setCommentCount: React.Dispatch<React.SetStateAction<number>>;
 }
 
 const CommentBox = ({
+  userUUID,
   comment,
   postUuid,
   settingComment,
+  commentCount,
+  setCommentCount,
 }: PropsType): JSX.Element => {
   const { push } = useHistory();
   const [onOffToggle, setOnOffToggle] = useState(false);
@@ -100,9 +106,10 @@ const CommentBox = ({
       };
       try {
         await postComment(postUuid, data);
+        setCommentCount(commentCount+1);
+        settingReComment();
         setInput("");
         setAdd(false);
-        settingReComment();
         alert("댓글이 입력되었습니다.");
         setIsActivePlus(false);
         setOnOffToggle(true);
@@ -153,8 +160,8 @@ const CommentBox = ({
     if (window.confirm("정말 삭제하시겠습니까?")) {
       try {
         await delComment(uuid);
-        alert("삭제되었습니다.");
         settingComment();
+        alert("삭제되었습니다.");
       } catch (error) {
         console.log(error);
       }
@@ -217,18 +224,22 @@ const CommentBox = ({
             <></>
           )}
         </S.ModifyBox>
-        <S.MoreBox>
-          <S.More
-            alt="more"
-            src={more}
-            onClick={() => setIsActiveMore(!isActiveMore)}
-          />
-          <PopupMenu
-            contents={isModify ? popupClose : popupContents}
-            isActiveMore={isActiveMore}
-            setIsActiveMore={setIsActiveMore}
-          />
-        </S.MoreBox>
+        {userUUID === user_uuid ? (
+          <S.MoreBox>
+            <S.More
+              alt="more"
+              src={more}
+              onClick={() => setIsActiveMore(!isActiveMore)}
+            />
+            <PopupMenu
+              contents={isModify ? popupClose : popupContents}
+              isActiveMore={isActiveMore}
+              setIsActiveMore={setIsActiveMore}
+            />
+          </S.MoreBox>
+        ) : (
+          <div></div>
+        )}
         <S.CommentBoxBottom>
           <S.DetailLeft>
             <ReplyComment
@@ -272,7 +283,10 @@ const CommentBox = ({
                 return (
                   <CommentBox
                     postUuid={postUuid}
+                    userUUID={userUUID}
                     comment={value}
+                    commentCount={commentCount}
+                    setCommentCount={setCommentCount}
                     settingComment={settingComment}
                     key={i}
                   />
