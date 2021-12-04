@@ -1,4 +1,4 @@
-import React, { FC, Suspense } from "react";
+import { FC, Suspense } from "react";
 import { Switch, Route } from "react-router-dom";
 import {
   LoginContainer,

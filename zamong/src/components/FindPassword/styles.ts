@@ -1,6 +1,6 @@
 import styled from "@emotion/styled";
-import { color } from "../../../style/color";
-import { font } from "../../../style/font";
+import { color } from "../../style/color";
+import { font } from "../../style/font";
 
 export const FindBox = styled.div`
   width: 520px;
