@@ -45,33 +45,25 @@ export const Input = styled.input`
 export const EventBox = styled.div`
   display: flex;
   align-items: center;
-  width: 132px;
-  margin-left: 100%;
-  transform: translateX(-132px);
-  justify-content: space-between;
+  justify-content: right;
+  column-gap: 8px;
+  width: 100%;
 `;
 
 export const PrevButton = styled.div`
-  width: 62px;
-  height: 32px;
+  padding: 6px 16px;
   color: ${color.white};
   border: 1px solid ${color.white};
   background-color: transparent;
   border-radius: 100px;
-  text-align: center;
-  line-height: 2;
   box-shadow: 0 0 1px 0 ${color.white} inset, 0 0 1px 0 ${color.white};
   cursor: pointer;
 `;
 
 export const NextButton = styled.div`
-  width: 62px;
-  height: 32px;
+  padding: 6px 16px;
   color: ${color.white};
-  border: 1px solid transparent;
   background-color: ${color.blue};
   border-radius: 100px;
-  text-align: center;
-  line-height: 2;
   cursor: pointer;
 `;

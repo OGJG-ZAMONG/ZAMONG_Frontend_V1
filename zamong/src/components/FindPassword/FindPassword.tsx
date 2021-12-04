@@ -44,7 +44,7 @@ const FindPassword = () => {
         <S.Input name="email" value={email} onChange={emailChange}/>
         <S.EventBox>
           <S.PrevButton onClick={linkLogin}>이전</S.PrevButton>
-          <S.NextButton onClick={() => emailCheck(email)}>다음</S.NextButton>
+          <S.NextButton onClick={() => emailCheck(email)}>요청</S.NextButton>
         </S.EventBox>
       </S.PaddingBox>
     </S.FindBox>
