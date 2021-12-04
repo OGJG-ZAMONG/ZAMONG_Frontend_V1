@@ -52,7 +52,7 @@ const DreamInterpretationList = (): JSX.Element => {
           </S.TitleContainer>
           <div>
             {interpretations ? renderList : renderSkeleton}
-            {totalPageRef && totalPageRef.current !== page + 1 && (
+            {totalPageRef && totalPageRef.current > page && (
               <S.MoreContaier onClick={onMore}>
                 <div>더보기</div>
                 <img alt="down" src={DownChevron} />
