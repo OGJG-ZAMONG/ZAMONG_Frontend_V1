@@ -73,6 +73,7 @@ export const OnAcceptButton = styled.div`
   font: ${font.body2};
   border: 1px solid ${color.white};
   border-radius: 100px;
+  box-shadow: 0 0 1px 0 ${color.white} inset, 0 0 1px 0 ${color.white};
   padding: 6px 16px;
   cursor: pointer;
 `;
@@ -91,4 +92,5 @@ export const Cancel = styled.div`
   cursor: pointer;
   border-radius: 10px;
   padding: 12px 16px;
+  box-shadow: 0 0 1px 0 ${color.white} inset, 0 0 1px 0 ${color.white};
 `;
