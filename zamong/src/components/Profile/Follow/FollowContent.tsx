@@ -1,19 +1,11 @@
 import React, { FC, useEffect, useState } from "react";
-import { getFollowing, unfollow, follow } from "../../../utils/api/Profile";
+import { getFollowing } from "../../../utils/api/Profile";
 import * as S from "./style";
-import { useHistory } from "react-router-dom";
-import User from "../../User/User";
-
-interface Following {
-  uuid: string;
-  profile: string;
-  id: string;
-  follow_datetime: string;
-  is_following: boolean;
-}
+import { following } from "../../../models/dto/response/followingsResponse";
+import FollowUser from "../../User/FollowUser/FollowUser";
 
 interface FollowType {
-  followings: Following[];
+  followings: following[];
   total_size: number;
 }
 
@@ -51,7 +43,7 @@ const FollowContent: FC<IdType> = (props) => {
         ) : (
           followState.followings &&
           followState.followings.map((data, v) => {
-            return <User data={data} key={v} refresh={following} />;
+            return <FollowUser data={data} key={v} refresh={following} />;
           })
         )}
       </S.FolloweList>
