@@ -13,7 +13,6 @@ const FollowerUser = ({ data, refresh }: PropsType) => {
   const { push } = useHistory();
 
   const userProfile = (uuid: string) => {
-    alert("QNd");
     push(`/user/${uuid}`);
   };
 
@@ -21,7 +20,9 @@ const FollowerUser = ({ data, refresh }: PropsType) => {
     if (date.getFullYear() === new Date().getFullYear()) {
       return `${date.getMonth() + 1}월 ${date.getDate()}일`;
     } else {
-      return `${date.getFullYear()}년 ${date.getMonth() + 1}월 ${date.getDate()}일`;
+      return `${date.getFullYear()}년 ${
+        date.getMonth() + 1
+      }월 ${date.getDate()}일`;
     }
   };
 
@@ -51,11 +52,17 @@ const FollowerUser = ({ data, refresh }: PropsType) => {
           <span>{id}</span>
         </I.ProfileContainer>
         <I.ButtonContainer>
-          <span>팔로워를 시작한 날짜 : {dateToString(new Date(follow_datetime))}</span>
+          <span>
+            팔로워를 시작한 날짜 : {dateToString(new Date(follow_datetime))}
+          </span>
           {is_following ? (
-            <I.BorderButton onClick={() => unFollowClick(uuid)}>팔로우중</I.BorderButton>
+            <I.BorderButton onClick={() => unFollowClick(uuid)}>
+              팔로우중
+            </I.BorderButton>
           ) : (
-            <I.BlueButton onClick={() => followClick(uuid)}>팔로우</I.BlueButton>
+            <I.BlueButton onClick={() => followClick(uuid)}>
+              팔로우
+            </I.BlueButton>
           )}
         </I.ButtonContainer>
       </I.Container>
