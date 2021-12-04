@@ -35,16 +35,14 @@ export const FileBox = styled.div`
 `;
 
 export const FileText = styled.label`
-  width: 62px;
-  height: 31px;
+  padding: 6px 16px;
   color: ${color.white};
   cursor: pointer;
   border-radius: 120px;
   text-align: center;
-  padding-top: 2px;
   border: 1px solid ${color.white};
-  background-color: ${color.black};
-  font: ${font.body2};
+  background-color: transparent;
+  font: ${font.body3};
   box-shadow: 0 0 1px 0 ${color.white} inset, 0 0 1px 0 ${color.white};
 `;
 
@@ -54,55 +52,33 @@ export const FileBtn = styled.input`
   border: 0;
 `;
 
-export const ChangeBtn = styled.div`
-  width: 62px;
-  height: 31px;
-  border: 1px solid ${color.white};
-  background-color: ${color.black};
+const Button = styled.button`
+  padding: 6px 16px;
+  background-color: transparent;
+  font: ${font.body3};
   border-radius: 120px;
-  color: ${color.white};
-  cursor: pointer;
-  display: inline-block;
-  text-align: center;
-  align-items: center;
-  padding-top: 2px;
-  font: ${font.body2};
-  margin-left: 6px;
-  box-shadow: 0 0 1px 0 ${color.white} inset, 0 0 1px 0 ${color.white};
 `;
 
-export const CancelBtn = styled.div`
-  width: 62px;
-  height: 31px;
-  border: 1px solid ${color.red};
-  background-color: black;
+export const BorderButton = styled(Button)`
+  border: 1px solid ${color.white};
+  box-shadow: 0 0 1px 0 ${color.white} inset, 0 0 1px 0 ${color.white};
+  color: ${color.white};
+`;
+
+export const ButtonTo = styled(Link)`
+  padding: 6px 16px;
+  background-color: transparent;
+  font: ${font.body3};
+  border: 1px solid ${color.white};
+  box-shadow: 0 0 1px 0 ${color.white} inset, 0 0 1px 0 ${color.white};
+  color: ${color.white};
   border-radius: 120px;
+`;
+
+export const BorderButtonRed = styled(Button)`
   color: ${color.red};
-  cursor: pointer;
-  display: inline-block;
-  text-align: center;
-  align-items: center;
-  font: ${font.body2};
-  padding-top: 2px;
-  margin-left: 9px;
+  border: 1px solid ${color.red};
   box-shadow: 0 0 1px 0 ${color.red} inset, 0 0 1px 0 ${color.red};
-`;
-
-export const ChangePwBtn = styled(Link)`
-  width: 62px;
-  height: 31px;
-  border: 1px solid ${color.white};
-  background-color: ${color.black};
-  border-radius: 120px;
-  color: ${color.white};
-  text-decoration: none;
-  cursor: pointer;
-  display: inline-block;
-  text-align: center;
-  align-items: center;
-  font: ${font.body2};
-  padding-top: 2px;
-  box-shadow: 0 0 1px 0 ${color.white} inset, 0 0 1px 0 ${color.white};
 `;
 
 export const AccountBox = styled.div`
@@ -164,17 +140,4 @@ export const inputId = styled.input`
 export const DeleteText = styled.span`
   color: ${color.red};
   font: ${font.body2};
-`;
-
-export const DeleteBtn = styled.button`
-  width: 62px;
-  height: 31px;
-  border: 1px solid ${color.red};
-  background-color: ${color.black};
-  border-radius: 120px;
-  color: ${color.red};
-  cursor: pointer;
-  font: ${font.body2};
-  padding-top: 1px;
-  box-shadow: 0 0 1px 0 ${color.red} inset, 0 0 1px 0 ${color.red};
 `;

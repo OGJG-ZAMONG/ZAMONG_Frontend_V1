@@ -39,10 +39,7 @@ const AccountContent = (): JSX.Element => {
     }
   };
 
-  const doChangeId = async (
-    e: React.MouseEvent<HTMLDivElement, MouseEvent>,
-    newId: string
-  ) => {
+  const doChangeId = async (e: React.MouseEvent<HTMLButtonElement, MouseEvent>, newId: string) => {
     if (newId === idState.id) {
       alert("현재 아이디와 같습니다.");
     } else {
@@ -104,12 +101,7 @@ const AccountContent = (): JSX.Element => {
             <S.SubTitle>프로필 사진 수정</S.SubTitle>
             <S.FileBox>
               <S.FileText htmlFor="profile">변경</S.FileText>
-              <S.FileBtn
-                type="file"
-                accept="image/*"
-                onChange={upProfile}
-                id="profile"
-              />
+              <S.FileBtn type="file" accept="image/*" onChange={upProfile} id="profile" />
             </S.FileBox>
           </S.Box>
         </S.ProfileBox>
@@ -121,30 +113,25 @@ const AccountContent = (): JSX.Element => {
               {isIdCheck ? (
                 <S.IdText>{idState.id}</S.IdText>
               ) : (
-                <S.inputId
-                  onChange={(e) => changeId(e)}
-                  defaultValue={idState.id}
-                ></S.inputId>
+                <S.inputId onChange={(e) => changeId(e)} defaultValue={idState.id}></S.inputId>
               )}
               {isIdCheck ? null : (
-                <S.ChangeBtn onClick={(e) => doChangeId(e, newId)}>
-                  변경
-                </S.ChangeBtn>
+                <S.BorderButton onClick={(e) => doChangeId(e, newId)}>변경</S.BorderButton>
               )}
               {isIdCheck ? (
-                <S.ChangeBtn onClick={(e) => changeIdBtn(e)}>변경</S.ChangeBtn>
+                <S.BorderButton onClick={(e) => changeIdBtn(e)}>변경</S.BorderButton>
               ) : (
-                <S.CancelBtn onClick={(e) => changeIdBtn(e)}>취소</S.CancelBtn>
+                <S.BorderButtonRed onClick={(e) => changeIdBtn(e)}>취소</S.BorderButtonRed>
               )}
             </div>
           </S.Box>
           <S.Box>
             <S.SubTitle>비밀번호</S.SubTitle>
-            <S.ChangePwBtn to="/findpassword">변경</S.ChangePwBtn>
+            <S.ButtonTo to="/findpassword">변경</S.ButtonTo>
           </S.Box>
           <S.Box>
             <S.DeleteText>계정 탈퇴</S.DeleteText>
-            <S.DeleteBtn onClick={clickDelete}>탈퇴</S.DeleteBtn>
+            <S.BorderButtonRed onClick={clickDelete}>탈퇴</S.BorderButtonRed>
           </S.Box>
         </S.AccountBox>
       </S.Content>
