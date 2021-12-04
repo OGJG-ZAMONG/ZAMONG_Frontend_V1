@@ -81,6 +81,7 @@ export const ButtonTo = styled(Link)`
   box-shadow: 0 0 1px 0 ${color.white} inset, 0 0 1px 0 ${color.white};
   color: ${color.white};
   border-radius: 120px;
+  text-decoration: none;
 `;
 
 export const BorderButtonRed = styled(Button)`
