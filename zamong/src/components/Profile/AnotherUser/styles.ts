@@ -15,14 +15,13 @@ export const TopBox = styled.div`
 `;
 
 export const TopContent = styled.div`
-  width: 621px;
-  height: 197px;
   margin-top: 74px;
   display: flex;
+  align-items: center;
 `;
 
 export const ProfileBox = styled.div<{ img: string }>`
-  width: 200px;
+  width: 197px;
   height: 197px;
   background-size: cover;
   border-radius: 120px;
@@ -31,10 +30,11 @@ export const ProfileBox = styled.div<{ img: string }>`
 `;
 
 export const InfoBox = styled.div`
-  width: 400px;
-  height: 114px;
+  display: flex;
+  flex-direction: column;
+  row-gap: 8px;
+  margin-left: 24px;
   box-sizing: border-box;
-  margin: 40px 0px 0px 24px;
 `;
 
 export const NickNameText = styled.p`
