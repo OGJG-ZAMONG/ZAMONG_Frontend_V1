@@ -190,8 +190,9 @@ const Chat: FC = (): JSX.Element => {
         {rooms.length === 0 ? (
           <>
             <div />
-            <S.NoData to="/sell">
+            <S.NoData>
               꿈 구매에 참여하여 채팅에 참여해보세요
+              <S.Click to="/sell">클릭</S.Click>
             </S.NoData>
             <div />
           </>

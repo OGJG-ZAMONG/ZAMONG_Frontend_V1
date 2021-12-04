@@ -176,10 +176,7 @@ export const MyTextContainer = styled.div`
   justify-content: right;
 `;
 
-export const NoData = styled(Link)`
-  text-decoration: none;
-  outline: none;
-  border: none;
+export const NoData = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
@@ -188,4 +185,20 @@ export const NoData = styled(Link)`
   color: ${color.white};
   margin: auto;
   height: 100%;
+`;
+
+export const Click = styled(Link)`
+  text-decoration: none;
+  outline: none;
+  border: none;
+  margin-left: 10px;
+  height: 24px;
+  color: ${color.blue};
+  font-size: 20px;
+  display: flex;
+  align-items: center;
+
+  &:hover {
+    border-bottom: 1px solid ${color.blue};
+  }
 `;
