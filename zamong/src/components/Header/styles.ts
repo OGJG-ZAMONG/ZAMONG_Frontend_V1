@@ -11,11 +11,11 @@ export const HeaderContainer = styled.div<{ pd: number; lineOpacity: number }>`
   display: flex;
   align-items: center;
   position: fixed;
-  padding-top: ${(props) => props.pd}px;
-  transition: padding 0.25s ease-out, background-color 0.25s ease-out;
+  transform: translateY(${(props) => props.pd}px);
+  transition: transform 0.25s ease-out, background-color 0.25s ease-out;
   z-index: 3;
   min-width: 1000px;
-  will-change: padding-top background-color;
+  will-change: transform background-color;
 
   &:after {
     will-change: opacity;

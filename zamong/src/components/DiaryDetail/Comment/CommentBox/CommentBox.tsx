@@ -1,6 +1,7 @@
 import * as S from "./styles";
 import Recommend from "./Recommend/Recommend";
 import ReplyComment from "./ReplyComment/ReplyComment";
+import { useHistory } from "react-router-dom";
 import { more, profile } from "../../../../assets/index";
 import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import {
@@ -16,14 +17,21 @@ import PopupContent from "../../../../interface/PopupContent";
 interface PropsType {
   comment: Comment;
   postUuid: string;
+  userUUID: string;
   settingComment: () => Promise<void>;
+  commentCount: number;
+  setCommentCount: React.Dispatch<React.SetStateAction<number>>;
 }
 
 const CommentBox = ({
+  userUUID,
   comment,
   postUuid,
   settingComment,
+  commentCount,
+  setCommentCount,
 }: PropsType): JSX.Element => {
+  const { push } = useHistory();
   const [onOffToggle, setOnOffToggle] = useState(false);
   const [onOffAdd, setOnOffAdd] = useState(false);
   const [input, setInput] = useState("");
@@ -31,6 +39,7 @@ const CommentBox = ({
   const [isActiveMore, setIsActiveMore] = useState(false);
   const [isModify, setIsModify] = useState(false);
   const text = useRef<HTMLTextAreaElement>(null);
+  const [hover, setHover] = useState(false);
   const {
     uuid,
     content,
@@ -40,6 +49,8 @@ const CommentBox = ({
     is_like,
     is_dis_like,
     user_profile,
+    user_id,
+    user_uuid,
   } = comment;
   const [modifyContent, setModifyContent] = useState(content);
   const [reComments, setReComments] = useState<Comment[]>([]);
@@ -95,9 +106,10 @@ const CommentBox = ({
       };
       try {
         await postComment(postUuid, data);
+        setCommentCount(commentCount+1);
+        settingReComment();
         setInput("");
         setAdd(false);
-        settingReComment();
         alert("댓글이 입력되었습니다.");
         setIsActivePlus(false);
         setOnOffToggle(true);
@@ -128,7 +140,7 @@ const CommentBox = ({
     const data = {
       content: modifyContent,
     };
-    
+
     try {
       const response = await modifyComment(uuid, data);
       setModifyContent(response.data.content.response.message);
@@ -148,8 +160,8 @@ const CommentBox = ({
     if (window.confirm("정말 삭제하시겠습니까?")) {
       try {
         await delComment(uuid);
-        alert("삭제되었습니다.");
         settingComment();
+        alert("삭제되었습니다.");
       } catch (error) {
         console.log(error);
       }
@@ -181,10 +193,21 @@ const CommentBox = ({
     },
   ];
 
+  const linkProfile = () => {
+    push(`/user/${user_uuid}`);
+  };
+
   return (
     <S.CommentBox>
       <S.CommentProfile>
-        <S.Profile alt="profile" src={user_profile} />
+        <S.Profile
+          alt="profile"
+          src={user_profile}
+          onClick={linkProfile}
+          onMouseEnter={() => setHover(true)}
+          onMouseLeave={() => setHover(false)}
+        />
+        {hover && <S.UserName>{user_id}</S.UserName>}
       </S.CommentProfile>
       <S.CommnetRight>
         <S.ModifyBox>
@@ -201,18 +224,22 @@ const CommentBox = ({
             <></>
           )}
         </S.ModifyBox>
-        <S.MoreBox>
-          <S.More
-            alt="more"
-            src={more}
-            onClick={() => setIsActiveMore(!isActiveMore)}
-          />
-          <PopupMenu
-            contents={isModify ? popupClose : popupContents}
-            isActiveMore={isActiveMore}
-            setIsActiveMore={setIsActiveMore}
-          />
-        </S.MoreBox>
+        {userUUID === user_uuid ? (
+          <S.MoreBox>
+            <S.More
+              alt="more"
+              src={more}
+              onClick={() => setIsActiveMore(!isActiveMore)}
+            />
+            <PopupMenu
+              contents={isModify ? popupClose : popupContents}
+              isActiveMore={isActiveMore}
+              setIsActiveMore={setIsActiveMore}
+            />
+          </S.MoreBox>
+        ) : (
+          <div></div>
+        )}
         <S.CommentBoxBottom>
           <S.DetailLeft>
             <ReplyComment
@@ -256,7 +283,10 @@ const CommentBox = ({
                 return (
                   <CommentBox
                     postUuid={postUuid}
+                    userUUID={userUUID}
                     comment={value}
+                    commentCount={commentCount}
+                    setCommentCount={setCommentCount}
                     settingComment={settingComment}
                     key={i}
                   />

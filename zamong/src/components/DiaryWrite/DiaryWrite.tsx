@@ -137,7 +137,7 @@ const DiaryWrite = ({ dreamUUID }: PropsType): JSX.Element => {
         const startTime = getTimeFromDate(new Date(sleep_begin_date_time));
         const endTime = getTimeFromDate(new Date(sleep_end_date_time));
         const dreamTypes = dream_types.map(
-          (value) => dreamType.find((item) => item.code === value)!
+          (value: string) => dreamType.find((item) => item.code === value)!
         );
 
         returnValue.title = title;
@@ -238,11 +238,18 @@ const DiaryWrite = ({ dreamUUID }: PropsType): JSX.Element => {
       push(`/diary/write?dreamUUID=${uuid}`);
       isPostRef.current = true;
 
-      alert("저장 완료");
+      alert("작성 완료");
 
       await saveFile(uuid);
       push(`/diary`);
-      localStorage.removeItem("saved_diary");
+
+      if (dreamUUID) {
+        localStorage.removeItem(`${dreamUUID}`);
+        localStorage.removeItem(`${dreamUUID}_last_save_time`);
+      } else {
+        localStorage.removeItem("saved_diary");
+        localStorage.removeItem("last_save_time");
+      }
     } catch (error) {
       console.log(error);
       alert("오류가 발생했습니다.");

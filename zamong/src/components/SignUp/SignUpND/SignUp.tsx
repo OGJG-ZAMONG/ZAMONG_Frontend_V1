@@ -84,8 +84,10 @@ const SignUpND = ({
       setPwTrue(false);
     } else if (pw.length && !numberTest.test(pw)) {
       setPwErrorText("숫자가 최소 1개 이상 포함돼야 합니다.");
+      setPwTrue(false);
     } else if (pw.length && !specialTest.test(pw)) {
       setPwErrorText("특수문자가 최소 1개 이상 포함돼야 합니다.");
+      setPwTrue(false);
     } else {
       setPwErrorText("");
       setPwTrue(true);

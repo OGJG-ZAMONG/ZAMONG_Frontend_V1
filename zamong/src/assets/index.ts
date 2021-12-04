@@ -34,3 +34,5 @@ export { default as Locked } from "./icons/locked.svg";
 export { default as Unlocked } from "./icons/lockOpen.svg";
 export { default as Recommend } from "./icons/Recommend.svg";
 export { default as OnRecommend } from "./icons/OnRecommend.svg";
+export { default as onCheck } from "./icons/onCheck.svg";
+export { default as offCheck } from "./icons/offCheck.svg";

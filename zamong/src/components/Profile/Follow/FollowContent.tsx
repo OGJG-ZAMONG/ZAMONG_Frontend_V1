@@ -1,18 +1,12 @@
 import React, { FC, useEffect, useState } from "react";
-import { getFollowing, unfollow, follow } from "../../../utils/api/Profile";
+import { getFollowing } from "../../../utils/api/Profile";
 import * as S from "./style";
-import { useHistory } from "react-router-dom";
-
-interface Following {
-  uuid: string;
-  profile: string;
-  id: string;
-  follow_datetime: string;
-  is_following: boolean;
-}
+import { following } from "../../../models/dto/response/followingsResponse";
+import FollowUser from "../../User/FollowUser/FollowUser";
+import UserSkeleton from "../../UserSkeleton/UserSkeleton";
 
 interface FollowType {
-  followings: Following[];
+  followings: following[];
   total_size: number;
 }
 
@@ -21,11 +15,12 @@ interface IdType {
 }
 
 const FollowContent: FC<IdType> = (props) => {
-  const history = useHistory();
-  const [followState, setFollow] = useState<FollowType>({
+  const [followState, setFollow] = useState<FollowType | null>(null);
+  const nnState: FollowType = followState || {
     followings: [],
     total_size: 0,
-  });
+  };
+  const { followings, total_size } = nnState;
 
   useEffect(() => {
     following();
@@ -40,72 +35,26 @@ const FollowContent: FC<IdType> = (props) => {
     }
   };
 
-  const followClick = async (id: string) => {
-    try {
-      const response = await follow(id);
-      following();
-      return response;
-    } catch (error) {
-      throw error;
-    }
-  };
+  const renderFollowings =
+    total_size === 0 ? (
+      <S.Text>팔로우가 없습니다.</S.Text>
+    ) : (
+      followings.map((data, v) => {
+        return <FollowUser data={data} key={v} refresh={following} />;
+      })
+    );
 
-  const unFollowClick = async (id: string) => {
-    try {
-      const response = await unfollow(id);
-      following();
-      return response;
-    } catch (error) {
-      throw error;
-    }
-  };
+  const renderSkeleton = [1, 2, 3, 4, 5].map((_, index) => {
+    return <UserSkeleton key={index} />;
+  });
 
   return (
-    <>
-      <S.Content>
-        <S.Followe>
-          팔로우 <span>{followState.total_size}명</span>
-        </S.Followe>
-        <S.FolloweList>
-          {followState.followings &&
-            followState.followings.map((data, v) => {
-              const date =
-                data.follow_datetime.substring(5, 7) +
-                "월" +
-                " " +
-                (data.follow_datetime.substring(8, 10) + "일");
-              const userProfile = (uuid: string) => {
-                alert("QNd");
-                history.push(`/user/${uuid}`);
-              };
-              return (
-                <>
-                  <S.UserBox>
-                    <S.LeftBox onClick={() => userProfile(data.uuid)}>
-                      <S.Profile img={data.profile} />
-                      <S.UserNickName>{data.id}</S.UserNickName>
-                    </S.LeftBox>
-                    <S.RightBox>
-                      <S.FollowDate>팔로우를 시작한 날짜 : {date}</S.FollowDate>
-                      {data.is_following ? (
-                        <S.FollowingBtn
-                          onClick={() => unFollowClick(data.uuid)}
-                        >
-                          팔로우중
-                        </S.FollowingBtn>
-                      ) : (
-                        <S.FollowBtn onClick={() => followClick(data.uuid)}>
-                          팔로우
-                        </S.FollowBtn>
-                      )}
-                    </S.RightBox>
-                  </S.UserBox>
-                </>
-              );
-            })}
-        </S.FolloweList>
-      </S.Content>
-    </>
+    <S.Content>
+      <S.Follower>
+        팔로우 <span>{total_size}명</span>
+      </S.Follower>
+      <S.FolloweList>{followState ? renderFollowings : renderSkeleton}</S.FolloweList>
+    </S.Content>
   );
 };
 

@@ -8,7 +8,7 @@ const AuthBackground = () => {
         <S.RightSide />
         <S.TextBox>
           <S.Title>ZAMONG</S.Title>
-          <S.Content>whwnstjroqkfgowpdkstjTJajdEoflwlakgksrnrdjTj</S.Content>
+          <span>몽환적인 꿈이 자몽을 만나 현실에 스며들다.</span>
         </S.TextBox>
       </S.ContentBox>
     </S.Background>

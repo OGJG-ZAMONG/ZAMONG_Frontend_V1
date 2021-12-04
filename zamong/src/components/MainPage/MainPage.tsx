@@ -5,7 +5,6 @@ import { DreamList, FollowList, MyDreamDiaryList, FollowDreamDiaryList } from ".
 import { useLayoutEffect, useRef, useState } from "react";
 import { getMyProfile } from "../../utils/api/Profile";
 import { useHistory } from "react-router-dom";
-import Background from "../Background/Background";
 
 const MainPage = (): JSX.Element => {
   interface LinkType {
@@ -18,21 +17,18 @@ const MainPage = (): JSX.Element => {
   const followRef = useRef<HTMLDivElement>(null);
   const shareDreamRef = useRef<HTMLDivElement>(null);
 
-  const { current: follow } = followRef;
-  const { current: shareDream } = shareDreamRef;
-
   const { push } = useHistory();
 
   const toFollow = () => {
-    if (follow) {
-      const top = follow.offsetTop - 64;
+    if (followRef.current) {
+      const top = followRef.current.offsetTop - 64;
       window.scrollTo({ top: top, behavior: "smooth" });
     }
   };
 
   const toShareDream = () => {
-    if (shareDream) {
-      const top = shareDream.offsetTop - 64;
+    if (shareDreamRef.current) {
+      const top = shareDreamRef.current.offsetTop - 64;
       window.scrollTo({ top: top, behavior: "smooth" });
     }
   };
@@ -64,6 +60,12 @@ const MainPage = (): JSX.Element => {
     {
       text: "공개된 꿈 보기 ",
       onClick: toShareDream,
+    },
+    {
+      text: "회원가입 ",
+      onClick: () => {
+        push("/signup");
+      },
     },
     {
       text: "로그인 ",
@@ -107,13 +109,17 @@ const MainPage = (): JSX.Element => {
 
     const returnValue: JSX.Element[] = [];
 
-    for (let i = 0; i < list.length; i += 2) {
-      returnValue.push(
-        <S.HelloInner>
-          {list[i]}
-          {list[i + 1]}
-        </S.HelloInner>
-      );
+    if (isLogin) {
+      for (let i = 0; i < list.length; i += 2) {
+        returnValue.push(
+          <S.HelloInner key={i}>
+            {list[i]}
+            {list[i + 1]}
+          </S.HelloInner>
+        );
+      }
+    } else {
+      returnValue.push(<S.HelloInner>{list}</S.HelloInner>);
     }
 
     return returnValue;

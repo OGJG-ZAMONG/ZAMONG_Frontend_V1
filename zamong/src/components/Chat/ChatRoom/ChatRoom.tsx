@@ -10,6 +10,8 @@ interface Props {
   Index: number;
   selectedRoom: number;
   setSelectedRoom: Dispatch<React.SetStateAction<number>>;
+  value: any;
+
 }
 
 const ChatRoom: FC<Props> = ({
@@ -20,6 +22,7 @@ const ChatRoom: FC<Props> = ({
   Index,
   selectedRoom,
   setSelectedRoom,
+  value
 }): JSX.Element => {
   return (
     <S.ChatRoom
@@ -31,7 +34,7 @@ const ChatRoom: FC<Props> = ({
       <div>{ChatRoomName}</div>
       <S.ChatUserInfoBox>
         <div>{UserName}</div>
-        <div>ᆞ</div>
+        <div>{value === null ? "" : "ᆞ"}</div>
         <div>{LastConnection}</div>
       </S.ChatUserInfoBox>
       <S.LastChat>{LastChat}</S.LastChat>

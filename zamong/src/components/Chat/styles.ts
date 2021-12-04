@@ -1,6 +1,7 @@
 import styled from "@emotion/styled";
 import { font } from "../../style/font";
 import { color } from "../../style/color";
+import { Link } from "react-router-dom";
 
 //chat list
 export const Container = styled.div`
@@ -10,13 +11,12 @@ export const Container = styled.div`
   padding-top: 120px;
   display: grid;
   grid-template-columns: 29% 5% 66%;
-  grid-template-columns: minmax(350px ,29%) minmax(100px ,5%) minmax(500px ,66%);
+  grid-template-columns: minmax(350px, 29%) minmax(100px, 5%) minmax(500px, 66%);
 `;
 
 export const ChatListContainer = styled.div`
   display: flex;
   flex-direction: column;
-  /* height: 560px; */
   height: 90%;
 `;
 
@@ -77,9 +77,9 @@ export const ChatLine = styled.div`
 //chat view
 export const ChatViewerContainer = styled.div`
   height: 90%;
-  background-color: ${color.darkerGray};
   border-radius: 10px;
-  padding: 16px;
+  padding: 16px 16px 0 16px;
+  background-color: ${color.darkerGray};
   position: relative;
   display: grid;
   grid-template-rows: 10% 84% 6%;
@@ -87,7 +87,7 @@ export const ChatViewerContainer = styled.div`
 
 export const ChatViewHeader = styled.div`
   display: grid;
-  border-bottom: 1px solid ${color.darkerGray};
+  border-bottom: 1px solid ${color.gray};
   height: 80px;
   grid-template-rows: repeat(2, 1fr);
 `;
@@ -106,12 +106,7 @@ export const HeaderNav = styled.div`
 export const UserReportBox = styled.div`
   display: flex;
   justify-content: space-between;
-`;
-
-export const ViewUserName = styled.div``;
-
-export const Report = styled.div`
-  cursor: pointer;
+  margin-left: 5px;
 `;
 
 export const MannerTemperatureBox = styled.div`
@@ -126,18 +121,22 @@ export const MannerTemperatureIMG = styled.img`
   margin-right: 5px;
 `;
 
-export const MannerTemperatureText = styled.div``;
-
-
 export const ChatInputBox = styled.div`
-  background-color: #636366;
+  height: 36px;
+  background-color: ${color.darkGray};
   border-radius: 100px;
   width: calc(100%);
-  padding: 8px 16px;
+  padding: 8px 4px 8px 16px;
   display: flex;
   justify-content: space-between;
   margin: 0 auto;
   align-items: center;
+
+  & img {
+    width: 28px;
+    height: 28px;
+    cursor: pointer;
+  }
 `;
 
 export const ChatInput = styled.input`
@@ -150,26 +149,19 @@ export const ChatInput = styled.input`
   color: ${color.white};
   font-size: 16px;
   &::placeholder {
-    color: ${color.white};
+    color: ${color.gray};
   }
-`;
-
-
-export const ChatSubmitIMG = styled.img`
-  width: 28px;
-  height: 28px;
-  cursor: pointer;
 `;
 
 export const ChatBox = styled.div`
   display: flex;
-  flex-direction: column;
+  flex-direction: column-reverse;
   position: relative;
-  height: 100%;
   width: 100%;
   overflow: auto;
-  padding: 16px 8px;
-  min-height: 650px;
+  margin-top: 10px;
+  padding: 0 8px 18px 8px;
+  max-height: 650px;
 `;
 
 export const OpponentTextContainer = styled.div`
@@ -182,4 +174,31 @@ export const MyTextContainer = styled.div`
   width: 100%;
   display: flex;
   justify-content: right;
+`;
+
+export const NoData = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transform: translateY(-5%);
+  font-size: 20px;
+  color: ${color.white};
+  margin: auto;
+  height: 100%;
+`;
+
+export const Click = styled(Link)`
+  text-decoration: none;
+  outline: none;
+  border: none;
+  margin-left: 10px;
+  height: 24px;
+  color: ${color.blue};
+  font-size: 20px;
+  display: flex;
+  align-items: center;
+
+  &:hover {
+    border-bottom: 1px solid ${color.blue};
+  }
 `;

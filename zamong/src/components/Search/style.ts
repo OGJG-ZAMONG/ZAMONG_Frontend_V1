@@ -21,10 +21,19 @@ export const HeadText = styled.p`
   color: ${color.white};
   font: ${font.headline3};
   margin-bottom: 24px;
+  span {
+    color: ${color.blue};
+  }
 `;
 
 export const DreamBox = styled.div`
   margin-top: 56px;
+`;
+
+export const DreamText = styled.p`
+  color: ${color.white};
+  font: ${font.body3};
+  text-align: center;
 `;
 
 export const UserBox = styled.div`
@@ -53,22 +62,23 @@ export const User = styled.div`
   margin-bottom: 12px;
   display: flex;
   justify-content: space-between;
-  border-bottom: 1px solid white;
+  border-bottom: 1px solid ${color.darkGray};
 `;
 
 export const LeftBox = styled.div`
   height: 60px;
   display: flex;
+  cursor: pointer;
 `;
 
-export const Profile = styled.div`
+export const Profile = styled.div<{ img: string }>`
   width: 36px;
   height: 36px;
   border-radius: 120px;
   background-size: cover;
-  border: 1px solid ${color.white};
   margin-top: 10px;
   box-sizing: border-box;
+  background-image: url(${(props) => props.img});
 `;
 
 export const UserNickName = styled.span`
@@ -79,7 +89,7 @@ export const UserNickName = styled.span`
 `;
 
 export const RightBox = styled.div`
-  width: 328px;
+  width: fit-content;
   height: 60px;
   display: flex;
 `;
@@ -91,7 +101,7 @@ export const FollowDate = styled.span`
   font: ${font.body3};
 `;
 
-export const FollowBtn = styled.button`
+export const FollowingBtn = styled.button`
   width: 91px;
   height: 32px;
   border: 1px solid ${color.white};
@@ -99,4 +109,19 @@ export const FollowBtn = styled.button`
   background-color: ${color.black};
   color: ${color.white};
   margin: 14px 0px 0px 15px;
+  font: ${font.body2};
+  cursor: pointer;
+`;
+
+export const FollowBtn = styled.div`
+  width: 91px;
+  height: 32px;
+  border-radius: 120px;
+  background-color: ${color.blue};
+  color: ${color.white};
+  margin: 14px 0px 0px 15px;
+  text-align: center;
+  font: ${font.body2};
+  padding-top: 3px;
+  cursor: pointer;
 `;
