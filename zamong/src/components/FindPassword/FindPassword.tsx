@@ -4,7 +4,8 @@ import { useHistory } from "react-router";
 import { sendPwEmail } from "../../utils/api/FIndPassword";
 
 const FindPassword = () => {
-  const [email, setEmail] = useState("");
+  const [email, setEmail] = useState<string>("");
+  const [canRequest, setCanRequest] = useState<boolean>(true);
   const { push } = useHistory();
 
   const emailChange = (e: React.FormEvent<HTMLInputElement>) => {
@@ -13,6 +14,16 @@ const FindPassword = () => {
   };
 
   const getPw = async () => {
+    if (!canRequest) {
+      return;
+    }
+
+    setCanRequest(false);
+
+    setTimeout(() => {
+      setCanRequest(true);
+    }, 3000);
+
     try {
       sendPwEmail(email);
     } catch (error) {
@@ -31,6 +42,12 @@ const FindPassword = () => {
     }
   };
 
+  const keyUp = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === "Enter") {
+      emailCheck(email);
+    }
+  };
+
   const linkLogin = () => {
     push("/");
   };
@@ -40,10 +57,20 @@ const FindPassword = () => {
       <S.PaddingBox>
         <S.Title>비밀번호 찾기</S.Title>
         <S.GuideWord>이메일</S.GuideWord>
-        <S.Input name="email" value={email} onChange={emailChange}/>
+        <S.Input
+          name="email"
+          value={email}
+          onChange={emailChange}
+          onKeyUp={keyUp}
+        />
         <S.EventBox>
           <S.PrevButton onClick={linkLogin}>이전</S.PrevButton>
-          <S.NextButton onClick={() => emailCheck(email)}>요청</S.NextButton>
+          <S.NextButton
+            onClick={() => emailCheck(email)}
+            disabled={!canRequest}
+          >
+            요청
+          </S.NextButton>
         </S.EventBox>
       </S.PaddingBox>
     </S.FindBox>

@@ -16,7 +16,14 @@ const ChangePassword = () => {
     pwCheckErrorText: "",
     pwCheckTrue: false,
   });
-  const { inputPw, pwErrorText, inputPwCheck, pwCheckErrorText, pwTrue, pwCheckTrue } = inputs;
+  const {
+    inputPw,
+    pwErrorText,
+    inputPwCheck,
+    pwCheckErrorText,
+    pwTrue,
+    pwCheckTrue,
+  } = inputs;
 
   const change = (e: React.FormEvent<HTMLInputElement>) => {
     const { name, value } = e.currentTarget;
@@ -110,7 +117,7 @@ const ChangePassword = () => {
 
       try {
         await postChange(data);
-        push('/login');
+        push("/login");
       } catch (error) {
         alert("링크의 유효기간이 만료되었습니다.");
       }
@@ -127,12 +134,22 @@ const ChangePassword = () => {
           <S.GuideWord>비밀번호</S.GuideWord>
           <S.ErrorMessage>{pwErrorText}</S.ErrorMessage>
         </S.GuideContaier>
-        <S.Input name="inputPw" value={inputPw} type="password" onChange={change} />
+        <S.Input
+          name="inputPw"
+          value={inputPw}
+          type="password"
+          onChange={change}
+        />
         <S.GuideContaier>
           <S.GuideWord>비밀번호 확인</S.GuideWord>
           <S.ErrorMessage>{pwCheckErrorText}</S.ErrorMessage>
         </S.GuideContaier>
-        <S.Input name="inputPwCheck" value={inputPwCheck} type="password" onChange={change} />
+        <S.Input
+          name="inputPwCheck"
+          value={inputPwCheck}
+          type="password"
+          onChange={change}
+        />
         <S.EventBox>
           <S.NextButton onClick={requestChange}>변경</S.NextButton>
         </S.EventBox>

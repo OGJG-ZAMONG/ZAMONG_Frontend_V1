@@ -50,20 +50,29 @@ export const EventBox = styled.div`
   width: 100%;
 `;
 
-export const PrevButton = styled.div`
+export const PrevButton = styled.button`
   padding: 6px 16px;
   color: ${color.white};
+  font: ${font.body3};
   border: 1px solid ${color.white};
   background-color: transparent;
   border-radius: 100px;
   box-shadow: 0 0 1px 0 ${color.white} inset, 0 0 1px 0 ${color.white};
+  outline: none;
   cursor: pointer;
 `;
 
-export const NextButton = styled.div`
+export const NextButton = styled.button`
   padding: 6px 16px;
   color: ${color.white};
+  font: ${font.body3};
   background-color: ${color.blue};
   border-radius: 100px;
+  outline: none;
+  border: none;
   cursor: pointer;
+  
+  &:disabled {
+    filter: brightness(0.8);
+  }
 `;
