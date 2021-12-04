@@ -11,18 +11,19 @@ export const ProfileContent = styled.div`
 
 export const TopBox = styled.div`
   width: 100%;
-  height: 321px;
+  margin-bottom: 50px;
 `;
 
 export const TopContent = styled.div`
   margin-top: 74px;
+  width: 100%;
   display: flex;
   align-items: center;
 `;
 
 export const ProfileBox = styled.div<{ img: string }>`
-  width: 197px;
-  height: 197px;
+  width: 200px;
+  height: 200px;
   background-size: cover;
   border-radius: 120px;
   box-sizing: border-box;
@@ -31,6 +32,7 @@ export const ProfileBox = styled.div<{ img: string }>`
 
 export const InfoBox = styled.div`
   display: flex;
+  width: calc(100% - 228px);
   flex-direction: column;
   row-gap: 8px;
   margin-left: 24px;
@@ -43,7 +45,7 @@ export const NickNameText = styled.p`
 `;
 
 export const EmailText = styled.p`
-  font: ${font.body2};
+  font: ${font.body3};
   color: ${color.white};
 `;
 
@@ -51,14 +53,13 @@ export const OneLineBox = styled.div`
   display: flex;
   column-gap: 16px;
   span {
-    font: ${font.body2};
+    font: ${font.body3};
     color: ${color.white};
   }
 `;
 
 export const LineBox = styled.div`
-  width: 1055px;
-  height: 28px;
+  width: 100%;
   display: flex;
   justify-content: space-between;
 `;
@@ -68,7 +69,7 @@ export const Text = styled.span`
 `;
 
 export const NameBox = styled.p`
-  font: ${font.body2};
+  font: ${font.body3};
   color: ${color.white};
 `;
 
@@ -104,27 +105,22 @@ export const ChooseBox = styled.div<{ isActive: boolean }>`
   column-gap: 8px;
 `;
 
-export const FollowingBtn = styled.button`
-  width: 91px;
-  height: 32px;
-  border: 1px solid ${color.white};
+export const Button = styled.button`
+  padding: 6px 16px;
   border-radius: 120px;
-  background-color: ${color.black};
+  font: ${font.body3};
   color: ${color.white};
-  margin: 14px 0px 0px 15px;
-  font: ${font.body2};
+  outline: none;
   cursor: pointer;
 `;
 
-export const FollowBtn = styled.div`
-  width: 91px;
-  height: 32px;
-  border-radius: 120px;
+export const FollowingBtn = styled(Button)`
+  border: 1px solid ${color.white};
+  background-color: transparent;
+  box-shadow: 0 0 1px 0 ${color.white} inset, 0 0 1px 0 ${color.white};
+`;
+
+export const FollowBtn = styled(Button)`
   background-color: ${color.blue};
-  color: ${color.white};
-  margin: 14px 0px 0px 15px;
-  text-align: center;
-  font: ${font.body2};
-  padding-top: 3px;
-  cursor: pointer;
+  border: 0;
 `;
