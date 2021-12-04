@@ -37,6 +37,7 @@ const Chat: FC = (): JSX.Element => {
       ? setTimeout(() => {
           getChatRooms()
             .then((res) => {
+              console.log(res.data.content.response.rooms);
               setRooms(res.data.content.response.rooms);
               setRoomId(res.data.content.response.rooms[selectedRoom].uuid);
               connectSocket(res.data.content.response.rooms[selectedRoom].uuid);
@@ -118,9 +119,7 @@ const Chat: FC = (): JSX.Element => {
       <S.ChatListContainer>
         <S.ChatInfoText>
           <span>채팅&nbsp;</span>
-          <S.ChatCount>
-            {rooms.length === 0 ? rooms.length : rooms.length - 1}개
-          </S.ChatCount>
+          <S.ChatCount>{rooms.length}개</S.ChatCount>
         </S.ChatInfoText>
         <S.SearchChatContainer>
           <S.SearchChatContent
@@ -133,9 +132,10 @@ const Chat: FC = (): JSX.Element => {
         <S.ChatList>
           {rooms.length === 0 ? (
             <ChatRoom
+              value={null}
               ChatRoomName={"아직 채팅방이 없네요"}
               UserName={"채팅방을 생성해보세요"}
-              LastConnection={"ᆞᆞᆞ"}
+              LastConnection={""}
               LastChat={""}
               key={0}
               Index={0}
@@ -144,7 +144,20 @@ const Chat: FC = (): JSX.Element => {
             />
           ) : (
             rooms.map((value: any, index: number) => {
-              if (value.last_chat === null) return;
+              if (value.last_chat === null)
+                return (
+                  <ChatRoom
+                    value={value.last_chat}
+                    ChatRoomName={value.title}
+                    UserName={""}
+                    LastConnection={""}
+                    LastChat={"채팅을 시작해보세요"}
+                    key={value.uuid}
+                    Index={index}
+                    selectedRoom={selectedRoom}
+                    setSelectedRoom={setSelectedRoom}
+                  />
+                );
               const lastTime = Math.ceil(
                 (date.getTime() -
                   new Date(value.last_chat.created_at).getTime()) /
@@ -153,10 +166,15 @@ const Chat: FC = (): JSX.Element => {
               );
               return (
                 <ChatRoom
+                  value={value.last_chat}
                   ChatRoomName={value.title}
                   UserName={value.last_chat.user.id}
                   LastConnection={`${lastTime}분`}
-                  LastChat={value.last_chat.chat}
+                  LastChat={
+                    value.last_chat.chat === null
+                      ? "채팅을 시작해보세요"
+                      : value.last_chat.chat
+                  }
                   key={value.uuid}
                   Index={index}
                   selectedRoom={selectedRoom}
@@ -167,9 +185,7 @@ const Chat: FC = (): JSX.Element => {
           )}
         </S.ChatList>
       </S.ChatListContainer>
-
       <S.ChatLine />
-
       <S.ChatViewerContainer>
         {rooms.length === 0 ? (
           <>
@@ -183,12 +199,14 @@ const Chat: FC = (): JSX.Element => {
           <>
             <S.ChatViewHeader>
               <S.ChatTitle>
-                {rooms.length > 0 && rooms[selectedRoom].title}
+                {rooms.length < 0 ? "" : rooms[selectedRoom].title}
               </S.ChatTitle>
               <S.HeaderNav>
                 <S.UserReportBox>
                   <div>
-                    {rooms.length > 0 && rooms[selectedRoom].last_chat.user.id}
+                    {rooms[selectedRoom].last_chat === null
+                      ? "자몽"
+                      : rooms[selectedRoom].last_chat.user.id}
                     님과의 거래
                   </div>
                 </S.UserReportBox>
