@@ -2,17 +2,11 @@ import { stringify } from "querystring";
 import { useEffect, useState } from "react";
 import * as S from "./styles";
 
-type propsType = {
-  prev: () => void;
-};
-
-const Change = ({ prev }: propsType) => {
+const ChangePassword = () => {
   const [inputs, setInputs] = useState({
     inputPw: "",
-    isPw: false,
     pwErrorText: "",
     inputPwCheck: "",
-    isPwCheck: false,
     pwCheckErrorText: "",
   });
 
@@ -21,8 +15,8 @@ const Change = ({ prev }: propsType) => {
   const change = (e: React.FormEvent<HTMLInputElement>) => {
     const { name, value } = e.currentTarget;
     setInputs({
-      ...inputs,
-      [name]: value,
+        ...inputs,
+        [name]: value,
     });
   };
 
@@ -31,22 +25,19 @@ const Change = ({ prev }: propsType) => {
       setInputs({
         ...inputs,
         pwCheckErrorText: "",
-        isPw: false,
       });
     } else if (inputPwCheck !== inputPw) {
       setInputs({
         ...inputs,
         pwCheckErrorText: "비밀번호가 맞지 않습니다.",
-        isPw: false,
       });
     } else {
       setInputs({
         ...inputs,
         pwCheckErrorText: "",
-        isPw: true,
       });
     }
-  }, [inputPwCheck]);
+  }, [inputPwCheck, inputPw]);
 
   return (
     <S.ChangeBox>
@@ -73,7 +64,6 @@ const Change = ({ prev }: propsType) => {
           onChange={change}
         />
         <S.EventBox>
-          <S.PrevButton onClick={prev}>이전</S.PrevButton>
           <S.NextButton>변경</S.NextButton>
         </S.EventBox>
       </S.PaddingBox>
@@ -81,4 +71,4 @@ const Change = ({ prev }: propsType) => {
   );
 };
 
-export default Change;
+export default ChangePassword;
