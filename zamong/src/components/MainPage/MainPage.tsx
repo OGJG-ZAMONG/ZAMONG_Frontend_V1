@@ -62,6 +62,12 @@ const MainPage = (): JSX.Element => {
       onClick: toShareDream,
     },
     {
+      text: "회원가입 ",
+      onClick: () => {
+        push("/signup");
+      },
+    },
+    {
       text: "로그인 ",
       onClick: () => {
         push("/login");
@@ -103,13 +109,17 @@ const MainPage = (): JSX.Element => {
 
     const returnValue: JSX.Element[] = [];
 
-    for (let i = 0; i < list.length; i += 2) {
-      returnValue.push(
-        <S.HelloInner>
-          {list[i]}
-          {list[i + 1]}
-        </S.HelloInner>
-      );
+    if (isLogin) {
+      for (let i = 0; i < list.length; i += 2) {
+        returnValue.push(
+          <S.HelloInner key={i}>
+            {list[i]}
+            {list[i + 1]}
+          </S.HelloInner>
+        );
+      }
+    } else {
+      returnValue.push(<S.HelloInner>{list}</S.HelloInner>);
     }
 
     return returnValue;
