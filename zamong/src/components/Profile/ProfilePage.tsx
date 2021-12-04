@@ -156,18 +156,15 @@ const ProfilePage = (): JSX.Element => {
         </S.TopBox>
         <S.SelectionBox>
           <S.SelectionContent>
-            <S.ChooseBox isActive onClick={onFollowerClick}>
-              <img src={Follower} alt="follower" />
-              <span>팔로워</span>
-            </S.ChooseBox>
-            <S.ChooseBox isActive={false} onClick={onFollowClick}>
-              <img src={Follow} alt="follow" />
-              <span>팔로우</span>
-            </S.ChooseBox>
-            <S.ChooseBox isActive={false} onClick={onAccountInfoClick}>
-              <img src={AccountInfo} alt="account" />
-              <span>계정 정보</span>
-            </S.ChooseBox>
+            {navs.map((value, index) => {
+              const { img, text, onClick } = value;
+              return (
+                <S.ChooseBox isActive onClick={onClick} key={index}>
+                  <img src={img} alt={text} />
+                  <span>{text}</span>
+                </S.ChooseBox>
+              );
+            })}
           </S.SelectionContent>
         </S.SelectionBox>
         <div>{renderContent()}</div>
