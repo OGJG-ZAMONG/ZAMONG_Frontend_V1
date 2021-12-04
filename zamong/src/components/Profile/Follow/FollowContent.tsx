@@ -3,6 +3,7 @@ import { getFollowing } from "../../../utils/api/Profile";
 import * as S from "./style";
 import { following } from "../../../models/dto/response/followingsResponse";
 import FollowUser from "../../User/FollowUser/FollowUser";
+import UserSkeleton from "../../UserSkeleton/UserSkeleton";
 
 interface FollowType {
   followings: following[];
@@ -14,10 +15,11 @@ interface IdType {
 }
 
 const FollowContent: FC<IdType> = (props) => {
-  const [followState, setFollow] = useState<FollowType>({
+  const [followState, setFollow] = useState<FollowType | null>(null);
+  const nnState: FollowType = followState || {
     followings: [],
     total_size: 0,
-  });
+  };
 
   useEffect(() => {
     following();
@@ -32,21 +34,25 @@ const FollowContent: FC<IdType> = (props) => {
     }
   };
 
+  const renderFollowings =
+    nnState.total_size === 0 ? (
+      <S.Text>팔로우가 없습니다.</S.Text>
+    ) : (
+      nnState.followings.map((data, v) => {
+        return <FollowUser data={data} key={v} refresh={following} />;
+      })
+    );
+
+  const renderSkeleton = [1, 2, 3, 4, 5].map((_, index) => {
+    return <UserSkeleton key={index} />;
+  });
+
   return (
     <S.Content>
       <S.Follower>
-        팔로우 <span>{followState.total_size}명</span>
+        팔로우 <span>{nnState.total_size}명</span>
       </S.Follower>
-      <S.FolloweList>
-        {followState.total_size === 0 ? (
-          <S.Text>팔로우가 없습니다.</S.Text>
-        ) : (
-          followState.followings &&
-          followState.followings.map((data, v) => {
-            return <FollowUser data={data} key={v} refresh={following} />;
-          })
-        )}
-      </S.FolloweList>
+      <S.FolloweList>{followState ? renderFollowings : renderSkeleton}</S.FolloweList>
     </S.Content>
   );
 };
