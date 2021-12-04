@@ -132,7 +132,14 @@ const DiaryDetailHeader = ({ postData, userUUID }: PropsType): JSX.Element => {
         </S.LeftInfo>
         <S.UserInfo>
           {userUUID === user.uuid ? (
-            <></>
+            <>
+              {" "}
+              {is_shared ? (
+                <></>
+              ) : (
+                <S.ShareButton onClick={onShareDream}>공유</S.ShareButton>
+              )}
+            </>
           ) : (
             <>
               {is_shared ? (
@@ -148,11 +155,6 @@ const DiaryDetailHeader = ({ postData, userUUID }: PropsType): JSX.Element => {
                 <></>
               )}
             </>
-          )}
-          {is_shared ? (
-            <></>
-          ) : (
-            <S.ShareButton onClick={onShareDream}>공유</S.ShareButton>
           )}
           <S.MoreBox>
             <S.More
