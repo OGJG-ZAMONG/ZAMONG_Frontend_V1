@@ -20,6 +20,7 @@ const FollowContent: FC<IdType> = (props) => {
     followings: [],
     total_size: 0,
   };
+  const { followings, total_size } = nnState;
 
   useEffect(() => {
     following();
@@ -35,10 +36,10 @@ const FollowContent: FC<IdType> = (props) => {
   };
 
   const renderFollowings =
-    nnState.total_size === 0 ? (
+    total_size === 0 ? (
       <S.Text>팔로우가 없습니다.</S.Text>
     ) : (
-      nnState.followings.map((data, v) => {
+      followings.map((data, v) => {
         return <FollowUser data={data} key={v} refresh={following} />;
       })
     );
@@ -50,7 +51,7 @@ const FollowContent: FC<IdType> = (props) => {
   return (
     <S.Content>
       <S.Follower>
-        팔로우 <span>{nnState.total_size}명</span>
+        팔로우 <span>{total_size}명</span>
       </S.Follower>
       <S.FolloweList>{followState ? renderFollowings : renderSkeleton}</S.FolloweList>
     </S.Content>
