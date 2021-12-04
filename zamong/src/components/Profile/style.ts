@@ -15,15 +15,14 @@ export const TopBox = styled.div`
 `;
 
 export const TopContent = styled.div`
-  width: 621px;
-  height: 197px;
   margin-top: 74px;
   display: flex;
+  align-items: center;
 `;
 
 export const ProfileBox = styled.div<{ img: string }>`
   width: 200px;
-  height: 197px;
+  height: 200px;
   background-size: cover;
   border-radius: 120px;
   box-sizing: border-box;
@@ -31,10 +30,11 @@ export const ProfileBox = styled.div<{ img: string }>`
 `;
 
 export const InfoBox = styled.div`
-  width: 400px;
-  height: 114px;
   box-sizing: border-box;
-  margin: 40px 0px 0px 24px;
+  margin-left: 28px;
+  display: flex;
+  flex-direction: column;
+  row-gap: 8px;
 `;
 
 export const NickNameText = styled.p`
@@ -43,17 +43,15 @@ export const NickNameText = styled.p`
 `;
 
 export const EmailText = styled.p`
-  font: ${font.body2};
+  font: ${font.body3};
   color: ${color.white};
 `;
 
 export const OneLineBox = styled.div`
-  width: 397px;
-  height: 28px;
   display: flex;
-  justify-content: space-between;
+  column-gap: 16px;
   span {
-    font: ${font.body2};
+    font: ${font.body3};
     color: ${color.white};
   }
 `;
@@ -65,12 +63,12 @@ export const Text = styled.span`
 export const LinkText = styled(Link)`
   cursor: pointer;
   text-decoration: none;
-  font: ${font.body2};
+  font: ${font.body3};
   color: ${color.white};
 `;
 
 export const NameBox = styled.p`
-  font: ${font.body2};
+  font: ${font.body3};
   color: ${color.white};
 `;
 
