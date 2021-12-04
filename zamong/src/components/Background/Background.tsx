@@ -36,12 +36,13 @@ const Background = (): JSX.Element => {
       lastYRef.current = lastY + offset;
       isLeftRef.current = !isLeft;
 
-      setImageList(imageList.concat({ left: left, url: img, top: lastY + offset }));
+      setImageList(
+        imageList.concat({ left: left, url: img, top: lastY + offset })
+      );
     }
   };
 
   useLayoutEffect(() => {
-    console.log(imageList);
     window.addEventListener("scroll", onScrollHandler);
 
     return () => {
@@ -54,7 +55,9 @@ const Background = (): JSX.Element => {
       <S.Inner ref={containerRef}>
         {imageList.map((value, index) => {
           const { top, left, url } = value;
-          return <DelusionalImage top={top} left={left} url={url} key={index} />;
+          return (
+            <DelusionalImage top={top} left={left} url={url} key={index} />
+          );
         })}
       </S.Inner>
     </S.Container>

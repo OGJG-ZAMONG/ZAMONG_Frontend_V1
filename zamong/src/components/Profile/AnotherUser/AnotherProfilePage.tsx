@@ -3,7 +3,11 @@ import * as S from "./styles";
 import { Follower, Follow } from "../../../assets";
 import FollowerContent from "../Follower/FollowerContent";
 import FollowContent from "../Follow/FollowContent";
-import { getAntherUsersProfile, getFollower, getFollowing } from "../../../utils/api/Profile";
+import {
+  getAntherUsersProfile,
+  getFollower,
+  getFollowing,
+} from "../../../utils/api/Profile";
 
 interface ProfileType {
   uuid: string;
@@ -43,7 +47,8 @@ const AnotherProfilePage: React.FC<IdType | null> = (props): JSX.Element => {
     share_dream_count: 0,
     lucy_count: 0,
   });
-  const { uuid, name, email, id, profile, share_dream_count, lucy_count } = profileState;
+  const { uuid, name, email, id, profile, share_dream_count, lucy_count } =
+    profileState;
   const FOLLORWER = 1;
   const FOLLORWING = 2;
   const [contentState, setContentState] = useState(FOLLORWER);
@@ -66,7 +71,6 @@ const AnotherProfilePage: React.FC<IdType | null> = (props): JSX.Element => {
   }, [uuid]);
 
   const usersProfile = async () => {
-    console.log(props.id);
     try {
       const response = await getAntherUsersProfile(props.id);
       setProfile(response.data.content.response);
@@ -136,8 +140,12 @@ const AnotherProfilePage: React.FC<IdType | null> = (props): JSX.Element => {
               <S.NickNameText>{id}</S.NickNameText>
               <S.EmailText>{email}</S.EmailText>
               <S.OneLineBox>
-                <S.Text onClick={onFollowerClick}>팔로워 {followerState.total_size}명</S.Text>
-                <S.Text onClick={onFollowClick}>팔로우 {followState.total_size}명</S.Text>
+                <S.Text onClick={onFollowerClick}>
+                  팔로워 {followerState.total_size}명
+                </S.Text>
+                <S.Text onClick={onFollowClick}>
+                  팔로우 {followState.total_size}명
+                </S.Text>
               </S.OneLineBox>
               <S.LineBox>
                 <S.NameBox>이름: {name}</S.NameBox>
@@ -155,7 +163,11 @@ const AnotherProfilePage: React.FC<IdType | null> = (props): JSX.Element => {
             {navs.map((value, index) => {
               const { img, text, onClick } = value;
               return (
-                <S.ChooseBox isActive={contentState === index + 1} onClick={onClick} key={index}>
+                <S.ChooseBox
+                  isActive={contentState === index + 1}
+                  onClick={onClick}
+                  key={index}
+                >
                   <img src={img} alt={text} />
                   <span>{text}</span>
                 </S.ChooseBox>
