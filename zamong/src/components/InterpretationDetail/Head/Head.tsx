@@ -63,6 +63,10 @@ const InterpretationDetailHead = ({ postData, userUUID }: PropsTypes) => {
     },
   ];
 
+  const linkProfile = () => {
+    push(`/user/${user.uuid}`);
+  };
+
   return (
     <S.HeadContainer>
       <S.Title>{title}</S.Title>
@@ -73,13 +77,17 @@ const InterpretationDetailHead = ({ postData, userUUID }: PropsTypes) => {
       </S.TagContainer>
       <S.DreamInfo>
         <S.LeftInfo>
-        <S.Lucy>{lucy_count} LUCY 지급</S.Lucy>
-        <S.ShareDay>공유한 날짜 : {dayToString(updated_at)}</S.ShareDay>
+          <S.Lucy>{lucy_count} LUCY 지급</S.Lucy>
+          <S.ShareDay>공유한 날짜 : {dayToString(updated_at)}</S.ShareDay>
         </S.LeftInfo>
         {userUUID !== user.uuid ? (
           <S.UserInfo>
             <S.ProfileLink>
-              <S.PrifilePhoto alt="profile" src={user.profile} />
+              <S.PrifilePhoto
+                alt="profile"
+                src={user.profile}
+                onClick={linkProfile}
+              />
               <S.Profile>{user.id}</S.Profile>
             </S.ProfileLink>
             <S.MoreBox>

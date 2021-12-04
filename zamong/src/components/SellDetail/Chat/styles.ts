@@ -52,6 +52,7 @@ export const Profile = styled.img`
   width: 36px;
   height: 36px;
   border-radius: 100%;
+  cursor: pointer;
 `;
 
 export const UserName = styled.div`

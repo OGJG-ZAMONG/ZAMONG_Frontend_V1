@@ -1,6 +1,7 @@
 import * as S from "./styles";
 import Recommend from "./Recommend/Recommend";
 import ReplyComment from "./ReplyComment/ReplyComment";
+import { useHistory } from "react-router-dom";
 import { more, profile } from "../../../../assets/index";
 import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import {
@@ -24,6 +25,7 @@ const CommentBox = ({
   postUuid,
   settingComment,
 }: PropsType): JSX.Element => {
+  const { push } = useHistory();
   const [onOffToggle, setOnOffToggle] = useState(false);
   const [onOffAdd, setOnOffAdd] = useState(false);
   const [input, setInput] = useState("");
@@ -42,6 +44,7 @@ const CommentBox = ({
     is_dis_like,
     user_profile,
     user_id,
+    user_uuid,
   } = comment;
   const [modifyContent, setModifyContent] = useState(content);
   const [reComments, setReComments] = useState<Comment[]>([]);
@@ -183,15 +186,20 @@ const CommentBox = ({
     },
   ];
 
+  const linkProfile = () => {
+    push(`/user/${user_uuid}`);
+  };
+
   return (
     <S.CommentBox>
       <S.CommentProfile>
-          <S.Profile
-            alt="profile"
-            src={user_profile}
-            onMouseEnter={() => setHover(true)}
-            onMouseLeave={() => setHover(false)}
-          />
+        <S.Profile
+          alt="profile"
+          src={user_profile}
+          onClick={linkProfile}
+          onMouseEnter={() => setHover(true)}
+          onMouseLeave={() => setHover(false)}
+        />
         {hover && <S.UserName>{user_id}</S.UserName>}
       </S.CommentProfile>
       <S.CommnetRight>
