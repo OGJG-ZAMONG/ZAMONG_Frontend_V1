@@ -21,6 +21,8 @@ interface PropsType {
   writerUUID: string;
   userUUID: string;
   is_interpretation: boolean;
+  commentCount: number;
+  setCommentCount: React.Dispatch<React.SetStateAction<number>>;
   settingComment: () => Promise<void>;
 }
 
@@ -31,6 +33,8 @@ const CommentBox = ({
   userUUID,
   settingComment,
   is_interpretation,
+  commentCount,
+  setCommentCount,
 }: PropsType): JSX.Element => {
   const { push } = useHistory();
   const [onOffToggle, setOnOffToggle] = useState(false);
@@ -112,6 +116,7 @@ const CommentBox = ({
         setInput("");
         setAdd(false);
         settingReComment();
+        setCommentCount(commentCount + 1);
         alert("댓글이 입력되었습니다.");
         setIsActivePlus(false);
         setOnOffToggle(true);
@@ -162,8 +167,9 @@ const CommentBox = ({
     if (window.confirm("정말 삭제하시겠습니까?")) {
       try {
         await delComment(uuid);
-        alert("삭제되었습니다.");
         settingComment();
+        alert("삭제되었습니다.");
+        setOnOffToggle(true);
       } catch (error) {
         console.log(error);
       }
@@ -236,18 +242,24 @@ const CommentBox = ({
             <></>
           )}
         </S.ModifyBox>
-        <S.MoreBox>
-          <S.More
-            alt="more"
-            src={more}
-            onClick={() => setIsActiveMore(!isActiveMore)}
-          />
-          <PopupMenu
-            contents={isModify ? popupClose : popupContents}
-            isActiveMore={isActiveMore}
-            setIsActiveMore={setIsActiveMore}
-          />
-        </S.MoreBox>
+        {user_uuid === userUUID ? (
+          <>
+            <S.MoreBox>
+              <S.More
+                alt="more"
+                src={more}
+                onClick={() => setIsActiveMore(!isActiveMore)}
+              />
+              <PopupMenu
+                contents={isModify ? popupClose : popupContents}
+                isActiveMore={isActiveMore}
+                setIsActiveMore={setIsActiveMore}
+              />
+            </S.MoreBox>
+          </>
+        ) : (
+          <div></div>
+        )}
         <S.CommentBoxBottom>
           <S.DetailLeft>
             <ReplyComment
@@ -307,6 +319,8 @@ const CommentBox = ({
                     writerUUID={writerUUID}
                     postUUID={postUUID}
                     comment={value}
+                    commentCount={commentCount}
+                    setCommentCount={setCommentCount}
                     settingComment={settingComment}
                     userUUID={userUUID}
                     is_interpretation={is_interpretation}

@@ -12,9 +12,10 @@ import { delPosting, shareDream } from "../../../utils/api/DreamDetail";
 
 interface PropsType {
   postData: dreamDetail;
+  userUUID: string;
 }
 
-const DiaryDetailHeader = ({ postData }: PropsType): JSX.Element => {
+const DiaryDetailHeader = ({ postData, userUUID }: PropsType): JSX.Element => {
   const { push } = useHistory();
   const {
     title,
@@ -130,22 +131,30 @@ const DiaryDetailHeader = ({ postData }: PropsType): JSX.Element => {
           </div>
         </S.LeftInfo>
         <S.UserInfo>
-          {is_shared ? (
-            <S.ProfileLink>
-              <S.PrifilePhoto
-                alt="profile"
-                src={user.profile}
-                onClick={linkProfile}
-              />
-              <S.Profile>{user.id}</S.Profile>
-            </S.ProfileLink>
+          {userUUID === user.uuid ? (
+            <>
+              {" "}
+              {is_shared ? (
+                <></>
+              ) : (
+                <S.ShareButton onClick={onShareDream}>공유</S.ShareButton>
+              )}
+            </>
           ) : (
-            <></>
-          )}
-          {is_shared ? (
-            <></>
-          ) : (
-            <S.ShareButton onClick={onShareDream}>공유</S.ShareButton>
+            <>
+              {is_shared ? (
+                <S.ProfileLink>
+                  <S.PrifilePhoto
+                    alt="profile"
+                    src={user.profile}
+                    onClick={linkProfile}
+                  />
+                  <S.Profile>{user.id}</S.Profile>
+                </S.ProfileLink>
+              ) : (
+                <></>
+              )}
+            </>
           )}
           <S.MoreBox>
             <S.More

@@ -80,8 +80,8 @@ const InterpretationDetailHead = ({ postData, userUUID }: PropsTypes) => {
           <S.Lucy>{lucy_count} LUCY 지급</S.Lucy>
           <S.ShareDay>공유한 날짜 : {dayToString(updated_at)}</S.ShareDay>
         </S.LeftInfo>
-        {userUUID !== user.uuid ? (
-          <S.UserInfo>
+        <S.UserInfo>
+          {userUUID !== user.uuid ? (
             <S.ProfileLink>
               <S.PrifilePhoto
                 alt="profile"
@@ -90,22 +90,22 @@ const InterpretationDetailHead = ({ postData, userUUID }: PropsTypes) => {
               />
               <S.Profile>{user.id}</S.Profile>
             </S.ProfileLink>
-            <S.MoreBox>
-              <S.More
-                alt="more"
-                src={more}
-                onClick={() => setIsActiveMore(!isActiveMore)}
-              />
-              <PopupMenu
-                contents={popupContents}
-                isActiveMore={isActiveMore}
-                setIsActiveMore={setIsActiveMore}
-              />
-            </S.MoreBox>
-          </S.UserInfo>
-        ) : (
-          <></>
-        )}
+          ) : (
+            <></>
+          )}
+          <S.MoreBox>
+            <S.More
+              alt="more"
+              src={more}
+              onClick={() => setIsActiveMore(!isActiveMore)}
+            />
+            <PopupMenu
+              contents={popupContents}
+              isActiveMore={isActiveMore}
+              setIsActiveMore={setIsActiveMore}
+            />
+          </S.MoreBox>
+        </S.UserInfo>
       </S.DreamInfo>
     </S.HeadContainer>
   );

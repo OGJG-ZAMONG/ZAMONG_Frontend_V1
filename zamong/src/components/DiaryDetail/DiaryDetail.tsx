@@ -6,6 +6,7 @@ import { getShareDream } from "../../utils/api/DreamDetail";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router";
 import { dreamDetail } from "../../models/dto/response/dreamDetailResponse";
+import { getMyProfile } from "../../utils/api/Profile";
 
 interface paramType {
   uuid: string;
@@ -13,6 +14,7 @@ interface paramType {
 
 const DiaryDetail = (): JSX.Element => {
   const { uuid } = useParams<paramType>();
+  const [userUUID, setUserUUID] = useState("");
   const [postData, setPostData] = useState<dreamDetail>({
     title: "",
     dream_types: [],
@@ -34,6 +36,15 @@ const DiaryDetail = (): JSX.Element => {
     is_liked: false,
   });
 
+  const getUserProfile = async () => {
+    try {
+      const profile = await getMyProfile();
+      setUserUUID(profile.data.content.response.uuid);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   const getPostData = async () => {
     try {
       const data = await getShareDream(uuid);
@@ -53,13 +64,14 @@ const DiaryDetail = (): JSX.Element => {
 
   useEffect(() => {
     getPostData();
+    getUserProfile();
   }, []);
 
   return (
     <S.Container>
-      <Head postData={postData} />
+      <Head postData={postData} userUUID={userUUID}/>
       <Posting postData={postData} onLikeSet={onLikeSet}/>
-      {postData.is_shared ? <Comment postData={postData} /> : <></>}
+      {postData.is_shared ? <Comment postData={postData} userUUID={userUUID}/> : <></>}
     </S.Container>
   );
 };
