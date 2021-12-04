@@ -45,7 +45,7 @@ export const BlueButton = styled(Button)`
 export const BorderButton = styled(Button)`
   border: 1px solid ${color.white};
   background-color: transparent;
-  box-shadow: 0 0 1px 0 #ffffff inset, 0 0 1px 0 #ffffff;
+  box-shadow: 0 0 1px 0 ${color.white} inset, 0 0 1px 0 ${color.white};
 `;
 
 export const ButtonContainer = styled.div`

@@ -45,6 +45,7 @@ export const FileText = styled.label`
   border: 1px solid ${color.white};
   background-color: ${color.black};
   font: ${font.body2};
+  box-shadow: 0 0 1px 0 ${color.white} inset, 0 0 1px 0 ${color.white};
 `;
 
 export const FileBtn = styled.input`
@@ -67,6 +68,7 @@ export const ChangeBtn = styled.div`
   padding-top: 2px;
   font: ${font.body2};
   margin-left: 6px;
+  box-shadow: 0 0 1px 0 ${color.white} inset, 0 0 1px 0 ${color.white};
 `;
 
 export const CancelBtn = styled.div`
@@ -83,6 +85,7 @@ export const CancelBtn = styled.div`
   font: ${font.body2};
   padding-top: 2px;
   margin-left: 9px;
+  box-shadow: 0 0 1px 0 ${color.red} inset, 0 0 1px 0 ${color.red};
 `;
 
 export const ChangePwBtn = styled(Link)`
@@ -99,6 +102,7 @@ export const ChangePwBtn = styled(Link)`
   align-items: center;
   font: ${font.body2};
   padding-top: 2px;
+  box-shadow: 0 0 1px 0 ${color.white} inset, 0 0 1px 0 ${color.white};
 `;
 
 export const AccountBox = styled.div`
@@ -172,4 +176,5 @@ export const DeleteBtn = styled.button`
   cursor: pointer;
   font: ${font.body2};
   padding-top: 1px;
+  box-shadow: 0 0 1px 0 ${color.red} inset, 0 0 1px 0 ${color.red};
 `;
