@@ -2,7 +2,7 @@ import React, { FC, useEffect, useState } from "react";
 import { follow, getFollower, unfollow } from "../../../utils/api/Profile";
 import * as S from "./style";
 import { Link, useHistory } from "react-router-dom";
-import User from "../../User/User";
+import FollowerUser from "../../User/FollowerUser/FollowerUser";
 
 interface Follower {
   uuid: string;
@@ -52,7 +52,7 @@ const FollowerContent: React.FC<IdType> = (props) => {
           ) : (
             followerState.followers &&
             followerState.followers.map((data, v) => {
-              return <User data={data} key={v} refresh={follower} />;
+              return <FollowerUser data={data} key={v} refresh={follower} />;
             })
           )}
         </S.FollowerList>
