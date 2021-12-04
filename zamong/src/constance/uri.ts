@@ -40,7 +40,7 @@ enum uri {
   checkComment = "/dream/comment/DREAM_UUID/check",
   selectComment = "/dream/interpretation/select",
   findPwEmail = "/user/password/find",
-  rePassword = "/user/passsword",
+  rePassword = "/user/password",
 }
 
 export default uri;

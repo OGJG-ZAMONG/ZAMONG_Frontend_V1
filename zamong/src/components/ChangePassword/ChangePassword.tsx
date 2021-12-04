@@ -98,7 +98,6 @@ const ChangePassword = () => {
   const requestChange = async () => {
     if (pwTrue && pwCheckTrue) {
       if (!email || !token) {
-        //email이 null이거나 token이 null이면 return;
         push("/findpassword");
         return;
       }
@@ -111,8 +110,9 @@ const ChangePassword = () => {
 
       try {
         await postChange(data);
+        push('/login');
       } catch (error) {
-        console.log(error);
+        alert("링크의 유효기간이 만료되었습니다.");
       }
     } else {
       alert("입력란을 확인해주세요.");

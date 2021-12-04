@@ -63,7 +63,7 @@ const Login = (): JSX.Element => {
           <S.EventBox>
             <S.LinkBox>
               <span>비밀번호를 잊으셨나요?&nbsp;</span>
-              <Link to="/"> 비밀번호 찾기</Link>
+              <Link to="/findpassword"> 비밀번호 찾기</Link>
             </S.LinkBox>
             <S.LoginButton onClick={onRequest}>로그인</S.LoginButton>
           </S.EventBox>
