@@ -1,26 +1,88 @@
-import { stringify } from "querystring";
 import { useEffect, useState } from "react";
+import { useHistory, useLocation } from "react-router-dom";
+import { postChange } from "../../utils/api/FIndPassword";
 import * as S from "./styles";
 
 const ChangePassword = () => {
+  const query = new URLSearchParams(useLocation().search);
+  const token = query.get("token");
+  const email = query.get("email");
+  const { push } = useHistory();
   const [inputs, setInputs] = useState({
     inputPw: "",
     pwErrorText: "",
+    pwTrue: false,
     inputPwCheck: "",
     pwCheckErrorText: "",
+    pwCheckTrue: false,
   });
-
-  const { inputPw, pwErrorText, inputPwCheck, pwCheckErrorText } = inputs;
+  const {
+    inputPw,
+    pwErrorText,
+    inputPwCheck,
+    pwCheckErrorText,
+    pwTrue,
+    pwCheckTrue,
+  } = inputs;
 
   const change = (e: React.FormEvent<HTMLInputElement>) => {
     const { name, value } = e.currentTarget;
     setInputs({
-        ...inputs,
-        [name]: value,
+      ...inputs,
+      [name]: value,
     });
   };
 
   useEffect(() => {
+    pwCheck();
+  }, [inputPw]);
+
+  useEffect(() => {
+    checkPwCheck();
+  }, [inputPwCheck]);
+
+  const pwCheck = () => {
+    const specialTest = /\W+/;
+    const numberTest = /\d+/;
+    if (!inputPw.length) {
+      setInputs({
+        ...inputs,
+        pwTrue: false,
+      });
+    } else if (inputPw.length < 8 && inputPw.length > 0) {
+      setInputs({
+        ...inputs,
+        pwTrue: false,
+        pwErrorText: "비밀번호는 최소 8글자 이상이어야 합니다.",
+      });
+    } else if (inputPw.length > 16) {
+      setInputs({
+        ...inputs,
+        pwTrue: false,
+        pwErrorText: "비밀번호는 최대 16글자 이하여야 합니다.",
+      });
+    } else if (inputPw.length && !numberTest.test(inputPw)) {
+      setInputs({
+        ...inputs,
+        pwTrue: false,
+        pwErrorText: "숫자가 최소 1개 이상 포함돼야 합니다.",
+      });
+    } else if (inputPw.length && !specialTest.test(inputPw)) {
+      setInputs({
+        ...inputs,
+        pwTrue: false,
+        pwErrorText: "특수문자가 최소 1개 이상 포함돼야 합니다.",
+      });
+    } else {
+      setInputs({
+        ...inputs,
+        pwTrue: true,
+        pwErrorText: "",
+      });
+    }
+  };
+
+  const checkPwCheck = () => {
     if (!inputPwCheck.length) {
       setInputs({
         ...inputs,
@@ -34,10 +96,33 @@ const ChangePassword = () => {
     } else {
       setInputs({
         ...inputs,
+        pwCheckTrue: true,
         pwCheckErrorText: "",
       });
     }
-  }, [inputPwCheck, inputPw]);
+  };
+
+  const requestChange = async () => {
+    if (pwTrue && pwCheckTrue) {
+      const data = {
+        new_password: inputPw,
+        change_password_token: token,
+        email: email,
+      }
+
+      try {
+        if(data.email !== null && data.change_password_token !== null ){
+          await postChange(data);
+        } else {
+          push('/findpassword');
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    } else {
+      alert("입력란을 확인해주세요.");
+    }
+  };
 
   return (
     <S.ChangeBox>
@@ -64,7 +149,7 @@ const ChangePassword = () => {
           onChange={change}
         />
         <S.EventBox>
-          <S.NextButton>변경</S.NextButton>
+          <S.NextButton onClick={requestChange}>변경</S.NextButton>
         </S.EventBox>
       </S.PaddingBox>
     </S.ChangeBox>

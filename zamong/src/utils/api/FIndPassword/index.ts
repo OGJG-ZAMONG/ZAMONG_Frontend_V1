@@ -6,6 +6,7 @@ export const sendPwEmail = async (email: string) => {
     await request.get(uri.findPwEmail, {
       params: { email: email },
     });
+    alert("전송되었습니다.");
   } catch (error) {
     return Promise.reject(error);
   }
@@ -13,11 +14,11 @@ export const sendPwEmail = async (email: string) => {
 
 interface PasswordProps {
   new_password: string,
-  change_password: string,
+  change_password_token: string,
   email: string,
 }
 
-export const changePassword = async (data: PasswordProps) => {
+export const postChange = async (data: PasswordProps) => {
   try {
     await request.post(uri.rePassword, data);
   } catch (error) {

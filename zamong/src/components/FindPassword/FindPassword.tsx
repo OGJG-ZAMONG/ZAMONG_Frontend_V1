@@ -15,7 +15,6 @@ const FindPassword = () => {
   const getPw = async () => {
     try {
       sendPwEmail(email);
-      alert("전송되었습니다.");
     } catch (error) {
       console.log(error);
     }
