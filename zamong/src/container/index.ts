@@ -16,3 +16,4 @@ export { default as SellDetailContainer } from "./SellDetail";
 export { default as InterpretationWriteContainer } from "./InterpretationWrite";
 export { default as InterpretationDetailContainer } from "./InterpretationDetail";
 export { default as ChatContainer } from "./Chat";
+export { default as ChangePasswordContainer } from "./ChangePassword";
