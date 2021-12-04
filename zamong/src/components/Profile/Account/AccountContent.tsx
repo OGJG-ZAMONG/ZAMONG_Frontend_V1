@@ -109,7 +109,7 @@ const AccountContent = (): JSX.Element => {
           <S.TitleText>계정</S.TitleText>
           <S.Box>
             <S.SubTitle>아이디</S.SubTitle>
-            <div>
+            <S.ChangeContainer>
               {isIdCheck ? (
                 <S.IdText>{idState.id}</S.IdText>
               ) : (
@@ -123,7 +123,7 @@ const AccountContent = (): JSX.Element => {
               ) : (
                 <S.BorderButtonRed onClick={(e) => changeIdBtn(e)}>취소</S.BorderButtonRed>
               )}
-            </div>
+            </S.ChangeContainer>
           </S.Box>
           <S.Box>
             <S.SubTitle>비밀번호</S.SubTitle>

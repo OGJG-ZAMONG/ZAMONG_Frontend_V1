@@ -24,8 +24,14 @@ export const TitleText = styled.p`
 `;
 
 export const SubTitle = styled.label`
-  font: ${font.body2};
+  font: ${font.body3};
   color: ${color.white};
+`;
+
+export const ChangeContainer = styled.div`
+  display: flex;
+  column-gap: 16px;
+  align-items: center;
 `;
 
 export const FileBox = styled.div`
@@ -56,6 +62,7 @@ const Button = styled.button`
   padding: 6px 16px;
   background-color: transparent;
   font: ${font.body3};
+  cursor: pointer;
   border-radius: 120px;
 `;
 
@@ -66,6 +73,7 @@ export const BorderButton = styled(Button)`
 `;
 
 export const ButtonTo = styled(Link)`
+  cursor: pointer;
   padding: 6px 16px;
   background-color: transparent;
   font: ${font.body3};
@@ -99,42 +107,18 @@ export const Box = styled.div`
 
 export const IdText = styled.span`
   color: ${color.white};
-  margin-right: 18px;
 `;
 
 export const inputId = styled.input`
-  width: 247px;
-  height: 28px;
+  width: 250px;
   background: ${color.darkGray};
   border-radius: 10px;
   border: none;
   color: ${color.white};
+  font: ${font.body3};
+  padding: 8px 16px;
   outline: none;
   text-align: right;
-  padding: 0px 16px;
-  animation: 0.9s ease-in-out loadEffect1;
-  @keyframes loadEffect1 {
-    0% {
-      opacity: 0;
-    }
-    30% {
-      left: 120px;
-    }
-    50% {
-      left: 150px;
-    }
-    80% {
-      left: 180px;
-    }
-    100% {
-      opacity: 1;
-      left: 200px;
-    }
-  }
-  :hover {
-    outline: none;
-    border: none;
-  }
 `;
 
 export const DeleteText = styled.span`
