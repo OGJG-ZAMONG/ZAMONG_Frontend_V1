@@ -93,22 +93,17 @@ export const SelectionContent = styled.div`
   justify-content: space-between;
 `;
 
-export const ChooseBox = styled.div`
-  width: 110px;
-  height: 57px;
-  vertical-align: middle;
-  cursor: pointer;
+export const ChooseBox = styled.div<{ isActive: boolean }>`
+  color: ${(props) => (props.isActive ? color.white : color.darkGray)};
   img {
-    margin-top: 10px;
+    ${(props) =>
+      !props.isActive &&
+      "filter: invert(41%) sepia(6%) saturate(205%) hue-rotate(202deg) brightness(86%) contrast(80%);"}
   }
-  div {
-    text-align: center;
-  }
-  span {
-    margin-left: 4px;
-    color: ${color.white};
-    font: ${font.body2};
-  }
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  column-gap: 8px;
 `;
 
 export const FollowingBtn = styled.button`
