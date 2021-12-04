@@ -18,6 +18,9 @@ export const Follower = styled.p`
 
 export const FollowerList = styled.div`
   width: 100%;
+  display: flex;
+  flex-direction: column;
+  row-gap: 12px;
 `;
 
 export const Text = styled.p`
