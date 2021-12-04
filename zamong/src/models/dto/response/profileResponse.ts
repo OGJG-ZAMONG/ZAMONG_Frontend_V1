@@ -24,16 +24,16 @@ export type followingListResponse = defaultResponse<{
   total_page: number;
 }>;
 
+export interface follower {
+  uuid: string;
+  profile: string;
+  id: string;
+  follow_datetime: string;
+  is_following: boolean;
+}
+
 export type followerListResponse = defaultResponse<{
-  followers: [
-    {
-      uuid: string;
-      profile: string;
-      id: string;
-      follow_datetime: string;
-      is_following: boolean;
-    }
-  ];
+  followers: follower[];
   total_size: number;
   total_page: number;
 }>;
