@@ -1,6 +1,7 @@
 import styled from "@emotion/styled";
 import { font } from "../../../style/font";
 import { color } from "../../../style/color";
+import { Link } from "react-router-dom";
 
 export const Contents = styled.div`
   width: 1280px;
@@ -21,6 +22,23 @@ export const Box = styled.div`
 export const SubTitle = styled.div`
   font: ${font.subtitle};
   color: ${color.white};
+`;
+
+export const SubtitleContainer = styled.div`
+  width: 100%;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+`;
+
+export const Write = styled(Link)`
+  font: ${font.body3};
+  color: ${color.gray};
+  cursor: pointer;
+  text-decoration: none;
+  &:hover {
+    color: ${color.white};
+  }
 `;
 
 export const List = styled.div`

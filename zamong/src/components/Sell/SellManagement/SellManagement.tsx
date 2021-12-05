@@ -86,11 +86,15 @@ const SellManagement: FC = (): JSX.Element => {
     ) : (
       <S.None>판매 완료한 꿈이 없습니다.</S.None>
     );
+
   return (
     <S.Contents>
       <S.SellManagementText ref={saleContainerRef}>꿈 판매 관리</S.SellManagementText>
       <S.Box>
-        <S.SubTitle>나의 판매중인 꿈 목록</S.SubTitle>
+        <S.SubtitleContainer>
+          <S.SubTitle>나의 판매중인 꿈 목록</S.SubTitle>
+          <S.Write to="/sell/write">판매 글 쓰기 </S.Write>
+        </S.SubtitleContainer>
         <S.List>{myOnSaleData ? renderOnSaleDream : renderSkeleton}</S.List>
         {myOnSaleData && myOnSaleData.length > 0 && (
           <PageNation max={saleMax} indexState={[salePage, setSalePage]} columnCount={10} />
