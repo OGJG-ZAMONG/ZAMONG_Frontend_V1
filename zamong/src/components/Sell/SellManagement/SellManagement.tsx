@@ -60,19 +60,7 @@ const SellManagement: FC = (): JSX.Element => {
   });
 
   const renderSoldOutDream = mySoldOutData?.map((value: any, index) => {
-    const { uuid, user, cost, updated_at, title, dream_types, default_posting_image } = value;
-    return (
-      <DreamContent
-        key={index}
-        price={cost}
-        date={updated_at}
-        tag={dream_types}
-        title={title}
-        defalut_image={default_posting_image}
-        user={user}
-        uuid={uuid}
-      />
-    );
+    return <MySellDreamCard key={index} data={value} />;
   });
 
   return (
