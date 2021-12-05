@@ -14,8 +14,7 @@ export const SellManagementText = styled.div`
 `;
 
 export const Box = styled.div`
-  width: 1280px;
-  height: 785px;
+  width: 100%;
   margin-top: 56px;
 `;
 
@@ -25,14 +24,22 @@ export const SubTitle = styled.div`
 `;
 
 export const List = styled.div`
-  height: 637px;
+  width: 100%;
   margin-top: 28px;
   margin-bottom: 56px;
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  grid-template-rows: repeat(4, 1fr);
   column-gap: 20px;
   row-gap: 40px;
+`;
+
+export const None = styled.div`
+  width: 100%;
+  grid-column: 1 / 5;
+  font: ${font.body3};
+  color: ${color.white};
+  text-align: center;
+  margin-top: 28px;
 `;
 
 export const Text = styled.p`
