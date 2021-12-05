@@ -82,7 +82,20 @@ export const delPosting = async (uuid: string) => {
 export const postComment = async (uuid: string, data: DataType) => {
   try {
     await instance.post(uri.writeComment.replace("DREAM_UUID", uuid), data);
-    // window.location.reload();
+  } catch (error) {
+    return Promise.reject(error);
+  }
+};
+
+export interface AnonymoustType {
+  content: string;
+  p_comment: string | null;
+  is_anonymous: boolean;
+}
+
+export const anonymousComment = async (uuid: string, data: AnonymoustType) => {
+  try {
+    await instance.post(uri.writeComment.replace("DREAM_UUID", uuid), data);
   } catch (error) {
     return Promise.reject(error);
   }

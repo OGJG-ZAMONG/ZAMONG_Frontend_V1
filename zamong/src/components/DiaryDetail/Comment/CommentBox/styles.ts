@@ -56,6 +56,7 @@ export const CommentText = styled(TextareaAutosize)`
   resize: none;
 `;
 
+
 export const ModifyButton = styled.div`
   padding: 0px 29px;
   color: ${color.white};
@@ -112,6 +113,7 @@ export const InputContainer = styled.div`
 `;
 
 export const CommentInput = styled.input`
+  box-sizing: border-box;
   width: 100%;
   color: ${color.white};
   font: ${font.body3};
@@ -124,6 +126,23 @@ export const CommentInput = styled.input`
     color: ${color.lightGray};
     font: ${font.body3};
   }
+`;
+
+export const InputInner = styled.div`
+  width: 100%;
+  grid-column: 1/12;
+  position: relative;
+  box-sizing: border-box;
+`;
+
+export const AnonymousButton = styled.div`
+  font: ${font.description};
+  color: ${(props) => props.color};
+  position: absolute;
+  cursor: pointer;
+  top: 50%;
+  transform: translateY(-50%);
+  right: 16px;
 `;
 
 export const EnterButton = styled.button`

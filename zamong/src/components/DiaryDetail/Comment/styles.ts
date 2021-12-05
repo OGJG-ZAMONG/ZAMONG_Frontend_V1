@@ -26,20 +26,38 @@ export const InputContainer = styled.div`
   grid-gap: 20px;
 `;
 
+export const InputInner = styled.div`
+  width: 100%;
+  grid-column: 1/12;
+  position: relative;
+  box-sizing: border-box;
+`;
+
 export const CommentInput = styled.input`
+  box-sizing: border-box;
   color: ${color.lightGray};
   font: ${font.body3};
   background-color: ${color.darkerGray};
   outline: none;
   border: none;
   border-radius: 10px;
-  grid-column: 1/12;
+  width: 100%;
   height: 52px;
   padding-left: 16px;
   ::placeholder {
     color: ${color.lightGray};
     font: ${font.body3};
   }
+`;
+
+export const AnonymousButton = styled.div`
+  font: ${font.description};
+  color: ${(props) => props.color};
+  position: absolute;
+  cursor: pointer;
+  top: 50%;
+  transform: translateY(-50%);
+  right: 16px;
 `;
 
 export const EnterButton = styled.button`
@@ -54,7 +72,6 @@ export const EnterButton = styled.button`
   outline: none;
   border: 0;
   font: ${font.body3};
-
   &:disabled {
     filter: brightness(0.8);
   }

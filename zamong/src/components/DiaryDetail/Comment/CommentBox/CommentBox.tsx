@@ -13,6 +13,7 @@ import {
 } from "../../../../utils/api/DreamDetail";
 import PopupMenu from "../../../PopupMenu/PopupMenu";
 import PopupContent from "../../../../interface/PopupContent";
+import { color } from "../../../../style/color";
 
 interface PropsType {
   comment: Comment;
@@ -40,6 +41,7 @@ const CommentBox = ({
   const [isModify, setIsModify] = useState(false);
   const text = useRef<HTMLTextAreaElement>(null);
   const [hover, setHover] = useState(false);
+  const [isAnonymous, setIsAnonymous] = useState(false);
   const {
     uuid,
     content,
@@ -100,13 +102,22 @@ const CommentBox = ({
       alert("공백은 입력하실 수 없습니다.");
       setInput("");
     } else {
-      const data = {
-        content: input,
-        p_comment: uuid,
-      };
       try {
-        await postComment(postUuid, data);
-        setCommentCount(commentCount+1);
+        if (isAnonymous) {
+          const data = {
+            content: input,
+            p_comment: uuid,
+            is_anonymous: true,
+          };
+          await postComment(postUuid, data);
+        } else {
+          const data = {
+            content: input,
+            p_comment: uuid,
+          };
+          await postComment(postUuid, data);
+        }
+        setCommentCount(commentCount + 1);
         settingReComment();
         setInput("");
         setAdd(false);
@@ -197,6 +208,10 @@ const CommentBox = ({
     push(`/user/${user_uuid}`);
   };
 
+  const setAnonymous = () => {
+    setIsAnonymous(!isAnonymous);
+  };
+
   return (
     <S.CommentBox>
       <S.CommentProfile>
@@ -264,13 +279,21 @@ const CommentBox = ({
         <div></div>
         {onOffAdd && (
           <S.InputContainer>
-            <S.CommentInput
-              name="input"
-              value={input}
-              placeholder="덧글 쓰기..."
-              onChange={commentChange}
-              onKeyUp={keyUp}
-            />
+            <S.InputInner>
+              <S.CommentInput
+                name="input"
+                value={input}
+                placeholder="덧글 쓰기..."
+                onChange={commentChange}
+                onKeyUp={keyUp}
+              />
+              <S.AnonymousButton
+                onClick={setAnonymous}
+                color={isAnonymous ? color.blue : color.gray}
+              >
+                익명 댓글
+              </S.AnonymousButton>
+            </S.InputInner>
             <S.EnterButton onClick={writeReComment} disabled={!canWrite}>
               덧글 쓰기
             </S.EnterButton>

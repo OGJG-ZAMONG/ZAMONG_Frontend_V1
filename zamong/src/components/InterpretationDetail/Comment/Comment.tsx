@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { InterpretationDetail } from "../../../models/dto/response/InterpretationDetail";
+import { color } from "../../../style/color";
 import {
   postComment,
   responseComment,
@@ -20,7 +21,7 @@ const InterpretationDetailComment = ({ postData, userUUID }: PropsType) => {
   const [comments, setComments] = useState<Comment[]>([]);
   const [commentCount, setCommentCount] = useState(0);
   const [canWrite, setCanWrite] = useState<boolean>(true);
-
+  const [isAnonymous, setIsAnonymous] = useState<boolean>(false);
   useEffect(() => {
     if (uuid !== "") {
       settingComment();
@@ -55,11 +56,20 @@ const InterpretationDetailComment = ({ postData, userUUID }: PropsType) => {
       alert("공백은 입력하실 수 없습니다.");
       setComment("");
     } else {
-      const data = {
-        content: comment,
-        p_comment: null,
-      };
-      await postComment(uuid, data);
+      if (isAnonymous) {
+        const data = {
+          content: comment,
+          p_comment: null,
+          is_anonymous: true,
+        };
+        await postComment(uuid, data);
+      } else {
+        const data = {
+          content: comment,
+          p_comment: null,
+        };
+        await postComment(uuid, data);
+      }
       setComment("");
       settingComment();
       alert("댓글이 입력되었습니다.");
@@ -71,6 +81,11 @@ const InterpretationDetailComment = ({ postData, userUUID }: PropsType) => {
       writeComment();
     }
   };
+
+  const setAnonymous = () => {
+    setIsAnonymous(!isAnonymous);
+  };
+
   return (
     <S.CommentContainer>
       <S.CommentTitle>
@@ -80,13 +95,21 @@ const InterpretationDetailComment = ({ postData, userUUID }: PropsType) => {
         )}
       </S.CommentTitle>
       <S.InputContainer>
-        <S.CommentInput
-          name="comment"
-          value={comment}
-          placeholder="댓글 쓰기..."
-          onChange={comentChange}
-          onKeyUp={keyUp}
-        />
+        <S.InputInner>
+          <S.CommentInput
+            name="comment"
+            value={comment}
+            placeholder="댓글 쓰기..."
+            onChange={comentChange}
+            onKeyUp={keyUp}
+          />
+          <S.AnonymousButton
+            onClick={setAnonymous}
+            color={isAnonymous ? color.blue : color.gray}
+          >
+            익명 댓글
+          </S.AnonymousButton>
+        </S.InputInner>
         <S.EnterButton onClick={writeComment} disabled={!canWrite}>
           댓글 쓰기
         </S.EnterButton>

@@ -19,7 +19,7 @@ export const Profile = styled.img`
   height: 100%;
   border-radius: 100%;
   cursor: pointer;
-`
+`;
 
 export const UserName = styled.div`
   position: absolute;
@@ -99,7 +99,7 @@ export const DetailRight = styled.div`
 export const Check = styled.div`
   font: ${font.body3};
   color: ${color.gray};
-`
+`;
 
 export const CommentDate = styled.div`
   color: ${color.gray};
@@ -117,7 +117,15 @@ export const InputContainer = styled.div`
   grid-gap: 20px;
 `;
 
+export const InputInner = styled.div`
+  width: 100%;
+  grid-column: 1/12;
+  position: relative;
+  box-sizing: border-box;
+`;
+
 export const CommentInput = styled.input`
+  box-sizing: border-box;
   width: 100%;
   color: ${color.white};
   font: ${font.body3};
@@ -132,6 +140,16 @@ export const CommentInput = styled.input`
   }
 `;
 
+export const AnonymousButton = styled.div`
+  font: ${font.description};
+  color: ${(props) => props.color};
+  position: absolute;
+  cursor: pointer;
+  top: 50%;
+  transform: translateY(-50%);
+  right: 16px;
+`;
+
 export const EnterButton = styled.button`
   padding: 16px 12px;
   color: ${color.white};
@@ -143,7 +161,7 @@ export const EnterButton = styled.button`
   border: 0;
   outline: none;
   font: ${font.body3};
-  &:disabled{
+  &:disabled {
     filter: brightness(0.8);
   }
 `;
