@@ -5,6 +5,8 @@ export interface myOnSaleManagement {
     collection_value: boolean;
     response: {
       sell_dreams: SellDream[];
+      total_page: number;
+      total_size: number;
     };
   };
 }
@@ -30,6 +32,8 @@ export interface mySoldOutManagement {
     collection_value: boolean;
     response: {
       sell_dreams: SellDream[];
+      total_page: number;
+      total_size: number;
     };
   };
 }
