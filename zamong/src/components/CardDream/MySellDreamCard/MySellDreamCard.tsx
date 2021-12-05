@@ -3,6 +3,7 @@ import { SellDream } from "../../../models/dto/response/sellManagementResponse";
 import Tag from "../../Tag/Tag";
 import * as S from "../index";
 import * as I from "../SellingDream/styles";
+import * as G from "./styles";
 
 interface PropsType {
   data: SellDream;
@@ -28,11 +29,11 @@ const MySellDreamCard = ({ data }: PropsType) => {
         <S.DiaryDate>{dateToString(new Date(updated_at))}</S.DiaryDate>
       </S.DreamImageContainer>
       <I.PostInfoContainer>
-        <I.TagsContainer>
+        <G.TagsContainer>
           {dreamTypes.slice(0, 2).map((value, index) => {
             return <Tag key={value.code}>{value.name}</Tag>;
           })}
-        </I.TagsContainer>
+        </G.TagsContainer>
       </I.PostInfoContainer>
       <S.DreamTitle>{title}</S.DreamTitle>
     </S.DreamCardContainer>
