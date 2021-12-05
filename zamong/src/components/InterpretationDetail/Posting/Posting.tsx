@@ -1,6 +1,7 @@
 import * as S from "./styles";
 import { InterpretationDetail } from "../../../models/dto/response/InterpretationDetail";
 import { useEffect, useState } from "react";
+import { defaultImageList } from "../../../constance/defaultImageList";
 
 interface PropsTypes {
   postData: InterpretationDetail;
@@ -11,19 +12,18 @@ const InterpretationDetailPosting = ({ postData }: PropsTypes) => {
   const [isImg, setIsImg] = useState(false);
 
   useEffect(() => {
-    if (
-      attachment_image !==
-      "https://ogjg-zamong.s3.ap-northeast-1.amazonaws.com/default-posting-image/Rectangle+1.png"
-    ) {
-      setIsImg(true);
-    } else {
-      setIsImg(false);
-    }
+    setIsImg(!defaultImageList.some((value) => value === attachment_image));
   }, [postData]);
 
   return (
     <S.PostingContainer>
-      <S.PhotoGrid>{isImg ? <S.Photo src={attachment_image} /> : <></>}</S.PhotoGrid>
+      <S.PhotoGrid>
+        {isImg ? (
+          <S.Photo src={attachment_image} />
+        ) : (
+          <S.DefaultImage src={attachment_image} alt="default image" />
+        )}
+      </S.PhotoGrid>
       <S.Text>
         {content.split("\n").map((line, index) => {
           return (
