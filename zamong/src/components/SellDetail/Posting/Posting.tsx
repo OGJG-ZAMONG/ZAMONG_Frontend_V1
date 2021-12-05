@@ -35,10 +35,17 @@ const Posting = ({ postData, userUuid, settingData }: PropsType) => {
 
   return (
     <S.PostingContainer>
-      <S.PhotoGrid>
-        {isImg ? <S.Photo src={attachment_image} /> : <></>}{" "}
-      </S.PhotoGrid>
-      <S.Text>{content}</S.Text>
+      <S.PhotoGrid>{isImg ? <S.Photo src={attachment_image} /> : <></>} </S.PhotoGrid>
+      <S.Text>
+        {content.split("\n").map((line, index) => {
+          return (
+            <span key={index}>
+              {line}
+              <br />
+            </span>
+          );
+        })}
+      </S.Text>
       {userUuid !== user.uuid ? (
         <>
           {request_status.is_requesting ? (

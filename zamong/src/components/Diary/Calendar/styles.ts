@@ -8,7 +8,7 @@ export const Container = styled.div`
 
 export const Date = styled.div`
   line-height: 25px;
-  font: ${font.body1};
+  font: ${font.body3};
 `;
 
 export const CalendarHeader = styled.div`
@@ -24,7 +24,7 @@ export const Controller = styled.div`
   justify-content: space-between;
   width: 21%;
   height: 100%;
-  font: ${font.body1};
+  font: ${font.body3};
   font-weight: 500;
 `;
 
@@ -63,7 +63,7 @@ export const Next = styled.div`
 export const CalendarContainer = styled.div`
   border-radius: 10px;
   background-color: ${color.darkerGray};
-  font: ${font.body2};
+  font: ${font.body3};
 `;
 
 export const WeekContainer = styled.div`
@@ -81,7 +81,7 @@ export const DayContainer = styled.div`
 export const WeekDays = styled.div`
   padding: 8px 0;
   text-align: center;
-  &:first-child {
+  &:first-of-type {
     color: ${color.red};
   }
 `;
@@ -91,7 +91,7 @@ export const Days = styled.div`
   position: relative;
   display: grid;
   grid-template-rows: repeat(4, 1fr);
-  &:nth-child(7n + 1) {
+  &:nth-of-type(7n + 1) {
     color: ${color.red};
   }
   span {
@@ -99,13 +99,14 @@ export const Days = styled.div`
     font-size: 14px;
     justify-content: center;
     align-items: center;
+    width: 20px;
+    height: 20px;
     padding: 2px;
     margin: 2px auto;
   }
   div {
     width: 80%;
     min-width: 80%;
-    height: 20px;
     color: ${color.white};
     background-color: ${color.darkGray};
     border-radius: 3px;
@@ -118,6 +119,7 @@ export const Days = styled.div`
     margin: auto;
     margin-left: 10%;
     font-size: 15px;
+    font: ${font.body3};
     &:hover {
       width: auto;
       z-index: 2;

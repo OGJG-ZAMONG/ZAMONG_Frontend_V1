@@ -11,7 +11,7 @@ interface PropsType {
 
 const DreamInterpretation = ({ data }: PropsType): JSX.Element => {
   const [isUserImageHover, setIsUserImageHover] = useState<boolean>(false);
-  const { default_posting_image, dream_types, title, updated_at, user, uuid } = data;
+  const { default_posting_image, dream_types, title, updated_at, user, uuid, lucy_count } = data;
   const { id, profile } = user;
 
   const dateToString = (date: Date) => {
@@ -21,13 +21,13 @@ const DreamInterpretation = ({ data }: PropsType): JSX.Element => {
     return `${date.getMonth() + 1}월 ${date.getDate()}일`;
   };
 
-  const renderType = dream_types.map((value) => {
-    return <Tag>{dreamType.find((elem) => elem.code === value)?.name}</Tag>;
+  const renderType = dream_types.map((value, index) => {
+    return <Tag key={index}>{dreamType.find((elem) => elem.code === value)?.name}</Tag>;
   });
 
   return (
     <>
-      <I.DreamContainer to={`/interpretation/${uuid}`}>
+      <I.DreamContainer to={`/interpretation/detail/${uuid}`}>
         <I.DreamImage img={default_posting_image}>
           <I.DreamUserImage
             alt="user image"
@@ -43,7 +43,7 @@ const DreamInterpretation = ({ data }: PropsType): JSX.Element => {
         </I.DreamImage>
         <I.DreamInfoContainer>
           <I.DreamTitle>{title}</I.DreamTitle>
-          <I.DreamLucy>21 LUCY 지급</I.DreamLucy>
+          <I.DreamLucy>{lucy_count} LUCY 지급</I.DreamLucy>
           <I.DreamDate>{dateToString(new Date(updated_at))}</I.DreamDate>
         </I.DreamInfoContainer>
         <I.DreamTagContainer>

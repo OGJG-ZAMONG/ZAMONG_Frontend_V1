@@ -1,73 +1,117 @@
 import { FC, useEffect, useState, useRef } from "react";
-import { search, editGrey, send } from "../../assets";
-import * as Stomp from "@stomp/stompjs";
+import { search, send } from "../../assets";
+import * as StompJs from "@stomp/stompjs";
 import { getChatRooms, getChat } from "../../utils/api/Chat";
+import { getMyProfile } from "../../utils/api/Profile";
+import { Rooms, Chats } from "../../interface/Chat";
 import * as S from "./styles";
 import ChatRoom from "./ChatRoom/ChatRoom";
 import MyText from "./ChatBalloon/My/MyText";
 import OpponentText from "./ChatBalloon/Opponent/OpponentText";
 import SockJs from "sockjs-client";
 
+const baseURL = "https://api.zamong.org/v1/api";
+const Socket = new SockJs(`${baseURL}/ws`);
+const stompClient = StompJs.Stomp.over(Socket);
+
 const Chat: FC = (): JSX.Element => {
-  const baseURL = "http://52.78.219.131:8080/v1/api";
-  const [rooms, setRooms] = useState<
-    Array<{ uuid: string; title: string; last_child: any }>
-  >([]);
+  const [rooms, setRooms] = useState<Rooms[]>([]);
+  const [roomId, setRoomId] = useState<string>("");
+  const [userId, setUserId] = useState<string>("");
   const [selectedRoom, setSelectedRoom] = useState<number>(0);
-  const [chats, setChats] = useState([]);
-  const inputValue = useRef<any>(null);
-  const sockJs: WebSocket = new SockJs(`${baseURL}/ws`);
-  const StompClient = Stomp.Stomp.over(sockJs);
-  StompClient.debug = () => {};
+  const [chats, setChats] = useState<Chats[]>([]);
+  const inputValue = useRef<HTMLInputElement | any>(null);
+  const date = new Date();
 
   useEffect(() => {
-    getChatRooms()
+    connect();
+    getMyProfile()
       .then((res) => {
-        setRooms(res.data.content.response.rooms);
-        StompClient.connect({}, (frame: any) => {
-          // disconnect();
-          StompClient.subscribe(
-            "/topic/" + res.data.content.response.rooms[selectedRoom].uuid,
-            (messageOutput) => {
-              console.log(messageOutput);
-            }
-          );
-          getChat(res.data.content.response.rooms[selectedRoom].uuid)
-            .then((res) => {
-              setChats(res.data.content.response.chats);
-            })
-            .catch((error) => console.log(error));
-        });
+        setUserId(res.data.content.response.uuid);
       })
       .catch((err) => console.log(err));
+  }, []);
+
+  useEffect(() => {
+    selectedRoom === 0
+      ? setTimeout(() => {
+          getChatRooms()
+            .then((res) => {
+              console.log(res.data.content.response.rooms);
+              setRooms(res.data.content.response.rooms);
+              setRoomId(res.data.content.response.rooms[selectedRoom].uuid);
+              connectSocket(res.data.content.response.rooms[selectedRoom].uuid);
+            })
+            .catch((err) => console.log(err));
+        }, 500)
+      : getChatRooms()
+          .then((res) => {
+            setRooms(res.data.content.response.rooms);
+            setRoomId(res.data.content.response.rooms[selectedRoom].uuid);
+            connectSocket(res.data.content.response.rooms[selectedRoom].uuid);
+          })
+          .catch((err) => console.log(err));
   }, [selectedRoom]);
 
-  const disconnect = () => {
-    if (StompClient != null) {
-      StompClient.disconnect();
+  useEffect(() => {
+    getChat(roomId)
+      .then((res) => {
+        setChats(res.data.content.response.chats);
+      })
+      .catch((err) => console.log(err));
+  }, [roomId]);
+
+  const connectSocket = async (uuid: string) => {
+    const {
+      data: {
+        content: {
+          response: { uuid: userId },
+        },
+      },
+    } = await getMyProfile();
+
+    if (stompClient.connected === true) {
+      stompClient.unsubscribe("socket");
+      stompClient.subscribe(
+        "/topic/" + uuid,
+        (message) => {
+          const chat = JSON.parse(message.body);
+          if (chat.user.uuid != userId) {
+            chat.its_me = false;
+          }
+          setChats((chats: any) => [chat, ...chats]);
+        },
+        { id: "socket" }
+      );
+    } else if (stompClient.connected === undefined) {
+      stompClient.unsubscribe("socket");
+      window.location.reload();
     }
   };
 
-  const sendMessage = () => {
-    try {
-      StompClient.send(
-        "/app/chat.send",
-        {},
-        JSON.stringify({
-          chat: inputValue.current.value,
-          room: rooms[selectedRoom]?.uuid,
-          from: rooms[selectedRoom]?.uuid
-        })
-      )
-      // StompClient.publish({
-      //    destination: "/app/chat.send",
-      //    body: inputValue.current.value,
-      //   headers: {},
-      // });
-    } catch (error) {
-      console.log(error);
+  const sendMessage = async () => {
+    if (inputValue.current.value === "") return;
+    stompClient.send(
+      "/app/chat.send",
+      {},
+      JSON.stringify({
+        chat: inputValue.current?.value,
+        room: roomId,
+        from: userId,
+      })
+    );
+    inputValue.current.value = "";
+    setSelectedRoom(0);
+  };
+
+  const enterKey = (e: any) => {
+    if (e.keyCode === 13) {
+      sendMessage();
     }
-    
+  };
+
+  const connect = async () => {
+    await stompClient.activate();
   };
 
   return (
@@ -84,59 +128,111 @@ const Chat: FC = (): JSX.Element => {
             imgSrc={search}
           />
         </S.SearchChatContainer>
+
         <S.ChatList>
-          {rooms.map((value: any, index: number) => {
-            console.log(value);
-            return (
-              <ChatRoom
-                ChatRoomName={value.title}
-                UserName={"dsmhskr"}
-                LastConnection={"8시간 전"}
-                LastChat={"나: 아니 이 꿈이 1000원? 레전드로 가시는구나"}
-                key={value.uuid}
-                Index={index}
-                selectedRoom={selectedRoom}
-                setSelectedRoom={setSelectedRoom}
-              />
-            );
-          })}
+          {rooms.length === 0 ? (
+            <ChatRoom
+              value={null}
+              ChatRoomName={"아직 채팅방이 없네요"}
+              UserName={"채팅방을 생성해보세요"}
+              LastConnection={""}
+              LastChat={""}
+              key={0}
+              Index={0}
+              selectedRoom={0}
+              setSelectedRoom={setSelectedRoom}
+            />
+          ) : (
+            rooms.map((value: any, index: number) => {
+              if (value.last_chat === null)
+                return (
+                  <ChatRoom
+                    value={value.last_chat}
+                    ChatRoomName={value.title}
+                    UserName={""}
+                    LastConnection={""}
+                    LastChat={"채팅을 시작해보세요"}
+                    key={value.uuid}
+                    Index={index}
+                    selectedRoom={selectedRoom}
+                    setSelectedRoom={setSelectedRoom}
+                  />
+                );
+              const lastTime = Math.ceil(
+                (date.getTime() -
+                  new Date(value.last_chat.created_at).getTime()) /
+                  1000 /
+                  60
+              );
+              return (
+                <ChatRoom
+                  value={value.last_chat}
+                  ChatRoomName={value.title}
+                  UserName={value.last_chat.user.id}
+                  LastConnection={`${lastTime}분`}
+                  LastChat={
+                    value.last_chat.chat === null
+                      ? "채팅을 시작해보세요"
+                      : value.last_chat.chat
+                  }
+                  key={value.uuid}
+                  Index={index}
+                  selectedRoom={selectedRoom}
+                  setSelectedRoom={setSelectedRoom}
+                />
+              );
+            })
+          )}
         </S.ChatList>
       </S.ChatListContainer>
       <S.ChatLine />
       <S.ChatViewerContainer>
-        <S.ChatViewHeader>
-          <S.ChatTitle>{rooms[selectedRoom]?.title}</S.ChatTitle>
-          <S.HeaderNav>
-            <S.UserReportBox>
-              <S.ViewUserName>{rooms[selectedRoom]?.uuid}</S.ViewUserName>
-              <span>ᆞ</span>
-              <S.Report>신고하기</S.Report>
-            </S.UserReportBox>
-            <S.MannerTemperatureBox>
-              <S.MannerTemperatureIMG src={editGrey} />
-              <S.MannerTemperatureText>매너온도 매기기</S.MannerTemperatureText>
-            </S.MannerTemperatureBox>
-          </S.HeaderNav>
-        </S.ChatViewHeader>
-        <S.ChatBox>
-          {chats.map((value: any, index: number) => {
-            console.log(value);
-            return value.its_me === true ? (
-              <MyText message={value.chat} key={index} />
-            ) : (
-              <OpponentText message={value.chat} key={index} />
-            );
-          })}
-        </S.ChatBox>
-        <S.ChatInputBox>
-          <S.ChatInput
-            type="text"
-            placeholder="내용을 입력하십시오."
-            ref={inputValue}
-            onChange={() => console.log(inputValue.current.value)}
-          />
-          <S.ChatSubmitIMG src={send} onClick={sendMessage} />
-        </S.ChatInputBox>
+        {rooms.length === 0 ? (
+          <>
+            <div />
+            <S.NoData>
+              꿈 구매에 참여하여 채팅에 참여해보세요
+              <S.Click to="/sell">클릭</S.Click>
+            </S.NoData>
+            <div />
+          </>
+        ) : (
+          <>
+            <S.ChatViewHeader>
+              <S.ChatTitle>
+                {rooms.length < 0 ? "" : rooms[selectedRoom].title}
+              </S.ChatTitle>
+              <S.HeaderNav>
+                <S.UserReportBox>
+                  <div>
+                    {rooms[selectedRoom].last_chat === null
+                      ? "자몽"
+                      : rooms[selectedRoom].last_chat.user.id}
+                    님과의 거래
+                  </div>
+                </S.UserReportBox>
+              </S.HeaderNav>
+            </S.ChatViewHeader>
+            <S.ChatBox>
+              {chats.map((value: any, index: number) => {
+                return value.its_me === true ? (
+                  <MyText message={value.chat} key={index} />
+                ) : (
+                  <OpponentText message={value.chat} key={index} />
+                );
+              })}
+            </S.ChatBox>
+            <S.ChatInputBox>
+              <S.ChatInput
+                type="textarea"
+                placeholder="내용을 입력하십시오."
+                ref={inputValue}
+                onKeyUp={(e) => enterKey(e)}
+              />
+              <img src={send} onClick={sendMessage} />
+            </S.ChatInputBox>
+          </>
+        )}
       </S.ChatViewerContainer>
     </S.Container>
   );

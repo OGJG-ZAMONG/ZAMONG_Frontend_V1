@@ -24,8 +24,14 @@ export const TitleText = styled.p`
 `;
 
 export const SubTitle = styled.label`
-  font: ${font.body2};
+  font: ${font.body3};
   color: ${color.white};
+`;
+
+export const ChangeContainer = styled.div`
+  display: flex;
+  column-gap: 16px;
+  align-items: center;
 `;
 
 export const FileBox = styled.div`
@@ -35,16 +41,15 @@ export const FileBox = styled.div`
 `;
 
 export const FileText = styled.label`
-  width: 62px;
-  height: 31px;
+  padding: 6px 16px;
   color: ${color.white};
   cursor: pointer;
   border-radius: 120px;
   text-align: center;
-  padding-top: 2px;
   border: 1px solid ${color.white};
-  background-color: ${color.black};
-  font: ${font.body2};
+  background-color: transparent;
+  font: ${font.body3};
+  box-shadow: 0 0 1px 0 ${color.white} inset, 0 0 1px 0 ${color.white};
 `;
 
 export const FileBtn = styled.input`
@@ -53,52 +58,36 @@ export const FileBtn = styled.input`
   border: 0;
 `;
 
-export const ChangeBtn = styled.div`
-  width: 62px;
-  height: 31px;
-  border: 1px solid ${color.white};
-  background-color: ${color.black};
-  border-radius: 120px;
-  color: ${color.white};
+const Button = styled.button`
+  padding: 6px 16px;
+  background-color: transparent;
+  font: ${font.body3};
   cursor: pointer;
-  display: inline-block;
-  text-align: center;
-  align-items: center;
-  padding-top: 2px;
-  font: ${font.body2};
-  margin-left: 6px;
+  border-radius: 120px;
 `;
 
-export const CancelBtn = styled.div`
-  width: 62px;
-  height: 31px;
-  border: 1px solid ${color.red};
-  background-color: black;
-  border-radius: 120px;
-  color: ${color.red};
-  cursor: pointer;
-  display: inline-block;
-  text-align: center;
-  align-items: center;
-  font: ${font.body2};
-  padding-top: 2px;
-  margin-left: 9px;
+export const BorderButton = styled(Button)`
+  border: 1px solid ${color.white};
+  box-shadow: 0 0 1px 0 ${color.white} inset, 0 0 1px 0 ${color.white};
+  color: ${color.white};
 `;
 
-export const ChangePwBtn = styled(Link)`
-  width: 62px;
-  height: 31px;
+export const ButtonTo = styled(Link)`
+  cursor: pointer;
+  padding: 6px 16px;
+  background-color: transparent;
+  font: ${font.body3};
   border: 1px solid ${color.white};
-  background-color: ${color.black};
-  border-radius: 120px;
+  box-shadow: 0 0 1px 0 ${color.white} inset, 0 0 1px 0 ${color.white};
   color: ${color.white};
+  border-radius: 120px;
   text-decoration: none;
-  cursor: pointer;
-  display: inline-block;
-  text-align: center;
-  align-items: center;
-  font: ${font.body2};
-  padding-top: 2px;
+`;
+
+export const BorderButtonRed = styled(Button)`
+  color: ${color.red};
+  border: 1px solid ${color.red};
+  box-shadow: 0 0 1px 0 ${color.red} inset, 0 0 1px 0 ${color.red};
 `;
 
 export const AccountBox = styled.div`
@@ -119,57 +108,21 @@ export const Box = styled.div`
 
 export const IdText = styled.span`
   color: ${color.white};
-  margin-right: 18px;
 `;
 
 export const inputId = styled.input`
-  width: 247px;
-  height: 28px;
+  width: 250px;
   background: ${color.darkGray};
   border-radius: 10px;
   border: none;
   color: ${color.white};
+  font: ${font.body3};
+  padding: 8px 16px;
   outline: none;
   text-align: right;
-  padding: 0px 16px;
-  animation: 0.9s ease-in-out loadEffect1;
-  @keyframes loadEffect1 {
-    0% {
-      opacity: 0;
-    }
-    30% {
-      left: 120px;
-    }
-    50% {
-      left: 150px;
-    }
-    80% {
-      left: 180px;
-    }
-    100% {
-      opacity: 1;
-      left: 200px;
-    }
-  }
-  :hover {
-    outline: none;
-    border: none;
-  }
 `;
 
 export const DeleteText = styled.span`
   color: ${color.red};
   font: ${font.body2};
-`;
-
-export const DeleteBtn = styled.button`
-  width: 62px;
-  height: 31px;
-  border: 1px solid ${color.red};
-  background-color: ${color.black};
-  border-radius: 120px;
-  color: ${color.red};
-  cursor: pointer;
-  font: ${font.body2};
-  padding-top: 1px;
 `;

@@ -1,3 +1,5 @@
+import { useLayoutEffect, useState } from "react";
+import { getMyProfile } from "../../../../../utils/api/Profile";
 import * as S from "../styles";
 
 interface PropsType {
@@ -22,11 +24,26 @@ const Content = ({ lucy, setLucy }: PropsType): JSX.Element => {
     }
   };
 
+  const [lucyCount, setLucyCount] = useState<number | null>(null);
+
+  const getLucyCount = async () => {
+    try {
+      const response = await getMyProfile();
+      setLucyCount(response.data.content.response.lucy_count);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useLayoutEffect(() => {
+    getLucyCount();
+  }, []);
+
   return (
     <>
       <S.Container>
         <S.Input placeholder="지급 LUCY 입력..." value={lucy} onChange={onChangeHandler} />
-        <S.Won>· 123 LUCY 보유</S.Won>
+        {lucyCount && <S.Won>· {lucyCount} LUCY 보유</S.Won>}
       </S.Container>
     </>
   );

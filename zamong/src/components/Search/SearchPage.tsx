@@ -8,6 +8,13 @@ import {
   getSearchInterpretation,
   getSearchSell,
 } from "../../utils/api/Search";
+import { useHistory } from "react-router-dom";
+import {
+  follow,
+  getFollowing,
+  getMyProfile,
+  unfollow,
+} from "../../utils/api/Profile";
 
 interface usersType {
   uuid: string;
@@ -40,6 +47,13 @@ interface User {
   profile: string;
 }
 
+interface Following {
+  uuid: string;
+  profile: string;
+  id: string;
+  follow_datetime: string;
+  is_following: boolean;
+}
 interface interpretationType {
   uuid: string;
   default_posting_image: string;
@@ -50,12 +64,41 @@ interface interpretationType {
   user: User;
 }
 
+interface FollowType {
+  followings: Following[];
+  total_size: number;
+}
+
 interface PropsType {
   content: string;
   types: string;
 }
 
+interface ProfileType {
+  uuid: string;
+  name: string;
+  email: string;
+  id: string;
+  profile: string;
+  share_dream_count: number;
+  lucy_count: number;
+}
+
 const SearchPage = ({ content, types }: PropsType): JSX.Element => {
+  const history = useHistory();
+  const [followState, setFollow] = useState<FollowType>({
+    followings: [],
+    total_size: 0,
+  });
+  const [profileState, setProfile] = useState<ProfileType>({
+    uuid: "",
+    name: "",
+    email: "",
+    id: "",
+    profile: "",
+    share_dream_count: 0,
+    lucy_count: 0,
+  });
   const [userResult, setUser] = useState<usersType[] | null>(null);
   const [shareResult, setShare] = useState<shareType[] | null>(null);
   const [sellResult, setSell] = useState<sellType[] | null>(null);
@@ -100,6 +143,51 @@ const SearchPage = ({ content, types }: PropsType): JSX.Element => {
     }
   };
 
+  const myProfile = async () => {
+    try {
+      const response = await getMyProfile();
+      setProfile(response.data.content.response);
+    } catch (error) {
+      throw error;
+    }
+  };
+
+  const following = async () => {
+    try {
+      const response = await getFollowing(profileState.id);
+      setFollow(response.data.content.response);
+    } catch (error) {
+      throw error;
+    }
+  };
+
+  const followClick = async (id: string) => {
+    try {
+      await follow(id);
+      following();
+    } catch (error) {
+      throw error;
+    }
+  };
+
+  useEffect(() => {
+    following();
+  }, [profileState.id]);
+
+  useEffect(() => {
+    myProfile();
+  }, []);
+
+  const unFollowClick = async (id: string) => {
+    try {
+      const response = await unfollow(id);
+      following();
+      return response;
+    } catch (error) {
+      throw error;
+    }
+  };
+
   useEffect(() => {
     searchUser(content);
     searchShare(content, types);
@@ -112,8 +200,13 @@ const SearchPage = ({ content, types }: PropsType): JSX.Element => {
       <S.ContentBox>
         <S.ResultText>'{content}'(으)로 검색한 결과</S.ResultText>
         <S.DreamBox>
-          <S.HeadText>공유된 꿈 {shareResult?.length}개</S.HeadText>
-          {shareResult &&
+          <S.HeadText>
+            공유된 꿈 <span>{shareResult?.length}개</span>
+          </S.HeadText>
+          {shareResult?.length === 0 ? (
+            <S.DreamText>공유된 꿈이 없습니다.</S.DreamText>
+          ) : (
+            shareResult &&
             shareResult.map((data, v) => {
               const date =
                 data.share_datetime.substring(5, 7) +
@@ -132,15 +225,23 @@ const SearchPage = ({ content, types }: PropsType): JSX.Element => {
                   key={v}
                 />
               );
-            })}
-          <S.More>
-            <div>더보기</div>
-            <img alt="down" src={DownChevron} />
-          </S.More>
+            })
+          )}
+          {/* {shareResult?.length === 0 ? null : (
+            <S.More>
+              <div>더보기</div>
+              <img alt="down" src={DownChevron} />
+            </S.More>
+          )} */}
         </S.DreamBox>
         <S.DreamBox>
-          <S.HeadText>해몽 요청 {interpretationResult?.length}개</S.HeadText>
-          {interpretationResult &&
+          <S.HeadText>
+            해몽 요청 <span>{interpretationResult?.length}개</span>
+          </S.HeadText>
+          {interpretationResult?.length === 0 ? (
+            <S.DreamText>해몽 요청된 꿈이 없습니다.</S.DreamText>
+          ) : (
+            interpretationResult &&
             interpretationResult.map((data, v) => {
               const date =
                 data.updated_at.substring(5, 7) +
@@ -158,15 +259,23 @@ const SearchPage = ({ content, types }: PropsType): JSX.Element => {
                   key={v}
                 />
               );
-            })}
-          <S.More>
-            <div>더보기</div>
-            <img alt="down" src={DownChevron} />
-          </S.More>
+            })
+          )}
+          {interpretationResult?.length === 0 ? null : (
+            <S.More>
+              <div>더보기</div>
+              <img alt="down" src={DownChevron} />
+            </S.More>
+          )}
         </S.DreamBox>
         <S.DreamBox>
-          <S.HeadText>판매 꿈 {sellResult?.length}개</S.HeadText>
-          {sellResult &&
+          <S.HeadText>
+            판매 꿈 <span>{sellResult?.length}개</span>
+          </S.HeadText>
+          {sellResult?.length === 0 ? (
+            <S.DreamText>판매 꿈이 없습니다.</S.DreamText>
+          ) : (
+            sellResult &&
             sellResult.map((data, v) => {
               const date =
                 data.updated_at.substring(5, 7) +
@@ -184,49 +293,51 @@ const SearchPage = ({ content, types }: PropsType): JSX.Element => {
                   key={v}
                 />
               );
-            })}
-          <S.More>
-            <div>더보기</div>
-            <img alt="down" src={DownChevron} />
-          </S.More>
+            })
+          )}
+          {/* {sellResult?.length === 0 ? null : (
+            <S.More>
+              <div>더보기</div>
+              <img alt="down" src={DownChevron} />
+            </S.More>
+          )} */}
         </S.DreamBox>
-
         <S.UserBox>
           {userResult?.length === 0 ? null : (
-            <S.HeadText>검색된 유저 {userResult?.length}명</S.HeadText>
+            <S.HeadText>
+              검색된 유저 <span>{userResult?.length}명</span>
+            </S.HeadText>
           )}
           {userResult &&
             userResult.map((data, v) => {
-              // const date =
-              //   data.follow_datetime.substring(5, 7) +
-              //   "월" +
-              //   " " +
-              //   (data.follow_datetime.substring(8, 10) + "일");
-
+              const userProfile = (uuid: string) => {
+                history.push(`/user/${uuid}`);
+              };
               return (
                 <>
-                  <S.User>
-                    <S.LeftBox>
+                  <S.User key={v}>
+                    <S.LeftBox onClick={() => userProfile(data.uuid)}>
                       <S.Profile img={data.profile} />
                       <S.UserNickName>{data.id}</S.UserNickName>
                     </S.LeftBox>
                     <S.RightBox>
                       {data.follow_datetime === null ? null : (
                         <S.FollowDate>
-                          팔로우를 시작한 날짜 : {data.follow_datetime}
+                          팔로우를 시작한 날짜 :{" "}
+                          {data.follow_datetime.substring(5, 7) +
+                            "월 " +
+                            data.follow_datetime.substring(8, 10) +
+                            "일"}
                         </S.FollowDate>
                       )}
-
                       {data.is_following ? (
                         <S.FollowingBtn
-                        // onClick={() => unFollowClick(data.uuid)}
+                          onClick={() => unFollowClick(data.uuid)}
                         >
                           팔로우중
                         </S.FollowingBtn>
                       ) : (
-                        <S.FollowBtn
-                        //onClick={() => followClick(data.uuid)}
-                        >
+                        <S.FollowBtn onClick={() => followClick(data.uuid)}>
                           팔로우
                         </S.FollowBtn>
                       )}

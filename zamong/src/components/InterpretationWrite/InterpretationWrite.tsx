@@ -1,4 +1,4 @@
-import { useLayoutEffect, useState } from "react";
+import { useLayoutEffect, useRef, useState } from "react";
 import Code from "../../interface/Code";
 import { color } from "../../style/color";
 import DreamType from "../DiaryWrite/component/Properties/Accordion/AccordionMenus/DreamType/DreamType";
@@ -20,6 +20,7 @@ import dreamType from "../../constance/dreamType";
 import { dreamPostingImagePost } from "../../utils/api/DreamPosting";
 import { AxiosResponse } from "axios";
 import defaultResponse from "../../models/dto/response/defaultResponse";
+import { getMyProfile } from "../../utils/api/Profile";
 
 interface PropertiesType {
   title: string;
@@ -74,9 +75,25 @@ const InterpretationWrite = ({ uuid }: PropsType): JSX.Element => {
 
   const isValid = () => title.length > 0 && content.length > 0 && types.length > 0;
 
+  const lucyCount = useRef<number | null>(null);
+
+  const getLucyCount = async () => {
+    try {
+      const response = await getMyProfile();
+      lucyCount.current = response.data.content.response.lucy_count;
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   const onPost = async () => {
     if (!isValid()) {
       alert("빈칸 또는 유형을 선택해주세요.");
+      return;
+    }
+
+    if (lucyCount.current && lucyCount.current < lucy) {
+      alert("지급 LUCY는 현재 보유 LUCY보다 많을 수 없습니다.");
       return;
     }
 
@@ -155,6 +172,7 @@ const InterpretationWrite = ({ uuid }: PropsType): JSX.Element => {
 
   useLayoutEffect(() => {
     settingData();
+    getLucyCount();
   }, []);
 
   return (

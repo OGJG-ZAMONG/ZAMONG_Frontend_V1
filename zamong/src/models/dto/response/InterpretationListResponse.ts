@@ -11,6 +11,7 @@ export interface InterpretationDream {
     id: string;
     profile: string;
   };
+  lucy_count: number;
 }
 
 export interface InterpretationList {

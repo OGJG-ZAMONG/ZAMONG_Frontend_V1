@@ -6,11 +6,13 @@ import Slider from "../../Slider/Slider";
 import { useLayoutEffect, useState } from "react";
 import { Dream } from "../../../../models/dto/response/shareDreamResponse";
 import { myDiaryRequest } from "../../../../models/dto/request/myDiaryRequest";
+import CardSkeleton from "../../../CardSkeleton/CardSkeleton";
 
 const MyDreamDiaryList = (): JSX.Element => {
   const [index, setIndex] = useState<number>(0);
   const [page, setPage] = useState<number>(0);
-  const [dreams, setDreams] = useState<Dream[]>([]);
+  const [dreams, setDreams] = useState<Dream[] | null>(null);
+  const nnDreams = dreams || []; //null이 아닌 list
 
   const GAP = 20;
   const COLUMN_COUNT = 4;
@@ -25,18 +27,22 @@ const MyDreamDiaryList = (): JSX.Element => {
 
     try {
       const { share_dreams } = (await getMyDreamDiary(param)).data.content.response;
-      setDreams(dreams.concat(share_dreams));
+      setDreams(nnDreams.concat(share_dreams));
     } catch (error) {
       console.log(error);
     }
   };
 
-  const dreamRender = dreams.map((value, index) => {
+  const dreamRender = nnDreams.map((value, index) => {
     const { default_posting_image: img, is_shared: locked, title, created_at: date, uuid } = value;
 
     return (
       <MyDreamDiary key={index} img={img} locked={locked} title={title} date={date} uuid={uuid} />
     );
+  });
+
+  const renderSkeleton = [1, 2, 3, 4].map((_, index) => {
+    return <CardSkeleton key={index} />;
   });
 
   useLayoutEffect(() => {
@@ -45,17 +51,17 @@ const MyDreamDiaryList = (): JSX.Element => {
 
   return (
     <>
-      {dreams.length > 0 && (
+      {(nnDreams.length > 0 || !dreams) && (
         <I.Container>
           <G.SectionTitle>최근 적은 꿈 일기</G.SectionTitle>
           <Slider
             indexState={[index, setIndex]}
             pageState={[page, setPage]}
-            size={dreams.length}
+            size={nnDreams.length}
             gap={GAP}
             columnCount={COLUMN_COUNT}
           >
-            {dreamRender}
+            {dreams ? dreamRender : renderSkeleton}
           </Slider>
         </I.Container>
       )}

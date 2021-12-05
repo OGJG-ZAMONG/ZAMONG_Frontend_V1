@@ -1,13 +1,10 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useLayoutEffect, useState } from "react";
 import * as S from "./styles";
 import { Follower, Follow } from "../../../assets";
 import FollowerContent from "../Follower/FollowerContent";
 import FollowContent from "../Follow/FollowContent";
-import {
-  getAntherUsersProfile,
-  getFollower,
-  getFollowing,
-} from "../../../utils/api/Profile";
+import { getAntherUsersProfile, getFollower, getFollowing } from "../../../utils/api/Profile";
+import { useHistory, useLocation } from "react-router";
 
 interface ProfileType {
   uuid: string;
@@ -47,11 +44,12 @@ const AnotherProfilePage: React.FC<IdType | null> = (props): JSX.Element => {
     share_dream_count: 0,
     lucy_count: 0,
   });
-  const { uuid, name, email, id, profile, share_dream_count, lucy_count } =
-    profileState;
+  const { uuid, name, email, id, profile } = profileState;
   const FOLLORWER = 1;
   const FOLLORWING = 2;
   const [contentState, setContentState] = useState(FOLLORWER);
+  const query = new URLSearchParams(useLocation().search);
+  const { push } = useHistory();
 
   const onFollowerClick = () => {
     setContentState(FOLLORWER);
@@ -60,6 +58,26 @@ const AnotherProfilePage: React.FC<IdType | null> = (props): JSX.Element => {
   const onFollowClick = () => {
     setContentState(FOLLORWING);
   };
+
+  const settingContentStateWithQueryString = () => {
+    const paramState = query.get("state");
+    if (!paramState) {
+      return;
+    }
+
+    try {
+      const state = Number(paramState);
+      if (state > 0 && state <= 2) {
+        setContentState(state);
+      }
+    } catch (error) {
+      push("/profile");
+    }
+  };
+
+  useLayoutEffect(() => {
+    settingContentStateWithQueryString();
+  }, []);
 
   useEffect(() => {
     usersProfile();
@@ -110,6 +128,25 @@ const AnotherProfilePage: React.FC<IdType | null> = (props): JSX.Element => {
 
   const is_following = true;
 
+  interface navType {
+    img: string;
+    text: string;
+    onClick: () => void;
+  }
+
+  const navs: navType[] = [
+    {
+      img: Follower,
+      text: "팔로워",
+      onClick: onFollowerClick,
+    },
+    {
+      img: Follow,
+      text: "팔로우",
+      onClick: onFollowClick,
+    },
+  ];
+
   return (
     <>
       {FollowerContent}
@@ -122,14 +159,8 @@ const AnotherProfilePage: React.FC<IdType | null> = (props): JSX.Element => {
               <S.NickNameText>{id}</S.NickNameText>
               <S.EmailText>{email}</S.EmailText>
               <S.OneLineBox>
-                <S.Text onClick={onFollowerClick}>
-                  팔로워 {followerState.total_size}명
-                </S.Text>
-                <S.Text onClick={onFollowClick}>
-                  팔로우 {followState.total_size}명
-                </S.Text>
-                <span>내가 쓴 꿈 일기 {share_dream_count}개</span>
-                <span>{lucy_count}LUCY</span>
+                <S.Text onClick={onFollowerClick}>팔로워 {followerState.total_size}명</S.Text>
+                <S.Text onClick={onFollowClick}>팔로우 {followState.total_size}명</S.Text>
               </S.OneLineBox>
               <S.LineBox>
                 <S.NameBox>이름: {name}</S.NameBox>
@@ -144,18 +175,15 @@ const AnotherProfilePage: React.FC<IdType | null> = (props): JSX.Element => {
         </S.TopBox>
         <S.SelectionBox>
           <S.SelectionContent>
-            <S.ChooseBox onClick={onFollowerClick}>
-              <div>
-                <img src={Follower} />
-                <span>팔로워</span>
-              </div>
-            </S.ChooseBox>
-            <S.ChooseBox onClick={onFollowClick}>
-              <div>
-                <img src={Follow} />
-                <span>팔로우</span>
-              </div>
-            </S.ChooseBox>
+            {navs.map((value, index) => {
+              const { img, text, onClick } = value;
+              return (
+                <S.ChooseBox isActive={contentState === index + 1} onClick={onClick} key={index}>
+                  <img src={img} alt={text} />
+                  <span>{text}</span>
+                </S.ChooseBox>
+              );
+            })}
           </S.SelectionContent>
         </S.SelectionBox>
         <div>{renderContent()}</div>

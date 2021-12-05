@@ -22,8 +22,8 @@ const Dream = ({ dream }: PropsType): JSX.Element => {
 
   const tagRender = dreamType
     .filter((value) => dream_types.some((item) => item === value.code))
-    .map((value) => {
-      return <Tag>{value.name}</Tag>;
+    .map((value, index) => {
+      return <Tag key={index}>{value.name}</Tag>;
     });
 
   return (

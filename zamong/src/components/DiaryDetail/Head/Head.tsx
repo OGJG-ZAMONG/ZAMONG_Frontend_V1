@@ -12,9 +12,10 @@ import { delPosting, shareDream } from "../../../utils/api/DreamDetail";
 
 interface PropsType {
   postData: dreamDetail;
+  userUUID: string;
 }
 
-const DiaryDetailHeader = ({ postData }: PropsType): JSX.Element => {
+const DiaryDetailHeader = ({ postData, userUUID }: PropsType): JSX.Element => {
   const { push } = useHistory();
   const {
     title,
@@ -40,10 +41,12 @@ const DiaryDetailHeader = ({ postData }: PropsType): JSX.Element => {
   const dayToString = (date: string | null) => {
     if (date !== null) {
       const a = new Date(date);
-      const month = a.getMonth().toString().padStart(2,"0");
-      const day = a.getDate().toString().padStart(2,"0");
+      const month = a.getMonth().toString().padStart(2, "0");
+      const day = a.getDate().toString().padStart(2, "0");
       const year =
-        a.getFullYear() === new Date().getFullYear() ? "" : `${a.getFullYear()}년 `;
+        a.getFullYear() === new Date().getFullYear()
+          ? ""
+          : `${a.getFullYear()}년 `;
 
       return `${year}${month}월 ${day}일`;
     }
@@ -95,6 +98,10 @@ const DiaryDetailHeader = ({ postData }: PropsType): JSX.Element => {
     return value.code === quality;
   })?.name;
 
+  const linkProfile = () => {
+    push(`/user/${user.uuid}`);
+  };
+
   return (
     <S.HeadContainer>
       <S.Title>{title}</S.Title>
@@ -124,18 +131,30 @@ const DiaryDetailHeader = ({ postData }: PropsType): JSX.Element => {
           </div>
         </S.LeftInfo>
         <S.UserInfo>
-          {is_shared ? (
-            <S.ProfileLink>
-              <S.PrifilePhoto alt="profile" src={user.profile} />
-              <S.Profile>{user.id}</S.Profile>
-            </S.ProfileLink>
+          {userUUID === user.uuid ? (
+            <>
+              {" "}
+              {is_shared ? (
+                <></>
+              ) : (
+                <S.ShareButton onClick={onShareDream}>공유</S.ShareButton>
+              )}
+            </>
           ) : (
-            <></>
-          )}
-          {is_shared ? (
-            <></>
-          ) : (
-            <S.ShareButton onClick={onShareDream}>공유</S.ShareButton>
+            <>
+              {is_shared ? (
+                <S.ProfileLink>
+                  <S.PrifilePhoto
+                    alt="profile"
+                    src={user.profile}
+                    onClick={linkProfile}
+                  />
+                  <S.Profile>{user.id}</S.Profile>
+                </S.ProfileLink>
+              ) : (
+                <></>
+              )}
+            </>
           )}
           <S.MoreBox>
             <S.More

@@ -11,9 +11,20 @@ interface PropsType {
 const PageNation = ({ indexState, max, columnCount }: PropsType): JSX.Element => {
   const [pageOffset, setPageOffset] = useState<number>(0);
   const [index, setIndex] = indexState;
-  const onNext = () =>
-    pageOffset !== Math.floor(max / columnCount) && setPageOffset(pageOffset + 1);
-  const onPrev = () => pageOffset !== 0 && setPageOffset(pageOffset - 1);
+  const onNext = () => {
+    if (pageOffset !== Math.floor(max / columnCount)) {
+      const changeOffset = pageOffset + 1;
+      setPageOffset(changeOffset);
+      setIndex(changeOffset * columnCount);
+    }
+  };
+  const onPrev = () => {
+    if (pageOffset !== 0) {
+      const changeOffset = pageOffset - 1;
+      setPageOffset(changeOffset);
+      setIndex(changeOffset * columnCount);
+    }
+  };
 
   const renderPage = Array<number>(columnCount)
     .fill(0)

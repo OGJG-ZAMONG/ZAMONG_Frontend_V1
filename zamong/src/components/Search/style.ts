@@ -21,10 +21,19 @@ export const HeadText = styled.p`
   color: ${color.white};
   font: ${font.headline3};
   margin-bottom: 24px;
+  span {
+    color: ${color.blue};
+  }
 `;
 
 export const DreamBox = styled.div`
   margin-top: 56px;
+`;
+
+export const DreamText = styled.p`
+  color: ${color.white};
+  font: ${font.body3};
+  text-align: center;
 `;
 
 export const UserBox = styled.div`
@@ -53,12 +62,13 @@ export const User = styled.div`
   margin-bottom: 12px;
   display: flex;
   justify-content: space-between;
-  border-bottom: 1px solid white;
+  border-bottom: 1px solid ${color.darkGray};
 `;
 
 export const LeftBox = styled.div`
   height: 60px;
   display: flex;
+  cursor: pointer;
 `;
 
 export const Profile = styled.div<{ img: string }>`
