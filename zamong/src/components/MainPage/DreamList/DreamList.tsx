@@ -34,8 +34,8 @@ const DreamList = (): JSX.Element => {
     setPage(page + 1);
   };
 
-  const dreamsRender = nnDreams.map((value) => {
-    return <Dream dream={value} />;
+  const dreamsRender = nnDreams.map((value, index) => {
+    return <Dream dream={value} key={index} />;
   });
 
   const renderSkeleton = Array(10)

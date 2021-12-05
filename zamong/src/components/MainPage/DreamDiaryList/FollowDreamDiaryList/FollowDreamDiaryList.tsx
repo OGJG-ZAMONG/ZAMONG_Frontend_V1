@@ -35,8 +35,8 @@ const FollowDreamDiaryList = (): JSX.Element => {
     getFollowShareDreamList();
   }, [page]);
 
-  const dreamListRender = nnDreamList.map((value) => {
-    return <FollowDreamDiary dream={value} />;
+  const dreamListRender = nnDreamList.map((value, index) => {
+    return <FollowDreamDiary dream={value} key={index} />;
   });
 
   const renderSkeleton = [1, 2, 3, 4].map((_, index) => {
