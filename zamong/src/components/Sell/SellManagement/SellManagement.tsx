@@ -1,6 +1,5 @@
 import * as S from "./style";
 import React, { FC, useEffect, useState } from "react";
-import DreamContent from "./DreamContent/DreamContent";
 import {
   getSellMyOnSaleManagement,
   getSellSoldOutManagement,
