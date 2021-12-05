@@ -315,7 +315,7 @@ const SearchPage = ({ content, types }: PropsType): JSX.Element => {
               };
               return (
                 <>
-                  <S.User>
+                  <S.User key={v}>
                     <S.LeftBox onClick={() => userProfile(data.uuid)}>
                       <S.Profile img={data.profile} />
                       <S.UserNickName>{data.id}</S.UserNickName>

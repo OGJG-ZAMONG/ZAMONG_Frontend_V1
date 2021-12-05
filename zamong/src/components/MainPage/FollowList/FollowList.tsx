@@ -25,8 +25,8 @@ const FollowList = (): JSX.Element => {
     }
   };
 
-  const followersRender = nnFollowings.slice(0, 8).map((value) => {
-    return <S.Follow img={value.profile} to={`/user/${value.uuid}`} />;
+  const followersRender = nnFollowings.slice(0, 8).map((value, index) => {
+    return <S.Follow img={value.profile} to={`/user/${value.uuid}`} key={index} />;
   });
 
   const renderSkeleton = [1, 2, 3, 4].map((_, index) => {

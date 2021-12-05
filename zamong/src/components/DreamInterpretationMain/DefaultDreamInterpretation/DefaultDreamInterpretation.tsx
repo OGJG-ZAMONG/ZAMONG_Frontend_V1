@@ -27,7 +27,7 @@ const DefaultDreamInterpretation = (): JSX.Element => {
         pageState={[page, setPage]}
         indexState={[index, setIndex]}
       >
-        {DefaultDreamInterpretations.map((value) => {
+        {DefaultDreamInterpretations.map((value, index) => {
           const onClickHandler = (e: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => {
             e.preventDefault();
             setSelected(value);
@@ -41,6 +41,7 @@ const DefaultDreamInterpretation = (): JSX.Element => {
               title={title}
               content={content}
               onClickHandler={onClickHandler}
+              key={index}
             />
           );
         })}
@@ -51,9 +52,9 @@ const DefaultDreamInterpretation = (): JSX.Element => {
             <S.Image alt="image" src={selected.image} />
             <S.Title>{selected.title}</S.Title>
             <S.Content>
-              {selected.content.split("\n").map((line) => {
+              {selected.content.split("\n").map((line, index) => {
                 return (
-                  <span>
+                  <span key={index}>
                     {line}
                     <br />
                   </span>
