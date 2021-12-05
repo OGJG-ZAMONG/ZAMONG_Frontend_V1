@@ -4,10 +4,12 @@ import DefaultImage from "../../../assets/DefaultPostingImages/1.jpg";
 import { useLayoutEffect, useState } from "react";
 import { following } from "../../../models/dto/response/followingsResponse";
 import { getFollowList } from "../../../utils/api/Main";
+import { useHistory } from "react-router";
 
 const FollowList = (): JSX.Element => {
   const [followings, setFollowings] = useState<following[] | null>(null);
   const nnFollowings = followings || []; //null이 아닌 배열
+  const { push } = useHistory();
 
   const setFollowList = async () => {
     const param = {
@@ -35,6 +37,10 @@ const FollowList = (): JSX.Element => {
     setFollowList();
   }, []);
 
+  const onMoreClick = () => {
+    push("/profile?state=2");
+  };
+
   return (
     <>
       {(nnFollowings.length > 0 || !followings) && (
@@ -44,7 +50,7 @@ const FollowList = (): JSX.Element => {
           </S.SectionTitle>
           <S.FollowContainer>
             {followings ? followersRender : renderSkeleton}
-            <S.MoreIcon alt="more" src={More} />
+            <S.MoreIcon alt="more" src={More} onClick={onMoreClick} />
           </S.FollowContainer>
         </S.Container>
       )}
