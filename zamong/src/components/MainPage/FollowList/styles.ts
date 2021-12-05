@@ -37,6 +37,7 @@ export const MoreIcon = styled.img`
   width: 24px;
   user-select: none;
   cursor: pointer;
+  padding: 12px 0px;
 `;
 
 export const SectionTitle = styled(G.SectionTitle)`

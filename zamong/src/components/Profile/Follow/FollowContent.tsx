@@ -14,7 +14,7 @@ interface IdType {
   id: string;
 }
 
-const FollowContent: FC<IdType> = (props) => {
+const FollowContent: FC<IdType> = ({ id }) => {
   const [followState, setFollow] = useState<FollowType | null>(null);
   const nnState: FollowType = followState || {
     followings: [],
@@ -24,11 +24,12 @@ const FollowContent: FC<IdType> = (props) => {
 
   useEffect(() => {
     following();
-  }, []);
+  }, [id]);
 
   const following = async () => {
     try {
-      const response = await getFollowing(props.id);
+      const response = await getFollowing(id);
+
       setFollow(response.data.content.response);
     } catch (error) {
       throw error;

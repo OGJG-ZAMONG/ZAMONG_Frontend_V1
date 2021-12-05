@@ -39,6 +39,10 @@ const Login = (): JSX.Element => {
     }
   };
 
+  const signUp = () => {
+    push('/signup');
+  }
+
   return (
     <S.LoginBox>
       <S.PaddingBox>
@@ -67,6 +71,9 @@ const Login = (): JSX.Element => {
             </S.LinkBox>
             <S.LoginButton onClick={onRequest}>로그인</S.LoginButton>
           </S.EventBox>
+          <S.SignUpLink>
+            신규 사용자이신가요?&nbsp;<S.Link onClick={signUp}>회원가입</S.Link>
+          </S.SignUpLink>
         </S.MainContainer>
       </S.PaddingBox>
     </S.LoginBox>

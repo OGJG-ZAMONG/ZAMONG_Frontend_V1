@@ -16,8 +16,8 @@ export const LoginBox = styled.div`
 `;
 
 export const PaddingBox = styled.div`
-  margin: 66px 70px;
-`
+  padding: 66px 70px;
+`;
 
 export const Title = styled.div`
   font: ${font.headline1};
@@ -25,7 +25,6 @@ export const Title = styled.div`
 
 export const MainContainer = styled.form`
   margin-top: 86px;
-  margin-bottom: 105px;
 `;
 
 export const GuideWord = styled.div`
@@ -33,9 +32,8 @@ export const GuideWord = styled.div`
 `;
 
 export const Input = styled.input`
-  margin-top: 15px;
+  margin-top: 16px;
   width: 100%;
-  height: 32px;
   background-color: transparent;
   border: none;
   border-bottom: 1px solid ${color.darkGray};
@@ -43,6 +41,9 @@ export const Input = styled.input`
   color: ${color.white};
   font: ${font.body3};
   margin-bottom: 28px;
+  :last-of-type {
+    margin-bottom: 16px;
+  }
 `;
 
 export const LinkBox = styled.div`
@@ -51,20 +52,13 @@ export const LinkBox = styled.div`
     text-decoration: none;
     font: ${font.body1};
   }
-
-  &:last-child {
-    text-align: center;
-  }
 `;
 
 export const LoginButton = styled.div`
-  width: 77px;
-  height: 32px;
+  padding: 6px 16px;
   border: none;
   background-color: ${color.blue};
   font: ${font.body2};
-  text-align: center;
-  line-height: 2;
   border-radius: 100px;
   cursor: pointer;
 `;
@@ -73,4 +67,18 @@ export const EventBox = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
+`;
+
+export const SignUpLink = styled.div`
+  font: ${font.body3};
+  margin-top: 104px;
+  display: flex;
+  justify-content: center;
+`;
+
+export const Link = styled.div`
+font: ${font.body1};
+  color: ${color.blue};
+  text-decoration: none;
+  cursor: pointer;
 `;
