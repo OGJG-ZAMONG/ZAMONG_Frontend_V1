@@ -12,7 +12,8 @@ import CardSkeleton from "../../CardSkeleton/CardSkeleton";
 const DiaryList: FC = (): JSX.Element => {
   const [diaryWritten, setDiaryWritten] = useState<Array<object> | null>(null);
   const NNdiaryWritten = diaryWritten || [];
-  const [diaryWrittenToday, setDiaryWrittenToday] = useState<Array<object>>([]);
+  const [diaryWrittenToday, setDiaryWrittenToday] = useState<Array<object> | null>(null);
+  const NNdiaryWrittenToday = diaryWrittenToday || [];
   const [FilterStatus, setFilterStatus] = useState<string>("created");
   const [isChecked, setIsChecked] = useState<boolean>(false);
   const [page, setPage] = useState<number>(0);
@@ -70,23 +71,21 @@ const DiaryList: FC = (): JSX.Element => {
       .catch((err) => console.log(err));
   }, [page]);
 
-  const RenderDiaryWrittenToday = useMemo(
-    () =>
-      diaryWrittenToday.map((value: any, index: number) => {
-        return (
-          <S.MyDreamDiaryContainer key={index}>
-            <MyDreamDiary
-              img={value.default_posting_image}
-              locked={value.is_shared}
-              title={value.title}
-              date={value.created_at}
-              uuid={value.uuid}
-              key={index}
-            />
-          </S.MyDreamDiaryContainer>
-        );
-      }),
-    [diaryWrittenToday]
+  const RenderDiaryWrittenToday = NNdiaryWrittenToday.map(
+    (value: any, index: number) => {
+      return (
+        <S.MyDreamDiaryContainer key={index}>
+          <MyDreamDiary
+            img={value.default_posting_image}
+            locked={value.is_shared}
+            title={value.title}
+            date={value.created_at}
+            uuid={value.uuid}
+            key={index}
+          />
+        </S.MyDreamDiaryContainer>
+      );
+    }
   );
 
   const RenderDiaryWritten = NNdiaryWritten.map((value: any, index: number) => {
@@ -120,11 +119,13 @@ const DiaryList: FC = (): JSX.Element => {
     setIsChecked(e.target.checked);
   };
 
-  const renderSkeleton = Array(12)
-    .fill(0)
-    .map((_, index) => {
-      return <CardSkeleton key={index} />;
-    });
+  const RenderSkeleton = (length: number) => {
+    return Array(length)
+      .fill(0)
+      .map((_, index) => {
+        return <CardSkeleton key={index} />;
+      });
+  };
 
   return (
     <S.Container>
@@ -147,7 +148,7 @@ const DiaryList: FC = (): JSX.Element => {
                   </S.WriteDiary>
                 </S.MyDreamDiaryContainer>
                 {/* 여기서 맵 돌림 */}
-                {RenderDiaryWrittenToday}
+                {diaryWrittenToday ? RenderDiaryWrittenToday : RenderSkeleton(3)}
               </S.SignInner>
             </S.DiarySignContainer>
           </S.TodayDream>
@@ -176,7 +177,7 @@ const DiaryList: FC = (): JSX.Element => {
           </S.HeaderSelections>
         </S.DiaryListHeader>
         <S.DiaryList>
-          {diaryWritten ? RenderDiaryWritten : renderSkeleton}
+          {diaryWritten ? RenderDiaryWritten : RenderSkeleton(12)}
         </S.DiaryList>
       </S.DiaryListContainer>
     </S.Container>
