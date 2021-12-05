@@ -133,7 +133,7 @@ const DiaryDetailHeader = ({ postData, userUUID }: PropsType): JSX.Element => {
         <S.UserInfo>
           {userUUID === user.uuid ? (
             <>
-              {" "}
+              {/* {" "} */}
               {is_shared ? (
                 <></>
               ) : (
@@ -156,18 +156,22 @@ const DiaryDetailHeader = ({ postData, userUUID }: PropsType): JSX.Element => {
               )}
             </>
           )}
-          <S.MoreBox>
-            <S.More
-              alt="more"
-              src={more}
-              onClick={() => setIsActiveMore(!isActiveMore)}
-            />
-            <PopupMenu
-              contents={popupContents}
-              isActiveMore={isActiveMore}
-              setIsActiveMore={setIsActiveMore}
-            />
-          </S.MoreBox>
+          {userUUID === user.uuid ? (
+            <S.MoreBox>
+              <S.More
+                alt="more"
+                src={more}
+                onClick={() => setIsActiveMore(!isActiveMore)}
+              />
+              <PopupMenu
+                contents={popupContents}
+                isActiveMore={isActiveMore}
+                setIsActiveMore={setIsActiveMore}
+              />
+            </S.MoreBox>
+          ) : (
+            <></>
+          )}
         </S.UserInfo>
       </S.DreamInfo>
     </S.HeadContainer>
