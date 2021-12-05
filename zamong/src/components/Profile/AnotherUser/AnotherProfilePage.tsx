@@ -1,9 +1,10 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useLayoutEffect, useState } from "react";
 import * as S from "./styles";
 import { Follower, Follow } from "../../../assets";
 import FollowerContent from "../Follower/FollowerContent";
 import FollowContent from "../Follow/FollowContent";
 import { getAntherUsersProfile, getFollower, getFollowing } from "../../../utils/api/Profile";
+import { useHistory, useLocation } from "react-router";
 
 interface ProfileType {
   uuid: string;
@@ -43,10 +44,12 @@ const AnotherProfilePage: React.FC<IdType | null> = (props): JSX.Element => {
     share_dream_count: 0,
     lucy_count: 0,
   });
-  const { uuid, name, email, id, profile, share_dream_count, lucy_count } = profileState;
+  const { uuid, name, email, id, profile } = profileState;
   const FOLLORWER = 1;
   const FOLLORWING = 2;
   const [contentState, setContentState] = useState(FOLLORWER);
+  const query = new URLSearchParams(useLocation().search);
+  const { push } = useHistory();
 
   const onFollowerClick = () => {
     setContentState(FOLLORWER);
@@ -55,6 +58,26 @@ const AnotherProfilePage: React.FC<IdType | null> = (props): JSX.Element => {
   const onFollowClick = () => {
     setContentState(FOLLORWING);
   };
+
+  const settingContentStateWithQueryString = () => {
+    const paramState = query.get("state");
+    if (!paramState) {
+      return;
+    }
+
+    try {
+      const state = Number(paramState);
+      if (state > 0 && state <= 2) {
+        setContentState(state);
+      }
+    } catch (error) {
+      push("/profile");
+    }
+  };
+
+  useLayoutEffect(() => {
+    settingContentStateWithQueryString();
+  }, []);
 
   useEffect(() => {
     usersProfile();
