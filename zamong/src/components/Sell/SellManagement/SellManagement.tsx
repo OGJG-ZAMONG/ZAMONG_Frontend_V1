@@ -7,16 +7,19 @@ import {
 import PageNation from "../../PageNation/PageNation";
 import CardSkeleton from "../../CardSkeleton/CardSkeleton";
 import MySellDreamCard from "../../CardDream/MySellDreamCard/MySellDreamCard";
+import { SellDream } from "../../../models/dto/response/sellManagementResponse";
 
 const SellManagement: FC = (): JSX.Element => {
-  const [myOnSaleData, setMyOnSaleData] = useState<Array<object> | null>(null);
-  const [mySoldOutData, setMySoldOutData] = useState<Array<object> | null>(null);
+  const [myOnSaleData, setMyOnSaleData] = useState<SellDream[] | null>(null);
+  const [mySoldOutData, setMySoldOutData] = useState<SellDream[] | null>(null);
   const [salePage, setSalePage] = useState<number>(0);
   const [soldOutPage, setSoldOutPage] = useState<number>(0);
   const [saleMax, setSaleMax] = useState<number>(0);
   const [soldOutMax, setSoldOutMax] = useState<number>(0);
   const saleContainerRef = useRef<HTMLDivElement>(null);
   const soldContainerRef = useRef<HTMLDivElement>(null);
+  const nnSale = myOnSaleData || [];
+  const nnSold = mySoldOutData || [];
 
   useEffect(() => {
     myOnSaleManagement();
@@ -67,14 +70,22 @@ const SellManagement: FC = (): JSX.Element => {
     }
   };
 
-  const renderOnSaleDream = myOnSaleData?.map((value: any, index) => {
-    return <MySellDreamCard key={index} data={value} />;
-  });
-
-  const renderSoldOutDream = mySoldOutData?.map((value: any, index) => {
-    return <MySellDreamCard key={index} data={value} />;
-  });
-
+  const renderOnSaleDream =
+    nnSale.length > 0 ? (
+      nnSale.map((value, index) => {
+        return <MySellDreamCard key={index} data={value} />;
+      })
+    ) : (
+      <S.None>판매중인 꿈이 없습니다.</S.None>
+    );
+  const renderSoldOutDream =
+    nnSold.length > 0 ? (
+      nnSold.map((value, index) => {
+        return <MySellDreamCard key={index} data={value} />;
+      })
+    ) : (
+      <S.None>판매 완료한 꿈이 없습니다.</S.None>
+    );
   return (
     <S.Contents>
       <S.SellManagementText ref={saleContainerRef}>꿈 판매 관리</S.SellManagementText>
