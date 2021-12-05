@@ -35,6 +35,12 @@ export const List = styled.div`
   row-gap: 40px;
 `;
 
+export const Text = styled.p`
+  color: ${color.white};
+  font: ${font.body3};
+  text-align: center;
+`;
+
 export const PageNationContainer = styled.div`
   width: 38%;
   height: 25px;
