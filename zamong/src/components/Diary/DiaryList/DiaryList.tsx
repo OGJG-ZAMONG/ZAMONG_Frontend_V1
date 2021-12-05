@@ -7,10 +7,13 @@ import {
   getMyDreamData,
   getDreamsWrittenToday,
 } from "../../../utils/api/Diary/MyDreams";
+import CardSkeleton from "../../CardSkeleton/CardSkeleton";
 
 const DiaryList: FC = (): JSX.Element => {
-  const [diaryWritten, setDiaryWritten] = useState<Array<object>>([]);
-  const [diaryWrittenToday, setDiaryWrittenToday] = useState<Array<object>>([]);
+  const [diaryWritten, setDiaryWritten] = useState<Array<object> | null>(null);
+  const NNdiaryWritten = diaryWritten || [];
+  const [diaryWrittenToday, setDiaryWrittenToday] = useState<Array<object> | null>(null);
+  const NNdiaryWrittenToday = diaryWrittenToday || [];
   const [FilterStatus, setFilterStatus] = useState<string>("created");
   const [isChecked, setIsChecked] = useState<boolean>(false);
   const [page, setPage] = useState<number>(0);
@@ -18,7 +21,7 @@ const DiaryList: FC = (): JSX.Element => {
   const FilterStatusRef = useRef<HTMLSelectElement>(null);
 
   useEffect(() => {
-    setDiaryWritten([]);
+    setDiaryWritten(null);
     setPage(0);
     getMyDreamData(FilterStatus, 0, isChecked)
       .then((res) => {
@@ -54,12 +57,12 @@ const DiaryList: FC = (): JSX.Element => {
     return () => {
       window.removeEventListener("scroll", onScroll);
     };
-  }, [maxPage]);
+  }, [maxPage, page]);
 
   useEffect(() => {
-    console.log("true");
     getMyDreamData(FilterStatus, page, isChecked)
       .then((res) => {
+        if (diaryWritten === null) return;
         setDiaryWritten([
           ...diaryWritten,
           ...res.data.content.response.share_dreams,
@@ -68,29 +71,10 @@ const DiaryList: FC = (): JSX.Element => {
       .catch((err) => console.log(err));
   }, [page]);
 
-  const RenderDiaryWrittenToday = useMemo(
-    () =>
-      diaryWrittenToday.map((value: any, index: number) => {
-        return (
-          <S.MyDreamDiaryContainer key={index}>
-            <MyDreamDiary
-              img={value.default_posting_image}
-              locked={value.is_shared}
-              title={value.title}
-              date={value.created_at}
-              uuid={value.uuid}
-              key={index}
-            />
-          </S.MyDreamDiaryContainer>
-        );
-      }),
-    [diaryWrittenToday]
-  );
-
-  const RenderDiaryWritten = useMemo(
-    () =>
-      diaryWritten.map((value: any, index: number) => {
-        return (
+  const RenderDiaryWrittenToday = NNdiaryWrittenToday.map(
+    (value: any, index: number) => {
+      return (
+        <S.MyDreamDiaryContainer key={index}>
           <MyDreamDiary
             img={value.default_posting_image}
             locked={value.is_shared}
@@ -99,17 +83,29 @@ const DiaryList: FC = (): JSX.Element => {
             uuid={value.uuid}
             key={index}
           />
-        );
-      }),
-    [diaryWritten]
+        </S.MyDreamDiaryContainer>
+      );
+    }
   );
+
+  const RenderDiaryWritten = NNdiaryWritten.map((value: any, index: number) => {
+    return (
+      <MyDreamDiary
+        img={value.default_posting_image}
+        locked={value.is_shared}
+        title={value.title}
+        date={value.created_at}
+        uuid={value.uuid}
+        key={index}
+      />
+    );
+  });
 
   const onScroll = () => {
     const scrollHeight = document.documentElement.scrollHeight;
     const scrollTop = document.documentElement.scrollTop;
     const clientHeight = document.documentElement.clientHeight;
 
-    console.log(scrollTop + clientHeight, scrollHeight);
     if (scrollTop + clientHeight >= scrollHeight) {
       if (page === maxPage) {
         return;
@@ -121,6 +117,14 @@ const DiaryList: FC = (): JSX.Element => {
 
   const handleCheckBox = (e: React.ChangeEvent<HTMLInputElement>) => {
     setIsChecked(e.target.checked);
+  };
+
+  const RenderSkeleton = (length: number) => {
+    return Array(length)
+      .fill(0)
+      .map((_, index) => {
+        return <CardSkeleton key={index} />;
+      });
   };
 
   return (
@@ -144,7 +148,7 @@ const DiaryList: FC = (): JSX.Element => {
                   </S.WriteDiary>
                 </S.MyDreamDiaryContainer>
                 {/* 여기서 맵 돌림 */}
-                {RenderDiaryWrittenToday}
+                {diaryWrittenToday ? RenderDiaryWrittenToday : RenderSkeleton(3)}
               </S.SignInner>
             </S.DiarySignContainer>
           </S.TodayDream>
@@ -172,7 +176,9 @@ const DiaryList: FC = (): JSX.Element => {
             </S.HeaderSelect>
           </S.HeaderSelections>
         </S.DiaryListHeader>
-        <S.DiaryList>{RenderDiaryWritten}</S.DiaryList>
+        <S.DiaryList>
+          {diaryWritten ? RenderDiaryWritten : RenderSkeleton(12)}
+        </S.DiaryList>
       </S.DiaryListContainer>
     </S.Container>
   );
