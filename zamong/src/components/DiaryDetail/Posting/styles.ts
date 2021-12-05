@@ -16,9 +16,9 @@ export const Text = styled.div`
 
 export const PhotoGrid = styled.div`
   display: grid;
-  grid-template-columns: repeat(11,1fr);
+  grid-template-columns: repeat(12, 1fr);
   column-gap: 20px;
-`
+`;
 
 export const Photo = styled.img`
   grid-column: 1/8;
@@ -33,7 +33,7 @@ export const LucyImg = styled.img`
   height: 100px;
   border-radius: 50%;
   cursor: pointer;
-`
+`;
 
 export const Lucy = styled.div`
   margin: 0 auto;
@@ -44,4 +44,13 @@ export const Lucy = styled.div`
   text-align: center;
   color: ${color.gray};
   font: ${font.body3};
+`;
+
+export const DefaultImage = styled.img`
+  grid-column: 1 / 13;
+  width: 100%;
+  aspect-ratio: 20 / 1;
+  border-radius: 20px;
+  object-fit: cover;
+  object-position: center;
 `;
