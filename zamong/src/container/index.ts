@@ -9,7 +9,7 @@ export { default as SellWriteContainer } from "./SellWrite";
 export { default as ProfileContainter } from "./Profile";
 export { default as SellManagementContainer } from "./Sell/SellManagement";
 export { default as SearcgContainter } from "./Search/index";
-export { default as FindPasswordContainer } from "./FIndPassword";
+export { default as FindPasswordContainer } from "./FindPassword";
 export { default as DreamInterpretationMainContainer } from "./DreamInterpretationMain";
 export { default as AnoTherProfileContainter } from "./Profile/AnotherUser";
 export { default as SellDetailContainer } from "./SellDetail";

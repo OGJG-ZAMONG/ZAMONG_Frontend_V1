@@ -41,9 +41,9 @@ const DiaryDetailPosting = ({ postData, onLikeSet }: PropsType): JSX.Element => 
     <S.PostingContainer>
       <S.PhotoGrid>{isImg ? <S.Photo src={attachment_image} /> : <></>}</S.PhotoGrid>
       <S.Text>
-        {content.split("\n").map((line) => {
+        {content.split("\n").map((line, index) => {
           return (
-            <span>
+            <span key={index}>
               {line}
               <br />
             </span>

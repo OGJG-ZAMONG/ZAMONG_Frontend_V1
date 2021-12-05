@@ -1,6 +1,7 @@
 import styled from "@emotion/styled";
 import { font } from "../../../style/font";
 import { color } from "../../../style/color";
+import { Link } from "react-router-dom";
 
 export const Contents = styled.div`
   width: 1280px;
@@ -14,8 +15,7 @@ export const SellManagementText = styled.div`
 `;
 
 export const Box = styled.div`
-  width: 1280px;
-  height: 785px;
+  width: 100%;
   margin-top: 56px;
 `;
 
@@ -24,15 +24,46 @@ export const SubTitle = styled.div`
   color: ${color.white};
 `;
 
+export const SubtitleContainer = styled.div`
+  width: 100%;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+`;
+
+export const Write = styled(Link)`
+  font: ${font.body3};
+  color: ${color.gray};
+  cursor: pointer;
+  text-decoration: none;
+  &:hover {
+    color: ${color.white};
+  }
+`;
+
 export const List = styled.div`
-  height: 637px;
+  width: 100%;
   margin-top: 28px;
   margin-bottom: 56px;
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  grid-template-rows: repeat(4, 1fr);
   column-gap: 20px;
   row-gap: 40px;
+`;
+
+export const None = styled.div`
+  width: 100%;
+  grid-column: 1 / 5;
+  font: ${font.body3};
+  color: ${color.white};
+  text-align: center;
+  margin-top: 28px;
+`;
+
+export const Text = styled.p`
+  color: ${color.white};
+  font: ${font.body3};
+  text-align: center;
 `;
 
 export const PageNationContainer = styled.div`

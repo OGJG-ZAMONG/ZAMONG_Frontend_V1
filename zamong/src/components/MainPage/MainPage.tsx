@@ -122,7 +122,9 @@ const MainPage = (): JSX.Element => {
       returnValue.push(<S.HelloInner>{list}</S.HelloInner>);
     }
 
-    return returnValue;
+    return returnValue.map((value, index) => {
+      return <div key={index}>{value}</div>;
+    });
   };
 
   return (

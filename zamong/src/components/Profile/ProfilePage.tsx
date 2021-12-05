@@ -1,15 +1,11 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useLayoutEffect, useState } from "react";
 import * as S from "./style";
 import { Follower, Follow, AccountInfo } from "../../assets";
 import FollowerContent from "./Follower/FollowerContent";
 import FollowContent from "./Follow/FollowContent";
 import AccountContent from "./Account/AccountContent";
-import { useHistory } from "react-router";
-import {
-  getFollower,
-  getFollowing,
-  getMyProfile,
-} from "../../utils/api/Profile";
+import { useHistory, useLocation } from "react-router";
+import { getFollower, getFollowing, getMyProfile } from "../../utils/api/Profile";
 
 interface ProfileType {
   uuid: string;
@@ -52,6 +48,8 @@ const ProfilePage = (): JSX.Element => {
   const FOLLORWING = 2;
   const ACCOUNTINFO = 3;
   const [contentState, setContentState] = useState(FOLLORWER);
+  const query = new URLSearchParams(useLocation().search);
+  const { push } = useHistory();
 
   const onFollowerClick = () => {
     setContentState(FOLLORWER);
@@ -65,6 +63,22 @@ const ProfilePage = (): JSX.Element => {
     setContentState(ACCOUNTINFO);
   };
 
+  const settingContentStateWithQueryString = () => {
+    const paramState = query.get("state");
+    if (!paramState) {
+      return;
+    }
+
+    try {
+      const state = Number(paramState);
+      if (state > 0 && state <= 3) {
+        setContentState(state);
+      }
+    } catch (error) {
+      push("/profile");
+    }
+  };
+
   useEffect(() => {
     myProfile();
   }, []);
@@ -73,6 +87,10 @@ const ProfilePage = (): JSX.Element => {
     follower();
     follow();
   }, [uuid]);
+
+  useLayoutEffect(() => {
+    settingContentStateWithQueryString();
+  }, []);
 
   const myProfile = async () => {
     try {
@@ -138,9 +156,6 @@ const ProfilePage = (): JSX.Element => {
 
   return (
     <>
-      {FollowerContent}
-      {FollowContent}
-      {AccountContent}
       <S.ProfileContent>
         <S.TopBox>
           <S.TopContent>
