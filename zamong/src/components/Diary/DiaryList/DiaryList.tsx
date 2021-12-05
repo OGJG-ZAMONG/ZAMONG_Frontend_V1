@@ -54,7 +54,7 @@ const DiaryList: FC = (): JSX.Element => {
     return () => {
       window.removeEventListener("scroll", onScroll);
     };
-  }, [maxPage]);
+  }, [maxPage, page]);
 
   useEffect(() => {
     console.log("true");
@@ -115,6 +115,7 @@ const DiaryList: FC = (): JSX.Element => {
         return;
       } else {
         setPage(page + 1);
+        console.log("page + 1")
       }
     }
   };
