@@ -23,7 +23,7 @@ const MySellDreamCard = ({ data }: PropsType) => {
   const dreamTypes = dreamType.filter((value) => dream_types.some((elem) => value.code === elem));
 
   return (
-    <S.DreamCardContainer to={`sell/detail/${uuid}`}>
+    <S.DreamCardContainer to={`/sell/detail/${uuid}`}>
       <S.DreamImageContainer img={default_posting_image}>
         <I.Price>{`${cost.toLocaleString()}원`}</I.Price>
         <S.DiaryDate>{dateToString(new Date(updated_at))}</S.DiaryDate>
