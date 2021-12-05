@@ -81,7 +81,9 @@ const SellManagement: FC = (): JSX.Element => {
       <S.Box>
         <S.SubTitle>나의 판매중인 꿈 목록</S.SubTitle>
         <S.List>{myOnSaleData ? renderOnSaleDream : renderSkeleton}</S.List>
-        <PageNation max={saleMax} indexState={[salePage, setSalePage]} columnCount={10} />
+        {myOnSaleData && myOnSaleData.length > 0 && (
+          <PageNation max={saleMax} indexState={[salePage, setSalePage]} columnCount={10} />
+        )}
       </S.Box>
       <S.Box>
         <S.SubTitle ref={soldContainerRef}>나의 판매한 꿈 목록</S.SubTitle>
@@ -94,7 +96,13 @@ const SellManagement: FC = (): JSX.Element => {
             renderSkeleton
           )}
         </S.List>
-        <PageNation max={soldOutMax} indexState={[soldOutPage, setSoldOutPage]} columnCount={10} />
+        {mySoldOutData && mySoldOutData.length > 0 && (
+          <PageNation
+            max={soldOutMax}
+            indexState={[soldOutPage, setSoldOutPage]}
+            columnCount={10}
+          />
+        )}
       </S.Box>
     </S.Contents>
   );
