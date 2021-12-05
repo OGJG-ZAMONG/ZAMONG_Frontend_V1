@@ -205,7 +205,9 @@ const CommentBox = ({
   ];
 
   const linkProfile = () => {
-    push(`/user/${user_uuid}`);
+    if (user_uuid) {
+      push(`/user/${user_uuid}`);
+    }
   };
 
   const setAnonymous = () => {
