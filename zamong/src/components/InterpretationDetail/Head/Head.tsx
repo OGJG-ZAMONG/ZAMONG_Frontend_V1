@@ -17,7 +17,7 @@ interface PropsTypes {
 const InterpretationDetailHead = ({ postData, userUUID }: PropsTypes) => {
   const { uuid, title, dream_types, updated_at, user, lucy_count } = postData;
   const [isActiveMore, setIsActiveMore] = useState(false);
-  const { push } = useHistory();
+  const { push, goBack } = useHistory();
   const dreamTypes = dreamType.filter((value) => {
     return dream_types.some((item) => item === value.code);
   });
@@ -41,7 +41,7 @@ const InterpretationDetailHead = ({ postData, userUUID }: PropsTypes) => {
       try {
         await delPosting(uuid);
         alert("삭제되었습니다.");
-        push("/interpretation");
+        goBack();
       } catch (error) {
         console.log(error);
       }

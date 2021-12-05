@@ -15,7 +15,7 @@ interface PropsType {
 }
 
 const Head = ({ postData, userUuid }: PropsType) => {
-  const { push } = useHistory();
+  const { push, goBack } = useHistory();
   const { title, uuid, dream_types, cost, updated_at, user } = postData;
   const dreamTypes = dreamType.filter((value) => {
     return dream_types.some((item) => item === value.code);
@@ -41,7 +41,7 @@ const Head = ({ postData, userUuid }: PropsType) => {
       try {
         await delPosting(uuid);
         alert("삭제되었습니다.");
-        push("/sell");
+        goBack();
       } catch (error) {
         console.log(error);
       }
