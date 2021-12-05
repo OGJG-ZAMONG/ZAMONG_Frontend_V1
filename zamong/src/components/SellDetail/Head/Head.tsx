@@ -41,7 +41,7 @@ const Head = ({ postData, userUuid }: PropsType) => {
       try {
         await delPosting(uuid);
         alert("삭제되었습니다.");
-        push("/");
+        push("/sell");
       } catch (error) {
         console.log(error);
       }

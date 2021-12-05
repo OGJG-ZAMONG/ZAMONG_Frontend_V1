@@ -41,7 +41,7 @@ const InterpretationDetailHead = ({ postData, userUUID }: PropsTypes) => {
       try {
         await delPosting(uuid);
         alert("삭제되었습니다.");
-        push("/");
+        push("/interpretation");
       } catch (error) {
         console.log(error);
       }

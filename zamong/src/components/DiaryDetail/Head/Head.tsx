@@ -57,7 +57,7 @@ const DiaryDetailHeader = ({ postData, userUUID }: PropsType): JSX.Element => {
       try {
         await delPosting(uuid);
         alert("삭제되었습니다.");
-        push("/");
+        push("/diary");
       } catch (error) {
         console.log(error);
       }
