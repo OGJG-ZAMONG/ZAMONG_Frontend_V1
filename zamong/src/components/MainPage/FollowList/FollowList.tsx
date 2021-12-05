@@ -40,7 +40,7 @@ const FollowList = (): JSX.Element => {
       {(nnFollowings.length > 0 || !followings) && (
         <S.Container>
           <S.SectionTitle>
-            <span>팔로잉</span>
+            <span>팔로우</span>
           </S.SectionTitle>
           <S.FollowContainer>
             {followings ? followersRender : renderSkeleton}
