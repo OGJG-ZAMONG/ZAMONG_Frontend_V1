@@ -13,7 +13,7 @@ interface IdType {
   id: string;
 }
 
-const FollowerContent: React.FC<IdType> = (props) => {
+const FollowerContent: React.FC<IdType> = ({ id }) => {
   const [followerState, setFollower] = useState<FollowerType | null>(null);
   const nnState = followerState || {
     followers: [],
@@ -23,13 +23,11 @@ const FollowerContent: React.FC<IdType> = (props) => {
 
   useEffect(() => {
     follower();
-  }, [props]);
-
-  useEffect(() => {}, [followerState]);
+  }, [id]);
 
   const follower = async () => {
     try {
-      const response = await getFollower(props.id);
+      const response = await getFollower(id);
       setFollower(response.data.content.response);
     } catch (error) {
       throw error;
