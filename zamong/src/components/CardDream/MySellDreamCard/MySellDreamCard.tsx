@@ -28,14 +28,14 @@ const MySellDreamCard = ({ data }: PropsType) => {
         <I.Price>{`${cost.toLocaleString()}원`}</I.Price>
         <S.DiaryDate>{dateToString(new Date(updated_at))}</S.DiaryDate>
       </S.DreamImageContainer>
-      <I.PostInfoContainer>
+      <G.PostInfoContainer>
         <G.TagsContainer>
-          {dreamTypes.slice(0, 2).map((value, index) => {
-            return <Tag key={value.code}>{value.name}</Tag>;
+          {dreamTypes.slice(0, 3).map((value, index) => {
+            return <Tag key={index}>{value.name}</Tag>;
           })}
         </G.TagsContainer>
-      </I.PostInfoContainer>
-      <S.DreamTitle>{title}</S.DreamTitle>
+      </G.PostInfoContainer>
+      <G.DreamTitle>{title}</G.DreamTitle>
     </S.DreamCardContainer>
   );
 };
