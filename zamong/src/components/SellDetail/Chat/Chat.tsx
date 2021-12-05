@@ -43,7 +43,7 @@ const Chat = ({ postData, settingData }: PropsType) => {
     if (window.confirm("판매를 취소하시겠습니까?")) {
       try {
         await delSellPost(postUUID);
-        push("/");
+        push("/sell");
       } catch (error) {
         console.log(error);
       }
