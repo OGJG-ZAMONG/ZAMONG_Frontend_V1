@@ -6,13 +6,15 @@ import { followDream, getFollowShareDream } from "../../../../utils/api/Main";
 import { shareDreamRequest } from "../../../../models/dto/request/shareDreamRequest";
 import { Dream } from "../../../../models/dto/response/shareDreamResponse";
 import Slider from "../../Slider/Slider";
+import CardSkeleton from "../../../CardSkeleton/CardSkeleton";
 
 const FollowDreamDiaryList = (): JSX.Element => {
   const pageSize = 8;
   const COLUMN_COUNT = 4;
   const [page, setPage] = useState(0);
-  const [dreamList, setDreamList] = useState<followDream[]>([]);
+  const [dreamList, setDreamList] = useState<Dream[] | null>(null);
   const [index, setIndex] = useState<number>(0);
+  const nnDreamList = dreamList || [];
 
   const getFollowShareDreamList = async () => {
     try {
@@ -23,7 +25,7 @@ const FollowDreamDiaryList = (): JSX.Element => {
 
       const { share_dreams } = (await getFollowShareDream(param)).data.content.response;
 
-      setDreamList(dreamList.concat(share_dreams));
+      setDreamList(nnDreamList.concat(share_dreams));
     } catch (error) {
       console.log(error);
     }
@@ -33,13 +35,17 @@ const FollowDreamDiaryList = (): JSX.Element => {
     getFollowShareDreamList();
   }, [page]);
 
-  const dreamListRender = dreamList.map((value) => {
-    return <FollowDreamDiary dream={value} />;
+  const dreamListRender = nnDreamList.map((value, index) => {
+    return <FollowDreamDiary dream={value} key={index} />;
+  });
+
+  const renderSkeleton = [1, 2, 3, 4].map((_, index) => {
+    return <CardSkeleton key={index} />;
   });
 
   return (
     <>
-      {dreamList.length > 0 && (
+      {(nnDreamList.length > 0 || !dreamList) && (
         <I.Container>
           <G.SectionTitle>팔로우의 최신 꿈 일기</G.SectionTitle>
           <I.Container>
@@ -48,9 +54,9 @@ const FollowDreamDiaryList = (): JSX.Element => {
               indexState={[index, setIndex]}
               pageState={[page, setPage]}
               gap={20}
-              size={dreamList.length}
+              size={nnDreamList.length}
             >
-              {dreamListRender}
+              {dreamList ? dreamListRender : renderSkeleton}
             </Slider>
           </I.Container>
         </I.Container>

@@ -63,6 +63,10 @@ const Head = ({ postData, userUuid }: PropsType) => {
     },
   ];
 
+  const linkProfile = () => {
+    push(`/user/${user.uuid}`);
+  };
+
   return (
     <S.HeadContainer>
       <S.Title>{title}</S.Title>
@@ -78,7 +82,11 @@ const Head = ({ postData, userUuid }: PropsType) => {
           {userUuid !== user.uuid ? (
             <S.UserInfo>
               <>
-                <S.PrifilePhoto alt="profile" src={user.profile} />
+                <S.PrifilePhoto
+                  alt="profile"
+                  src={user.profile}
+                  onClick={linkProfile}
+                />
                 <S.Profile>{user.id}</S.Profile>
               </>
               <S.MoreBox>

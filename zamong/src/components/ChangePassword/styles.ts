@@ -1,8 +1,8 @@
 import styled from "@emotion/styled";
-import { color } from "../../../style/color";
-import { font } from "../../../style/font";
+import { color } from "../../style/color";
+import { font } from "../../style/font";
 
-export const FindBox = styled.div`
+export const ChangeBox = styled.div`
   width: 520px;
   height: 595px;
   background-color: ${color.darkerGray};
@@ -16,7 +16,7 @@ export const FindBox = styled.div`
 `;
 
 export const PaddingBox = styled.div`
-  margin: 66px 70px;
+  padding: 66px 70px;
 `;
 
 export const Title = styled.div`
@@ -24,8 +24,18 @@ export const Title = styled.div`
   margin-bottom: 86px;
 `;
 
+export const GuideContaier = styled.div`
+  display: flex;
+  justify-content: space-between;
+`;
+
+export const ErrorMessage = styled.div`
+  color: ${color.red};
+  font: ${font.body3};
+`;
+
 export const GuideWord = styled.div`
-  color: ${color.gray};
+  color: #8e8e93;
   font: ${font.body3};
 `;
 
@@ -45,33 +55,14 @@ export const Input = styled.input`
 export const EventBox = styled.div`
   display: flex;
   align-items: center;
-  width: 132px;
-  margin-left: 100%;
-  transform: translateX(-132px);
-  justify-content: space-between;
-`;
-
-export const PrevButton = styled.div`
-  width: 62px;
-  height: 32px;
-  color: ${color.white};
-  border: 1px solid ${color.white};
-  background-color: transparent;
-  border-radius: 100px;
-  text-align: center;
-  line-height: 2;
-  box-shadow: 0 0 1px 0 ${color.white} inset, 0 0 1px 0 ${color.white};
-  cursor: pointer;
+  justify-content: right;
+  width: 100%;
 `;
 
 export const NextButton = styled.div`
-  width: 62px;
-  height: 32px;
+  padding: 6px 16px;
   color: ${color.white};
-  border: 1px solid transparent;
   background-color: ${color.blue};
   border-radius: 100px;
-  text-align: center;
-  line-height: 2;
   cursor: pointer;
 `;

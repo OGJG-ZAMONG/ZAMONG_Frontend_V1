@@ -63,7 +63,7 @@ const DiaryList: FC = (): JSX.Element => {
     () =>
       diaryWrittenToday.map((value: any, index: number) => {
         return (
-          <S.MyDreamDiaryContainer>
+          <S.MyDreamDiaryContainer key={index}>
             <MyDreamDiary
               img={value.default_posting_image}
               locked={value.is_shared}

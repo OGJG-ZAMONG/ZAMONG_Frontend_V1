@@ -1,4 +1,4 @@
-import React, { FC, Suspense } from "react";
+import { FC, Suspense } from "react";
 import { Switch, Route } from "react-router-dom";
 import {
   LoginContainer,
@@ -19,6 +19,7 @@ import {
   InterpretationWriteContainer,
   ChatContainer,
   InterpretationDetailContainer,
+  ChangePasswordContainer,
 } from "../container";
 
 const MainRouter: FC = (): JSX.Element => {
@@ -43,6 +44,7 @@ const MainRouter: FC = (): JSX.Element => {
         <Route exact path="/user/:uuid" component={AnoTherProfileContainter} />
         <Route exact path="/sell/detail/:uuid" component={SellDetailContainer} />
         <Route exact path="/interpretation/detail/:uuid" component={InterpretationDetailContainer} /> 
+        <Route exact path="/changepw" component={ChangePasswordContainer} />
       </Switch>
     </Suspense>
   );

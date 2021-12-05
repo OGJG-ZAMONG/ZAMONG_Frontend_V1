@@ -1,15 +1,11 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useLayoutEffect, useState } from "react";
 import * as S from "./style";
 import { Follower, Follow, AccountInfo } from "../../assets";
 import FollowerContent from "./Follower/FollowerContent";
 import FollowContent from "./Follow/FollowContent";
 import AccountContent from "./Account/AccountContent";
-import { useHistory } from "react-router";
-import {
-  getFollower,
-  getFollowing,
-  getMyProfile,
-} from "../../utils/api/Profile";
+import { useHistory, useLocation } from "react-router";
+import { getFollower, getFollowing, getMyProfile } from "../../utils/api/Profile";
 
 interface ProfileType {
   uuid: string;
@@ -47,12 +43,13 @@ const ProfilePage = (): JSX.Element => {
     share_dream_count: 0,
     lucy_count: 0,
   });
-  const { uuid, name, email, id, profile, share_dream_count, lucy_count } =
-    profileState;
+  const { uuid, name, email, id, profile, share_dream_count, lucy_count } = profileState;
   const FOLLORWER = 1;
   const FOLLORWING = 2;
   const ACCOUNTINFO = 3;
   const [contentState, setContentState] = useState(FOLLORWER);
+  const query = new URLSearchParams(useLocation().search);
+  const { push } = useHistory();
 
   const onFollowerClick = () => {
     setContentState(FOLLORWER);
@@ -66,6 +63,22 @@ const ProfilePage = (): JSX.Element => {
     setContentState(ACCOUNTINFO);
   };
 
+  const settingContentStateWithQueryString = () => {
+    const paramState = query.get("state");
+    if (!paramState) {
+      return;
+    }
+
+    try {
+      const state = Number(paramState);
+      if (state > 0 && state <= 3) {
+        setContentState(state);
+      }
+    } catch (error) {
+      push("/profile");
+    }
+  };
+
   useEffect(() => {
     myProfile();
   }, []);
@@ -74,6 +87,10 @@ const ProfilePage = (): JSX.Element => {
     follower();
     follow();
   }, [uuid]);
+
+  useLayoutEffect(() => {
+    settingContentStateWithQueryString();
+  }, []);
 
   const myProfile = async () => {
     try {
@@ -113,11 +130,32 @@ const ProfilePage = (): JSX.Element => {
     return <>{content}</>;
   };
 
+  interface navType {
+    img: string;
+    text: string;
+    onClick: () => void;
+  }
+
+  const navs: navType[] = [
+    {
+      img: Follower,
+      text: "팔로워",
+      onClick: onFollowerClick,
+    },
+    {
+      img: Follow,
+      text: "팔로우",
+      onClick: onFollowClick,
+    },
+    {
+      img: AccountInfo,
+      text: "계정 정보",
+      onClick: onAccountInfoClick,
+    },
+  ];
+
   return (
     <>
-      {FollowerContent}
-      {FollowContent}
-      {AccountContent}
       <S.ProfileContent>
         <S.TopBox>
           <S.TopContent>
@@ -126,15 +164,9 @@ const ProfilePage = (): JSX.Element => {
               <S.NickNameText>{id}</S.NickNameText>
               <S.EmailText>{email}</S.EmailText>
               <S.OneLineBox>
-                <S.Text onClick={onFollowerClick}>
-                  팔로워 {followerState.total_size}명
-                </S.Text>
-                <S.Text onClick={onFollowClick}>
-                  팔로우 {followState.total_size}명
-                </S.Text>
-                <S.LinkText to="/diary">
-                  내가 쓴 꿈 일기 {share_dream_count}개
-                </S.LinkText>
+                <S.Text onClick={onFollowerClick}>팔로워 {followerState.total_size}명</S.Text>
+                <S.Text onClick={onFollowClick}>팔로우 {followState.total_size}명</S.Text>
+                <S.LinkText to="/diary">내가 쓴 꿈 일기 {share_dream_count}개</S.LinkText>
                 <span>{lucy_count}LUCY</span>
               </S.OneLineBox>
               <S.NameBox>이름: {name}</S.NameBox>
@@ -143,24 +175,15 @@ const ProfilePage = (): JSX.Element => {
         </S.TopBox>
         <S.SelectionBox>
           <S.SelectionContent>
-            <S.ChooseBox onClick={onFollowerClick}>
-              <div>
-                <img src={Follower} />
-                <span>팔로워</span>
-              </div>
-            </S.ChooseBox>
-            <S.ChooseBox onClick={onFollowClick}>
-              <div>
-                <img src={Follow} />
-                <span>팔로우</span>
-              </div>
-            </S.ChooseBox>
-            <S.ChooseBox onClick={onAccountInfoClick}>
-              <div>
-                <img src={AccountInfo} />
-                <span>계정 정보</span>
-              </div>
-            </S.ChooseBox>
+            {navs.map((value, index) => {
+              const { img, text, onClick } = value;
+              return (
+                <S.ChooseBox isActive={contentState === index + 1} onClick={onClick} key={index}>
+                  <img src={img} alt={text} />
+                  <span>{text}</span>
+                </S.ChooseBox>
+              );
+            })}
           </S.SelectionContent>
         </S.SelectionBox>
         <div>{renderContent()}</div>

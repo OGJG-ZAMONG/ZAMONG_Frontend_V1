@@ -6,7 +6,6 @@ import {
   Comment,
   getCommentCount,
 } from "../../../utils/api/DreamDetail";
-import { getMyProfile } from "../../../utils/api/Profile";
 import CommentBox from "./CommentBox/CommentBox";
 import * as S from "./styles";
 
@@ -100,6 +99,8 @@ const InterpretationDetailComment = ({ postData, userUUID }: PropsType) => {
               postUUID={uuid}
               comment={value}
               userUUID={userUUID}
+              commentCount={commentCount}
+              setCommentCount={setCommentCount}
               settingComment={settingComment}
               is_interpretation={is_interpretation}
               key={i}

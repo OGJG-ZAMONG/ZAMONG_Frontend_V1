@@ -63,6 +63,10 @@ const InterpretationDetailHead = ({ postData, userUUID }: PropsTypes) => {
     },
   ];
 
+  const linkProfile = () => {
+    push(`/user/${user.uuid}`);
+  };
+
   return (
     <S.HeadContainer>
       <S.Title>{title}</S.Title>
@@ -73,31 +77,35 @@ const InterpretationDetailHead = ({ postData, userUUID }: PropsTypes) => {
       </S.TagContainer>
       <S.DreamInfo>
         <S.LeftInfo>
-        <S.Lucy>{lucy_count} LUCY 지급</S.Lucy>
-        <S.ShareDay>공유한 날짜 : {dayToString(updated_at)}</S.ShareDay>
+          <S.Lucy>{lucy_count} LUCY 지급</S.Lucy>
+          <S.ShareDay>공유한 날짜 : {dayToString(updated_at)}</S.ShareDay>
         </S.LeftInfo>
-        {userUUID !== user.uuid ? (
-          <S.UserInfo>
+        <S.UserInfo>
+          {userUUID !== user.uuid ? (
             <S.ProfileLink>
-              <S.PrifilePhoto alt="profile" src={user.profile} />
+              <S.PrifilePhoto
+                alt="profile"
+                src={user.profile}
+                onClick={linkProfile}
+              />
               <S.Profile>{user.id}</S.Profile>
             </S.ProfileLink>
-            <S.MoreBox>
-              <S.More
-                alt="more"
-                src={more}
-                onClick={() => setIsActiveMore(!isActiveMore)}
-              />
-              <PopupMenu
-                contents={popupContents}
-                isActiveMore={isActiveMore}
-                setIsActiveMore={setIsActiveMore}
-              />
-            </S.MoreBox>
-          </S.UserInfo>
-        ) : (
-          <></>
-        )}
+          ) : (
+            <></>
+          )}
+          <S.MoreBox>
+            <S.More
+              alt="more"
+              src={more}
+              onClick={() => setIsActiveMore(!isActiveMore)}
+            />
+            <PopupMenu
+              contents={popupContents}
+              isActiveMore={isActiveMore}
+              setIsActiveMore={setIsActiveMore}
+            />
+          </S.MoreBox>
+        </S.UserInfo>
       </S.DreamInfo>
     </S.HeadContainer>
   );
