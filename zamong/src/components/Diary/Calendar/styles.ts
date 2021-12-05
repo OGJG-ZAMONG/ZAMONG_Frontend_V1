@@ -119,6 +119,7 @@ export const Days = styled.div`
     margin: auto;
     margin-left: 10%;
     font-size: 15px;
+    font: ${font.body3};
     &:hover {
       width: auto;
       z-index: 2;
