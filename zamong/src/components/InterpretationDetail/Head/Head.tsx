@@ -25,7 +25,7 @@ const InterpretationDetailHead = ({ postData, userUUID }: PropsTypes) => {
   const dayToString = (date: string | null) => {
     if (date !== null) {
       const a = new Date(date);
-      const month = a.getMonth().toString().padStart(2, "0");
+      const month = (a.getMonth()+1).toString().padStart(2, "0");
       const day = a.getDate().toString().padStart(2, "0");
       const year =
         a.getFullYear() === new Date().getFullYear()
