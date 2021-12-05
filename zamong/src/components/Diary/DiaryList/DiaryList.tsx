@@ -35,6 +35,10 @@ const DiaryList: FC = (): JSX.Element => {
   }, [isChecked]);
 
   useEffect(() => {
+    window.onbeforeunload = () => {
+      window.scrollTo(0, 0);
+    };
+
     getDreamsWrittenToday()
       .then((res) => {
         setDiaryWrittenToday(res.data.content.response.share_dreams);
@@ -42,19 +46,18 @@ const DiaryList: FC = (): JSX.Element => {
       .catch((err) => {
         console.log(err);
       });
+  }, []);
 
+  useEffect(() => {
     window.addEventListener("scroll", onScroll);
-
-    window.onbeforeunload = () => {
-      window.scrollTo(0, 0);
-    };
 
     return () => {
       window.removeEventListener("scroll", onScroll);
     };
-  }, []);
+  }, [maxPage]);
 
   useEffect(() => {
+    console.log("true");
     getMyDreamData(FilterStatus, page, isChecked)
       .then((res) => {
         setDiaryWritten([
@@ -106,6 +109,7 @@ const DiaryList: FC = (): JSX.Element => {
     const scrollTop = document.documentElement.scrollTop;
     const clientHeight = document.documentElement.clientHeight;
 
+    console.log(scrollTop + clientHeight, scrollHeight);
     if (scrollTop + clientHeight >= scrollHeight) {
       if (page === maxPage) {
         return;
