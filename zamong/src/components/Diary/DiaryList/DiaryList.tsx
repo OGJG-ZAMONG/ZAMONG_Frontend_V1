@@ -7,9 +7,11 @@ import {
   getMyDreamData,
   getDreamsWrittenToday,
 } from "../../../utils/api/Diary/MyDreams";
+import CardSkeleton from "../../CardSkeleton/CardSkeleton";
 
 const DiaryList: FC = (): JSX.Element => {
-  const [diaryWritten, setDiaryWritten] = useState<Array<object>>([]);
+  const [diaryWritten, setDiaryWritten] = useState<Array<object> | null>(null);
+  const NNdiaryWritten = diaryWritten || [];
   const [diaryWrittenToday, setDiaryWrittenToday] = useState<Array<object>>([]);
   const [FilterStatus, setFilterStatus] = useState<string>("created");
   const [isChecked, setIsChecked] = useState<boolean>(false);
@@ -18,7 +20,7 @@ const DiaryList: FC = (): JSX.Element => {
   const FilterStatusRef = useRef<HTMLSelectElement>(null);
 
   useEffect(() => {
-    setDiaryWritten([]);
+    setDiaryWritten(null);
     setPage(0);
     getMyDreamData(FilterStatus, 0, isChecked)
       .then((res) => {
@@ -57,9 +59,9 @@ const DiaryList: FC = (): JSX.Element => {
   }, [maxPage, page]);
 
   useEffect(() => {
-    console.log("true");
     getMyDreamData(FilterStatus, page, isChecked)
       .then((res) => {
+        if (diaryWritten === null) return;
         setDiaryWritten([
           ...diaryWritten,
           ...res.data.content.response.share_dreams,
@@ -87,35 +89,29 @@ const DiaryList: FC = (): JSX.Element => {
     [diaryWrittenToday]
   );
 
-  const RenderDiaryWritten = useMemo(
-    () =>
-      diaryWritten.map((value: any, index: number) => {
-        return (
-          <MyDreamDiary
-            img={value.default_posting_image}
-            locked={value.is_shared}
-            title={value.title}
-            date={value.created_at}
-            uuid={value.uuid}
-            key={index}
-          />
-        );
-      }),
-    [diaryWritten]
-  );
+  const RenderDiaryWritten = NNdiaryWritten.map((value: any, index: number) => {
+    return (
+      <MyDreamDiary
+        img={value.default_posting_image}
+        locked={value.is_shared}
+        title={value.title}
+        date={value.created_at}
+        uuid={value.uuid}
+        key={index}
+      />
+    );
+  });
 
   const onScroll = () => {
     const scrollHeight = document.documentElement.scrollHeight;
     const scrollTop = document.documentElement.scrollTop;
     const clientHeight = document.documentElement.clientHeight;
 
-    console.log(scrollTop + clientHeight, scrollHeight);
     if (scrollTop + clientHeight >= scrollHeight) {
       if (page === maxPage) {
         return;
       } else {
         setPage(page + 1);
-        console.log("page + 1")
       }
     }
   };
@@ -123,6 +119,12 @@ const DiaryList: FC = (): JSX.Element => {
   const handleCheckBox = (e: React.ChangeEvent<HTMLInputElement>) => {
     setIsChecked(e.target.checked);
   };
+
+  const renderSkeleton = Array(12)
+    .fill(0)
+    .map((_, index) => {
+      return <CardSkeleton key={index} />;
+    });
 
   return (
     <S.Container>
@@ -173,7 +175,9 @@ const DiaryList: FC = (): JSX.Element => {
             </S.HeaderSelect>
           </S.HeaderSelections>
         </S.DiaryListHeader>
-        <S.DiaryList>{RenderDiaryWritten}</S.DiaryList>
+        <S.DiaryList>
+          {diaryWritten ? RenderDiaryWritten : renderSkeleton}
+        </S.DiaryList>
       </S.DiaryListContainer>
     </S.Container>
   );
