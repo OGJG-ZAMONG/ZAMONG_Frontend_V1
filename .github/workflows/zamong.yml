@@ -39,3 +39,14 @@ jobs:
         run: |
           cd zamong/
           aws s3 cp --recursive --region ap-northeast-2 build s3://www.zamong.app
+
+      - name: S3 and CloudFront Deploy
+        uses: lbertenasco/s3-deploy@v1.2.4
+
+      with:
+          folder: build
+          bucket: www.zamong.app
+          dist-id: E33JEA8UUY5MPC
+          invalidation: / *
+
+
