@@ -29,21 +29,7 @@ export interface mySoldOutManagement {
   content: {
     collection_value: boolean;
     response: {
-      sell_dreams: [
-        {
-          uuid: string;
-          default_posting_image: string;
-          title: string;
-          dream_types: Array<string>;
-          updated_at: string;
-          cost: number;
-          user: {
-            uuid: string;
-            id: string;
-            profile: string;
-          };
-        }
-      ];
+      sell_dreams: SellDream[];
     };
   };
 }
