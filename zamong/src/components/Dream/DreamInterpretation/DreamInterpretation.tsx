@@ -21,8 +21,8 @@ const DreamInterpretation = ({ data }: PropsType): JSX.Element => {
     return `${date.getMonth() + 1}월 ${date.getDate()}일`;
   };
 
-  const renderType = dream_types.map((value) => {
-    return <Tag>{dreamType.find((elem) => elem.code === value)?.name}</Tag>;
+  const renderType = dream_types.map((value, index) => {
+    return <Tag key={index}>{dreamType.find((elem) => elem.code === value)?.name}</Tag>;
   });
 
   return (
