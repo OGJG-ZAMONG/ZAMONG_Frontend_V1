@@ -30,7 +30,7 @@ const SellingDream: FC<Props> = ({ price, date, title, tag, img, user, uuid }): 
   const dreamTypes = dreamType.filter((value) => tag.some((elem) => value.code === elem));
 
   return (
-    <S.DreamCardContainer to={`sell/detail/${uuid}`}>
+    <S.DreamCardContainer to={`/sell/detail/${uuid}`}>
       <S.DreamImageContainer img={img}>
         <I.Price>{`${price.toLocaleString()}원`}</I.Price>
         <S.DiaryDate>{dateToString(new Date(date))}</S.DiaryDate>
