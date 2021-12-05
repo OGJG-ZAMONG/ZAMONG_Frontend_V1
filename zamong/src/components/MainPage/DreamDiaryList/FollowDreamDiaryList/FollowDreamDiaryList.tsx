@@ -12,7 +12,7 @@ const FollowDreamDiaryList = (): JSX.Element => {
   const pageSize = 8;
   const COLUMN_COUNT = 4;
   const [page, setPage] = useState(0);
-  const [dreamList, setDreamList] = useState<Dream[] | null>(null);
+  const [dreamList, setDreamList] = useState<followDream[] | null>(null);
   const [index, setIndex] = useState<number>(0);
   const nnDreamList = dreamList || [];
 
