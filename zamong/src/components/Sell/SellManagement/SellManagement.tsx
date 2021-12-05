@@ -7,12 +7,11 @@ import {
 } from "../../../utils/api/Sell/Management";
 import PageNation from "../../PageNation/PageNation";
 import CardSkeleton from "../../CardSkeleton/CardSkeleton";
+import MySellDreamCard from "../../CardDream/MySellDreamCard/MySellDreamCard";
 
 const SellManagement: FC = (): JSX.Element => {
   const [myOnSaleData, setMyOnSaleData] = useState<Array<object> | null>(null);
-  const [mySoldOutData, setMySoldOutData] = useState<Array<object> | null>(
-    null
-  );
+  const [mySoldOutData, setMySoldOutData] = useState<Array<object> | null>(null);
   const [page, setMaxPage] = useState<number>(0);
   const [pageIndex, setPageIndex] = useState<number>(0);
 
@@ -57,39 +56,11 @@ const SellManagement: FC = (): JSX.Element => {
   }, []);
 
   const renderOnSaleDream = myOnSaleData?.map((value: any, index) => {
-    const {
-      uuid,
-      user,
-      cost,
-      updated_at,
-      title,
-      dream_types,
-      default_posting_image,
-    } = value;
-    return (
-      <DreamContent
-        key={index}
-        price={cost}
-        date={updated_at}
-        tag={dream_types}
-        title={title}
-        defalut_image={default_posting_image}
-        user={user}
-        uuid={uuid}
-      />
-    );
+    return <MySellDreamCard key={index} data={value} />;
   });
 
   const renderSoldOutDream = mySoldOutData?.map((value: any, index) => {
-    const {
-      uuid,
-      user,
-      cost,
-      updated_at,
-      title,
-      dream_types,
-      default_posting_image,
-    } = value;
+    const { uuid, user, cost, updated_at, title, dream_types, default_posting_image } = value;
     return (
       <DreamContent
         key={index}
@@ -111,11 +82,7 @@ const SellManagement: FC = (): JSX.Element => {
         <S.SubTitle>나의 판매중인 꿈 목록</S.SubTitle>
         <S.List>{myOnSaleData ? renderOnSaleDream : renderSkeleton}</S.List>
         {pageIndex >= 1 ? (
-          <PageNation
-            max={page}
-            indexState={[pageIndex, setPageIndex]}
-            columnCount={10}
-          />
+          <PageNation max={page} indexState={[pageIndex, setPageIndex]} columnCount={10} />
         ) : null}
       </S.Box>
       <S.Box>
@@ -130,11 +97,7 @@ const SellManagement: FC = (): JSX.Element => {
           )}
         </S.List>
         {pageIndex >= 1 ? (
-          <PageNation
-            max={page}
-            indexState={[pageIndex, setPageIndex]}
-            columnCount={10}
-          />
+          <PageNation max={page} indexState={[pageIndex, setPageIndex]} columnCount={10} />
         ) : null}
       </S.Box>
     </S.Contents>
