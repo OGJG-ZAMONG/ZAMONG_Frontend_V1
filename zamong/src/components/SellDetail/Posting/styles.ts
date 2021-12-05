@@ -50,4 +50,13 @@ export const RequestingChat = styled.div`
   border: solid 1px ${color.white};
   border-radius: 10px;
   padding: 12px 16px;
-`
+`;
+
+export const DefaultImage = styled.img`
+  grid-column: 1 / 13;
+  width: 100%;
+  aspect-ratio: 20 / 1;
+  border-radius: 20px;
+  object-fit: cover;
+  object-position: center;
+`;
