@@ -91,9 +91,7 @@ const InterpretationDetailHead = ({ postData, userUUID }: PropsTypes) => {
               <S.Profile>{user.id}</S.Profile>
             </S.ProfileLink>
           ) : (
-            <></>
-          )}
-          <S.MoreBox>
+            <S.MoreBox>
             <S.More
               alt="more"
               src={more}
@@ -105,6 +103,7 @@ const InterpretationDetailHead = ({ postData, userUUID }: PropsTypes) => {
               setIsActiveMore={setIsActiveMore}
             />
           </S.MoreBox>
+          )}
         </S.UserInfo>
       </S.DreamInfo>
     </S.HeadContainer>

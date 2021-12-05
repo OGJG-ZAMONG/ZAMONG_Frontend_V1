@@ -2,7 +2,7 @@ import FollowDreamDiary from "../../../CardDream/FollowDreamDiary/FollowDreamDia
 import * as I from "../style";
 import * as G from "../../styles";
 import { useLayoutEffect, useRef, useState } from "react";
-import { getFollowShareDream } from "../../../../utils/api/Main";
+import { followDream, getFollowShareDream } from "../../../../utils/api/Main";
 import { shareDreamRequest } from "../../../../models/dto/request/shareDreamRequest";
 import { Dream } from "../../../../models/dto/response/shareDreamResponse";
 import Slider from "../../Slider/Slider";
@@ -12,7 +12,7 @@ const FollowDreamDiaryList = (): JSX.Element => {
   const pageSize = 8;
   const COLUMN_COUNT = 4;
   const [page, setPage] = useState(0);
-  const [dreamList, setDreamList] = useState<Dream[] | null>(null);
+  const [dreamList, setDreamList] = useState<followDream[] | null>(null);
   const [index, setIndex] = useState<number>(0);
   const nnDreamList = dreamList || [];
 
@@ -35,8 +35,8 @@ const FollowDreamDiaryList = (): JSX.Element => {
     getFollowShareDreamList();
   }, [page]);
 
-  const dreamListRender = nnDreamList.map((value) => {
-    return <FollowDreamDiary dream={value} />;
+  const dreamListRender = nnDreamList.map((value, index) => {
+    return <FollowDreamDiary dream={value} key={index} />;
   });
 
   const renderSkeleton = [1, 2, 3, 4].map((_, index) => {

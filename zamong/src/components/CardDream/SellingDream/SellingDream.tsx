@@ -3,6 +3,7 @@ import * as S from "..";
 import * as I from "./styles";
 import Tag from "../../Tag/Tag";
 import dreamType from "../../../constance/dreamType";
+import { useHistory } from "react-router";
 
 interface Props {
   uuid: string;
@@ -19,6 +20,8 @@ interface Props {
 }
 
 const SellingDream: FC<Props> = ({ price, date, title, tag, img, user, uuid }): JSX.Element => {
+  const { push } = useHistory();
+
   const dateToString = (date: Date) => {
     if (date.getFullYear() !== new Date().getFullYear()) {
       return `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}`;
@@ -30,13 +33,18 @@ const SellingDream: FC<Props> = ({ price, date, title, tag, img, user, uuid }): 
   const dreamTypes = dreamType.filter((value) => tag.some((elem) => value.code === elem));
 
   return (
-    <S.DreamCardContainer to={`sell/detail/${uuid}`}>
+    <S.DreamCardContainer to={`/sell/detail/${uuid}`}>
       <S.DreamImageContainer img={img}>
         <I.Price>{`${price.toLocaleString()}원`}</I.Price>
         <S.DiaryDate>{dateToString(new Date(date))}</S.DiaryDate>
       </S.DreamImageContainer>
       <I.PostInfoContainer>
-        <I.UserInfoContainer>
+        <I.UserInfoContainer
+          onClick={(e) => {
+            e.preventDefault();
+            push(`user/${user.uuid}`);
+          }}
+        >
           <I.ProfilePicture src={user.profile} />
           <I.UserName>{user.id}</I.UserName>
         </I.UserInfoContainer>

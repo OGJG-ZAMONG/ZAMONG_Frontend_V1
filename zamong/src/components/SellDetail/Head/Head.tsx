@@ -79,8 +79,23 @@ const Head = ({ postData, userUuid }: PropsType) => {
         <S.ShareDay>공유한 날짜: {dayToString(updated_at)}</S.ShareDay>
         <S.BottomInfo>
           <S.Cost>{cost}원</S.Cost>
-          {userUuid !== user.uuid ? (
-            <S.UserInfo>
+          <S.UserInfo>
+            {userUuid === user.uuid ? (
+              <>
+                <S.MoreBox>
+                  <S.More
+                    alt="more"
+                    src={more}
+                    onClick={() => setIsActiveMore(!isActiveMore)}
+                  />
+                  <PopupMenu
+                    contents={popupContents}
+                    isActiveMore={isActiveMore}
+                    setIsActiveMore={setIsActiveMore}
+                  />
+                </S.MoreBox>
+              </>
+            ) : (
               <>
                 <S.PrifilePhoto
                   alt="profile"
@@ -89,22 +104,8 @@ const Head = ({ postData, userUuid }: PropsType) => {
                 />
                 <S.Profile>{user.id}</S.Profile>
               </>
-              <S.MoreBox>
-                <S.More
-                  alt="more"
-                  src={more}
-                  onClick={() => setIsActiveMore(!isActiveMore)}
-                />
-                <PopupMenu
-                  contents={popupContents}
-                  isActiveMore={isActiveMore}
-                  setIsActiveMore={setIsActiveMore}
-                />
-              </S.MoreBox>
-            </S.UserInfo>
-          ) : (
-            <></>
-          )}
+            )}
+          </S.UserInfo>
         </S.BottomInfo>
       </S.DreamInfo>
     </S.HeadContainer>
