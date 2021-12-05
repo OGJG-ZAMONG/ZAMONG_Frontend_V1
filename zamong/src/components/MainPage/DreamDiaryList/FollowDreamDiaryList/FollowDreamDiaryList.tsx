@@ -2,7 +2,7 @@ import FollowDreamDiary from "../../../CardDream/FollowDreamDiary/FollowDreamDia
 import * as I from "../style";
 import * as G from "../../styles";
 import { useLayoutEffect, useRef, useState } from "react";
-import { getFollowShareDream } from "../../../../utils/api/Main";
+import { followDream, getFollowShareDream } from "../../../../utils/api/Main";
 import { shareDreamRequest } from "../../../../models/dto/request/shareDreamRequest";
 import { Dream } from "../../../../models/dto/response/shareDreamResponse";
 import Slider from "../../Slider/Slider";
@@ -11,7 +11,7 @@ const FollowDreamDiaryList = (): JSX.Element => {
   const pageSize = 8;
   const COLUMN_COUNT = 4;
   const [page, setPage] = useState(0);
-  const [dreamList, setDreamList] = useState<Dream[]>([]);
+  const [dreamList, setDreamList] = useState<followDream[]>([]);
   const [index, setIndex] = useState<number>(0);
 
   const getFollowShareDreamList = async () => {
