@@ -3,7 +3,10 @@ import { FC, useEffect, useMemo, useRef, useState } from "react";
 import { edit } from "../../../assets/index";
 import Calendar from "../Calendar/Calendar";
 import MyDreamDiary from "../../CardDream/MyDreamDiary/MyDreamDiary";
-import { getMyDreamData, getDreamsWrittenToday } from "../../../utils/api/Diary/MyDreams";
+import {
+  getMyDreamData,
+  getDreamsWrittenToday,
+} from "../../../utils/api/Diary/MyDreams";
 
 const DiaryList: FC = (): JSX.Element => {
   const [diaryWritten, setDiaryWritten] = useState<Array<object>>([]);
@@ -32,6 +35,10 @@ const DiaryList: FC = (): JSX.Element => {
   }, [isChecked]);
 
   useEffect(() => {
+    window.onbeforeunload = () => {
+      window.scrollTo(0, 0);
+    };
+
     getDreamsWrittenToday()
       .then((res) => {
         setDiaryWrittenToday(res.data.content.response.share_dreams);
@@ -39,22 +46,24 @@ const DiaryList: FC = (): JSX.Element => {
       .catch((err) => {
         console.log(err);
       });
+  }, []);
 
+  useEffect(() => {
     window.addEventListener("scroll", onScroll);
-
-    window.onbeforeunload = () => {
-      window.scrollTo(0, 0);
-    };
 
     return () => {
       window.removeEventListener("scroll", onScroll);
     };
-  }, []);
+  }, [maxPage]);
 
   useEffect(() => {
+    console.log("true");
     getMyDreamData(FilterStatus, page, isChecked)
       .then((res) => {
-        setDiaryWritten([...diaryWritten, ...res.data.content.response.share_dreams]);
+        setDiaryWritten([
+          ...diaryWritten,
+          ...res.data.content.response.share_dreams,
+        ]);
       })
       .catch((err) => console.log(err));
   }, [page]);
@@ -100,6 +109,7 @@ const DiaryList: FC = (): JSX.Element => {
     const scrollTop = document.documentElement.scrollTop;
     const clientHeight = document.documentElement.clientHeight;
 
+    console.log(scrollTop + clientHeight, scrollHeight);
     if (scrollTop + clientHeight >= scrollHeight) {
       if (page === maxPage) {
         return;
@@ -124,16 +134,18 @@ const DiaryList: FC = (): JSX.Element => {
           <S.TodayDream>
             <S.TodayDreamText>오늘의 꿈</S.TodayDreamText>
             <S.DiarySignContainer>
-              <S.MyDreamDiaryContainer>
-                <S.WriteDiary to="/diary/write">
-                  <S.WriteDiaryText>
-                    <img src={edit} />
-                    <div>꿈 일기 쓰기</div>
-                  </S.WriteDiaryText>
-                </S.WriteDiary>
-              </S.MyDreamDiaryContainer>
-              {/* 여기서 맵 돌림 */}
-              {RenderDiaryWrittenToday}
+              <S.SignInner>
+                <S.MyDreamDiaryContainer>
+                  <S.WriteDiary to="/diary/write">
+                    <S.WriteDiaryText>
+                      <img src={edit} />
+                      <div>꿈 일기 쓰기</div>
+                    </S.WriteDiaryText>
+                  </S.WriteDiary>
+                </S.MyDreamDiaryContainer>
+                {/* 여기서 맵 돌림 */}
+                {RenderDiaryWrittenToday}
+              </S.SignInner>
             </S.DiarySignContainer>
           </S.TodayDream>
         </S.TodayBox>
@@ -150,7 +162,9 @@ const DiaryList: FC = (): JSX.Element => {
             <S.HeaderSelect
               ref={FilterStatusRef}
               onChange={(e: React.ChangeEvent<HTMLSelectElement>) =>
-                setFilterStatus(e.target.selectedIndex === 0 ? "created" : "lucy")
+                setFilterStatus(
+                  e.target.selectedIndex === 0 ? "created" : "lucy"
+                )
               }
             >
               <option value="최근순">최근순</option>
