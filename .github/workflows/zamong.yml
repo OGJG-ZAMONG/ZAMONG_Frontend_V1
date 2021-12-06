@@ -40,5 +40,11 @@ jobs:
           cd zamong/
           aws s3 cp --recursive --region ap-northeast-2 build s3://www.zamong.app
 
-      - name: Invalidate CloudFront Cache
-        run: aws cloudfront create-invalidation --distribution-id E33JEA8UUY5MPC --paths "/*"
+      - name: Invalidate CloudFront
+        uses: chetan/invalidate-cloudfront-action@v2
+        env:
+          DISTRIBUTION: "E33JEA8UUY5MPC"
+          PATHS: "/index.html"
+          AWS_REGION: "ap-northeast-2"
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
