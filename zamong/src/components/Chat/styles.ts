@@ -94,6 +94,8 @@ export const ChatViewHeader = styled.div`
 
 export const ChatTitle = styled.div`
   font: ${font.headline3};
+  display: flex;
+  align-items: center;
 `;
 
 export const HeaderNav = styled.div`
@@ -101,6 +103,12 @@ export const HeaderNav = styled.div`
   justify-content: space-between;
   font: ${font.body2};
   color: ${color.gray};
+
+  & .button {
+    height: 24px;
+    cursor: pointer;
+    display: inherit;
+  }
 `;
 
 export const UserReportBox = styled.div`

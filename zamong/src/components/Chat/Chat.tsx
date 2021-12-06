@@ -1,13 +1,13 @@
 import { FC, useEffect, useState, useRef } from "react";
 import { search, send } from "../../assets";
-import * as StompJs from "@stomp/stompjs";
-import { getChatRooms, getChat } from "../../utils/api/Chat";
+import { getChatRooms, getChat, endIntersaction } from "../../utils/api/Chat";
 import { getMyProfile } from "../../utils/api/Profile";
 import { Rooms, Chats } from "../../interface/Chat";
 import * as S from "./styles";
 import ChatRoom from "./ChatRoom/ChatRoom";
 import MyText from "./ChatBalloon/My/MyText";
 import OpponentText from "./ChatBalloon/Opponent/OpponentText";
+import * as StompJs from "@stomp/stompjs";
 import SockJs from "sockjs-client";
 
 const baseURL = "https://api.zamong.org/v1/api";
@@ -60,6 +60,8 @@ const Chat: FC = (): JSX.Element => {
       .catch((err) => console.log(err));
   }, [roomId]);
 
+  useEffect(() => {}, [chats]);
+
   const connectSocket = async (uuid: string) => {
     const {
       data: {
@@ -111,8 +113,18 @@ const Chat: FC = (): JSX.Element => {
   };
 
   const connect = async () => {
-    await stompClient.connect({}, (frame: any) => {
-      console.log(`frame: ${frame}`);
+    await stompClient.activate();
+  };
+
+  const endTransaction = () => {
+    window.confirm("거래를 종료하시겠습니까?");
+    endIntersaction("5685bc49-4038-40fd-9ae8-634b95e366c2").then(() => {
+      getChatRooms()
+        .then((res) => {
+          setRooms(res.data.content.response.rooms);
+          setRoomId(res.data.content.response.rooms[selectedRoom].uuid);
+        })
+        .catch((err) => console.log(err));
     });
   };
 
@@ -146,6 +158,7 @@ const Chat: FC = (): JSX.Element => {
             />
           ) : (
             rooms.map((value: any, index: number) => {
+              console.log(value)
               if (value.last_chat === null)
                 return (
                   <ChatRoom
@@ -166,12 +179,13 @@ const Chat: FC = (): JSX.Element => {
                   1000 /
                   60
               );
+
               return (
                 <ChatRoom
                   value={value.last_chat}
                   ChatRoomName={value.title}
                   UserName={value.last_chat.user.id}
-                  LastConnection={`${lastTime}분`}
+                  LastConnection={lastTime > 60 ? "오래전" : `${lastTime}분`}
                   LastChat={
                     value.last_chat.chat === null
                       ? "채팅을 시작해보세요"
@@ -206,13 +220,14 @@ const Chat: FC = (): JSX.Element => {
               </S.ChatTitle>
               <S.HeaderNav>
                 <S.UserReportBox>
-                  <div>
-                    {rooms[selectedRoom].last_chat === null
-                      ? "자몽"
-                      : rooms[selectedRoom].last_chat.user.id}
-                    님과의 거래
-                  </div>
+                  {rooms[selectedRoom].last_chat === null
+                    ? "자몽"
+                    : rooms[selectedRoom].last_chat.user.id}
+                  님과의 거래
                 </S.UserReportBox>
+                <div className="button" onClick={endTransaction}>
+                  거래완료
+                </div>
               </S.HeaderNav>
             </S.ChatViewHeader>
             <S.ChatBox>
