@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { OnRecommend, Recommend } from "../../../assets";
+import { defaultImageList } from "../../../constance/defaultImageList";
 import { dreamDetail } from "../../../models/dto/response/dreamDetailResponse";
 import { requestPost } from "../../../utils/api/DreamDetail";
 import * as S from "./styles";
@@ -14,14 +15,7 @@ const DiaryDetailPosting = ({ postData, onLikeSet }: PropsType): JSX.Element => 
   const [isImg, setIsImg] = useState(false);
 
   useEffect(() => {
-    if (
-      attachment_image !==
-      "https://ogjg-zamong.s3.ap-northeast-1.amazonaws.com/default-posting-image/Rectangle+1.png"
-    ) {
-      setIsImg(true);
-    } else {
-      setIsImg(false);
-    }
+    setIsImg(!defaultImageList.some((value) => value === attachment_image));
   }, [postData]);
 
   const onLike = async () => {
@@ -39,11 +33,17 @@ const DiaryDetailPosting = ({ postData, onLikeSet }: PropsType): JSX.Element => 
 
   return (
     <S.PostingContainer>
-      <S.PhotoGrid>{isImg ? <S.Photo src={attachment_image} /> : <></>}</S.PhotoGrid>
+      <S.PhotoGrid>
+        {isImg ? (
+          <S.Photo src={attachment_image} />
+        ) : (
+          <S.DefaultImage src={attachment_image} alt="default image" />
+        )}
+      </S.PhotoGrid>
       <S.Text>
-        {content.split("\n").map((line) => {
+        {content.split("\n").map((line, index) => {
           return (
-            <span>
+            <span key={index}>
               {line}
               <br />
             </span>

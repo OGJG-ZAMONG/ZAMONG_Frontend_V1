@@ -16,7 +16,7 @@ interface PropsType {
 }
 
 const DiaryDetailHeader = ({ postData, userUUID }: PropsType): JSX.Element => {
-  const { push } = useHistory();
+  const { push, goBack } = useHistory();
   const {
     title,
     dream_types,
@@ -41,7 +41,7 @@ const DiaryDetailHeader = ({ postData, userUUID }: PropsType): JSX.Element => {
   const dayToString = (date: string | null) => {
     if (date !== null) {
       const a = new Date(date);
-      const month = a.getMonth().toString().padStart(2, "0");
+      const month = (a.getMonth()+1).toString().padStart(2, "0");
       const day = a.getDate().toString().padStart(2, "0");
       const year =
         a.getFullYear() === new Date().getFullYear()
@@ -57,7 +57,7 @@ const DiaryDetailHeader = ({ postData, userUUID }: PropsType): JSX.Element => {
       try {
         await delPosting(uuid);
         alert("삭제되었습니다.");
-        push("/");
+        goBack();
       } catch (error) {
         console.log(error);
       }
@@ -133,7 +133,7 @@ const DiaryDetailHeader = ({ postData, userUUID }: PropsType): JSX.Element => {
         <S.UserInfo>
           {userUUID === user.uuid ? (
             <>
-              {" "}
+              {/* {" "} */}
               {is_shared ? (
                 <></>
               ) : (
@@ -156,18 +156,22 @@ const DiaryDetailHeader = ({ postData, userUUID }: PropsType): JSX.Element => {
               )}
             </>
           )}
-          <S.MoreBox>
-            <S.More
-              alt="more"
-              src={more}
-              onClick={() => setIsActiveMore(!isActiveMore)}
-            />
-            <PopupMenu
-              contents={popupContents}
-              isActiveMore={isActiveMore}
-              setIsActiveMore={setIsActiveMore}
-            />
-          </S.MoreBox>
+          {userUUID === user.uuid ? (
+            <S.MoreBox>
+              <S.More
+                alt="more"
+                src={more}
+                onClick={() => setIsActiveMore(!isActiveMore)}
+              />
+              <PopupMenu
+                contents={popupContents}
+                isActiveMore={isActiveMore}
+                setIsActiveMore={setIsActiveMore}
+              />
+            </S.MoreBox>
+          ) : (
+            <></>
+          )}
         </S.UserInfo>
       </S.DreamInfo>
     </S.HeadContainer>

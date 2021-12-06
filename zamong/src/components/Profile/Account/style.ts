@@ -1,5 +1,4 @@
 import styled from "@emotion/styled";
-import { Link } from "react-router-dom";
 import { font } from "../../../style/font";
 import { color } from "../../../style/color";
 
@@ -28,10 +27,14 @@ export const SubTitle = styled.label`
   color: ${color.white};
 `;
 
-export const ChangeContainer = styled.div`
+export const IdContainer = styled.div`
   display: flex;
   column-gap: 16px;
   align-items: center;
+`;
+
+export const PwContainer = styled(IdContainer)`
+  flex-direction: column;
 `;
 
 export const FileBox = styled.div`
@@ -72,18 +75,6 @@ export const BorderButton = styled(Button)`
   color: ${color.white};
 `;
 
-export const ButtonTo = styled(Link)`
-  cursor: pointer;
-  padding: 6px 16px;
-  background-color: transparent;
-  font: ${font.body3};
-  border: 1px solid ${color.white};
-  box-shadow: 0 0 1px 0 ${color.white} inset, 0 0 1px 0 ${color.white};
-  color: ${color.white};
-  border-radius: 120px;
-  text-decoration: none;
-`;
-
 export const BorderButtonRed = styled(Button)`
   color: ${color.red};
   border: 1px solid ${color.red};
@@ -97,6 +88,7 @@ export const AccountBox = styled.div`
 `;
 
 export const Box = styled.div`
+  height: 50px;
   display: flex;
   justify-content: space-between;
   margin-bottom: 18px;
@@ -106,11 +98,15 @@ export const Box = styled.div`
   border-bottom: 1px solid ${color.darkGray};
 `;
 
+export const PwBox = styled(Box)<{ height: any }>`
+  height: ${(props) => props.height}pxs;
+`;
+
 export const IdText = styled.span`
   color: ${color.white};
 `;
 
-export const inputId = styled.input`
+export const Input = styled.input`
   width: 250px;
   background: ${color.darkGray};
   border-radius: 10px;
@@ -120,6 +116,12 @@ export const inputId = styled.input`
   padding: 8px 16px;
   outline: none;
   text-align: right;
+  margin-top: 4px;
+`;
+
+export const InputContainer = styled.div`
+  display: flex;
+  flex-direction: column;
 `;
 
 export const DeleteText = styled.span`

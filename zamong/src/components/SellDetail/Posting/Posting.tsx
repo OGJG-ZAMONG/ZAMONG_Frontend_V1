@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { defaultImageList } from "../../../constance/defaultImageList";
 import { chatResponse } from "../../../models/dto/response/sellDreamDetailResponse";
 import { requestChat } from "../../../utils/api/SellDetail";
 import * as S from "./styles";
@@ -14,14 +15,7 @@ const Posting = ({ postData, userUuid, settingData }: PropsType) => {
   const [isImg, setIsImg] = useState(false);
 
   useEffect(() => {
-    if (
-      attachment_image !==
-      "https://ogjg-zamong.s3.ap-northeast-1.amazonaws.com/default-posting-image/Rectangle+1.png"
-    ) {
-      setIsImg(true);
-    } else {
-      setIsImg(false);
-    }
+    setIsImg(!defaultImageList.some((value) => value === attachment_image));
   }, [postData]);
 
   const sendRequest = async () => {
@@ -35,11 +29,17 @@ const Posting = ({ postData, userUuid, settingData }: PropsType) => {
 
   return (
     <S.PostingContainer>
-      <S.PhotoGrid>{isImg ? <S.Photo src={attachment_image} /> : <></>} </S.PhotoGrid>
+      <S.PhotoGrid>
+        {isImg ? (
+          <S.Photo src={attachment_image} />
+        ) : (
+          <S.DefaultImage src={attachment_image} alt="default image" />
+        )}
+      </S.PhotoGrid>
       <S.Text>
-        {content.split("\n").map((line) => {
+        {content.split("\n").map((line, index) => {
           return (
-            <span>
+            <span key={index}>
               {line}
               <br />
             </span>

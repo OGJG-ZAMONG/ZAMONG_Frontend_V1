@@ -15,7 +15,7 @@ interface PropsType {
 }
 
 const Head = ({ postData, userUuid }: PropsType) => {
-  const { push } = useHistory();
+  const { push, goBack } = useHistory();
   const { title, uuid, dream_types, cost, updated_at, user } = postData;
   const dreamTypes = dreamType.filter((value) => {
     return dream_types.some((item) => item === value.code);
@@ -25,7 +25,7 @@ const Head = ({ postData, userUuid }: PropsType) => {
   const dayToString = (date: string | null) => {
     if (date !== null) {
       const a = new Date(date);
-      const month = a.getMonth().toString().padStart(2, "0");
+      const month = (a.getMonth()+1).toString().padStart(2, "0");
       const day = a.getDate().toString().padStart(2, "0");
       const year =
         a.getFullYear() === new Date().getFullYear()
@@ -41,7 +41,7 @@ const Head = ({ postData, userUuid }: PropsType) => {
       try {
         await delPosting(uuid);
         alert("삭제되었습니다.");
-        push("/");
+        goBack();
       } catch (error) {
         console.log(error);
       }
@@ -79,8 +79,23 @@ const Head = ({ postData, userUuid }: PropsType) => {
         <S.ShareDay>공유한 날짜: {dayToString(updated_at)}</S.ShareDay>
         <S.BottomInfo>
           <S.Cost>{cost}원</S.Cost>
-          {userUuid !== user.uuid ? (
-            <S.UserInfo>
+          <S.UserInfo>
+            {userUuid === user.uuid ? (
+              <>
+                <S.MoreBox>
+                  <S.More
+                    alt="more"
+                    src={more}
+                    onClick={() => setIsActiveMore(!isActiveMore)}
+                  />
+                  <PopupMenu
+                    contents={popupContents}
+                    isActiveMore={isActiveMore}
+                    setIsActiveMore={setIsActiveMore}
+                  />
+                </S.MoreBox>
+              </>
+            ) : (
               <>
                 <S.PrifilePhoto
                   alt="profile"
@@ -89,22 +104,8 @@ const Head = ({ postData, userUuid }: PropsType) => {
                 />
                 <S.Profile>{user.id}</S.Profile>
               </>
-              <S.MoreBox>
-                <S.More
-                  alt="more"
-                  src={more}
-                  onClick={() => setIsActiveMore(!isActiveMore)}
-                />
-                <PopupMenu
-                  contents={popupContents}
-                  isActiveMore={isActiveMore}
-                  setIsActiveMore={setIsActiveMore}
-                />
-              </S.MoreBox>
-            </S.UserInfo>
-          ) : (
-            <></>
-          )}
+            )}
+          </S.UserInfo>
         </S.BottomInfo>
       </S.DreamInfo>
     </S.HeadContainer>

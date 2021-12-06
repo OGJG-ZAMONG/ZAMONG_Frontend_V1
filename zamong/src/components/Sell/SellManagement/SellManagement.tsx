@@ -1,132 +1,123 @@
 import * as S from "./style";
-import React, { FC, useState } from "react";
-import DreamContent from "./DreamContent/DreamContent";
+import React, { FC, useEffect, useRef, useState } from "react";
+import {
+  getSellMyOnSaleManagement,
+  getSellSoldOutManagement,
+} from "../../../utils/api/Sell/Management";
+import PageNation from "../../PageNation/PageNation";
+import CardSkeleton from "../../CardSkeleton/CardSkeleton";
+import MySellDreamCard from "../../CardDream/MySellDreamCard/MySellDreamCard";
+import { SellDream } from "../../../models/dto/response/sellManagementResponse";
 
 const SellManagement: FC = (): JSX.Element => {
-  const MaxPage = 8;
-  const pageLength: number[] = [];
-  const finalPageLength: number[][] = [];
-  const [pageIndex, setPageIndex] = useState<number>(0);
-  const [pageDepth, setPageDepth] = useState<number>(0);
+  const [myOnSaleData, setMyOnSaleData] = useState<SellDream[] | null>(null);
+  const [mySoldOutData, setMySoldOutData] = useState<SellDream[] | null>(null);
+  const [salePage, setSalePage] = useState<number>(0);
+  const [soldOutPage, setSoldOutPage] = useState<number>(0);
+  const [saleMax, setSaleMax] = useState<number>(0);
+  const [soldOutMax, setSoldOutMax] = useState<number>(0);
+  const saleContainerRef = useRef<HTMLDivElement>(null);
+  const soldContainerRef = useRef<HTMLDivElement>(null);
+  const nnSale = myOnSaleData || [];
+  const nnSold = mySoldOutData || [];
 
-  for (let i = 0; i < MaxPage; i++) {
-    pageLength.push(i + 1);
-  }
-  for (let i = 0; i < MaxPage; i += 10) {
-    finalPageLength.push(pageLength.slice(i, i + 10));
-  }
+  useEffect(() => {
+    myOnSaleManagement();
+    if (saleContainerRef.current) {
+      window.scrollTo({
+        top: saleContainerRef.current.clientTop - 64,
+        behavior: "smooth",
+      });
+    }
+  }, [salePage]);
 
-  const nextPage = () => {
-    if (pageIndex >= MaxPage - 1) {
-      return;
-    } else {
-      setPageIndex(pageIndex + 1);
+  useEffect(() => {
+    mySoldOutManagement();
+    if (soldContainerRef.current) {
+      window.scrollTo({
+        top: soldContainerRef.current.clientTop - 64,
+        behavior: "smooth",
+      });
+    }
+  }, [soldOutPage]);
+
+  const renderSkeleton = Array<number>(8)
+    .fill(0)
+    .map((_, index) => {
+      return <CardSkeleton key={index} />;
+    });
+
+  const myOnSaleManagement = async () => {
+    try {
+      const response = await getSellMyOnSaleManagement(salePage);
+      const { total_page, sell_dreams } = response.data.content.response;
+      setSaleMax(total_page);
+      setMyOnSaleData(sell_dreams);
+    } catch (error) {
+      throw error;
     }
   };
 
-  const prevPage = () => {
-    if (pageIndex < 1) {
-      return;
-    } else {
-      setPageIndex(pageIndex - 1);
+  const mySoldOutManagement = async () => {
+    setMyOnSaleData(null);
+    try {
+      const response = await getSellSoldOutManagement(soldOutPage);
+      const { total_page, sell_dreams } = response.data.content.response;
+      setSoldOutMax(total_page);
+      setMySoldOutData(sell_dreams);
+    } catch (error) {
+      throw error;
     }
   };
 
-  const setPage = (e: React.MouseEvent<HTMLDivElement> | any) => {
-    setPageIndex(e.target.innerHTML - 1);
-  };
+  const renderOnSaleDream =
+    nnSale.length > 0 ? (
+      nnSale.map((value, index) => {
+        return <MySellDreamCard key={index} data={value} />;
+      })
+    ) : (
+      <S.None>판매중인 꿈이 없습니다.</S.None>
+    );
+  const renderSoldOutDream =
+    nnSold.length > 0 ? (
+      nnSold.map((value, index) => {
+        return <MySellDreamCard key={index} data={value} />;
+      })
+    ) : (
+      <S.None>판매 완료한 꿈이 없습니다.</S.None>
+    );
+
   return (
     <S.Contents>
-      <S.SellManagementText>꿈 판매 관리</S.SellManagementText>
+      <S.SellManagementText ref={saleContainerRef}>꿈 판매 관리</S.SellManagementText>
       <S.Box>
-        <S.SubTitle>나의 판매중인 꿈 목록</S.SubTitle>
-        <S.List>
-          {pageLength.map((v) => {
-            return (
-              <DreamContent
-                key={v}
-                price={1000}
-                date={"8월 15일"}
-                tag={["루시드 드림", "악몽", "가위", "길몽"]}
-                title={"대법관은 대법원장의 제청으로 국회의 동의를 얻어..."}
-              />
-            );
-          })}
-        </S.List>
-        <S.PageNationContainer>
-          <S.Prev onClick={prevPage}>{"<"} 이전</S.Prev>
-          <S.PageContainer onClick={setPage}>
-            {finalPageLength[pageDepth].map((value: number, index: number) => {
-              if (pageIndex >= Math.max(...finalPageLength[pageDepth])) {
-                setPageDepth(pageDepth + 1);
-              } else if (
-                pageIndex + 1 < Math.min(...finalPageLength[pageDepth]) &&
-                pageDepth != 0
-              ) {
-                setPageDepth(pageDepth - 1);
-              }
-
-              return (
-                <S.Page
-                  key={index}
-                  style={
-                    index + pageDepth * 10 === pageIndex
-                      ? { color: "#0A84FF" }
-                      : { color: "#8E8E93" }
-                  }
-                >
-                  {value}
-                </S.Page>
-              );
-            })}
-          </S.PageContainer>
-          <S.Next onClick={nextPage}>다음 {">"}</S.Next>
-        </S.PageNationContainer>
+        <S.SubtitleContainer>
+          <S.SubTitle>나의 판매중인 꿈 목록</S.SubTitle>
+          <S.Write to="/sell/write">판매 글 쓰기 </S.Write>
+        </S.SubtitleContainer>
+        <S.List>{myOnSaleData ? renderOnSaleDream : renderSkeleton}</S.List>
+        {myOnSaleData && myOnSaleData.length > 0 && (
+          <PageNation max={saleMax} indexState={[salePage, setSalePage]} columnCount={10} />
+        )}
       </S.Box>
       <S.Box>
-        <S.SubTitle>나의 판매한 꿈 목록</S.SubTitle>
+        <S.SubTitle ref={soldContainerRef}>나의 판매한 꿈 목록</S.SubTitle>
         <S.List>
-          {pageLength.map((v) => {
-            return (
-              <DreamContent
-                key={v}
-                price={1000}
-                date={"8월 15일"}
-                tag={["루시드 드림", "악몽"]}
-                title={"대법관은 대법원장의 제청으로 국회의 동의를 얻어..."}
-              />
-            );
-          })}
+          {mySoldOutData === null ? (
+            <S.Text>공유된 꿈이 없습니다.</S.Text>
+          ) : mySoldOutData ? (
+            renderSoldOutDream
+          ) : (
+            renderSkeleton
+          )}
         </S.List>
-        <S.PageNationContainer>
-          <S.Prev onClick={prevPage}>{"<"} 이전</S.Prev>
-          <S.PageContainer onClick={setPage}>
-            {finalPageLength[pageDepth].map((value: number, index: number) => {
-              if (pageIndex >= Math.max(...finalPageLength[pageDepth])) {
-                setPageDepth(pageDepth + 1);
-              } else if (
-                pageIndex + 1 < Math.min(...finalPageLength[pageDepth]) &&
-                pageDepth != 0
-              ) {
-                setPageDepth(pageDepth - 1);
-              }
-
-              return (
-                <S.Page
-                  key={index}
-                  style={
-                    index + pageDepth * 10 === pageIndex
-                      ? { color: "#0A84FF" }
-                      : { color: "#8E8E93" }
-                  }
-                >
-                  {value}
-                </S.Page>
-              );
-            })}
-          </S.PageContainer>
-          <S.Next onClick={nextPage}>다음 {">"}</S.Next>
-        </S.PageNationContainer>
+        {mySoldOutData && mySoldOutData.length > 0 && (
+          <PageNation
+            max={soldOutMax}
+            indexState={[soldOutPage, setSoldOutPage]}
+            columnCount={10}
+          />
+        )}
       </S.Box>
     </S.Contents>
   );

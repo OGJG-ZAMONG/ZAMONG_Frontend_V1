@@ -32,7 +32,7 @@ const SellMain: FC = (): JSX.Element => {
     });
   }, [pageIndex]);
 
-  const renderDream = dreamData?.map((value: any) => {
+  const renderDream = dreamData?.map((value: any, index) => {
     const { uuid, user, cost, updated_at, title, dream_types, default_posting_image } = value;
     return (
       <SellingDream
@@ -43,6 +43,7 @@ const SellMain: FC = (): JSX.Element => {
         title={title}
         tag={dream_types}
         img={default_posting_image}
+        key={index}
       />
     );
   });

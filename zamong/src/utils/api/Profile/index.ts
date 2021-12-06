@@ -94,3 +94,15 @@ export const accountSecession = async (pw: string) => {
     throw error;
   }
 };
+
+export const changePw = async (oldPw: string, newPw: string) => {
+  try {
+    const response = await instance.patch(`/user/password`, {
+      old_password: oldPw,
+      new_password: newPw,
+    });
+    return response;
+  } catch (error) {
+    throw error;
+  }
+};

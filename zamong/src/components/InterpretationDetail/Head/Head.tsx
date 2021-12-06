@@ -17,7 +17,7 @@ interface PropsTypes {
 const InterpretationDetailHead = ({ postData, userUUID }: PropsTypes) => {
   const { uuid, title, dream_types, updated_at, user, lucy_count } = postData;
   const [isActiveMore, setIsActiveMore] = useState(false);
-  const { push } = useHistory();
+  const { push, goBack } = useHistory();
   const dreamTypes = dreamType.filter((value) => {
     return dream_types.some((item) => item === value.code);
   });
@@ -25,7 +25,7 @@ const InterpretationDetailHead = ({ postData, userUUID }: PropsTypes) => {
   const dayToString = (date: string | null) => {
     if (date !== null) {
       const a = new Date(date);
-      const month = a.getMonth().toString().padStart(2, "0");
+      const month = (a.getMonth()+1).toString().padStart(2, "0");
       const day = a.getDate().toString().padStart(2, "0");
       const year =
         a.getFullYear() === new Date().getFullYear()
@@ -41,7 +41,7 @@ const InterpretationDetailHead = ({ postData, userUUID }: PropsTypes) => {
       try {
         await delPosting(uuid);
         alert("삭제되었습니다.");
-        push("/");
+        goBack();
       } catch (error) {
         console.log(error);
       }
@@ -91,9 +91,7 @@ const InterpretationDetailHead = ({ postData, userUUID }: PropsTypes) => {
               <S.Profile>{user.id}</S.Profile>
             </S.ProfileLink>
           ) : (
-            <></>
-          )}
-          <S.MoreBox>
+            <S.MoreBox>
             <S.More
               alt="more"
               src={more}
@@ -105,6 +103,7 @@ const InterpretationDetailHead = ({ postData, userUUID }: PropsTypes) => {
               setIsActiveMore={setIsActiveMore}
             />
           </S.MoreBox>
+          )}
         </S.UserInfo>
       </S.DreamInfo>
     </S.HeadContainer>

@@ -27,7 +27,6 @@ interface FollowType {
 }
 
 const ProfilePage = (): JSX.Element => {
-  const [comp, setComp] = useState();
   const [followerState, setFollower] = useState<FollowerType>({
     total_size: 0,
   });
@@ -43,7 +42,8 @@ const ProfilePage = (): JSX.Element => {
     share_dream_count: 0,
     lucy_count: 0,
   });
-  const { uuid, name, email, id, profile, share_dream_count, lucy_count } = profileState;
+  const { uuid, name, email, id, profile, share_dream_count, lucy_count } =
+    profileState;
   const FOLLORWER = 1;
   const FOLLORWING = 2;
   const ACCOUNTINFO = 3;
@@ -164,9 +164,15 @@ const ProfilePage = (): JSX.Element => {
               <S.NickNameText>{id}</S.NickNameText>
               <S.EmailText>{email}</S.EmailText>
               <S.OneLineBox>
-                <S.Text onClick={onFollowerClick}>팔로워 {followerState.total_size}명</S.Text>
-                <S.Text onClick={onFollowClick}>팔로우 {followState.total_size}명</S.Text>
-                <S.LinkText to="/diary">내가 쓴 꿈 일기 {share_dream_count}개</S.LinkText>
+                <S.Text onClick={onFollowerClick}>
+                  팔로워 {followerState.total_size}명
+                </S.Text>
+                <S.Text onClick={onFollowClick}>
+                  팔로우 {followState.total_size}명
+                </S.Text>
+                <S.LinkText to="/diary">
+                  내가 쓴 꿈 일기 {share_dream_count}개
+                </S.LinkText>
                 <span>{lucy_count}LUCY</span>
               </S.OneLineBox>
               <S.NameBox>이름: {name}</S.NameBox>
@@ -178,7 +184,11 @@ const ProfilePage = (): JSX.Element => {
             {navs.map((value, index) => {
               const { img, text, onClick } = value;
               return (
-                <S.ChooseBox isActive={contentState === index + 1} onClick={onClick} key={index}>
+                <S.ChooseBox
+                  isActive={contentState === index + 1}
+                  onClick={onClick}
+                  key={index}
+                >
                   <img src={img} alt={text} />
                   <span>{text}</span>
                 </S.ChooseBox>

@@ -40,7 +40,7 @@ export const TodayBox = styled.div`
 `;
 
 export const TodayDreamText = styled.div`
-  width: calc(100% - 20px);
+  width: calc(100% - 32px);
   height: 40px;
   display: flex;
   align-items: center;
@@ -55,9 +55,14 @@ export const DiarySignContainer = styled.div`
   max-height: 616px;
   width: 100%;
   overflow: auto;
+  padding: 16px;
+`;
+
+export const SignInner = styled.div`
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  grid-template-rows: 40%;
+  row-gap: 16px;
+  column-gap: 16px;
   &::-webkit-scrollbar {
     display: none;
   }
@@ -87,7 +92,7 @@ export const DiaryListHeader = styled.div`
 export const DiaryList = styled.div`
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  grid-template-rows: 1fr;
+  /* grid-template-rows: 1fr; */
   grid-gap: 15px;
 `;
 
@@ -177,5 +182,5 @@ export const Input = styled.input`
 `;
 
 export const MyDreamDiaryContainer = styled.div`
-  padding: 15px 10px;
+  /* padding: 15px 10px; */
 `;
