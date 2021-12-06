@@ -37,7 +37,6 @@ const Chat: FC = (): JSX.Element => {
       ? setTimeout(() => {
           getChatRooms()
             .then((res) => {
-              console.log(res.data.content.response.rooms);
               setRooms(res.data.content.response.rooms);
               setRoomId(res.data.content.response.rooms[selectedRoom].uuid);
               connectSocket(res.data.content.response.rooms[selectedRoom].uuid);
@@ -90,7 +89,8 @@ const Chat: FC = (): JSX.Element => {
   };
 
   const sendMessage = async () => {
-    if (inputValue.current.value === "") return;
+    if (inputValue.current.value === "" || stompClient.connected === undefined)
+      return;
     stompClient.send(
       "/app/chat.send",
       {},
@@ -111,7 +111,9 @@ const Chat: FC = (): JSX.Element => {
   };
 
   const connect = async () => {
-    await stompClient.activate();
+    await stompClient.connect({}, (frame: any) => {
+      console.log(`frame: ${frame}`);
+    });
   };
 
   return (
