@@ -41,7 +41,7 @@ jobs:
           aws s3 cp --recursive --region ap-northeast-2 build s3://www.zamong.app
 
       - name: Invalidate CloudFront
-        uses: chetan/invalidate-cloudfront-action@v2
+        uses: chetan/invalidate-cloudfront-action@master
         env:
           DISTRIBUTION: ${{ secrets.DISTRIBUTION }}
           PATHS: "/index.html"
