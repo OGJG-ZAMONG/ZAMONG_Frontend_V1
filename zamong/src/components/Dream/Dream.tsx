@@ -12,8 +12,15 @@ interface PropsType {
 const Dream = ({ dream }: PropsType): JSX.Element => {
   const { push } = useHistory();
   const [isUserImageHover, setIsUserImageHover] = useState<boolean>(false);
-  const { share_datetime, default_posting_image, user, title, lucy_count, dream_types, uuid } =
-    dream;
+  const {
+    share_datetime,
+    default_posting_image,
+    user,
+    title,
+    lucy_count,
+    dream_types,
+    uuid,
+  } = dream;
   const { profile, id, uuid: userUUID } = user;
   const dateToString = (date: Date) => {
     if (date.getFullYear() !== new Date().getFullYear())
