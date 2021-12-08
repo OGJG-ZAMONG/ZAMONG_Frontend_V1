@@ -1,4 +1,4 @@
-import { FC, useEffect, useState, useRef } from "react";
+import { FC, useEffect, useState, useRef, useLayoutEffect } from "react";
 import { search, send } from "../../assets";
 import { getChatRooms, getChat, endIntersaction } from "../../utils/api/Chat";
 import { getMyProfile } from "../../utils/api/Profile";
@@ -23,8 +23,11 @@ const Chat: FC = (): JSX.Element => {
   const inputValue = useRef<HTMLInputElement | any>(null);
   const date = new Date();
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     connect();
+  }, []);
+
+  useEffect(() => {
     getMyProfile()
       .then((res) => {
         setUserId(res.data.content.response.uuid);
@@ -80,7 +83,7 @@ const Chat: FC = (): JSX.Element => {
           if (chat.user.uuid != userId) {
             chat.its_me = false;
           }
-          setChats((chats: any) => [chat, ...chats]);
+          setChats((chats: Chats[]) => [chat, ...chats]);
         },
         { id: "socket" }
       );
@@ -158,26 +161,41 @@ const Chat: FC = (): JSX.Element => {
             />
           ) : (
             rooms.map((value: any, index: number) => {
-              console.log(value)
-              if (value.last_chat === null)
-                return (
-                  <ChatRoom
-                    value={value.last_chat}
-                    ChatRoomName={value.title}
-                    UserName={""}
-                    LastConnection={""}
-                    LastChat={"채팅을 시작해보세요"}
-                    key={value.uuid}
-                    Index={index}
-                    selectedRoom={selectedRoom}
-                    setSelectedRoom={setSelectedRoom}
-                  />
-                );
               const lastTime = Math.ceil(
                 (date.getTime() -
                   new Date(value.last_chat.created_at).getTime()) /
                   1000 /
                   60
+              );
+
+              value.last_chat ? (
+                <ChatRoom
+                  value={value.last_chat}
+                  ChatRoomName={value.title}
+                  UserName={value.last_chat.user.id}
+                  LastConnection={lastTime > 60 ? "오래전" : `${lastTime}분`}
+                  LastChat={
+                    value.last_chat.chat === null
+                      ? "채팅을 시작해보세요"
+                      : value.last_chat.chat
+                  }
+                  key={value.uuid}
+                  Index={index}
+                  selectedRoom={selectedRoom}
+                  setSelectedRoom={setSelectedRoom}
+                />
+              ) : (
+                <ChatRoom
+                  value={value.last_chat}
+                  ChatRoomName={value.title}
+                  UserName={""}
+                  LastConnection={""}
+                  LastChat={"채팅을 시작해보세요"}
+                  key={value.uuid}
+                  Index={index}
+                  selectedRoom={selectedRoom}
+                  setSelectedRoom={setSelectedRoom}
+                />
               );
 
               return (
