@@ -129,7 +129,7 @@ const Chat: FC = (): JSX.Element => {
 
   const endTransaction = () => {
     window.confirm("거래를 종료하시겠습니까?");
-    endIntersaction("5685bc49-4038-40fd-9ae8-634b95e366c2").then(() => {
+    endIntersaction(roomId).then(() => {
       getChatRooms()
         .then((res) => {
           setRooms(res.data.content.response.rooms);
