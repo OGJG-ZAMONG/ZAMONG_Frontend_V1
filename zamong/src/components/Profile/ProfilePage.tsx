@@ -6,6 +6,7 @@ import FollowContent from "./Follow/FollowContent";
 import AccountContent from "./Account/AccountContent";
 import { useHistory, useLocation } from "react-router";
 import { getFollower, getFollowing, getMyProfile } from "../../utils/api/Profile";
+import Badge from "./Badge/Badge";
 
 interface ProfileType {
   uuid: string;
@@ -44,7 +45,8 @@ const ProfilePage = (): JSX.Element => {
     lucy_count: 0,
     bought_sell_dream_count: 0,
   });
-  const { uuid, name, email, id, profile, share_dream_count, lucy_count } = profileState;
+  const { uuid, name, email, id, profile, share_dream_count, lucy_count, bought_sell_dream_count } =
+    profileState;
   const FOLLORWER = 1;
   const FOLLORWING = 2;
   const ACCOUNTINFO = 3;
@@ -162,7 +164,10 @@ const ProfilePage = (): JSX.Element => {
           <S.TopContent>
             <S.ProfileBox img={profile} />
             <S.InfoBox>
-              <S.NickNameText>{id}</S.NickNameText>
+              <S.IdContainer>
+                <S.NickNameText>{id}</S.NickNameText>
+                <Badge count={0} />
+              </S.IdContainer>
               <S.EmailText>{email}</S.EmailText>
               <S.OneLineBox>
                 <S.Text onClick={onFollowerClick}>팔로워 {followerState.total_size}명</S.Text>
