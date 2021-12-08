@@ -14,6 +14,7 @@ interface ProfileType {
   profile: string;
   share_dream_count: number;
   lucy_count: number;
+  bought_sell_dream_count: number;
 }
 
 interface IdType {
@@ -43,8 +44,9 @@ const AnotherProfilePage: React.FC<IdType | null> = (props): JSX.Element => {
     profile: "",
     share_dream_count: 0,
     lucy_count: 0,
+    bought_sell_dream_count: 0,
   });
-  const { uuid, name, email, id, profile } = profileState;
+  const { uuid, name, email, id, profile, bought_sell_dream_count } = profileState;
   const FOLLORWER = 1;
   const FOLLORWING = 2;
   const [contentState, setContentState] = useState(FOLLORWER);
@@ -158,12 +160,8 @@ const AnotherProfilePage: React.FC<IdType | null> = (props): JSX.Element => {
               <S.NickNameText>{id}</S.NickNameText>
               <S.EmailText>{email}</S.EmailText>
               <S.OneLineBox>
-                <S.Text onClick={onFollowerClick}>
-                  팔로워 {followerState.total_size}명
-                </S.Text>
-                <S.Text onClick={onFollowClick}>
-                  팔로우 {followState.total_size}명
-                </S.Text>
+                <S.Text onClick={onFollowerClick}>팔로워 {followerState.total_size}명</S.Text>
+                <S.Text onClick={onFollowClick}>팔로우 {followState.total_size}명</S.Text>
               </S.OneLineBox>
               <S.LineBox>
                 <S.NameBox>이름: {name}</S.NameBox>
@@ -181,11 +179,7 @@ const AnotherProfilePage: React.FC<IdType | null> = (props): JSX.Element => {
             {navs.map((value, index) => {
               const { img, text, onClick } = value;
               return (
-                <S.ChooseBox
-                  isActive={contentState === index + 1}
-                  onClick={onClick}
-                  key={index}
-                >
+                <S.ChooseBox isActive={contentState === index + 1} onClick={onClick} key={index}>
                   <img src={img} alt={text} />
                   <span>{text}</span>
                 </S.ChooseBox>
