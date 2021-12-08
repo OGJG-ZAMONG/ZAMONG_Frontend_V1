@@ -33,6 +33,16 @@ const Chat: FC = (): JSX.Element => {
         setUserId(res.data.content.response.uuid);
       })
       .catch((err) => console.log(err));
+
+      setInterval(() => {
+        getChatRooms()
+          .then((res) => {
+            setRooms(res.data.content.response.rooms);
+            setRoomId(res.data.content.response.rooms[selectedRoom].uuid);
+            connectSocket(res.data.content.response.rooms[selectedRoom].uuid);
+          })
+          .catch((err) => console.log(err));
+      }, 5000)
   }, []);
 
   useEffect(() => {
@@ -62,8 +72,6 @@ const Chat: FC = (): JSX.Element => {
       })
       .catch((err) => console.log(err));
   }, [roomId]);
-
-  useEffect(() => {}, [chats]);
 
   const connectSocket = async (uuid: string) => {
     const {
