@@ -8,6 +8,7 @@ export type profileResponse = defaultResponse<{
   profile: string;
   share_dream_count: number;
   lucy_count: number;
+  bought_sell_dream_count: number;
 }>;
 
 export type followingListResponse = defaultResponse<{
