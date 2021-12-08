@@ -1,10 +1,9 @@
 import uri from "../../../constance/uri";
-import {
-  interpretationSearchResponse,
-  sellSearchResponse,
-  ShareSearchResponse,
-  UserSearchResponse,
-} from "../../../models/dto/response/SearchResponse";
+import { searchDreamRequest } from "../../../models/dto/request/searchDreamRequest";
+import { dreamListResponse } from "../../../models/dto/response/dreamListResponse";
+import interpretationListResponse from "../../../models/dto/response/InterpretationListResponse";
+import { UserSearchResponse } from "../../../models/dto/response/SearchResponse";
+import { sellSearchResponse } from "../../../models/dto/response/SellListResponse";
 import instance from "../axios";
 
 export const getSearchId = async (id: string) => {
@@ -18,10 +17,22 @@ export const getSearchId = async (id: string) => {
   }
 };
 
-export const getSearchDream = async (title: string, types: string) => {
+export const getSearchDream = async (par: searchDreamRequest) => {
   try {
-    const response = await instance.get<ShareSearchResponse>(
-      uri.shareSearch + `title=${title}&types=${types}`
+    const response = await instance.get<dreamListResponse>(uri.shareSearch, {
+      params: par,
+    });
+    return response;
+  } catch (error) {
+    throw error;
+  }
+};
+
+export const getSearchInterpretation = async (par: searchDreamRequest) => {
+  try {
+    const response = await instance.get<interpretationListResponse>(
+      uri.interpretationSearch,
+      { params: par }
     );
     return response;
   } catch (error) {
@@ -29,22 +40,11 @@ export const getSearchDream = async (title: string, types: string) => {
   }
 };
 
-export const getSearchInterpretation = async (title: string, types: string) => {
+export const getSearchSell = async (par: searchDreamRequest) => {
   try {
-    const response = await instance.get<interpretationSearchResponse>(
-      uri.interpretationSearch + `title=${title}&types=${types}`
-    );
-    return response;
-  } catch (error) {
-    throw error;
-  }
-};
-
-export const getSearchSell = async (title: string, types: string) => {
-  try {
-    const response = await instance.get<sellSearchResponse>(
-      uri.sellSearch + `title=${title}&types=${types}`
-    );
+    const response = await instance.get<sellSearchResponse>(uri.sellSearch, {
+      params: par,
+    });
     return response;
   } catch (error) {
     throw error;
