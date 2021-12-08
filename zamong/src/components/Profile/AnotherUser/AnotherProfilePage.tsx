@@ -5,6 +5,7 @@ import FollowerContent from "../Follower/FollowerContent";
 import FollowContent from "../Follow/FollowContent";
 import { getAntherUsersProfile, getFollower, getFollowing } from "../../../utils/api/Profile";
 import { useHistory, useLocation } from "react-router";
+import Badge from "../Badge/Badge";
 
 interface ProfileType {
   uuid: string;
@@ -150,14 +151,15 @@ const AnotherProfilePage: React.FC<IdType | null> = (props): JSX.Element => {
 
   return (
     <>
-      {FollowerContent}
-      {FollowContent}
       <S.ProfileContent>
         <S.TopBox>
           <S.TopContent>
             <S.ProfileBox img={profile} />
             <S.InfoBox>
-              <S.NickNameText>{id}</S.NickNameText>
+              <S.IdContainer>
+                <S.NickNameText>{id}</S.NickNameText>
+                <Badge count={bought_sell_dream_count} />
+              </S.IdContainer>
               <S.EmailText>{email}</S.EmailText>
               <S.OneLineBox>
                 <S.Text onClick={onFollowerClick}>팔로워 {followerState.total_size}명</S.Text>
