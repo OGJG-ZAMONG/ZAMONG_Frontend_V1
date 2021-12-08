@@ -44,18 +44,16 @@ const SellDreamList = ({ content, types }: Props): JSX.Element => {
 
   return (
     <>
-      {(seDreams.length > 0 || !sellDream) && (
-        <div>
-          <S.HeadText>
-            해몽 요청된 꿈 <span>{seDreams?.length}개</span>
-          </S.HeadText>
-          {seDreams?.length === 0 ? (
-            <S.DreamText>해몽 요청된 꿈이 없습니다.</S.DreamText>
-          ) : (
-            <div>{seDreams ? dreamsRender : renderSkeleton}</div>
-          )}
-        </div>
-      )}
+      <div>
+        <S.HeadText>
+          판매된 꿈 <span>{seDreams?.length}개</span>
+        </S.HeadText>
+        {seDreams?.length === 0 ? (
+          <S.DreamText>판매된 꿈이 없습니다.</S.DreamText>
+        ) : (
+          <div>{seDreams ? dreamsRender : renderSkeleton}</div>
+        )}
+      </div>
     </>
   );
 };
