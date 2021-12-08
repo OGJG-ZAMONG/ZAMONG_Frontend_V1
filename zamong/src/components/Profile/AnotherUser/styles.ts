@@ -39,6 +39,13 @@ export const InfoBox = styled.div`
   box-sizing: border-box;
 `;
 
+export const IdContainer = styled.div`
+  display: flex;
+  align-items: center;
+  column-gap: 8px;
+`;
+
+
 export const NickNameText = styled.p`
   font: ${font.headline3};
   color: ${color.white};

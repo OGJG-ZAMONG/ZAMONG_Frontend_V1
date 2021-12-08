@@ -6,6 +6,7 @@ import FollowContent from "./Follow/FollowContent";
 import AccountContent from "./Account/AccountContent";
 import { useHistory, useLocation } from "react-router";
 import { getFollower, getFollowing, getMyProfile } from "../../utils/api/Profile";
+import Badge from "./Badge/Badge";
 
 interface ProfileType {
   uuid: string;
@@ -15,6 +16,7 @@ interface ProfileType {
   profile: string;
   share_dream_count: number;
   lucy_count: number;
+  bought_sell_dream_count: number;
 }
 interface IdType {
   id: string;
@@ -41,8 +43,9 @@ const ProfilePage = (): JSX.Element => {
     profile: "",
     share_dream_count: 0,
     lucy_count: 0,
+    bought_sell_dream_count: 0,
   });
-  const { uuid, name, email, id, profile, share_dream_count, lucy_count } =
+  const { uuid, name, email, id, profile, share_dream_count, lucy_count, bought_sell_dream_count } =
     profileState;
   const FOLLORWER = 1;
   const FOLLORWING = 2;
@@ -161,18 +164,15 @@ const ProfilePage = (): JSX.Element => {
           <S.TopContent>
             <S.ProfileBox img={profile} />
             <S.InfoBox>
-              <S.NickNameText>{id}</S.NickNameText>
+              <S.IdContainer>
+                <S.NickNameText>{id}</S.NickNameText>
+                <Badge count={0} />
+              </S.IdContainer>
               <S.EmailText>{email}</S.EmailText>
               <S.OneLineBox>
-                <S.Text onClick={onFollowerClick}>
-                  팔로워 {followerState.total_size}명
-                </S.Text>
-                <S.Text onClick={onFollowClick}>
-                  팔로우 {followState.total_size}명
-                </S.Text>
-                <S.LinkText to="/diary">
-                  내가 쓴 꿈 일기 {share_dream_count}개
-                </S.LinkText>
+                <S.Text onClick={onFollowerClick}>팔로워 {followerState.total_size}명</S.Text>
+                <S.Text onClick={onFollowClick}>팔로우 {followState.total_size}명</S.Text>
+                <S.LinkText to="/diary">내가 쓴 꿈 일기 {share_dream_count}개</S.LinkText>
                 <span>{lucy_count}LUCY</span>
               </S.OneLineBox>
               <S.NameBox>이름: {name}</S.NameBox>
@@ -184,11 +184,7 @@ const ProfilePage = (): JSX.Element => {
             {navs.map((value, index) => {
               const { img, text, onClick } = value;
               return (
-                <S.ChooseBox
-                  isActive={contentState === index + 1}
-                  onClick={onClick}
-                  key={index}
-                >
+                <S.ChooseBox isActive={contentState === index + 1} onClick={onClick} key={index}>
                   <img src={img} alt={text} />
                   <span>{text}</span>
                 </S.ChooseBox>
