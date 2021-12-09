@@ -24,6 +24,7 @@ export const ProfileContainer = styled.div`
   column-gap: 16px;
   align-items: center;
   color: ${color.white};
+  cursor: pointer;
 `;
 
 export const Button = styled.button`
