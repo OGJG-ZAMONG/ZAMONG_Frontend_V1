@@ -1,45 +1,50 @@
-import React, { FC, useEffect, useState } from "react";
+import React, { FC, useEffect, useRef, useState } from "react";
 import { getFollower } from "../../../utils/api/Profile";
 import * as S from "./style";
 import FollowerUser from "../../User/FollowerUser/FollowerUser";
 import { follower } from "../../../models/dto/response/profileResponse";
 import UserSkeleton from "../../UserSkeleton/UserSkeleton";
+import { DownChevron } from "../../../assets";
+import { pageRequest } from "../../../models/dto/request/followListRequest";
 
-interface FollowerType {
-  followers: follower[];
-  total_size: number;
-}
 interface IdType {
   id: string;
 }
 
-const FollowerContent: React.FC<IdType> = ({ id }) => {
-  const [followerState, setFollower] = useState<FollowerType | null>(null);
-  const nnState = followerState || {
-    followers: [],
-    total_size: 0,
-  };
-  const { followers, total_size } = nnState;
+const FollowerContent: FC<IdType> = ({ id }) => {
+  const [followerState, setFollower] = useState<follower[] | null>(null);
+  const [page, setPage] = useState<number>(0);
+  const totalPageRef = useRef<number>(1);
+  const [count, setCount] = useState<number>(0);
+  const nnState = followerState || [];
 
   useEffect(() => {
-    follower();
-  }, [id]);
+    setFollowerList();
+  }, [id, page]);
 
-  const follower = async () => {
+  const setFollowerList = async () => {
+    const parameter: pageRequest = {
+      page: page,
+      size: 6,
+    };
     try {
-      const response = await getFollower(id);
-      setFollower(response.data.content.response);
+      const { followers, total_page, total_size } = (
+        await getFollower(id, parameter)
+      ).data.content.response;
+      totalPageRef.current = total_page;
+      setFollower(nnState.concat(followers));
+      setCount(total_size);
     } catch (error) {
       throw error;
     }
   };
 
   const renderFollowers =
-    total_size === 0 ? (
+    followerState?.length === 0 ? (
       <S.Text>팔로워가 없습니다.</S.Text>
     ) : (
-      followers.map((data, v) => {
-        return <FollowerUser data={data} key={v} refresh={follower} />;
+      nnState.map((data, v) => {
+        return <FollowerUser data={data} key={v} refresh={setFollowerList} />;
       })
     );
 
@@ -47,13 +52,28 @@ const FollowerContent: React.FC<IdType> = ({ id }) => {
     return <UserSkeleton key={index} />;
   });
 
+  const onMore = () => {
+    setPage(page + 1);
+  };
+
   return (
     <>
       <S.Content>
         <S.Follower>
-          팔로워 <span>{total_size}명</span>
+          팔로워 <span>{count}명</span>
         </S.Follower>
-        <S.FollowerList>{followerState ? renderFollowers : renderSkeleton}</S.FollowerList>
+        <S.FollowerList>
+          {followerState ? renderFollowers : renderSkeleton}
+          {followerState?.length === 0
+            ? null
+            : totalPageRef &&
+              totalPageRef.current !== page + 1 && (
+                <S.MoreContaier onClick={onMore}>
+                  <div>더보기</div>
+                  <img alt="down" src={DownChevron} />
+                </S.MoreContaier>
+              )}
+        </S.FollowerList>
       </S.Content>
     </>
   );
