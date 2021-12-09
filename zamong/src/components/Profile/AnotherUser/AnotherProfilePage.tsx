@@ -3,7 +3,11 @@ import * as S from "./styles";
 import { Follower, Follow } from "../../../assets";
 import FollowerContent from "../Follower/FollowerContent";
 import FollowContent from "../Follow/FollowContent";
-import { getAntherUsersProfile, getFollower, getFollowing } from "../../../utils/api/Profile";
+import {
+  getAntherUsersProfile,
+  getFollower,
+  getFollowing,
+} from "../../../utils/api/Profile";
 import { useHistory, useLocation } from "react-router";
 import Badge from "../Badge/Badge";
 
@@ -47,7 +51,8 @@ const AnotherProfilePage: React.FC<IdType | null> = (props): JSX.Element => {
     lucy_count: 0,
     bought_sell_dream_count: 0,
   });
-  const { uuid, name, email, id, profile, bought_sell_dream_count } = profileState;
+  const { uuid, name, email, id, profile, bought_sell_dream_count } =
+    profileState;
   const FOLLORWER = 1;
   const FOLLORWING = 2;
   const [contentState, setContentState] = useState(FOLLORWER);
@@ -87,8 +92,8 @@ const AnotherProfilePage: React.FC<IdType | null> = (props): JSX.Element => {
   }, [props.id]);
 
   useEffect(() => {
-    follower();
-    follow();
+    //follower();
+    // follow();
   }, [uuid]);
 
   const usersProfile = async () => {
@@ -100,23 +105,23 @@ const AnotherProfilePage: React.FC<IdType | null> = (props): JSX.Element => {
     }
   };
 
-  const follower = async () => {
-    try {
-      const response = await getFollower(uuid);
-      setFollower(response.data.content.response);
-    } catch (error) {
-      throw error;
-    }
-  };
+  // const follower = async () => {
+  //   try {
+  //     const response = await getFollower(uuid);
+  //     setFollower(response.data.content.response);
+  //   } catch (error) {
+  //     throw error;
+  //   }
+  // };
 
-  const follow = async () => {
-    try {
-      const response = await getFollowing(uuid);
-      setFollow(response.data.content.response);
-    } catch (error) {
-      throw error;
-    }
-  };
+  // const follow = async () => {
+  //   try {
+  //     const response = await getFollowing(uuid);
+  //     setFollow(response.data.content.response);
+  //   } catch (error) {
+  //     throw error;
+  //   }
+  // };
 
   const renderContent = (): JSX.Element => {
     const contentMap = new Map<number, React.FC<IdType>>()
@@ -162,8 +167,12 @@ const AnotherProfilePage: React.FC<IdType | null> = (props): JSX.Element => {
               </S.IdContainer>
               <S.EmailText>{email}</S.EmailText>
               <S.OneLineBox>
-                <S.Text onClick={onFollowerClick}>팔로워 {followerState.total_size}명</S.Text>
-                <S.Text onClick={onFollowClick}>팔로우 {followState.total_size}명</S.Text>
+                <S.Text onClick={onFollowerClick}>
+                  팔로워 {followerState.total_size}명
+                </S.Text>
+                <S.Text onClick={onFollowClick}>
+                  팔로우 {followState.total_size}명
+                </S.Text>
               </S.OneLineBox>
               <S.LineBox>
                 <S.NameBox>이름: {name}</S.NameBox>
@@ -181,7 +190,11 @@ const AnotherProfilePage: React.FC<IdType | null> = (props): JSX.Element => {
             {navs.map((value, index) => {
               const { img, text, onClick } = value;
               return (
-                <S.ChooseBox isActive={contentState === index + 1} onClick={onClick} key={index}>
+                <S.ChooseBox
+                  isActive={contentState === index + 1}
+                  onClick={onClick}
+                  key={index}
+                >
                   <img src={img} alt={text} />
                   <span>{text}</span>
                 </S.ChooseBox>
