@@ -28,15 +28,6 @@ interface Following {
   is_following: boolean;
 }
 
-interface interpretationType {
-  uuid: string;
-  default_posting_image: string;
-  title: string;
-  dream_types: string[];
-  updated_at: string;
-  user: User;
-}
-
 interface FollowType {
   followings: Following[];
   total_size: number;
