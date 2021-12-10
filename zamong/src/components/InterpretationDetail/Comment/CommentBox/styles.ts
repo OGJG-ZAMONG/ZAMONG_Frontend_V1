@@ -10,15 +10,15 @@ export const CommentBox = styled.div`
 `;
 
 export const CommentProfile = styled.div`
-  width: 52px;
-  height: 52px;
+  position: relative;
 `;
 
 export const Profile = styled.img`
-  width: 100%;
-  height: 100%;
-  border-radius: 100%;
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
   cursor: pointer;
+  object-fit: cover;
 `;
 
 export const UserName = styled.div`
