@@ -1,25 +1,25 @@
-import * as S from "./styles";
+import * as S from "../styles";
 import { useState } from "react";
-import Tag from "../Tag/Tag";
-import { DreamList } from "../../models/dto/response/dreamListResponse";
-import dreamType from "../../constance/dreamType";
+import Tag from "../../Tag/Tag";
+import dreamType from "../../../constance/dreamType";
 import { useHistory } from "react-router";
+import { sellSearchList } from "../../../models/dto/response/SellListResponse";
 
 interface PropsType {
-  dream: DreamList;
+  dream: sellSearchList;
 }
 
-const Dream = ({ dream }: PropsType): JSX.Element => {
+const DreamSell = ({ dream }: PropsType): JSX.Element => {
   const { push } = useHistory();
   const [isUserImageHover, setIsUserImageHover] = useState<boolean>(false);
   const {
-    share_datetime,
-    default_posting_image,
-    user,
-    title,
-    lucy_count,
-    dream_types,
     uuid,
+    default_posting_image,
+    title,
+    dream_types,
+    updated_at,
+    cost,
+    user,
   } = dream;
   const { profile, id, uuid: userUUID } = user;
   const dateToString = (date: Date) => {
@@ -30,14 +30,14 @@ const Dream = ({ dream }: PropsType): JSX.Element => {
   };
 
   const tagRender = dreamType
-    .filter((value) => dream_types.some((item) => item === value.code))
+    .filter((value) => dream_types.some((item: string) => item === value.code))
     .map((value, index) => {
       return <Tag key={index}>{value.name}</Tag>;
     });
 
   return (
     <>
-      <S.DreamContainer to={`/diary/detail/${uuid}`}>
+      <S.DreamContainer to={`/sell/detail/${uuid}`}>
         <S.DreamImage img={default_posting_image}>
           <S.DreamUserImage
             alt="user image"
@@ -57,16 +57,16 @@ const Dream = ({ dream }: PropsType): JSX.Element => {
         </S.DreamImage>
         <S.DreamInfoContainer>
           <S.DreamTitle>{title}</S.DreamTitle>
-          <S.DreamLucy>{lucy_count}LUCY</S.DreamLucy>
-          <S.DreamDate>{dateToString(new Date(share_datetime))}</S.DreamDate>
+          <S.DreamLucy>{cost}원</S.DreamLucy>
+          <S.DreamDate>{dateToString(new Date(updated_at))}</S.DreamDate>
         </S.DreamInfoContainer>
         <S.DreamTagContainer>
           <S.DreamTagInner>{tagRender}</S.DreamTagInner>
         </S.DreamTagContainer>
       </S.DreamContainer>
-      <S.Line></S.Line>
+      <S.Line />
     </>
   );
 };
 
-export default Dream;
+export default DreamSell;
