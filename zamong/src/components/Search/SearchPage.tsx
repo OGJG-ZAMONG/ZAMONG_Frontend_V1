@@ -19,12 +19,22 @@ interface usersType {
   is_following: boolean;
   follow_datetime: string;
 }
+
 interface Following {
   uuid: string;
   profile: string;
   id: string;
   follow_datetime: string;
   is_following: boolean;
+}
+
+interface interpretationType {
+  uuid: string;
+  default_posting_image: string;
+  title: string;
+  dream_types: string[];
+  updated_at: string;
+  user: User;
 }
 
 interface FollowType {
@@ -83,26 +93,26 @@ const SearchPage = ({ content, types }: PropsType): JSX.Element => {
     }
   };
 
-  const following = async () => {
-    try {
-      const response = await getFollowing(profileState.id);
-      setFollow(response.data.content.response);
-    } catch (error) {
-      throw error;
-    }
-  };
+  // const following = async () => {
+  //   try {
+  //     const response = await getFollowing(profileState.id);
+  //     setFollow(response.data.content.response);
+  //   } catch (error) {
+  //     throw error;
+  //   }
+  // };
 
   const followClick = async (id: string) => {
     try {
       await follow(id);
-      following();
+      //   following();
     } catch (error) {
       throw error;
     }
   };
 
   useEffect(() => {
-    following();
+    //   following();
   }, [profileState.id]);
 
   useEffect(() => {
@@ -112,7 +122,7 @@ const SearchPage = ({ content, types }: PropsType): JSX.Element => {
   const unFollowClick = async (id: string) => {
     try {
       const response = await unfollow(id);
-      following();
+      //following();
       return response;
     } catch (error) {
       throw error;
