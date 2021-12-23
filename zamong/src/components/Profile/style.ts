@@ -25,6 +25,7 @@ export const ProfileBox = styled.div<{ img: string }>`
   height: 200px;
   background-size: cover;
   border-radius: 120px;
+  background-position: center;
   box-sizing: border-box;
   background-image: url(${(props) => props.img});
 `;
