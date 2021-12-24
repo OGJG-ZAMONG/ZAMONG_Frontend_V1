@@ -27,14 +27,10 @@ export const SubTitle = styled.label`
   color: ${color.white};
 `;
 
-export const IdContainer = styled.div`
+export const Container = styled.div`
   display: flex;
   column-gap: 16px;
   align-items: center;
-`;
-
-export const PwContainer = styled(IdContainer)`
-  flex-direction: column;
 `;
 
 export const FileBox = styled.div`
@@ -121,7 +117,8 @@ export const Input = styled.input`
 
 export const InputContainer = styled.div`
   display: flex;
-  flex-direction: column;
+  column-gap: 16px;
+  align-items: center;
 `;
 
 export const DeleteText = styled.span`

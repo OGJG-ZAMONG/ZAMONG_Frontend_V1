@@ -158,7 +158,7 @@ const AccountContent = (): JSX.Element => {
           <S.TitleText>계정</S.TitleText>
           <S.Box>
             <S.SubTitle>아이디</S.SubTitle>
-            <S.IdContainer>
+            <S.Container>
               {isIdCheck ? (
                 <S.IdText>{idState.id}</S.IdText>
               ) : (
@@ -181,42 +181,39 @@ const AccountContent = (): JSX.Element => {
                   취소
                 </S.BorderButtonRed>
               )}
-            </S.IdContainer>
+            </S.Container>
           </S.Box>
           <S.PwBox height={isPwCheck ? 180 : null}>
             <S.SubTitle>비밀번호</S.SubTitle>
-            <S.PwContainer>
-              <div>
-                {isPwCheck ? null : (
-                  <S.BorderButton onClick={(e) => doChangePW(e, oldPw, newPw)}>
-                    변경
-                  </S.BorderButton>
-                )}
-                {isPwCheck ? (
-                  <S.BorderButton onClick={(e) => changePwBtn(e)}>
-                    변경
-                  </S.BorderButton>
-                ) : (
-                  <S.BorderButtonRed onClick={(e) => changePwBtn(e)}>
-                    취소
-                  </S.BorderButtonRed>
-                )}
-              </div>
+            <S.Container>
               {isPwCheck ? null : (
                 <>
-                  <S.InputContainer>
-                    <S.Input
-                      onChange={(e) => changeOldPw(e)}
-                      placeholder="현재 비밀번호를 입력해 주세요."
-                    />
-                    <S.Input
-                      onChange={(e) => changeNewPw(e)}
-                      placeholder="새로운 비밀번호를 입력해 주세요."
-                    />
-                  </S.InputContainer>
+                  <S.Input
+                    onChange={(e) => changeOldPw(e)}
+                    placeholder="현재 비밀번호를 입력해 주세요."
+                  />
+                  <S.Input
+                    onChange={(e) => changeNewPw(e)}
+                    placeholder="새로운 비밀번호를 입력해 주세요."
+                  />
                 </>
               )}
-            </S.PwContainer>
+
+              {isPwCheck ? null : (
+                <S.BorderButton onClick={(e) => doChangePW(e, oldPw, newPw)}>
+                  변경
+                </S.BorderButton>
+              )}
+              {isPwCheck ? (
+                <S.BorderButton onClick={(e) => changePwBtn(e)}>
+                  변경
+                </S.BorderButton>
+              ) : (
+                <S.BorderButtonRed onClick={(e) => changePwBtn(e)}>
+                  취소
+                </S.BorderButtonRed>
+              )}
+            </S.Container>
           </S.PwBox>
           <S.Box>
             <S.DeleteText>계정 탈퇴</S.DeleteText>
