@@ -57,6 +57,7 @@ export const PrifilePhoto = styled.img`
   height: 36px;
   border-radius: 50%;
   cursor: pointer;
+  object-fit: cover;
 `
 
 export const Profile = styled.div`

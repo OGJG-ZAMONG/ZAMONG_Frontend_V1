@@ -5,7 +5,12 @@ import FollowerContent from "./Follower/FollowerContent";
 import FollowContent from "./Follow/FollowContent";
 import AccountContent from "./Account/AccountContent";
 import { useHistory, useLocation } from "react-router";
-import { getFollower, getFollowing, getMyProfile } from "../../utils/api/Profile";
+import {
+  getFollower,
+  getFollowing,
+  getMyProfile,
+} from "../../utils/api/Profile";
+import Badge from "./Badge/Badge";
 
 interface ProfileType {
   uuid: string;
@@ -15,6 +20,7 @@ interface ProfileType {
   profile: string;
   share_dream_count: number;
   lucy_count: number;
+  bought_sell_dream_count: number;
 }
 interface IdType {
   id: string;
@@ -41,9 +47,18 @@ const ProfilePage = (): JSX.Element => {
     profile: "",
     share_dream_count: 0,
     lucy_count: 0,
+    bought_sell_dream_count: 0,
   });
-  const { uuid, name, email, id, profile, share_dream_count, lucy_count } =
-    profileState;
+  const {
+    uuid,
+    name,
+    email,
+    id,
+    profile,
+    share_dream_count,
+    lucy_count,
+    bought_sell_dream_count,
+  } = profileState;
   const FOLLORWER = 1;
   const FOLLORWING = 2;
   const ACCOUNTINFO = 3;
@@ -84,8 +99,8 @@ const ProfilePage = (): JSX.Element => {
   }, []);
 
   useEffect(() => {
-    follower();
-    follow();
+    //follower();
+    // follow();
   }, [uuid]);
 
   useLayoutEffect(() => {
@@ -101,23 +116,23 @@ const ProfilePage = (): JSX.Element => {
     }
   };
 
-  const follower = async () => {
-    try {
-      const response = await getFollower(uuid);
-      setFollower(response.data.content.response);
-    } catch (error) {
-      throw error;
-    }
-  };
+  // const follower = async () => {
+  //   try {
+  //     const response = await getFollower(uuid);
+  //     setFollower(response.data.content.response);
+  //   } catch (error) {
+  //     throw error;
+  //   }
+  // };
 
-  const follow = async () => {
-    try {
-      const response = await getFollowing(uuid);
-      setFollow(response.data.content.response);
-    } catch (error) {
-      throw error;
-    }
-  };
+  // const follow = async () => {
+  //   try {
+  //     const response = await getFollowing(uuid);
+  //     setFollow(response.data.content.response);
+  //   } catch (error) {
+  //     throw error;
+  //   }
+  // };
 
   const renderContent = (): JSX.Element => {
     const contentMap = new Map<number, React.FC<IdType>>()
@@ -161,7 +176,10 @@ const ProfilePage = (): JSX.Element => {
           <S.TopContent>
             <S.ProfileBox img={profile} />
             <S.InfoBox>
-              <S.NickNameText>{id}</S.NickNameText>
+              <S.IdContainer>
+                <S.NickNameText>{id}</S.NickNameText>
+                <Badge count={0} />
+              </S.IdContainer>
               <S.EmailText>{email}</S.EmailText>
               <S.OneLineBox>
                 <S.Text onClick={onFollowerClick}>
@@ -171,7 +189,7 @@ const ProfilePage = (): JSX.Element => {
                   팔로우 {followState.total_size}명
                 </S.Text>
                 <S.LinkText to="/diary">
-                  내가 쓴 꿈 일기 {share_dream_count}개
+                  쓴 꿈 일기 {share_dream_count}개
                 </S.LinkText>
                 <span>{lucy_count}LUCY</span>
               </S.OneLineBox>

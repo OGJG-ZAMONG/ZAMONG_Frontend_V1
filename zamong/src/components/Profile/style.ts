@@ -25,6 +25,7 @@ export const ProfileBox = styled.div<{ img: string }>`
   height: 200px;
   background-size: cover;
   border-radius: 120px;
+  background-position: center;
   box-sizing: border-box;
   background-image: url(${(props) => props.img});
 `;
@@ -35,6 +36,12 @@ export const InfoBox = styled.div`
   display: flex;
   flex-direction: column;
   row-gap: 8px;
+`;
+
+export const IdContainer = styled.div`
+  display: flex;
+  align-items: center;
+  column-gap: 8px;
 `;
 
 export const NickNameText = styled.p`

@@ -1,4 +1,5 @@
 import uri from "../../../constance/uri";
+import { pageRequest } from "../../../models/dto/request/followListRequest";
 import {
   followerListResponse,
   followingListResponse,
@@ -15,10 +16,11 @@ export const getMyProfile = async () => {
   }
 };
 
-export const getFollowing = async (uuid: string) => {
+export const getFollowing = async (uuid: string, parameter: pageRequest) => {
   try {
     const response = await instance.get<followingListResponse>(
-      `/user/${uuid}` + uri.followingList + `?page=0&size=4`
+      `/user/${uuid}` + uri.followingList,
+      { params: parameter }
     );
     return response;
   } catch (error) {
@@ -26,10 +28,11 @@ export const getFollowing = async (uuid: string) => {
   }
 };
 
-export const getFollower = async (uuid: string) => {
+export const getFollower = async (uuid: string, parameter: pageRequest) => {
   try {
     const response = await instance.get<followerListResponse>(
-      `/user/${uuid}` + uri.followerList + `?page=0&size=4`
+      `/user/${uuid}` + uri.followerList,
+      { params: parameter }
     );
     return response;
   } catch (error) {

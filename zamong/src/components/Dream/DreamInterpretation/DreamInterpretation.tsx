@@ -1,7 +1,6 @@
 import { useState } from "react";
 import dreamType from "../../../constance/dreamType";
 import * as I from "../styles";
-import Default from "../../../assets/DefaultPostingImages/1.jpg";
 import Tag from "../../Tag/Tag";
 import { InterpretationDream } from "../../../models/dto/response/InterpretationListResponse";
 import { useHistory } from "react-router";
@@ -13,7 +12,15 @@ interface PropsType {
 const DreamInterpretation = ({ data }: PropsType): JSX.Element => {
   const { push } = useHistory();
   const [isUserImageHover, setIsUserImageHover] = useState<boolean>(false);
-  const { default_posting_image, dream_types, title, updated_at, user, uuid, lucy_count } = data;
+  const {
+    default_posting_image,
+    dream_types,
+    title,
+    updated_at,
+    user,
+    uuid,
+    lucy_count,
+  } = data;
   const { id, profile, uuid: userUUID } = user;
 
   const dateToString = (date: Date) => {
@@ -24,7 +31,11 @@ const DreamInterpretation = ({ data }: PropsType): JSX.Element => {
   };
 
   const renderType = dream_types.map((value, index) => {
-    return <Tag key={index}>{dreamType.find((elem) => elem.code === value)?.name}</Tag>;
+    return (
+      <Tag key={index}>
+        {dreamType.find((elem) => elem.code === value)?.name}
+      </Tag>
+    );
   });
 
   return (

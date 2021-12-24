@@ -18,6 +18,7 @@ export const Profile = styled.img`
   height: 52px;
   border-radius: 50%;
   cursor: pointer;
+  object-fit: cover;
 `;
 
 export const UserName = styled.div`
@@ -55,7 +56,6 @@ export const CommentText = styled(TextareaAutosize)`
   border: none;
   resize: none;
 `;
-
 
 export const ModifyButton = styled.div`
   padding: 0px 29px;
