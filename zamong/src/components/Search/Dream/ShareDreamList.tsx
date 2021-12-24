@@ -45,7 +45,6 @@ const ShareDreamList = ({ content, types }: Props): JSX.Element => {
 
   return (
     <>
-      \
       <div>
         <S.HeadText>
           공유된 꿈 <span>{shareDream?.length}개</span>
